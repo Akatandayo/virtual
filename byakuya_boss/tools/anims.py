@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """クライアント側（RP）のアニメーションとアニメーションコントローラー."""
 
-from cine import ALIVE_ANIM, SPD, TURN_ANIM, footwork_bones, smooth_controller  # noqa: E402
+from cine import (ALIVE_ANIM, SPD, TURN_ANIM, footwork_bones, melee_anims, melee_state_entries,  # noqa: E402
+                  mute_controller, smooth_controller)
 
 N = [0, 0, 0]
 ALT = "math.mod(v.atk_n, 2) == 0"   # 袈裟斬り / 逆袈裟
@@ -448,6 +449,10 @@ def all_animations():
         anims["animation.byakuya.skill_%d" % v] = a
     anims["animation.byakuya.turn"] = TURN_ANIM
     anims["animation.byakuya.alive"] = ALIVE_ANIM
+    # 通常攻撃（近接）の 4 連コンボ
+    anims.update(melee_anims("byakuya", [  # 袈裟 → 逆袈裟 → 突き → 横一文字
+        ("kesa", {0.12: [("sword_trail", "right_hand")]}), ("gyaku", {0.12: [("sword_trail", "right_hand")]}),
+        ("thrust", {0.13: [("sword_trail", "right_hand")]}), ("sweep", {0.13: [("sword_trail", "right_hand")]})], anim, HOLD_R))
     return {"format_version": "1.10.0", "animations": anims}
 
 
@@ -463,6 +468,7 @@ def short_names(skill_ids):
         "attack_fx": "controller.animation.byakuya.attack_fx",
     }
     names.update({"turn": "animation.byakuya.turn", "alive": "animation.byakuya.alive"})
+    names.update({"melee_%d" % i: "animation.byakuya.melee_%d" % i for i in range(4)})
     for v in skill_ids:
         names["s%d" % v] = "animation.byakuya.skill_%d" % v
     return names
@@ -474,7 +480,7 @@ NO_LOOK = {3, 11, 20, 23, 27}  # 回転する技・最終演技は頭を固定�
 def controllers(skill_ids):
     dead = {"death": "!q.is_alive"}
     default = {
-        "animations": ["look_at", "idle", "move", {"attack": "variable.attack_time > 0"}, "hurt",
+        "animations": ["look_at", "idle", "move", *melee_state_entries(), "hurt",
                        {"idle_flavor": "q.modified_move_speed < 0.3"}, {"step_fx": "q.modified_move_speed > 0.4"}],
         "transitions": [dead] + [{"s%d" % v: "q.mark_variant == %d" % v} for v in skill_ids],
         "blend_transition": 0.12,
@@ -487,7 +493,7 @@ def controllers(skill_ids):
         states["s%d" % v] = {"animations": anims_,
                              "transitions": [dead, {"default": "q.mark_variant != %d" % v}],
                              "blend_transition": 0.1}
-    return smooth_controller({"format_version": "1.10.0", "animation_controllers": {
+    return mute_controller(smooth_controller({"format_version": "1.10.0", "animation_controllers": {
         "controller.animation.byakuya.main": {"initial_state": "default", "states": states},
         "controller.animation.byakuya.aura": {"initial_state": "none", "states": {
             "none": {"transitions": [{"final": "q.skin_id >= 2"}, {"aura": "q.skin_id == 1"}]},
@@ -501,7 +507,7 @@ def controllers(skill_ids):
                                            {"effect": "arc", "locator": "right_hand"}],
                       "transitions": [{"ready": "variable.attack_time <= 0.0 || variable.attack_time < 0.2"}]},
         }},
-    }}, "controller.animation.byakuya.main")
+    }}, "controller.animation.byakuya.main"), "controller.animation.byakuya.attack_fx")
 
 
 PARTICLE_MAP = {

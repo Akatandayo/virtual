@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """電子 独: クライアント側アニメーション."""
 
-from cine import ALIVE_ANIM, SPD, TURN_ANIM, footwork_bones, smooth_controller  # noqa: E402
+from cine import (ALIVE_ANIM, SPD, TURN_ANIM, footwork_bones, melee_anims, melee_state_entries,  # noqa: E402
+                  mute_controller, smooth_controller)
 
 N = [0, 0, 0]
 ALT = "math.mod(v.atk_n, 2) == 0"   # 右 / 左
@@ -336,6 +337,11 @@ def all_animations():
         "rightArm": {"rotation": {0: [5, 0, 10]}}, "leftArm": {"rotation": {0: [5, 0, -10]}}})
     anims["animation.hitori.turn"] = TURN_ANIM
     anims["animation.hitori.alive"] = ALIVE_ANIM
+    # 通常攻撃（近接）の 4 連コンボ
+    anims.update(melee_anims("hitori", [  # 右ストレート → 左フック → アッパー → 両手の掌底
+        ("straight_r", {0.11: [("hand_noise", "right_hand")]}), ("hook_l", {0.11: [("hand_noise", "left_hand")]}),
+        ("upper", {0.12: [("hand_noise", "right_hand")]}),
+        ("palm", {0.13: [("hand_noise", "right_hand"), ("hand_noise", "left_hand")]})], anim, N))
     return {"format_version": "1.10.0", "animations": anims}
 
 
@@ -353,6 +359,7 @@ def short_names(skill_ids):
         "attack_fx": "controller.animation.hitori.attack_fx",
     }
     names.update({"turn": "animation.hitori.turn", "alive": "animation.hitori.alive"})
+    names.update({"melee_%d" % i: "animation.hitori.melee_%d" % i for i in range(4)})
     for v in skill_ids:
         names["s%d" % v] = "animation.hitori.skill_%d" % v
     return names
@@ -361,7 +368,7 @@ def short_names(skill_ids):
 def controllers(skill_ids):
     dead = {"death": "!q.is_alive"}
     states = {
-        "default": {"animations": ["look_at", "idle", "move", "glitch", {"attack": "variable.attack_time > 0"}, "hurt",
+        "default": {"animations": ["look_at", "idle", "move", "glitch", *melee_state_entries(), "hurt",
                                    {"idle_flavor": "q.modified_move_speed < 0.3"},
                                    {"step_fx": "q.modified_move_speed > 0.4"}],
                     "transitions": [dead] + [{"s%d" % v: "q.mark_variant == %d" % v} for v in skill_ids],
@@ -375,7 +382,7 @@ def controllers(skill_ids):
         a += [{"move_legs": "q.modified_move_speed > 0.1"}, "hurt"]
         states["s%d" % v] = {"animations": a, "transitions": [dead, {"default": "q.mark_variant != %d" % v}],
                              "blend_transition": 0.08}
-    return smooth_controller({"format_version": "1.10.0", "animation_controllers": {
+    return mute_controller(smooth_controller({"format_version": "1.10.0", "animation_controllers": {
         "controller.animation.hitori.main": {"initial_state": "default", "states": states},
         "controller.animation.hitori.aura": {"initial_state": "light", "states": {
             "light": {"animations": ["aura"], "transitions": [{"off": "q.mark_variant == 99 || !q.is_alive"},
@@ -394,7 +401,7 @@ def controllers(skill_ids):
                                              {"effect": "arc", "locator": "left_hand"}],
                         "transitions": [{"ready": "variable.attack_time < 0.2"}]},
         }},
-    }}, "controller.animation.hitori.main")
+    }}, "controller.animation.hitori.main"), "controller.animation.hitori.attack_fx")
 
 
 PARTICLE_MAP = {"arc": "hitori:arc", "step": "hitori:step_dust",

@@ -689,7 +689,9 @@
             "/tag @a remove sophia_gazed",
             "/camera @a[tag=sophia_cine] clear",
             "/hud @a[tag=sophia_cine] reset all",
-            "/tag @a[tag=sophia_cine] remove sophia_cine"
+            "/tag @a[tag=sophia_cine] remove sophia_cine",
+            "/tag @s remove vb_cine",
+            "/execute unless entity @e[tag=vb_cine,r=64] run event entity @e[family=rival_boss,tag=vb_paused,r=64] vb:resume"
           ]
         }
       }

@@ -558,7 +558,9 @@
             "/fog @a[r=64] remove byakuya_final",
             "/camera @a[tag=byakuya_cine] clear",
             "/hud @a[tag=byakuya_cine] reset all",
-            "/tag @a[tag=byakuya_cine] remove byakuya_cine"
+            "/tag @a[tag=byakuya_cine] remove byakuya_cine",
+            "/tag @s remove vb_cine",
+            "/execute unless entity @e[tag=vb_cine,r=64] run event entity @e[family=rival_boss,tag=vb_paused,r=64] vb:resume"
           ]
         }
       }

@@ -329,6 +329,18 @@
                     "subject": "other",
                     "operator": "!=",
                     "value": "sophia"
+                  },
+                  {
+                    "test": "has_tag",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "vb_cine"
+                  },
+                  {
+                    "test": "has_tag",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "vb_paused"
                   }
                 ]
               },
@@ -4079,6 +4091,89 @@
                 "trigger": "sophia:skill_41"
               }
             ]
+          }
+        ]
+      },
+      "vb:pause": {
+        "sequence": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 30
+                },
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 31
+                },
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 32
+                },
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 33
+                }
+              ]
+            },
+            "remove": {
+              "component_groups": [
+                "ai"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "tag @s add vb_paused",
+                "effect @s resistance 1 4 true"
+              ]
+            }
+          }
+        ]
+      },
+      "vb:resume": {
+        "sequence": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 30
+                },
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 31
+                },
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 32
+                },
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 33
+                }
+              ]
+            },
+            "add": {
+              "component_groups": [
+                "ai"
+              ]
+            }
+          },
+          {
+            "queue_command": {
+              "command": [
+                "tag @s remove vb_paused"
+              ]
+            }
           }
         ]
       }

@@ -10,7 +10,16 @@
             "idle",
             "move",
             {
-              "attack": "variable.attack_time > 0"
+              "melee_0": "math.mod(v.atk_n, 4) == 0 && v.melee_t < 0.68"
+            },
+            {
+              "melee_1": "math.mod(v.atk_n, 4) == 1 && v.melee_t < 0.68"
+            },
+            {
+              "melee_2": "math.mod(v.atk_n, 4) == 2 && v.melee_t < 0.68"
+            },
+            {
+              "melee_3": "math.mod(v.atk_n, 4) == 3 && v.melee_t < 0.68"
             },
             "hurt",
             {
@@ -871,20 +880,6 @@
           ]
         },
         "swing": {
-          "particle_effects": [
-            {
-              "effect": "sword_trail",
-              "locator": "right_hand"
-            },
-            {
-              "effect": "arc",
-              "locator": "reach"
-            },
-            {
-              "effect": "arc",
-              "locator": "right_hand"
-            }
-          ],
           "transitions": [
             {
               "ready": "variable.attack_time <= 0.0 || variable.attack_time < 0.2"

@@ -7,6 +7,8 @@
 import math
 import re
 
+CINE_TAG = "vb_cine"       # 演出（カットシーン）中のボス
+PAUSE_TAG = "vb_paused"    # ほかのボスの演出のあいだ、一時停止しているボス
 HUD = ["hotbar", "crosshair", "paperdoll", "health", "hunger", "armor", "progress_bar", "status_effects",
        "air_bubbles", "item_text"]
 
@@ -30,6 +32,9 @@ class Cine:
                      "/effect %s weakness %d 255 true" % (self.sel, n)]
         if hud:
             cmds += ["/hud %s hide %s" % (self.sel, h) for h in HUD]
+        if lock:   # 演出中: 自分に目印を付け、近くのほかのボスを一時停止させる（お互いに手出しできない）
+            cmds += ["/tag @s add %s" % CINE_TAG,
+                     "/event entity @e[family=%s,tag=!%s,r=64] vb:pause" % (RIVAL_FAMILY, CINE_TAG)]
         return cmds
 
     def cam(self, pos, facing, ease=None, kind="in_out_sine", run_as=None):
@@ -43,8 +48,11 @@ class Cine:
         return "/camera %s fade time %.2f %.2f %.2f color %d %d %d" % ((self.sel, t_in, hold, t_out) + tuple(rgb))
 
     def end(self):
+        # 演出が終わったら（ほかに演出中のボスがいなければ）、一時停止していたボスを再開させる
         return ["/camera %s clear" % self.sel, "/hud %s reset all" % self.sel,
-                "/tag %s remove %s" % (self.sel, self.tag)]
+                "/tag %s remove %s" % (self.sel, self.tag), "/tag @s remove %s" % CINE_TAG,
+                "/execute unless entity @e[tag=%s,r=64] run event entity @e[family=%s,tag=%s,r=64] vb:resume"
+                % (CINE_TAG, RIVAL_FAMILY, PAUSE_TAG)]
 
     def cutin(self, tl, t, dur, pos, facing, title=None, sub=None):
         """戦闘中の一瞬のカットイン（移動は止めない）"""
@@ -65,15 +73,31 @@ FOE_ANY = {"any_of": [{"test": "is_family", "subject": "other", "value": "player
 
 
 def rival_target(own_family, max_dist=40):
-    """nearest_attackable_target 用: 自分と同じ種類以外のボスを狙う"""
+    """nearest_attackable_target 用: 自分と同じ種類以外のボスを狙う（演出中・一時停止中のボスは狙わない）"""
     return {"filters": {"all_of": [{"test": "is_family", "subject": "other", "value": RIVAL_FAMILY},
-                                   {"test": "is_family", "subject": "other", "operator": "!=", "value": own_family}]},
+                                   {"test": "is_family", "subject": "other", "operator": "!=", "value": own_family},
+                                   {"test": "has_tag", "subject": "other", "operator": "!=", "value": CINE_TAG},
+                                   {"test": "has_tag", "subject": "other", "operator": "!=", "value": PAUSE_TAG}]},
             "max_dist": max_dist}
+
+
+def pause_events(not_busy):
+    """vb:pause / vb:resume（4 体共通の名前）: ほかのボスの演出のあいだ、AI を止めて待つ.
+
+    not_busy: 自分の演出中・スタン中などは何もしない（自分の都合で止めている AI を勝手に戻さない）
+    """
+    return {
+        "vb:pause": {"sequence": [{"filters": not_busy, "remove": {"component_groups": ["ai"]},
+                                   "queue_command": {"command": ["tag @s add %s" % PAUSE_TAG,
+                                                                 "effect @s resistance 1 4 true"]}}]},
+        "vb:resume": {"sequence": [{"filters": not_busy, "add": {"component_groups": ["ai"]}},
+                                   {"queue_command": {"command": ["tag @s remove %s" % PAUSE_TAG]}}]},
+    }
 
 
 def rival_copy(cmd, self_type, cause="entity_attack"):
     """プレイヤーへのダメージ命令を、ほかのボス向けに書き換えたものを返す"""
-    r = cmd.replace("@a[", "@e[family=%s,type=!%s," % (RIVAL_FAMILY, self_type))
+    r = cmd.replace("@a[", "@e[family=%s,type=!%s,tag=!%s,tag=!%s," % (RIVAL_FAMILY, self_type, CINE_TAG, PAUSE_TAG))
     r = r.replace(",m=!creative", "").replace("m=!creative,", "").replace(",]", "]")
     return re.sub(r"(damage @e\[[^\]]*\] \d+) \w+(?: entity @\w(?:\[[^\]]*\])?)?",
                   lambda m: "%s %s entity @e[type=%s,c=1]" % (m.group(1), cause, self_type), r)
@@ -245,7 +269,8 @@ def add_arc_trails(anims, trail_effects, arc="arc", lead=0.12, reach=True, locat
 # ================================================================ なめらかさ（クライアント側）
 # 各ボス本体（と分身）のクライアントエンティティに付ける変数の計算。毎フレーム、描画の前に動く。
 CLIENT_SCRIPTS = {
-    "initialize": ["v.atk_n = 0.0;", "v.atk_was = 0.0;", "v.hurt_t = -10.0;", "v.hurt_was = 0.0;", "v.flinch = 0.0;",
+    "initialize": ["v.atk_n = 0.0;", "v.atk_was = 0.0;", "v.melee_start = -10.0;", "v.melee_t = 10.0;",
+                   "v.hurt_t = -10.0;", "v.hurt_was = 0.0;", "v.flinch = 0.0;",
                    "v.spd = 0.0;", "v.yaw_prev = 0.0;", "v.yaw_ready = 0.0;", "v.yaw_off = 0.0;", "v.dt = 0.016;"],
     "pre_animation": [
         "v.dt = math.clamp(q.delta_time, 0.004, 0.25);",
@@ -259,7 +284,11 @@ CLIENT_SCRIPTS = {
         "v.yaw_off = math.clamp((v.yaw_off - v.yaw_d) * math.exp(-v.dt / 0.07), -160.0, 160.0);",
         # 通常攻撃の左右（技の順番）は「振り始めた瞬間」に切り替える（振っている途中で入れ替わらない）
         "v.atk_n = (v.attack_time > 0.0 && (v.atk_was <= 0.0 || v.attack_time < v.atk_was)) ? "
-        "math.mod(v.atk_n + 1, 6) : v.atk_n;",
+        "math.mod(v.atk_n + 1, 12) : v.atk_n;",
+        # 通常攻撃のコンボ: 振り始めた時刻からの経過時間で、キーフレームのモーションを再生する
+        "v.melee_start = (v.attack_time > 0.0 && (v.atk_was <= 0.0 || v.attack_time < v.atk_was)) ? "
+        "q.life_time : v.melee_start;",
+        "v.melee_t = q.life_time - v.melee_start;",
         "v.atk_was = v.attack_time;",
         # 被弾ののけぞり: 一瞬でのけぞって、なめらかに戻る（tick ごとの段差をなくす）
         "v.hurt_t = (q.hurt_time > v.hurt_was) ? q.life_time : v.hurt_t;",
@@ -355,7 +384,7 @@ FOE_TAG = "vb_foe"   # 「敵」の目印（サバイバル・アドベンチャ
 
 def foe_sel(self_type, args=""):
     """一番近い敵（プレイヤー・ほかのボス）。自分と同じ種類のボスは除く"""
-    a = "tag=%s,type=!%s" % (FOE_TAG, self_type)
+    a = "tag=%s,tag=!%s,tag=!%s,type=!%s" % (FOE_TAG, CINE_TAG, PAUSE_TAG, self_type)
     return "@e[%s%s,c=1]" % (a, "," + args if args else "")
 
 
@@ -402,7 +431,10 @@ def foe_tag_anim(self_type, near_tag, near=7.0, period=0.5):
         "/tag @a[m=survival] add %s" % FOE_TAG, "/tag @a[m=adventure] add %s" % FOE_TAG,
         "/tag @a[m=creative] remove %s" % FOE_TAG, "/tag @a[m=spectator] remove %s" % FOE_TAG,
         "/tag @s remove %s" % near_tag,
-        "/execute if entity @e[tag=%s,type=!%s,r=%g] run tag @s add %s" % (FOE_TAG, self_type, near, near_tag)]}}
+        "/execute if entity @e[tag=%s,tag=!%s,tag=!%s,type=!%s,r=%g] run tag @s add %s"
+        % (FOE_TAG, CINE_TAG, PAUSE_TAG, self_type, near, near_tag),
+        # 一時停止中は無敵（止まっている間に殴られ放題にならない）
+        "/effect @s[tag=%s] resistance 1 4 true" % PAUSE_TAG]}}
 
 
 def near_filters(near_tag):
@@ -461,3 +493,245 @@ def footwork_bones(kind, hold_r, strike="sword"):
         lead: {"rotation": step},
         trail: {"rotation": follow_leg},
     }
+
+
+# ================================================================ 通常攻撃（近接）の 4 連コンボ
+# 振り始めた時刻からの経過時間（v.melee_t）で再生する、全身を使ったキーフレームのモーション。
+# 溜め → 踏み込みながら打つ → 振り抜き（フォロースルー）→ 戻り、の 4 段。
+MELEE_LEN = 0.68
+
+
+def melee_move(name, hold_r):
+    N = [0, 0, 0]
+    H = hold_r
+    M = {
+        # 袈裟斬り: 右上に振りかぶって、左下へ斬り下ろす
+        "kesa": {
+            "root": {"position": {0: N, 0.09: [0, 0.4, 0.8], 0.15: [0, -1.6, -2.2], 0.26: [0, -1.9, -2.5],
+                                  0.46: [0, -0.6, -1.0], MELEE_LEN: N}},
+            "body": {"rotation": {0: N, 0.09: [-6, 26, 0], 0.15: [16, -30, 0], 0.26: [19, -38, 0], 0.46: [7, -12, 0],
+                                  MELEE_LEN: N}},
+            "head": {"rotation": {0: N, 0.09: [4, -16, 0], 0.15: [-4, 18, 0], 0.26: [-6, 22, 0], 0.46: [0, 6, 0],
+                                  MELEE_LEN: N}},
+            "rightArm": {"rotation": {0: H, 0.09: [-150, 35, 25], 0.15: [-58, -72, -8], 0.26: [-42, -88, -14],
+                                      0.46: [-35, -30, 0], MELEE_LEN: H}},
+            "leftArm": {"rotation": {0: N, 0.09: [-35, 0, -25], 0.15: [12, 0, -12], 0.46: [-5, 0, -5], MELEE_LEN: N}},
+            "rightLeg": {"rotation": {0: N, 0.09: [8, 0, 0], 0.15: [-34, 0, 0], 0.46: [-12, 0, 0], MELEE_LEN: N}},
+            "leftLeg": {"rotation": {0: N, 0.09: [-12, 0, 0], 0.15: [24, 0, 0], 0.46: [8, 0, 0], MELEE_LEN: N}},
+        },
+        # 逆袈裟: 左下から右上へ斬り上げる
+        "gyaku": {
+            "root": {"position": {0: N, 0.09: [0, -1.3, 0.6], 0.15: [0, 0.5, -1.9], 0.26: [0, 0.7, -2.1],
+                                  0.46: [0, 0, -0.8], MELEE_LEN: N}},
+            "body": {"rotation": {0: N, 0.09: [11, -30, 0], 0.15: [-9, 26, 0], 0.26: [-12, 32, 0], 0.46: [-2, 8, 0],
+                                  MELEE_LEN: N}},
+            "head": {"rotation": {0: N, 0.09: [-4, 18, 0], 0.15: [8, -14, 0], 0.26: [8, -18, 0], 0.46: [0, -4, 0],
+                                  MELEE_LEN: N}},
+            "rightArm": {"rotation": {0: H, 0.09: [-22, -72, -18], 0.15: [-158, 40, 22], 0.26: [-172, 52, 26],
+                                      0.46: [-60, 10, 5], MELEE_LEN: H}},
+            "leftArm": {"rotation": {0: N, 0.09: [-25, 0, -30], 0.15: [10, 0, -20], 0.46: [0, 0, -6], MELEE_LEN: N}},
+            "rightLeg": {"rotation": {0: N, 0.09: [14, 0, 0], 0.15: [-30, 0, 0], 0.46: [-10, 0, 0], MELEE_LEN: N}},
+            "leftLeg": {"rotation": {0: N, 0.09: [-18, 0, 0], 0.15: [20, 0, 0], 0.46: [6, 0, 0], MELEE_LEN: N}},
+        },
+        # 突き: 引き絞って、深く踏み込みながら真っ直ぐ突く
+        "thrust": {
+            "root": {"position": {0: N, 0.1: [0, -1.4, 1.2], 0.16: [0, -2.2, -3.2], 0.3: [0, -2.0, -3.1],
+                                  0.48: [0, -0.6, -1.1], MELEE_LEN: N}},
+            "body": {"rotation": {0: N, 0.1: [6, 34, 0], 0.16: [13, -14, 0], 0.3: [12, -12, 0], 0.48: [5, -4, 0],
+                                  MELEE_LEN: N}},
+            "head": {"rotation": {0: N, 0.1: [0, -22, 0], 0.16: [-4, 10, 0], 0.48: [0, 3, 0], MELEE_LEN: N}},
+            "rightArm": {"rotation": {0: H, 0.1: [-78, 32, 0], 0.16: [-92, -4, 0], 0.3: [-91, -6, 0],
+                                      0.48: [-50, -10, 0], MELEE_LEN: H},
+                         "position": {0: N, 0.1: [0, 0, 2.2], 0.16: [0, 0, -3.2], 0.3: [0, 0, -3.0],
+                                      0.48: [0, 0, -0.6], MELEE_LEN: N}},
+            "leftArm": {"rotation": {0: N, 0.1: [-62, -22, 0], 0.16: [14, 0, -22], 0.48: [0, 0, -6], MELEE_LEN: N}},
+            "rightLeg": {"rotation": {0: N, 0.1: [10, 0, 0], 0.16: [-52, 0, 0], 0.3: [-50, 0, 0], 0.48: [-16, 0, 0],
+                                      MELEE_LEN: N}},
+            "leftLeg": {"rotation": {0: N, 0.1: [-16, 0, 0], 0.16: [36, 0, 0], 0.3: [34, 0, 0], 0.48: [10, 0, 0],
+                                     MELEE_LEN: N}},
+        },
+        # 横一文字: 右に大きく引いて、腰の回転で水平に薙ぎ払う
+        "sweep": {
+            "root": {"position": {0: N, 0.1: [0, -1.0, 0.6], 0.17: [0, -1.8, -1.8], 0.28: [0, -1.9, -2.0],
+                                  0.48: [0, -0.5, -0.8], MELEE_LEN: N},
+                     "rotation": {0: N, 0.1: [0, 10, 0], 0.17: [0, -18, 0], 0.28: [0, -24, 0], 0.48: [0, -6, 0],
+                                  MELEE_LEN: N}},
+            "body": {"rotation": {0: N, 0.1: [2, 46, 0], 0.17: [9, -48, 0], 0.28: [11, -60, 0], 0.48: [4, -15, 0],
+                                  MELEE_LEN: N}},
+            "head": {"rotation": {0: N, 0.1: [0, -28, 0], 0.17: [0, 28, 0], 0.28: [0, 34, 0], 0.48: [0, 8, 0],
+                                  MELEE_LEN: N}},
+            "rightArm": {"rotation": {0: H, 0.1: [-88, 80, 0], 0.17: [-90, -78, 0], 0.28: [-86, -100, 0],
+                                      0.48: [-40, -30, 0], MELEE_LEN: H}},
+            "leftArm": {"rotation": {0: N, 0.1: [-20, 0, -35], 0.17: [-10, 0, -10], 0.48: [0, 0, -5], MELEE_LEN: N}},
+            "rightLeg": {"rotation": {0: N, 0.17: [-26, 0, 0], 0.48: [-8, 0, 0], MELEE_LEN: N}},
+            "leftLeg": {"rotation": {0: N, 0.17: [20, 0, 0], 0.48: [6, 0, 0], MELEE_LEN: N}},
+        },
+        # 右ストレート
+        "straight_r": {
+            "root": {"position": {0: N, 0.08: [0, -0.6, 0.6], 0.13: [0, -0.9, -1.6], 0.22: [0, -0.9, -1.7],
+                                  0.4: [0, -0.3, -0.6], MELEE_LEN: N}},
+            "body": {"rotation": {0: N, 0.08: [0, 26, 0], 0.13: [8, -20, 0], 0.22: [8, -22, 0], 0.4: [3, -6, 0],
+                                  MELEE_LEN: N}},
+            "head": {"rotation": {0: N, 0.08: [0, -16, 0], 0.13: [0, 12, 0], 0.4: [0, 3, 0], MELEE_LEN: N}},
+            "rightArm": {"rotation": {0: H, 0.08: [24, 0, 12], 0.13: [-96, 0, 0], 0.22: [-95, 0, 0], 0.4: [-30, 0, 4],
+                                      MELEE_LEN: H},
+                         "position": {0: N, 0.13: [0, 0, -2.2], 0.22: [0, 0, -2.1], 0.4: [0, 0, -0.4], MELEE_LEN: N}},
+            "leftArm": {"rotation": {0: N, 0.08: [-40, 0, -12], 0.13: [-25, 0, -8], 0.4: [-8, 0, -4], MELEE_LEN: N}},
+            "rightLeg": {"rotation": {0: N, 0.13: [-20, 0, 0], 0.4: [-6, 0, 0], MELEE_LEN: N}},
+            "leftLeg": {"rotation": {0: N, 0.13: [16, 0, 0], 0.4: [5, 0, 0], MELEE_LEN: N}},
+        },
+        # 左フック
+        "hook_l": {
+            "root": {"position": {0: N, 0.08: [0, -0.8, 0.4], 0.14: [0, -1.0, -1.3], 0.24: [0, -1.0, -1.4],
+                                  0.42: [0, -0.3, -0.5], MELEE_LEN: N}},
+            "body": {"rotation": {0: N, 0.08: [0, -28, 0], 0.14: [7, 30, 0], 0.24: [8, 36, 0], 0.42: [3, 10, 0],
+                                  MELEE_LEN: N}},
+            "head": {"rotation": {0: N, 0.08: [0, 18, 0], 0.14: [0, -16, 0], 0.24: [0, -20, 0], 0.42: [0, -5, 0],
+                                  MELEE_LEN: N}},
+            "leftArm": {"rotation": {0: N, 0.08: [-78, -62, 0], 0.14: [-90, 26, 0], 0.24: [-86, 46, 0],
+                                     0.42: [-30, 10, 0], MELEE_LEN: N}},
+            "rightArm": {"rotation": {0: H, 0.08: [-35, 0, 10], 0.14: [-30, 0, 8], 0.42: [-10, 0, 3], MELEE_LEN: H}},
+            "leftLeg": {"rotation": {0: N, 0.14: [-18, 0, 0], 0.42: [-6, 0, 0], MELEE_LEN: N}},
+            "rightLeg": {"rotation": {0: N, 0.14: [14, 0, 0], 0.42: [4, 0, 0], MELEE_LEN: N}},
+        },
+        # アッパー: 沈み込んでから、伸び上がりながら突き上げる
+        "upper": {
+            "root": {"position": {0: N, 0.09: [0, -2.2, 0.3], 0.15: [0, 1.2, -1.3], 0.26: [0, 1.4, -1.4],
+                                  0.44: [0, 0, -0.5], MELEE_LEN: N}},
+            "body": {"rotation": {0: N, 0.09: [14, 16, 0], 0.15: [-12, -10, 0], 0.26: [-14, -12, 0], 0.44: [-2, -3, 0],
+                                  MELEE_LEN: N}},
+            "head": {"rotation": {0: N, 0.09: [-10, -8, 0], 0.15: [10, 6, 0], 0.44: [2, 0, 0], MELEE_LEN: N}},
+            "rightArm": {"rotation": {0: H, 0.09: [18, 0, 12], 0.15: [-162, -8, 0], 0.26: [-170, -10, 4],
+                                      0.44: [-60, 0, 0], MELEE_LEN: H}},
+            "leftArm": {"rotation": {0: N, 0.09: [-35, 0, -12], 0.15: [-30, 0, -15], 0.44: [-8, 0, -4], MELEE_LEN: N}},
+            "rightLeg": {"rotation": {0: N, 0.09: [10, 0, 0], 0.15: [-14, 0, 0], 0.44: [-4, 0, 0], MELEE_LEN: N}},
+            "leftLeg": {"rotation": {0: N, 0.09: [-14, 0, 0], 0.15: [8, 0, 0], 0.44: [2, 0, 0], MELEE_LEN: N}},
+        },
+        # 両手の掌底（ノイズで押し出す）
+        "palm": {
+            "root": {"position": {0: N, 0.1: [0, -1.2, 0.8], 0.16: [0, -1.4, -2.0], 0.3: [0, -1.4, -2.1],
+                                  0.46: [0, -0.4, -0.7], MELEE_LEN: N}},
+            "body": {"rotation": {0: N, 0.1: [-6, 0, 0], 0.16: [12, 0, 0], 0.3: [12, 0, 0], 0.46: [4, 0, 0],
+                                  MELEE_LEN: N}},
+            "head": {"rotation": {0: N, 0.1: [0, 0, 18], 0.16: [0, 0, -14], 0.3: [0, 0, 10], 0.46: N, MELEE_LEN: N}},
+            "rightArm": {"rotation": {0: H, 0.1: [-62, 0, 26], 0.16: [-92, 0, 6], 0.3: [-90, 0, 6], 0.46: [-40, 0, 8],
+                                      MELEE_LEN: H},
+                         "position": {0: N, 0.1: [0, 0, 1.4], 0.16: [0, 0, -2.4], 0.3: [0, 0, -2.2],
+                                      0.46: [0, 0, -0.5], MELEE_LEN: N}},
+            "leftArm": {"rotation": {0: N, 0.1: [-62, 0, -26], 0.16: [-92, 0, -6], 0.3: [-90, 0, -6],
+                                     0.46: [-40, 0, -8], MELEE_LEN: N},
+                        "position": {0: N, 0.1: [0, 0, 1.4], 0.16: [0, 0, -2.4], 0.3: [0, 0, -2.2],
+                                     0.46: [0, 0, -0.5], MELEE_LEN: N}},
+            "rightLeg": {"rotation": {0: N, 0.16: [-24, 0, 0], 0.46: [-8, 0, 0], MELEE_LEN: N}},
+            "leftLeg": {"rotation": {0: N, 0.16: [18, 0, 0], 0.46: [6, 0, 0], MELEE_LEN: N}},
+        },
+        # 左ジャブ（右手は刀を構えたまま）
+        "jab_l": {
+            "root": {"position": {0: N, 0.08: [0, -0.6, 0.6], 0.13: [0, -0.9, -1.6], 0.22: [0, -0.9, -1.7],
+                                  0.4: [0, -0.3, -0.6], MELEE_LEN: N}},
+            "body": {"rotation": {0: N, 0.08: [0, -26, 0], 0.13: [8, 22, 0], 0.22: [8, 24, 0], 0.4: [3, 6, 0],
+                                  MELEE_LEN: N}},
+            "head": {"rotation": {0: N, 0.08: [0, 16, 0], 0.13: [0, -12, 0], 0.4: [0, -3, 0], MELEE_LEN: N}},
+            "leftArm": {"rotation": {0: N, 0.08: [22, 0, -12], 0.13: [-96, 0, 0], 0.22: [-95, 0, 0], 0.4: [-30, 0, -4],
+                                     MELEE_LEN: N},
+                        "position": {0: N, 0.13: [0, 0, -2.2], 0.22: [0, 0, -2.1], 0.4: [0, 0, -0.4], MELEE_LEN: N}},
+            "rightArm": {"rotation": {0: H, 0.08: [-35, -10, 12], 0.13: [-30, -6, 8], 0.4: H, MELEE_LEN: H}},
+            "leftLeg": {"rotation": {0: N, 0.13: [-20, 0, 0], 0.4: [-6, 0, 0], MELEE_LEN: N}},
+            "rightLeg": {"rotation": {0: N, 0.13: [16, 0, 0], 0.4: [5, 0, 0], MELEE_LEN: N}},
+        },
+        # 右の回し蹴り: 腰をひねって溜め、軸足で回りながら脚を大きく回す
+        "roundhouse": {
+            "root": {"position": {0: N, 0.1: [0, -0.8, 0], 0.18: [0, 0.9, -0.8], 0.3: [0, 0.6, -0.9],
+                                  0.5: [0, 0, -0.4], MELEE_LEN: N},
+                     "rotation": {0: N, 0.1: [0, 18, 0], 0.18: [0, -30, 0], 0.3: [0, -52, 0], 0.5: [0, -16, 0],
+                                  MELEE_LEN: N}},
+            "body": {"rotation": {0: N, 0.1: [4, 14, 0], 0.18: [-16, -22, -8], 0.3: [-14, -30, -6], 0.5: [-4, -8, 0],
+                                  MELEE_LEN: N}},
+            "head": {"rotation": {0: N, 0.1: [0, -10, 0], 0.18: [6, 22, 0], 0.3: [6, 30, 0], 0.5: [0, 8, 0],
+                                  MELEE_LEN: N}},
+            "rightLeg": {"rotation": {0: N, 0.1: [16, 0, 8], 0.18: [-86, 10, 34], 0.3: [-78, -60, 22],
+                                      0.5: [-18, -14, 6], MELEE_LEN: N}},
+            "leftLeg": {"rotation": {0: N, 0.18: [0, 0, -6], 0.5: [0, 0, -2], MELEE_LEN: N}},
+            "rightArm": {"rotation": {0: H, 0.1: [-30, 0, 40], 0.18: [-40, 0, 55], 0.3: [-36, 0, 50], 0.5: [-25, 0, 14],
+                                      MELEE_LEN: H}},
+            "leftArm": {"rotation": {0: N, 0.1: [-20, 0, -40], 0.18: [-25, 0, -60], 0.3: [-22, 0, -55],
+                                     0.5: [-6, 0, -14], MELEE_LEN: N}},
+        },
+        # 振りかぶって真上から叩き斬る
+        "chop": {
+            "root": {"position": {0: N, 0.1: [0, 1.0, 0.6], 0.16: [0, -1.8, -1.6], 0.28: [0, -2.0, -1.8],
+                                  0.46: [0, -0.5, -0.6], MELEE_LEN: N}},
+            "body": {"rotation": {0: N, 0.1: [-10, 8, 0], 0.16: [20, 0, 0], 0.28: [22, 0, 0], 0.46: [6, 0, 0],
+                                  MELEE_LEN: N}},
+            "head": {"rotation": {0: N, 0.1: [8, 0, 0], 0.16: [-10, 0, 0], 0.46: [-2, 0, 0], MELEE_LEN: N}},
+            "rightArm": {"rotation": {0: H, 0.1: [-172, 0, 10], 0.16: [-38, -10, 0], 0.28: [-30, -12, 0],
+                                      0.46: [-20, -8, 0], MELEE_LEN: H}},
+            "leftArm": {"rotation": {0: N, 0.1: [-150, 0, -15], 0.16: [-40, 0, -10], 0.46: [-8, 0, -4], MELEE_LEN: N}},
+            "rightLeg": {"rotation": {0: N, 0.16: [-24, 0, 0], 0.46: [-8, 0, 0], MELEE_LEN: N}},
+            "leftLeg": {"rotation": {0: N, 0.16: [18, 0, 0], 0.46: [6, 0, 0], MELEE_LEN: N}},
+        },
+        # 前蹴り（スナップ）
+        "snap_kick": {
+            "root": {"position": {0: N, 0.09: [0, -0.6, 0.4], 0.15: [0, 0.6, -0.6], 0.26: [0, 0.5, -0.7],
+                                  0.44: [0, 0, -0.3], MELEE_LEN: N}},
+            "body": {"rotation": {0: N, 0.09: [-6, 0, 0], 0.15: [-18, 0, 0], 0.26: [-16, 0, 0], 0.44: [-4, 0, 0],
+                                  MELEE_LEN: N}},
+            "head": {"rotation": {0: N, 0.15: [10, 0, 0], 0.44: [2, 0, 0], MELEE_LEN: N}},
+            "rightLeg": {"rotation": {0: N, 0.09: [24, 0, 0], 0.15: [-104, 0, 0], 0.26: [-96, 0, 0], 0.44: [-20, 0, 0],
+                                      MELEE_LEN: N}},
+            "rightArm": {"rotation": {0: H, 0.09: [-40, 0, 30], 0.15: [-55, 0, 40], 0.44: [-25, 0, 10], MELEE_LEN: H}},
+            "leftArm": {"rotation": {0: N, 0.09: [-30, 0, -30], 0.15: [-35, 0, -40], 0.44: [-8, 0, -10], MELEE_LEN: N}},
+        },
+        # 回転斬り: その場で一回転しながら斬る
+        "spin_slash": {
+            "root": {"position": {0: N, 0.08: [0, -1.2, 0], 0.32: [0, -1.6, -1.2], 0.52: [0, -0.4, -0.5],
+                                  MELEE_LEN: N},
+                     "rotation": {0: N, 0.08: [0, 24, 0], 0.2: [0, -180, 0], 0.32: [0, -336, 0], 0.38: [0, -360, 0],
+                                  MELEE_LEN: [0, -360, 0]}},
+            "body": {"rotation": {0: N, 0.08: [4, 20, 0], 0.2: [8, 0, 0], 0.38: [8, -10, 0], 0.52: [3, 4, 0],
+                                  MELEE_LEN: N}},
+            "rightArm": {"rotation": {0: H, 0.08: [-88, 70, 0], 0.2: [-90, -40, 0], 0.32: [-90, -60, 0],
+                                      0.52: [-40, -20, 0], MELEE_LEN: H}},
+            "leftArm": {"rotation": {0: N, 0.08: [-20, 0, -40], 0.32: [-25, 0, -50], 0.52: [-5, 0, -10],
+                                     MELEE_LEN: N}},
+        },
+        # ジャンプ斬り: しゃがんで跳び、落ちながら斬り下ろす
+        "hop_slash": {
+            "root": {"position": {0: N, 0.08: [0, -2.6, 0.4], 0.16: [0, 4.5, -1.6], 0.24: [0, 2.4, -2.4],
+                                  0.31: [0, -2.2, -2.6], 0.5: [0, -0.6, -1.0], MELEE_LEN: N}},
+            "body": {"rotation": {0: N, 0.08: [16, 0, 0], 0.16: [-12, 0, 0], 0.24: [24, 0, 0], 0.31: [20, 0, 0],
+                                  0.5: [6, 0, 0], MELEE_LEN: N}},
+            "rightArm": {"rotation": {0: H, 0.08: [-40, 20, 0], 0.16: [-175, 0, 8], 0.24: [-40, -10, 0],
+                                      0.5: [-25, -8, 0], MELEE_LEN: H}},
+            "leftArm": {"rotation": {0: N, 0.08: [-30, 0, -20], 0.16: [-150, 0, -12], 0.24: [-30, 0, -10],
+                                     0.5: [-6, 0, -4], MELEE_LEN: N}},
+            "rightLeg": {"rotation": {0: N, 0.08: [-30, 0, 0], 0.16: [-20, 0, 0], 0.31: [-30, 0, 0], 0.5: [-8, 0, 0],
+                                      MELEE_LEN: N}},
+            "leftLeg": {"rotation": {0: N, 0.08: [-30, 0, 0], 0.16: [10, 0, 0], 0.31: [20, 0, 0], 0.5: [5, 0, 0],
+                                     MELEE_LEN: N}},
+        },
+    }
+    return M[name]
+
+
+def melee_anims(pre, moves, anim_fn, hold_r):
+    """通常攻撃の 4 連コンボ。moves: [(技, {時刻: [(effect, locator), ...]}), ...] を 4 つ"""
+    out = {}
+    for i, (name, fx) in enumerate(moves):
+        parts = {t: [{"effect": e, "locator": loc} for e, loc in lst] for t, lst in fx.items()}
+        a = anim_fn(MELEE_LEN, melee_move(name, hold_r), parts, loop=False)
+        a["anim_time_update"] = "v.melee_t"   # 振り始めからの経過時間で再生
+        out["animation.%s.melee_%d" % (pre, i)] = a
+    return out
+
+
+def melee_state_entries():
+    """待機状態に入れる通常攻撃（振るたびに 0 → 1 → 2 → 3 の順）"""
+    return [{"melee_%d" % i: "math.mod(v.atk_n, 4) == %d && v.melee_t < %.2f" % (i, MELEE_LEN)} for i in range(4)]
+
+
+def mute_controller(ac, name):
+    """コントローラーのパーティクルを止める（コンボのモーション側で出すため）"""
+    for st in ac["animation_controllers"][name]["states"].values():
+        st.pop("particle_effects", None)
+    return ac

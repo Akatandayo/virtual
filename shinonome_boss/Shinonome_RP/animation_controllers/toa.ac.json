@@ -10,7 +10,16 @@
             "idle",
             "move",
             {
-              "attack": "variable.attack_time > 0"
+              "melee_0": "math.mod(v.atk_n, 4) == 0 && v.melee_t < 0.68"
+            },
+            {
+              "melee_1": "math.mod(v.atk_n, 4) == 1 && v.melee_t < 0.68"
+            },
+            {
+              "melee_2": "math.mod(v.atk_n, 4) == 2 && v.melee_t < 0.68"
+            },
+            {
+              "melee_3": "math.mod(v.atk_n, 4) == 3 && v.melee_t < 0.68"
             },
             "hurt",
             {
@@ -944,16 +953,6 @@
           ]
         },
         "slash": {
-          "particle_effects": [
-            {
-              "effect": "trail",
-              "locator": "right_hand"
-            },
-            {
-              "effect": "arc",
-              "locator": "reach"
-            }
-          ],
           "transitions": [
             {
               "ready": "variable.attack_time < 0.2"
@@ -961,16 +960,6 @@
           ]
         },
         "kick": {
-          "particle_effects": [
-            {
-              "effect": "trail",
-              "locator": "right_foot"
-            },
-            {
-              "effect": "arc",
-              "locator": "right_foot"
-            }
-          ],
           "transitions": [
             {
               "ready": "variable.attack_time < 0.2"

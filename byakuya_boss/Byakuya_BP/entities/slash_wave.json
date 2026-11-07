@@ -75,7 +75,7 @@
       "byakuya:aim_m30": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~-30 ~"
           ]
         }
@@ -83,7 +83,7 @@
       "byakuya:aim_m20": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~-20 ~"
           ]
         }
@@ -91,7 +91,7 @@
       "byakuya:aim_m10": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~-10 ~"
           ]
         }
@@ -99,7 +99,7 @@
       "byakuya:aim_0": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~0 ~"
           ]
         }
@@ -107,7 +107,7 @@
       "byakuya:aim_10": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~10 ~"
           ]
         }
@@ -115,7 +115,7 @@
       "byakuya:aim_15": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~15 ~"
           ]
         }
@@ -123,7 +123,7 @@
       "byakuya:aim_20": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~20 ~"
           ]
         }
@@ -131,7 +131,7 @@
       "byakuya:aim_30": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~30 ~"
           ]
         }
@@ -139,7 +139,7 @@
       "byakuya:aim_45": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~45 ~"
           ]
         }
@@ -147,7 +147,7 @@
       "byakuya:aim_60": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~60 ~"
           ]
         }
@@ -155,7 +155,7 @@
       "byakuya:aim_75": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~75 ~"
           ]
         }
@@ -163,7 +163,7 @@
       "byakuya:aim_90": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~90 ~"
           ]
         }
@@ -171,7 +171,7 @@
       "byakuya:aim_105": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~105 ~"
           ]
         }
@@ -179,7 +179,7 @@
       "byakuya:aim_120": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~120 ~"
           ]
         }
@@ -187,7 +187,7 @@
       "byakuya:aim_135": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~135 ~"
           ]
         }
@@ -195,7 +195,7 @@
       "byakuya:aim_150": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~150 ~"
           ]
         }
@@ -203,7 +203,7 @@
       "byakuya:aim_165": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~165 ~"
           ]
         }
@@ -211,7 +211,7 @@
       "byakuya:aim_180": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~180 ~"
           ]
         }
@@ -219,7 +219,7 @@
       "byakuya:aim_195": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~195 ~"
           ]
         }
@@ -227,7 +227,7 @@
       "byakuya:aim_210": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~210 ~"
           ]
         }
@@ -235,7 +235,7 @@
       "byakuya:aim_225": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~225 ~"
           ]
         }
@@ -243,7 +243,7 @@
       "byakuya:aim_240": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~240 ~"
           ]
         }
@@ -251,7 +251,7 @@
       "byakuya:aim_255": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~255 ~"
           ]
         }
@@ -259,7 +259,7 @@
       "byakuya:aim_270": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~270 ~"
           ]
         }
@@ -267,7 +267,7 @@
       "byakuya:aim_285": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~285 ~"
           ]
         }
@@ -275,7 +275,7 @@
       "byakuya:aim_300": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~300 ~"
           ]
         }
@@ -283,7 +283,7 @@
       "byakuya:aim_315": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~315 ~"
           ]
         }
@@ -291,7 +291,7 @@
       "byakuya:aim_330": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~330 ~"
           ]
         }
@@ -299,7 +299,7 @@
       "byakuya:aim_345": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!byakuya:shiraishi_byakuya,c=1]",
             "tp @s ~ ~ ~ ~345 ~"
           ]
         }

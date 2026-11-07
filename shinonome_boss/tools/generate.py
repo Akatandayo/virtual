@@ -17,6 +17,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import xanims  # noqa: E402
 import xfx  # noqa: E402
 from cine import (FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, aim_at_foes, bake_smooth,  # noqa: E402
+                  pause_events,
                   encounter_cmds, foe_tag_anim, footwork_steps, near_filters, rival_target, smooth_client,
                   split_dashes, vectorize_animations)
 
@@ -27,7 +28,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "shinonome:toa"
 NAME = "東雲 永々"
-VERSION = [1, 4, 0]
+VERSION = [1, 5, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "a694ca4a-12aa-4554-8bdb-12089cc1e7f6"
 UUID_BP_MODULE = "f1947c40-91af-45a7-8801-580cb386961f"
@@ -690,6 +691,9 @@ def bp_entity():
             seq.append({"filters": {"all_of": base + [{"test": "is_skin_id", "value": skin}, cond]},
                         "randomize": [{"weight": 10, "trigger": "shinonome:skill_%d" % s} for s in lst]})
     events["shinonome:choose_skill"] = {"sequence": seq}
+
+    # ほかのボスの演出（登場など）のあいだは一時停止して、お互いに手出ししない
+    events.update(pause_events(not_busy))
 
     components = {
         "minecraft:type_family": {"family": ["shinonome", "boss", RIVAL_FAMILY, "monster", "mob"]},

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """ソフィア・ハート: クライアント側アニメーション（細腕モデル・右手に紺碧刀）."""
 
-from cine import ALIVE_ANIM, SPD, TURN_ANIM, footwork_bones, smooth_controller  # noqa: E402
+from cine import (ALIVE_ANIM, SPD, TURN_ANIM, footwork_bones, melee_anims, melee_state_entries,  # noqa: E402
+                  mute_controller, smooth_controller)
 
 N = [0, 0, 0]
 HOLD = [-20, -8, 0]          # 普段の右腕（刀を軽く前に）
@@ -347,6 +348,10 @@ def all_animations():
         "rightArm": {"rotation": {0: [-50, 30, 0]}}, "leftArm": {"rotation": {0: [-50, -30, 0]}}})
     anims["animation.sophia.turn"] = TURN_ANIM
     anims["animation.sophia.alive"] = ALIVE_ANIM
+    # 通常攻撃（近接）の 4 連コンボ
+    anims.update(melee_anims("sophia", [  # 刀の袈裟 → 左ジャブ → 回し蹴り → 突き
+        ("kesa", {0.12: [("trail", "right_hand")]}), ("jab_l", {0.11: [("trail", "left_hand")]}),
+        ("roundhouse", {0.16: [("spark", "right_foot")]}), ("thrust", {0.13: [("trail", "right_hand")]})], anim, HOLD))
     return {"format_version": "1.10.0", "animations": anims}
 
 
@@ -363,6 +368,7 @@ def short_names(skill_ids):
              "death_pose": "animation.sophia.death", "main": "controller.animation.sophia.main",
              "aura_ctrl": "controller.animation.sophia.aura", "attack_fx": "controller.animation.sophia.attack_fx"}
     names.update({"turn": "animation.sophia.turn", "alive": "animation.sophia.alive"})
+    names.update({"melee_%d" % i: "animation.sophia.melee_%d" % i for i in range(4)})
     for v in skill_ids:
         names["s%d" % v] = "animation.sophia.skill_%d" % v
     return names
@@ -371,7 +377,7 @@ def short_names(skill_ids):
 def controllers(skill_ids):
     dead = {"death": "!q.is_alive"}
     states = {"default": {"animations": ["look_at", "idle", {"move": "q.skin_id < 2"}, {"float": "q.skin_id >= 2"},
-                                         {"attack": "variable.attack_time > 0"}, "hurt",
+                                         *melee_state_entries(), "hurt",
                                          {"idle_flavor": "q.modified_move_speed < 0.3"},
                                          {"step_fx": "q.modified_move_speed > 0.4 && q.skin_id < 2"}],
                           "transitions": [dead] + [{"s%d" % v: "q.mark_variant == %d" % v} for v in skill_ids],
@@ -381,7 +387,7 @@ def controllers(skill_ids):
         states["s%d" % v] = {"animations": (["s%d" % v] if v in NO_LOOK else ["look_at", "s%d" % v])
                              + [{"move_legs": "q.modified_move_speed > 0.1"}, "hurt"],
                              "transitions": [dead, {"default": "q.mark_variant != %d" % v}], "blend_transition": 0.08}
-    return smooth_controller({"format_version": "1.10.0", "animation_controllers": {
+    return mute_controller(smooth_controller({"format_version": "1.10.0", "animation_controllers": {
         "controller.animation.sophia.main": {"initial_state": "default", "states": states},
         "controller.animation.sophia.aura": {"initial_state": "none", "states": {
             "none": {"transitions": [{"a3": "q.skin_id >= 3"}, {"a2": "q.skin_id == 2"}, {"a1": "q.skin_id == 1"}]},
@@ -401,7 +407,7 @@ def controllers(skill_ids):
             "swing_2": {"particle_effects": [{"effect": "spark", "locator": "right_foot"},
                                              {"effect": "arc", "locator": "right_foot"}],
                         "transitions": [{"ready": "variable.attack_time < 0.2"}]}}},
-    }}, "controller.animation.sophia.main")
+    }}, "controller.animation.sophia.main"), "controller.animation.sophia.attack_fx")
 
 
 PARTICLE_MAP = {"arc": "sophia:arc", "step": "sophia:step_dust",

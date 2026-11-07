@@ -578,7 +578,7 @@
         },
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!sophia:sophia_heart,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!sophia:sophia_heart,c=1]",
             "tp @s ~ ~ ~ ~-24 0"
           ]
         }
@@ -591,7 +591,7 @@
         },
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!sophia:sophia_heart,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!sophia:sophia_heart,c=1]",
             "tp @s ~ ~ ~ ~-14 0"
           ]
         }
@@ -604,7 +604,7 @@
         },
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!sophia:sophia_heart,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!sophia:sophia_heart,c=1]",
             "tp @s ~ ~ ~ ~-4 0"
           ]
         }
@@ -617,7 +617,7 @@
         },
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!sophia:sophia_heart,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!sophia:sophia_heart,c=1]",
             "tp @s ~ ~ ~ ~6 0"
           ]
         }
@@ -630,7 +630,7 @@
         },
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!sophia:sophia_heart,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!sophia:sophia_heart,c=1]",
             "tp @s ~ ~ ~ ~16 0"
           ]
         }
@@ -643,7 +643,7 @@
         },
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!sophia:sophia_heart,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!sophia:sophia_heart,c=1]",
             "tp @s ~ ~ ~ ~-20 0"
           ]
         }
@@ -656,7 +656,7 @@
         },
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!sophia:sophia_heart,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!sophia:sophia_heart,c=1]",
             "tp @s ~ ~ ~ ~-10 0"
           ]
         }
@@ -669,7 +669,7 @@
         },
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!sophia:sophia_heart,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!sophia:sophia_heart,c=1]",
             "tp @s ~ ~ ~ ~0 0"
           ]
         }
@@ -682,7 +682,7 @@
         },
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!sophia:sophia_heart,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!sophia:sophia_heart,c=1]",
             "tp @s ~ ~ ~ ~10 0"
           ]
         }
@@ -695,7 +695,7 @@
         },
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!sophia:sophia_heart,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!sophia:sophia_heart,c=1]",
             "tp @s ~ ~ ~ ~20 0"
           ]
         }
@@ -708,7 +708,7 @@
         },
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!sophia:sophia_heart,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!sophia:sophia_heart,c=1]",
             "tp @s ~ ~ ~ ~-16 0"
           ]
         }
@@ -721,7 +721,7 @@
         },
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!sophia:sophia_heart,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!sophia:sophia_heart,c=1]",
             "tp @s ~ ~ ~ ~-6 0"
           ]
         }
@@ -734,7 +734,7 @@
         },
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!sophia:sophia_heart,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!sophia:sophia_heart,c=1]",
             "tp @s ~ ~ ~ ~4 0"
           ]
         }
@@ -747,7 +747,7 @@
         },
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!sophia:sophia_heart,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!sophia:sophia_heart,c=1]",
             "tp @s ~ ~ ~ ~14 0"
           ]
         }
@@ -760,7 +760,7 @@
         },
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!sophia:sophia_heart,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!sophia:sophia_heart,c=1]",
             "tp @s ~ ~ ~ ~24 0"
           ]
         }
@@ -1253,7 +1253,7 @@
         },
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!sophia:sophia_heart,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!sophia:sophia_heart,c=1]",
             "tp @s ~ ~ ~ ~-12 0"
           ]
         }
@@ -1266,7 +1266,7 @@
         },
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!sophia:sophia_heart,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!sophia:sophia_heart,c=1]",
             "tp @s ~ ~ ~ ~0 0"
           ]
         }
@@ -1279,7 +1279,7 @@
         },
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!sophia:sophia_heart,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!sophia:sophia_heart,c=1]",
             "tp @s ~ ~ ~ ~12 0"
           ]
         }

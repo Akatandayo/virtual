@@ -75,7 +75,7 @@
       "shinonome:b_m6": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!shinonome:toa,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!shinonome:toa,c=1]",
             "tp @s ~ ~ ~ ~-6 ~"
           ]
         }
@@ -83,7 +83,7 @@
       "shinonome:b_0": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!shinonome:toa,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!shinonome:toa,c=1]",
             "tp @s ~ ~ ~ ~0 ~"
           ]
         }
@@ -91,7 +91,7 @@
       "shinonome:b_6": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!shinonome:toa,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!shinonome:toa,c=1]",
             "tp @s ~ ~ ~ ~6 ~"
           ]
         }

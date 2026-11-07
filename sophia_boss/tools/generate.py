@@ -16,6 +16,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sanims  # noqa: E402
 import sfx  # noqa: E402
 from cine import (FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, aim_at_foes, bake_smooth,  # noqa: E402
+                  pause_events,
                   encounter_cmds, foe_tag_anim, footwork_steps, near_filters, rival_target, smooth_client,
                   split_dashes, vectorize_animations)
 
@@ -26,7 +27,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "sophia:sophia_heart"
 NAME = "ソフィア・ハート"
-VERSION = [1, 4, 0]
+VERSION = [1, 5, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "61396506-b3f5-4a1b-92f6-8e34dc87c6de"
 UUID_BP_MODULE = "c8d8c5f1-e6b7-46bb-8808-2e50aa8d0842"
@@ -753,6 +754,9 @@ def bp_entity():
             seq.append({"filters": {"all_of": base + [{"test": "is_skin_id", "value": skin}, cond]},
                         "randomize": [{"weight": 10, "trigger": "sophia:skill_%d" % s} for s in lst]})
     events["sophia:choose_skill"] = {"sequence": seq}
+
+    # ほかのボスの演出（登場など）のあいだは一時停止して、お互いに手出ししない
+    events.update(pause_events(not_cine))
 
     components = {
         "minecraft:type_family": {"family": ["sophia", "boss", RIVAL_FAMILY, "monster", "mob"]},

@@ -609,7 +609,9 @@
             "/event entity @e[family=toa_clone] shinonome:poof",
             "/camera @a[tag=toa_cine] clear",
             "/hud @a[tag=toa_cine] reset all",
-            "/tag @a[tag=toa_cine] remove toa_cine"
+            "/tag @a[tag=toa_cine] remove toa_cine",
+            "/tag @s remove vb_cine",
+            "/execute unless entity @e[tag=vb_cine,r=64] run event entity @e[family=rival_boss,tag=vb_paused,r=64] vb:resume"
           ]
         }
       }

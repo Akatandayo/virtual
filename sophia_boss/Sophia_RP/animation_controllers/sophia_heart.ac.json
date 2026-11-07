@@ -15,7 +15,16 @@
               "float": "q.skin_id >= 2"
             },
             {
-              "attack": "variable.attack_time > 0"
+              "melee_0": "math.mod(v.atk_n, 4) == 0 && v.melee_t < 0.68"
+            },
+            {
+              "melee_1": "math.mod(v.atk_n, 4) == 1 && v.melee_t < 0.68"
+            },
+            {
+              "melee_2": "math.mod(v.atk_n, 4) == 2 && v.melee_t < 0.68"
+            },
+            {
+              "melee_3": "math.mod(v.atk_n, 4) == 3 && v.melee_t < 0.68"
             },
             "hurt",
             {
@@ -1017,16 +1026,6 @@
           ]
         },
         "swing_0": {
-          "particle_effects": [
-            {
-              "effect": "trail",
-              "locator": "right_hand"
-            },
-            {
-              "effect": "arc",
-              "locator": "reach"
-            }
-          ],
           "transitions": [
             {
               "ready": "variable.attack_time < 0.2"
@@ -1034,16 +1033,6 @@
           ]
         },
         "swing_1": {
-          "particle_effects": [
-            {
-              "effect": "trail",
-              "locator": "left_hand"
-            },
-            {
-              "effect": "arc",
-              "locator": "left_hand"
-            }
-          ],
           "transitions": [
             {
               "ready": "variable.attack_time < 0.2"
@@ -1051,16 +1040,6 @@
           ]
         },
         "swing_2": {
-          "particle_effects": [
-            {
-              "effect": "spark",
-              "locator": "right_foot"
-            },
-            {
-              "effect": "arc",
-              "locator": "right_foot"
-            }
-          ],
           "transitions": [
             {
               "ready": "variable.attack_time < 0.2"

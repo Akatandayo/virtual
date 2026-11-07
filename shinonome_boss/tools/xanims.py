@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """東雲 永々: クライアント側アニメーション（右手に黒胎刀、背中にクロノスピアの窓）."""
 
-from cine import ALIVE_ANIM, SPD, TURN_ANIM, footwork_bones, smooth_controller  # noqa: E402
+from cine import (ALIVE_ANIM, SPD, TURN_ANIM, footwork_bones, melee_anims, melee_state_entries,  # noqa: E402
+                  mute_controller, smooth_controller)
 
 N = [0, 0, 0]
 ALT = "math.mod(v.atk_n, 2) == 0"   # 斬り / 蹴り
@@ -261,6 +262,11 @@ def all_animations():
         anims["animation.toa.skill_%d" % v] = a
     anims["animation.toa.turn"] = TURN_ANIM
     anims["animation.toa.alive"] = ALIVE_ANIM
+    # 通常攻撃（近接）の 4 連コンボ
+    anims.update(melee_anims("toa", [  # 叩き斬り → 前蹴り → 回転斬り → ジャンプ斬り
+        ("chop", {0.13: [("trail", "right_hand")]}), ("snap_kick", {0.13: [("spark", "right_foot")]}),
+        ("spin_slash", {0.14: [("trail", "right_hand")], 0.26: [("trail", "right_hand")]}),
+        ("hop_slash", {0.2: [("trail", "right_hand")]})], anim, HOLD))
     return {"format_version": "1.10.0", "animations": anims}
 
 
@@ -276,6 +282,7 @@ def short_names(skill_ids):
          "death_pose": "animation.toa.death", "main": "controller.animation.toa.main",
          "aura_ctrl": "controller.animation.toa.aura", "attack_fx": "controller.animation.toa.attack_fx"}
     n.update({"turn": "animation.toa.turn", "alive": "animation.toa.alive"})
+    n.update({"melee_%d" % i: "animation.toa.melee_%d" % i for i in range(4)})
     for v in skill_ids:
         n["s%d" % v] = "animation.toa.skill_%d" % v
     return n
@@ -283,7 +290,7 @@ def short_names(skill_ids):
 
 def controllers(skill_ids):
     dead = {"death": "!q.is_alive"}
-    states = {"default": {"animations": ["look_at", "idle", "move", {"attack": "variable.attack_time > 0"}, "hurt",
+    states = {"default": {"animations": ["look_at", "idle", "move", *melee_state_entries(), "hurt",
                                          {"idle_flavor": "q.modified_move_speed < 0.3"},
                                          {"step_fx": "q.modified_move_speed > 0.4"}],
                           "transitions": [dead] + [{"s%d" % v: "q.mark_variant == %d" % v} for v in skill_ids],
@@ -296,7 +303,7 @@ def controllers(skill_ids):
         a += [{"move_legs": "q.modified_move_speed > 0.1"}, "hurt"]
         states["s%d" % v] = {"animations": a, "transitions": [dead, {"default": "q.mark_variant != %d" % v}],
                              "blend_transition": 0.08}
-    return smooth_controller({"format_version": "1.10.0", "animation_controllers": {
+    return mute_controller(smooth_controller({"format_version": "1.10.0", "animation_controllers": {
         "controller.animation.toa.main": {"initial_state": "default", "states": states},
         "controller.animation.toa.aura": {"initial_state": "none", "states": {
             "none": {"transitions": [{"a2": "q.skin_id >= 2"}, {"a1": "q.skin_id == 1"}]},
@@ -311,7 +318,7 @@ def controllers(skill_ids):
             "kick": {"particle_effects": [{"effect": "trail", "locator": "right_foot"},
                                           {"effect": "arc", "locator": "right_foot"}],
                      "transitions": [{"ready": "variable.attack_time < 0.2"}]}}},
-    }}, "controller.animation.toa.main")
+    }}, "controller.animation.toa.main"), "controller.animation.toa.attack_fx")
 
 
 PARTICLE_MAP = {"arc": "shinonome:arc", "step": "shinonome:step_dust",

@@ -18,6 +18,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import hanims  # noqa: E402
 import hfx  # noqa: E402
 from cine import (FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, aim_at_foes, bake_smooth,  # noqa: E402
+                  pause_events,
                   encounter_cmds, foe_tag_anim, near_filters, rival_target, smooth_client, split_dashes,
                   vectorize_animations)
 
@@ -28,7 +29,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "hitori:denshi_hitori"
 NAME = "電子 独"
-VERSION = [1, 5, 0]
+VERSION = [1, 6, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "9b78d68f-ebde-4768-989c-96ab7fa09e02"
 UUID_BP_MODULE = "9263edb8-7005-4aa3-82a3-54ec6c07aaf0"
@@ -752,6 +753,9 @@ def bp_entity():
             seq.append({"filters": {"all_of": base + [{"test": "is_skin_id", "value": skin}, cond]},
                         "randomize": [{"weight": 10, "trigger": "hitori:skill_%d" % s} for s in lst]})
     events["hitori:choose_skill"] = {"sequence": seq}
+
+    # ほかのボスの演出（登場など）のあいだは一時停止して、お互いに手出ししない
+    events.update(pause_events(not_busy))
 
     components = {
         "minecraft:type_family": {"family": ["hitori", "boss", RIVAL_FAMILY, "monster", "mob"]},

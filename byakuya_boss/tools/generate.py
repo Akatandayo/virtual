@@ -17,6 +17,7 @@ import anims  # noqa: E402
 import fx  # noqa: E402
 import summons  # noqa: E402
 from cine import (FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, aim_at_foes, bake_smooth,  # noqa: E402
+                  pause_events,
                   encounter_cmds, foe_tag_anim, footwork_steps, near_filters, rival_target, smooth_client,
                   split_dashes, vectorize_animations)
 
@@ -27,7 +28,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "byakuya:shiraishi_byakuya"
 NAME = "白石白夜"
-VERSION = [1, 6, 0]
+VERSION = [1, 7, 0]
 MIN_ENGINE = [1, 21, 0]
 
 UUID_BP_HEADER = "293c6dbc-978c-4439-aa05-c2fa6e63c99d"
@@ -812,6 +813,9 @@ def bp_entity():
             seq.append({"filters": {"all_of": base_f + [{"test": "is_skin_id", "value": skin}, cond]},
                         "randomize": rnd(lst)})
     events["byakuya:choose_skill"] = {"sequence": seq}
+
+    # ほかのボスの演出（登場など）のあいだは一時停止して、お互いに手出ししない
+    events.update(pause_events(not_cine))
 
     components = {
         "minecraft:type_family": {"family": ["byakuya", "boss", RIVAL_FAMILY, "monster", "mob"]},

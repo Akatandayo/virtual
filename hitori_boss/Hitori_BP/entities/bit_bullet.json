@@ -75,7 +75,7 @@
       "hitori:aim_m14": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!hitori:denshi_hitori,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!hitori:denshi_hitori,c=1]",
             "tp @s ~ ~ ~ ~-14 ~"
           ]
         }
@@ -83,7 +83,7 @@
       "hitori:aim_m10": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!hitori:denshi_hitori,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!hitori:denshi_hitori,c=1]",
             "tp @s ~ ~ ~ ~-10 ~"
           ]
         }
@@ -91,7 +91,7 @@
       "hitori:aim_m5": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!hitori:denshi_hitori,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!hitori:denshi_hitori,c=1]",
             "tp @s ~ ~ ~ ~-5 ~"
           ]
         }
@@ -99,7 +99,7 @@
       "hitori:aim_m2": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!hitori:denshi_hitori,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!hitori:denshi_hitori,c=1]",
             "tp @s ~ ~ ~ ~-2 ~"
           ]
         }
@@ -107,7 +107,7 @@
       "hitori:aim_0": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!hitori:denshi_hitori,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!hitori:denshi_hitori,c=1]",
             "tp @s ~ ~ ~ ~0 ~"
           ]
         }
@@ -115,7 +115,7 @@
       "hitori:aim_2": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!hitori:denshi_hitori,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!hitori:denshi_hitori,c=1]",
             "tp @s ~ ~ ~ ~2 ~"
           ]
         }
@@ -123,7 +123,7 @@
       "hitori:aim_4": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!hitori:denshi_hitori,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!hitori:denshi_hitori,c=1]",
             "tp @s ~ ~ ~ ~4 ~"
           ]
         }
@@ -131,7 +131,7 @@
       "hitori:aim_6": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!hitori:denshi_hitori,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!hitori:denshi_hitori,c=1]",
             "tp @s ~ ~ ~ ~6 ~"
           ]
         }
@@ -139,7 +139,7 @@
       "hitori:aim_9": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!hitori:denshi_hitori,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!hitori:denshi_hitori,c=1]",
             "tp @s ~ ~ ~ ~9 ~"
           ]
         }
@@ -147,7 +147,7 @@
       "hitori:aim_10": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!hitori:denshi_hitori,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!hitori:denshi_hitori,c=1]",
             "tp @s ~ ~ ~ ~10 ~"
           ]
         }
@@ -155,7 +155,7 @@
       "hitori:aim_12": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!hitori:denshi_hitori,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!hitori:denshi_hitori,c=1]",
             "tp @s ~ ~ ~ ~12 ~"
           ]
         }
@@ -163,7 +163,7 @@
       "hitori:aim_14": {
         "queue_command": {
           "command": [
-            "tp @s ~ ~ ~ facing @e[tag=vb_foe,type=!hitori:denshi_hitori,c=1]",
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!hitori:denshi_hitori,c=1]",
             "tp @s ~ ~ ~ ~14 ~"
           ]
         }
