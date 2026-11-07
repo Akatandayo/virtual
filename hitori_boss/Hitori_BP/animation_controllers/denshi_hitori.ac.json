@@ -5,6 +5,9 @@
       "initial_state": "default",
       "states": {
         "default": {
+          "animations": [
+            "idle_loop"
+          ],
           "transitions": [
             {
               "skill_1": "q.mark_variant == 1"
@@ -62,6 +65,24 @@
             },
             {
               "skill_20": "q.mark_variant == 20"
+            },
+            {
+              "skill_21": "q.mark_variant == 21"
+            },
+            {
+              "skill_22": "q.mark_variant == 22"
+            },
+            {
+              "skill_23": "q.mark_variant == 23"
+            },
+            {
+              "skill_30": "q.mark_variant == 30"
+            },
+            {
+              "skill_31": "q.mark_variant == 31"
+            },
+            {
+              "skill_32": "q.mark_variant == 32"
             },
             {
               "skill_99": "q.mark_variant == 99"
@@ -312,7 +333,85 @@
             }
           ],
           "on_exit": [
-            "@s hitori:final_end"
+            "@s hitori:cine_end"
+          ]
+        },
+        "skill_21": {
+          "animations": [
+            "skill_21"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 21"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:skill_end"
+          ]
+        },
+        "skill_22": {
+          "animations": [
+            "skill_22"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 22"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:skill_end"
+          ]
+        },
+        "skill_23": {
+          "animations": [
+            "skill_23"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 23"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:skill_end"
+          ]
+        },
+        "skill_30": {
+          "animations": [
+            "skill_30"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 30"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:cine_end"
+          ]
+        },
+        "skill_31": {
+          "animations": [
+            "skill_31"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 31"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:cine_end"
+          ]
+        },
+        "skill_32": {
+          "animations": [
+            "skill_32"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 32"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:cine_end"
           ]
         },
         "skill_99": {
@@ -355,6 +454,31 @@
         }
       }
     },
+    "controller.animation.hitori.reboot": {
+      "initial_state": "ready",
+      "states": {
+        "ready": {
+          "transitions": [
+            {
+              "rb": "q.is_charged"
+            }
+          ]
+        },
+        "rb": {
+          "animations": [
+            "reboot_timer"
+          ],
+          "transitions": [
+            {
+              "ready": "q.all_animations_finished || !q.is_charged"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:reboot_end"
+          ]
+        }
+      }
+    },
     "controller.animation.hitori.death": {
       "initial_state": "alive",
       "states": {
@@ -367,12 +491,11 @@
         },
         "dead": {
           "on_entry": [
-            "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b独§7「……あーあ。バグ、直されちゃった」\"}]}",
-            "/particle hitori:noise_big ~ ~1 ~",
-            "/particle hitori:error_popup ~ ~1 ~",
-            "/particle hitori:shockwave_big ~ ~0.1 ~",
-            "/playsound beacon.deactivate @a[r=64] ~ ~ ~ 1 0.5",
-            "/scoreboard players reset @s hitori_glitch"
+            "/summon hitori:director ~ ~ ~",
+            "/scoreboard players reset @s hitori_glitch",
+            "/camera @a[tag=hitori_cine] clear",
+            "/hud @a[tag=hitori_cine] reset all",
+            "/tag @a[tag=hitori_cine] remove hitori_cine"
           ]
         }
       }
@@ -436,6 +559,7 @@
         "boom": {
           "on_entry": [
             "/damage @a[r=2.8,m=!creative] 14 entity_explosion",
+            "/damage @e[type=byakuya:shiraishi_byakuya,r=2.8] 14 entity_attack",
             "/particle hitori:missing_burst ~ ~0.5 ~",
             "/particle hitori:noise_big ~ ~0.5 ~",
             "/particle hitori:shockwave ~ ~0.1 ~",
@@ -443,6 +567,47 @@
             "/playsound random.explode @a[r=24] ~ ~ ~ 0.8 1.4",
             "/camerashake add @a[r=10] 0.5 0.3 positional",
             "@s hitori:despawn"
+          ]
+        }
+      }
+    },
+    "controller.animation.hitori.echo": {
+      "initial_state": "pick",
+      "states": {
+        "pick": {
+          "transitions": [
+            {
+              "o0": "q.variant == 0"
+            },
+            {
+              "o1": "q.variant == 1"
+            },
+            {
+              "o2": "q.variant == 2"
+            },
+            {
+              "o3": "q.variant == 3"
+            }
+          ]
+        },
+        "o0": {
+          "animations": [
+            "orbit_0"
+          ]
+        },
+        "o1": {
+          "animations": [
+            "orbit_1"
+          ]
+        },
+        "o2": {
+          "animations": [
+            "orbit_2"
+          ]
+        },
+        "o3": {
+          "animations": [
+            "orbit_3"
           ]
         }
       }

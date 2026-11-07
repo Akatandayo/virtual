@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "hitori:blast",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/hitori_empty"
+      },
+      "geometry": {
+        "default": "geometry.hitori_empty"
+      },
+      "render_controllers": [
+        "controller.render.hitori_simple"
+      ]
+    }
+  }
+}

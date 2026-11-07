@@ -1,0 +1,30 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "hitori:director",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/denshi_hitori"
+      },
+      "geometry": {
+        "default": "geometry.denshi_hitori"
+      },
+      "render_controllers": [
+        "controller.render.denshi_hitori"
+      ],
+      "animations": {
+        "pose": "animation.hitori.director_pose",
+        "glitch": "animation.hitori.glitch"
+      },
+      "scripts": {
+        "animate": [
+          "pose",
+          "glitch"
+        ]
+      }
+    }
+  }
+}

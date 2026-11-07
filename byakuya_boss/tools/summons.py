@@ -162,6 +162,30 @@ def bp_shadow():
         "component_groups": dict(DESPAWN_GROUP), "components": comps, "events": events}}
 
 
+def bp_blast():
+    """見えない爆発（ブロックは壊さない）。本物の爆風でプレイヤーを吹き飛ばす"""
+    comps = _fx_base("blast", ["byakuya_fx", "inanimate"], 0.1)
+    groups = {"small": {"minecraft:explode": {"fuse_length": 0, "fuse_lit": True, "power": 2, "causes_fire": False,
+                                              "breaks_blocks": False, "destroy_affected_by_griefing": False}},
+              "big": {"minecraft:explode": {"fuse_length": 0, "fuse_lit": True, "power": 4, "causes_fire": False,
+                                            "breaks_blocks": False, "destroy_affected_by_griefing": False}}}
+    events = {"minecraft:entity_spawned": {"add": {"component_groups": ["small"]}},
+              "byakuya:big": {"add": {"component_groups": ["big"]}}}
+    return {"format_version": "1.21.0", "minecraft:entity": {
+        "description": {"identifier": "byakuya:blast", "is_spawnable": False, "is_summonable": True,
+                        "is_experimental": False},
+        "component_groups": groups, "components": comps, "events": events}}
+
+
+def bp_director():
+    """撃破カットシーンの監督（見えない・刀を持った白夜の像として表示）"""
+    comps = _fx_base("director", ["byakuya_fx", "inanimate"], 0.1)
+    comps["minecraft:equipment"] = {"table": "loot_tables/entities/shiraishi_byakuya_equipment.json",
+                                    "slot_drop_chance": [{"slot": "slot.weapon.mainhand", "drop_chance": 0}]}
+    return _entity("byakuya:director", comps, dict(DESPAWN_GROUP), dict(DESPAWN_EVENT),
+                   {"cut": "animation.byakuya.director.death"}, ["cut"])
+
+
 # ---------------------------------------------------------------------------
 # RP
 # ---------------------------------------------------------------------------
@@ -233,6 +257,16 @@ def rp_animations():
         "animation.byakuya.blade_fx": {"loop": True, "animation_length": 0.1,
                                        "bones": {"roll": {"rotation": [0, 0, "q.life_time * 720"]}},
                                        "particle_effects": {"0.00": [{"effect": "trail", "locator": "center"}]}},
+        # 撃破カットシーンの像: 本体が消えるまで隠し、膝をついたまま桜になって消える
+        "animation.byakuya.director_pose": {"loop": "hold_on_last_frame", "animation_length": 5.6, "bones": {
+            "root": {"position": {"0.00": [0, -6, 0]},
+                     "scale": {"0.00": 0, "1.05": 0, "1.10": 1, "4.60": 1, "5.40": [0.2, 1.4, 0.2]}},
+            "body": {"rotation": {"0.00": [40, 0, 0]}},
+            "head": {"rotation": {"0.00": [25, 0, 0]}},
+            "rightLeg": {"rotation": {"0.00": [-85, 10, 0]}},
+            "leftLeg": {"rotation": {"0.00": [70, -5, 0]}},
+            "rightArm": {"rotation": {"0.00": [-20, 0, 0]}},
+            "leftArm": {"rotation": {"0.00": [-10, 0, 10]}}}},
         "animation.byakuya.shadow_fx": {"loop": True, "animation_length": 0.5,
                                         "particle_effects": {"0.00": [{"effect": "wisp", "locator": "body_center"}]}},
     }
@@ -247,6 +281,10 @@ def rp_clients(boss_animation_names):
                                "entity_alphatest", {"fx": "animation.byakuya.blade_fx"}, ["fx"],
                                {"trail": "byakuya:blade_trail"}),
         "marker": client("byakuya:marker", "byakuya_empty", "geometry.byakuya_empty", "entity_alphatest"),
+        "blast": client("byakuya:blast", "byakuya_empty", "geometry.byakuya_empty", "entity_alphatest"),
+        "director": client("byakuya:director", "shiraishi_byakuya", "geometry.shiraishi_byakuya", "entity_alphatest",
+                           {"pose": "animation.byakuya.director_pose"}, ["pose"],
+                           extra={"enable_attachables": True}),
         "shadow": client("byakuya:shadow", "shiraishi_byakuya", "geometry.shiraishi_byakuya", "entity_alphatest",
                          dict(boss_animation_names, shadow_fx="animation.byakuya.shadow_fx"),
                          ["main", "attack_fx", "shadow_fx"],

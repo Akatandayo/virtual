@@ -5,6 +5,9 @@
       "initial_state": "default",
       "states": {
         "default": {
+          "animations": [
+            "idle_loop"
+          ],
           "transitions": [
             {
               "skill_1": "q.mark_variant == 1"
@@ -74,6 +77,27 @@
             },
             {
               "skill_23": "q.mark_variant == 23"
+            },
+            {
+              "skill_24": "q.mark_variant == 24"
+            },
+            {
+              "skill_25": "q.mark_variant == 25"
+            },
+            {
+              "skill_26": "q.mark_variant == 26"
+            },
+            {
+              "skill_27": "q.mark_variant == 27"
+            },
+            {
+              "skill_30": "q.mark_variant == 30"
+            },
+            {
+              "skill_31": "q.mark_variant == 31"
+            },
+            {
+              "skill_32": "q.mark_variant == 32"
             }
           ]
         },
@@ -334,7 +358,7 @@
             }
           ],
           "on_exit": [
-            "@s byakuya:skill_end"
+            "@s byakuya:cine_end"
           ]
         },
         "skill_21": {
@@ -375,6 +399,97 @@
           "on_exit": [
             "@s byakuya:skill_end"
           ]
+        },
+        "skill_24": {
+          "animations": [
+            "skill_24"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 24"
+            }
+          ],
+          "on_exit": [
+            "@s byakuya:skill_end"
+          ]
+        },
+        "skill_25": {
+          "animations": [
+            "skill_25"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 25"
+            }
+          ],
+          "on_exit": [
+            "@s byakuya:skill_end"
+          ]
+        },
+        "skill_26": {
+          "animations": [
+            "skill_26"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 26"
+            }
+          ],
+          "on_exit": [
+            "@s byakuya:skill_end"
+          ]
+        },
+        "skill_27": {
+          "animations": [
+            "skill_27"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 27"
+            }
+          ],
+          "on_exit": [
+            "@s byakuya:skill_end"
+          ]
+        },
+        "skill_30": {
+          "animations": [
+            "skill_30"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 30"
+            }
+          ],
+          "on_exit": [
+            "@s byakuya:cine_end"
+          ]
+        },
+        "skill_31": {
+          "animations": [
+            "skill_31"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 31"
+            }
+          ],
+          "on_exit": [
+            "@s byakuya:cine_end"
+          ]
+        },
+        "skill_32": {
+          "animations": [
+            "skill_32"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 32"
+            }
+          ],
+          "on_exit": [
+            "@s byakuya:cine_end"
+          ]
         }
       }
     },
@@ -390,13 +505,12 @@
         },
         "dead": {
           "on_entry": [
-            "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§f白石白夜§7「……いい腕だ。人間の意地、確かに見せてもらったよ、お前さん」\"}]}",
-            "/playsound random.totem @a[r=64] ~ ~ ~ 1 0.8",
+            "/summon byakuya:director ~ ~ ~",
+            "/tag @a remove byakuya_sayanari",
             "/fog @a[r=64] remove byakuya_final",
-            "/particle byakuya:petal_storm ~ ~ ~",
-            "/particle byakuya:shockwave_big_white ~ ~0.1 ~",
-            "/particle byakuya:afterimage ~ ~0.9 ~",
-            "/particle minecraft:totem_particle ~ ~1 ~"
+            "/camera @a[tag=byakuya_cine] clear",
+            "/hud @a[tag=byakuya_cine] reset all",
+            "/tag @a[tag=byakuya_cine] remove byakuya_cine"
           ]
         }
       }

@@ -167,23 +167,25 @@ def skill_anims():
         "leftArm": {"rotation": {0: N, 0.1: [-40, 30, 0], 1.45: [-40, 30, 0], 1.5: [15, 0, 0], 2.4: [15, 0, 0]}},
     }), {**{0.1 + i * 0.25: fx("hand_charge") for i in range(6)}, 1.5: fx("sword_trail") + fx("sword_trail", "body_center")})
 
-    # 20 最終演技: 膝をつく → 立ち上がり宙に浮く → 渾身の一太刀
-    hover = {0: N, 1.8: [0, -6, 0], 2.4: N}
-    for i in range(7):
-        hover[3.0 + i * 0.5] = [0, 8 + (i % 2), 0]
-    hover.update({6.3: [0, 9, 0], 6.45: [0, -2, 0], 7.5: [0, -2, 0]})
-    A[20] = anim(7.5, merge(kneel(0.2, 1.8), {
+    # 20 最終演技（10.8 秒）: 膝をつく → 立ち上がる → 宙に浮き大上段 → 渾身の一太刀
+    hover = {0: N, 2.2: [0, -6, 0], 3.6: N}
+    for i in range(10):
+        hover[4.2 + i * 0.5] = [0, 8 + (i % 2), 0]
+    hover.update({9.15: [0, 10, 0], 9.3: [0, -2, 0], 10.8: [0, -2, 0]})
+    A[20] = anim(10.8, merge(kneel(0.2, 2.2), {
         "root": {"position": hover},
-        "rightLeg": {"rotation": {0: N, 2.4: N, 6.45: [-40, 0, 0], 7.5: [-40, 0, 0]}},
-        "leftLeg": {"rotation": {0: N, 2.4: N, 6.45: [35, 0, 0], 7.5: [35, 0, 0]}},
-        "body": {"rotation": {0: N, 0.2: [30, 0, 0], 1.8: [30, 0, 0], 2.4: [-10, 0, 0], 6.3: [-15, 0, 0],
-                              6.45: [45, 0, 0], 7.5: [40, 0, 0]}},
-        "rightArm": {"rotation": {0: HOLD_R, 0.2: [-15, 0, 0], 1.8: [-15, 0, 0], 3.0: [-180, 0, 0],
-                                  6.3: [-185, 0, 0], 6.45: [-25, 0, 0], 7.5: [-25, 0, 0]}},
-        "leftArm": {"rotation": {0: N, 0.2: [-20, 0, 0], 1.8: [-20, 0, 0], 3.0: [-170, 0, 0],
-                                 6.3: [-175, 0, 0], 6.45: [-25, 0, 0], 7.5: [-25, 0, 0]}},
-    }), {**{3.0 + i * 0.4: fx("hand_charge") + fx("aura_soul", "body_center") for i in range(9)},
-         6.45: fx("sword_trail_red") + fx("sword_trail_red", "body_center")})
+        "rightLeg": {"rotation": {3.6: N, 9.3: [-40, 0, 0], 10.8: [-40, 0, 0]}},
+        "leftLeg": {"rotation": {3.6: N, 9.3: [35, 0, 0], 10.8: [35, 0, 0]}},
+        "body": {"rotation": {0: N, 0.2: [30, 0, 0], 2.2: [30, 0, 0], 3.6: [-10, 0, 0], 9.15: [-15, 0, 0],
+                              9.3: [45, 0, 0], 10.8: [40, 0, 0]}},
+        "head": {"rotation": {0: N, 0.2: [20, 0, 0], 2.2: [20, 0, 0], 3.6: N}},
+        "rightArm": {"rotation": {0: HOLD_R, 0.2: [-15, 0, 0], 2.2: [-15, 0, 0], 4.2: [-180, 0, 0],
+                                  9.15: [-185, 0, 0], 9.3: [-25, 0, 0], 10.8: [-25, 0, 0]}},
+        "leftArm": {"rotation": {0: N, 0.2: [-20, 0, 0], 2.2: [-20, 0, 0], 4.2: [-170, 0, 0],
+                                 9.15: [-175, 0, 0], 9.3: [-25, 0, 0], 10.8: [-25, 0, 0]}},
+    }), {**{4.2 + i * 0.4: fx("hand_charge") + fx("aura_soul", "body_center") for i in range(12)},
+         9.3: fx("sword_trail_red") + fx("sword_trail_red", "body_center")})
+
     # 13 飛燕斬月: 右→左、左→右と二度の横薙ぎで斬撃を飛ばす
     A[13] = anim(1.2, {
         "rightArm": {"rotation": {0: HOLD_R, 0.2: [-90, 80, 0], 0.32: [-90, -85, 0], 0.65: [-95, -85, 0],
@@ -285,6 +287,90 @@ def skill_anims():
         "rightArm": {"rotation": {0: HOLD_R, 0.4: [-90, -20, 0], 2.6: [-90, -20, 0], 3.0: HOLD_R}},
         "leftArm": {"rotation": {0: N, 0.4: [-90, 20, 0], 2.6: [-90, 20, 0], 3.0: N}},
     }, {t / 10: fx("sword_trail_red") for t in range(4, 27, 3)})
+    # 24 地走り・波紋: 振りかぶっては地面に突き立てる × 4
+    r, bd, rt = {0: HOLD_R}, {0: N}, {0: N}
+    for t0 in (0.5, 1.1, 1.7, 2.3):
+        r.update({t0 - 0.25: [-175, 0, 0], t0: [-40, 0, 0], t0 + 0.2: [-40, 0, 0]})
+        bd.update({t0 - 0.25: [-10, 0, 0], t0: [35, 0, 0], t0 + 0.2: [35, 0, 0]})
+        rt.update({t0 - 0.25: N, t0: [0, -3, 0], t0 + 0.2: [0, -3, 0]})
+    r.update({3.0: HOLD_R}); bd.update({3.0: N}); rt.update({3.0: N})
+    A[24] = anim(4.4, {"rightArm": {"rotation": r}, "body": {"rotation": bd}, "root": {"position": rt},
+                       "leftArm": {"rotation": {0: N, 0.3: [-160, 0, 0], 2.5: [-160, 0, 0], 3.0: N}}},
+                {t0: fx("sword_trail_red") for t0 in (0.5, 1.1, 1.7, 2.3)})
+
+    # 25 百花繚乱: 居合の構え → 斬り抜け × 6 → 納刀
+    r, bd, rt, rl, ll = {0: HOLD_R, 0.2: [-30, 70, 0]}, {0: N, 0.2: [15, 40, 0]}, {0: N}, {0: N}, {0: N}
+    for k in range(6):
+        t = 1.0 + 0.5 * k
+        r.update({t: [-30, 70, 0], t + 0.24: [-30, 70, 0], t + 0.27: [-95, -90, 0], t + 0.45: [-90, -80, 0]})
+        bd.update({t: [15, 40, 0], t + 0.24: [15, 40, 0], t + 0.27: [25, -45, 0], t + 0.45: [20, -40, 0]})
+        rt.update({t + 0.24: [0, -1, 0], t + 0.27: [0, -3, 0], t + 0.45: [0, -2, 0]})
+        rl.update({t + 0.27: [-45, 0, 0]}); ll.update({t + 0.27: [40, 0, 0]})
+    r.update({4.2: [-30, 70, 0], 4.4: [-20, 60, 0], 4.8: HOLD_R})
+    bd.update({4.2: [10, 30, 0], 4.4: [15, 0, 0], 4.8: N})
+    rt.update({4.2: N}); rl.update({4.2: N}); ll.update({4.2: N})
+    A[25] = anim(4.8, {"rightArm": {"rotation": r}, "body": {"rotation": bd}, "root": {"position": rt},
+                       "rightLeg": {"rotation": rl}, "leftLeg": {"rotation": ll},
+                       "leftArm": {"rotation": {0: N, 0.2: [-40, 30, 0], 4.2: [-40, 30, 0], 4.8: N}}},
+                {**{1.27 + 0.5 * k: fx("sword_trail_red") + fx("petal", "body_center") for k in range(6)},
+                 0.2: fx("hand_charge"), 4.4: fx("petal", "body_center")})
+
+    # 26 鞘鳴り: 静かな居合 → 鍔鳴り（納刀）
+    trem = {0: N, 0.2: [10, 40, 0]}
+    for i in range(16):
+        trem[1.2 + i * 0.15] = [10 + (i % 2) * 0.7, 40, 0]
+    trem.update({3.55: [10, 40, 0], 3.65: [20, 0, 0], 4.2: [15, 0, 0]})
+    A[26] = anim(4.2, {
+        "body": {"rotation": trem},
+        "root": {"position": {0: N, 0.2: [0, -2, 0], 3.55: [0, -2, 0], 3.65: N}},
+        "rightArm": {"rotation": {0: HOLD_R, 0.2: [-30, 75, 0], 3.55: [-30, 75, 0], 3.6: [-95, -90, 0],
+                                  3.65: [-20, 60, 0], 4.2: [-20, 60, 0]}},
+        "leftArm": {"rotation": {0: N, 0.2: [-40, 30, 0], 3.65: [-40, 30, 0], 4.2: [-30, 20, 0]}},
+        "rightLeg": {"rotation": {0: N, 0.2: [-25, 0, 0], 3.65: [-25, 0, 0], 4.2: N}},
+        "leftLeg": {"rotation": {0: N, 0.2: [25, 0, 0], 3.65: [25, 0, 0], 4.2: N}},
+    }, {1.2: fx("hand_charge"), 3.6: fx("sword_trail") + fx("sword_trail", "body_center")})
+
+    # 27 業火螺旋: 刀を天に掲げて回り、最後に叩きつける
+    A[27] = anim(2.6, {
+        "root": {"rotation": {0: N, 0.3: [0, 60, 0], 1.95: [0, 600, 0], 2.0: [0, 720, 0], 2.6: [0, 720, 0]}},
+        "rightArm": {"rotation": {0: HOLD_R, 0.3: [-180, 0, 0], 1.95: [-180, 0, 0], 2.05: [-40, 0, 0],
+                                  2.6: HOLD_R}},
+        "leftArm": {"rotation": {0: N, 0.3: [-90, 0, 0], 1.95: [-90, 0, 0], 2.05: [-30, 0, 0], 2.6: N}},
+        "body": {"rotation": {0: N, 1.95: [-10, 0, 0], 2.05: [35, 0, 0], 2.6: N}},
+    }, {**{0.4 + i * 0.25: fx("sword_trail_red") for i in range(7)}, 2.05: fx("sword_trail_red", "body_center")})
+
+    # 30 登場: 煙管をふかす → 抜刀して構える
+    A[30] = anim(4.4, {
+        "leftArm": {"rotation": {0: [-125, 35, 0], 2.0: [-125, 35, 0], 2.4: N, 4.4: N}},
+        "head": {"rotation": {0: [10, 0, 0], 0.6: [-8, 0, 0], 1.2: [10, 0, 0], 2.4: N}},
+        "rightArm": {"rotation": {0: [-10, 0, 0], 2.5: [-30, 70, 0], 2.7: [-30, 70, 0], 2.8: [-95, -90, 0],
+                                  3.2: [-90, -80, 0], 3.8: HOLD_R}},
+        "body": {"rotation": {0: N, 2.5: [10, 35, 0], 2.7: [10, 35, 0], 2.8: [10, -40, 0], 3.8: N}},
+    }, {0.5: fx("smoke", "left_hand"), 1.0: fx("smoke", "left_hand"), 1.5: fx("smoke", "left_hand"),
+        2.8: fx("sword_trail") + fx("sword_trail", "body_center")})
+
+    # 31 終焉化: うずくまって力を溜め → 咆哮 → 構え直す
+    trem = {0: N}
+    for i in range(12):
+        trem[0.2 + i * 0.2] = [30 + (i % 2) * 2, 0, 0]
+    trem.update({2.75: [30, 0, 0], 2.85: [-25, 0, 0], 3.7: [-25, 0, 0], 4.0: N})
+    A[31] = anim(5.0, merge(kneel(0.2, 2.75, -4), {
+        "root": {"position": {2.85: N, 5.0: N}},
+        "rightLeg": {"rotation": {2.85: N}}, "leftLeg": {"rotation": {2.85: N}},
+        "body": {"rotation": trem},
+        "rightArm": {"rotation": {0: HOLD_R, 0.2: [-10, 0, 20], 2.75: [-10, 0, 20], 2.85: [-160, 0, 40],
+                                  3.7: [-160, 0, 40], 4.0: HOLD_R}},
+        "leftArm": {"rotation": {0: N, 0.2: [-10, 0, -20], 2.75: [-10, 0, -20], 2.85: [-160, 0, -40],
+                                 3.7: [-160, 0, -40], 4.0: N}},
+        "head": {"rotation": {0: N, 0.2: [30, 0, 0], 2.75: [30, 0, 0], 2.85: [-35, 0, 0], 3.7: [-35, 0, 0], 4.0: N}},
+    }), {2.85: fx("sword_trail_red", "body_center") + fx("aura_flame", "right_foot") + fx("aura_flame", "left_foot")})
+
+    # 32 宿敵: 相手に刀の切っ先を向ける
+    A[32] = anim(9.0, {
+        "rightArm": {"rotation": {0: HOLD_R, 4.5: HOLD_R, 4.8: [-90, 0, 0], 7.8: [-90, 0, 0], 8.1: HOLD_R}},
+        "body": {"rotation": {0: N, 4.8: [0, 10, 0], 7.8: [0, 10, 0], 8.1: N}},
+        "leftArm": {"rotation": {0: N, 1.0: [-125, 35, 0], 2.4: [-125, 35, 0], 2.8: N}},
+    }, {1.3: fx("smoke", "left_hand"), 4.8: fx("sword_trail")})
     return A
 
 
@@ -346,7 +432,7 @@ def short_names(skill_ids):
     return names
 
 
-NO_LOOK = {3, 11, 20, 23}  # 回転する技・最終演技は頭を固定しない
+NO_LOOK = {3, 11, 20, 23, 27}  # 回転する技・最終演技は頭を固定しない
 
 
 def controllers(skill_ids):
@@ -379,6 +465,7 @@ def controllers(skill_ids):
 
 
 PARTICLE_MAP = {
+    "smoke": "byakuya:smoke_puff", "petal": "byakuya:petal_burst",
     "sword_trail": "byakuya:sword_trail", "sword_trail_red": "byakuya:sword_trail_red",
     "hand_charge": "byakuya:hand_charge", "aura_flame": "byakuya:aura_flame",
     "aura_soul": "byakuya:aura_soul", "blade_halo": "byakuya:blade_halo",

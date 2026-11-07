@@ -53,6 +53,12 @@
         "s17": "animation.hitori.skill_17",
         "s18": "animation.hitori.skill_18",
         "s20": "animation.hitori.skill_20",
+        "s21": "animation.hitori.skill_21",
+        "s22": "animation.hitori.skill_22",
+        "s23": "animation.hitori.skill_23",
+        "s30": "animation.hitori.skill_30",
+        "s31": "animation.hitori.skill_31",
+        "s32": "animation.hitori.skill_32",
         "s99": "animation.hitori.skill_99"
       },
       "scripts": {

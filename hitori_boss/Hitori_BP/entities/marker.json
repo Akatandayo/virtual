@@ -135,6 +135,15 @@
             "inanimate"
           ]
         }
+      },
+      "loop_center": {
+        "minecraft:type_family": {
+          "family": [
+            "hitori_marker",
+            "loop_center",
+            "inanimate"
+          ]
+        }
       }
     },
     "components": {
@@ -277,6 +286,13 @@
         "add": {
           "component_groups": [
             "cube_b"
+          ]
+        }
+      },
+      "hitori:as_loop_center": {
+        "add": {
+          "component_groups": [
+            "loop_center"
           ]
         }
       }

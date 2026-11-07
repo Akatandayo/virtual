@@ -4,5 +4,7 @@ entity.byakuya:shadow.name=白夜の影
 entity.byakuya:slash_wave.name=飛ぶ斬撃
 entity.byakuya:homing_blade.name=追刃
 entity.byakuya:marker.name=目印
+entity.byakuya:blast.name=衝撃
+entity.byakuya:director.name=白石白夜
 pack.name=白石白夜 ボス
 pack.description=刀鍛冶「白石白夜」ボスアドオン

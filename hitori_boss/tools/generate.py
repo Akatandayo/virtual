@@ -17,6 +17,7 @@ import zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import hanims  # noqa: E402
 import hfx  # noqa: E402
+from cine import Cine, add_rival  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BP = os.path.join(ROOT, "Hitori_BP")
@@ -25,20 +26,21 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "hitori:denshi_hitori"
 NAME = "電子 独"
-VERSION = [1, 1, 0]
+VERSION = [1, 2, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "9b78d68f-ebde-4768-989c-96ab7fa09e02"
 UUID_BP_MODULE = "9263edb8-7005-4aa3-82a3-54ec6c07aaf0"
 UUID_RP_HEADER = "3afd756a-176b-43ec-a0d3-e9a6d255c62a"
 UUID_RP_MODULE = "3d795900-fa4f-42b5-ba52-110c1c66fda3"
 
-HP = 400            # エンダードラゴンの2倍（集団戦向けに強化）
-PHASE2_HP = 200     # 50%: ↓FREEDOM DiVE↓ 解放
-FINAL_HP = 100      # 25%: Re: End of a Dream
-GLITCH_LIMIT = {0: 6, 1: 8, 2: 8}   # 何回連続で当てれば Glitch が壊れるか
-HIT_COOLDOWN = 0.35  # 連打対策: この間隔より速いヒットは数えない
-DECAY = 1.5          # この秒数ごとに負荷が 1 下がる
-STUN = 5.0           # 強制解除の時間
+HP = 700            # 集団戦向けに強化
+PHASE2_HP = 350     # 50%: ↓FREEDOM DiVE↓ 解放
+FINAL_HP = 175      # 25%: Re: End of a Dream
+GLITCH_LIMIT = {0: 10, 1: 13, 2: 15}   # 何回連続で当てれば Glitch が壊れるか
+HIT_COOLDOWN = 0.5   # 連打対策: この間隔より速いヒットは数えない
+DECAY = 1.0          # この秒数ごとに負荷が 1 下がる
+STUN = 3.5           # 強制解除の時間
+REBOOT = 3.0         # 復帰後、負荷を受け付けない時間
 OBJ = "hitori_glitch"
 OBJ_PLAYERS = "hitori_players"
 STUN_V, FINAL_V = 99, 20
@@ -369,38 +371,154 @@ for k in range(3):
 skill(18, "Triple DiVE", 4.4, tl)
 
 
-# 20 Re: End of a Dream（HP25%で一度だけ）: 回転する 3 本のノイズビーム
-tl = {0: ["/title @a[r=64] title §b§lRe: End of a Dream", "/title @a[r=64] subtitle §7――夢の終わりを、もう一度",
-          "/effect %s darkness 9 0 true" % p(64), sound("beacon.power", 0.5, 64), pt("charge", "~ ~1 ~")],
-      1.0: [pt("dream_arms"), sound("beacon.activate", 0.5, 64)],
-      2.0: [say("§b独§7「……ねぇ。これが夢なら」")],
-      4.5: [say("§b独§7「覚めないでほしかったな」")]}
-t = 1.0
-while t <= 7.0 + 1e-6:
-    phi = 60 * (t - 1.0)
+# ===========================================================================
+# v1.2 追加技
+# ===========================================================================
+CINE = Cine("hitori_cine")
+FACE = "^ ^1.6 ^"
+ANYONE = "@p[r=64]"
+BYAKUYA_ID = "byakuya:shiraishi_byakuya"
+BYAKUYA = "@e[type=%s,c=1]" % BYAKUYA_ID
+
+# 21 BSOD: 画面が青く落ち、その間に背後から 3 回刺される
+tl = {0: [say("§9【BSOD】§7「あ、落ちた」"), "/camera %s fade time 0.15 1.8 0.4 color 16 56 190" % p(24),
+          "/title %s title §f:(" % p(24), "/title %s subtitle §fGLITCH が発生しました。再起動しています……" % p(24),
+          sound("random.glass", 0.4, 30), sound("note.bass", 0.5, 30)]}
+for i, t in enumerate((0.3, 0.7, 1.1, 1.5, 1.9)):
+    add(tl, t, ["/title %s actionbar §f%d%% 完了" % (p(24), i * 25)])
+for i, t in enumerate((0.5, 0.95, 1.4)):
+    add(tl, t, [pt("afterimage", "~ ~0.9 ~"), behind(1.4)])
+    add(tl, t + 0.1, ["/damage %s 11 entity_attack entity @s" % p(3.2), at_players(3.2, "noise_burst", "~ ~1 ~"),
+                      sound("random.glass", 0.9 + i * 0.2, 20), shake(0.4, 0.2, 8)])
+add(tl, 2.2, [flash(255, 255, 255, 24, (0, 0.05, 0.2)), pt("noise_big", "~ ~1 ~"), sound("beacon.activate", 1.6, 30)])
+skill(21, "BSOD", 2.6, tl)
+
+# 22 ♪Rhythm Line♪（FREEDOM DiVE 解放後）: 拍ごとに広がるリング。拍に合わせてジャンプで避ける
+tl = {0: [say("§b【♪Rhythm Line♪】§7「拍に合わせて、跳んでね」"),
+          "/title %s actionbar §b§l♪ リングが来たら ジャンプ！ ♪" % p(40), "/effect @s slowness 7 255 true"]}
+melody = [1.0, 1.19, 1.5, 1.78, 2.0, 1.78, 1.5, 1.19]
+for k in range(8):
+    t0 = 0.6 + 0.5 * k
+    add(tl, t0, [pt("rhythm_ring"), pt("note_hit", "~ ~0.3 ~"), sound("note.bit", melody[k], 48),
+                 sound("note.hat", 1.0, 48, 0.7), shake(0.15, 0.15, 24)])
+    for j in range(18):
+        rad = 1.5 + 0.9 * j
+        add(tl, t0 + 0.1 * j, [
+            "/execute as @a[rm=%.1f,r=%.1f,m=!creative] at @s unless block ~ ~-0.3 ~ air run damage @s 8 magic entity %s"
+            % (max(0, rad - 0.7), rad + 0.7, BOSS)])
+add(tl, 6.0, ["/title %s actionbar §b§lFULL COMBO……？" % p(40), flash(80, 220, 255, 32, (0, 0.05, 0.2))])
+skill(22, "Rhythm Line", 6.2, tl)
+
+# 23 Infinite Loop（FREEDOM DiVE 解放後）: 4 体の残像が周りを回り、中心へ収束して爆発
+tl = {0: [say("§3【Infinite Loop】§7「ずっと、ずっと、繰り返し」"), summon_marker("loop_center", at=NEAREST),
+          sound("beacon.activate", 1.4)] + ["/summon hitori:echo ~ ~ ~ hitori:echo_%d" % k for k in range(4)]}
+for t in (0.1, 0.7, 1.3, 1.8):
+    add(tl, t, [at_fam("loop_center", "particle hitori:zone_loop ~ ~0.1 ~"),
+                at_fam("loop_center", "particle hitori:warn_cyan ~ ~0.1 ~")])
+add(tl, 2.15, [at_fam("loop_center", "damage @a[r=3,m=!creative] 14 magic entity %s" % BOSS),
+               at_fam("loop_center", "summon hitori:blast ~ ~0.5 ~"),
+               at_fam("loop_center", "particle hitori:noise_big ~ ~1 ~"),
+               at_fam("loop_center", "particle hitori:shockwave ~ ~0.1 ~"), shake(0.8, 0.4, 24)])
+add(tl, 2.5, [despawn("loop_center")])
+skill(23, "Infinite Loop", 3.2, tl)
+
+# ===========================================================================
+# カットシーン
+# ===========================================================================
+# 30 登場: ノイズ混じりの細かいカット割り → 名乗り
+tl = {}
+add(tl, 0, CINE.begin(4.2) + ["/tp @s ~ ~ ~ facing %s" % ANYONE, CINE.cam("^3 ^1 ^3", FACE), CINE.fade(0, 0.1, 0.3),
+                              pt("noise_big", "~ ~1 ~"), sound("random.glass", 0.5, 64),
+                              "/scoreboard objectives add %s dummy" % OBJ, "/scoreboard players set @s %s 0" % OBJ,
+                              "/scoreboard objectives add %s dummy" % OBJ_PLAYERS])
+add(tl, 0.3, [CINE.cam("^-2 ^3 ^2", FACE), pt("noise_burst", "~ ~1 ~"), sound("note.bit", 1.5, 64)])
+add(tl, 0.6, [CINE.cam("^ ^0.4 ^4", FACE), pt("noise_burst", "~ ~1 ~"), sound("note.bit", 0.7, 64)])
+add(tl, 0.9, [CINE.cam("^ ^2 ^9", FACE), CINE.fade(0, 0.05, 0.1, (40, 220, 255))])
+add(tl, 1.0, [CINE.cam("^0.5 ^1.65 ^2.2", FACE, 1.8, "in_out_cubic")])
+add(tl, 2.9, ["/title @a[r=64] title §b電子 独", "/title @a[r=64] subtitle §7不具合・Glitch ―― 自我の使者",
+              pt("noise_big", "~ ~1 ~"), sound("beacon.activate", 0.5, 64), CINE.fade(0, 0.05, 0.25, (40, 220, 255))])
+add(tl, 3.2, [say("§b独§7「……あ、見つかっちゃった。じゃあ、遊ぼっか」")])
+add(tl, 3.9, CINE.end() + ["/" + 'tellraw @a[r=64] {"rawtext":[{"text":"§8[TIP] §7Glitch 展開中は攻撃が効かない。§b短い間隔で連続ヒット§7させて負荷をかけろ！"}]}'])
+skill(30, "登場", 4.0, tl)
+
+# 31 ↓FREEDOM DiVE↓ 解放（HP50%）: 見上げるカット → 真上からの落下視点 → 急降下
+tl = {}
+add(tl, 0, CINE.begin(5) + ["/tp @s ~ ~ ~ facing %s" % ANYONE, CINE.cam("^ ^0.2 ^4.5", "^ ^2.5 ^"),
+                            CINE.fade(0, 0.1, 0.4, (40, 220, 255)), "/title @a[r=64] title §b§l↓FREEDOM DiVE↓",
+                            "/title @a[r=64] subtitle §7――『落下』の概念、解放", pt("arrow_rain"),
+                            sound("mob.wither.spawn", 1.4, 64), pt("charge", "~ ~3 ~")])
+add(tl, 1.0, [CINE.cam("^ ^1 ^7", "^ ^5 ^", 1.0, "in_out_sine"), pt("noise_burst", "~ ~5 ~")])
+add(tl, 2.0, [CINE.cam("^0.3 ^12 ^0.3", "^ ^ ^"), sound("note.bit", 2.0, 64), pt("fall_pixels", "~ ~6 ~")])
+add(tl, 2.4, [CINE.cam("^ ^3 ^0.6", "^ ^ ^", 0.45, "in_expo"), sound("mob.enderdragon.flap", 1.4, 64)])
+add(tl, 2.9, ["/summon hitori:blast ~ ~0.5 ~", pt("shockwave_big", "~ ~0.1 ~"), pt("noise_big", "~ ~1 ~"),
+              pt("fall_pixels"), pt("arrow_rain"), sound("random.explode", 1.0, 64), sound("note.bit", 0.5, 64),
+              CINE.fade(0, 0.05, 0.3, (255, 255, 255)), shake(1.5, 0.6, 48)])
+add(tl, 3.4, [CINE.cam("^0.5 ^1.62 ^1.4", FACE), say("§b独§7「――ここからは、落ちるだけだよ」")])
+add(tl, 4.6, CINE.end() + ["/" + 'tellraw @a[r=64] {"rawtext":[{"text":"§8[TIP] §7独が『落下』の能力を解放した。落下技が解禁、Glitch 負荷上限アップ"}]}'])
+skill(31, "FREEDOM DiVE 解放", 5.0, tl)
+
+# 32 宿敵（白石白夜側のカットシーンに合わせて、こちらは相手の方を向いて止まる）
+tl = {0.05: ["/tp @s ~ ~ ~ facing %s" % BYAKUYA], 2.5: ["/tp @s ~ ~ ~ facing %s" % BYAKUYA],
+      6.3: ["/tp @s ~ ~ ~ facing %s" % BYAKUYA], 8.0: [pt("noise_big", "~ ~1 ~")]}
+skill(32, "宿敵", 9.0, tl)
+
+# 20 Re: End of a Dream（HP25%で一度だけ）: 顔のアップ → 真上からの俯瞰 → 回転するノイズビーム
+tl = {}
+add(tl, 0, CINE.begin(2.4) + ["/tp @s ~ ~ ~ facing %s" % ANYONE, CINE.cam("^0.4 ^1.65 ^1.3", "^ ^1.6 ^"),
+                              CINE.fade(0, 0.2, 0.8, (255, 255, 255)),
+                              "/title @a[r=64] title §b§lRe: End of a Dream", "/title @a[r=64] subtitle §7――夢の終わりを、もう一度",
+                              "/effect %s darkness 11 0 true" % p(64), sound("beacon.power", 0.5, 64), pt("charge", "~ ~1 ~")])
+add(tl, 0.9, [CINE.cam("^ ^20 ^0.01", "^ ^ ^"), pt("charge", "~ ~1 ~"), sound("beacon.activate", 0.5, 64)])
+add(tl, 1.5, [CINE.cam("^ ^14 ^0.01", "^ ^ ^", 0.8, "in_out_sine")])
+add(tl, 2.4, [CINE.fade(0, 0.05, 0.2, (255, 255, 255))] + CINE.end()
+    + ["/title @a[r=64] actionbar §b§l回転するビームから逃げ続けろ！"])
+DREAM_T0 = 2.6
+add(tl, DREAM_T0, [pt("dream_arms"), sound("beacon.activate", 0.5, 64)])
+add(tl, 3.5, [say("§b独§7「……ねぇ。これが夢なら」")])
+add(tl, 6.0, [say("§b独§7「覚めないでほしかったな」")])
+t = DREAM_T0
+while t <= DREAM_T0 + 6.0 + 1e-6:
+    phi = 60 * (t - DREAM_T0)
     cmds = []
     for k in range(3):
         ang = phi + 120 * k
         for d in (2, 4.5, 7, 9.5, 12, 14.5, 17, 19.5):
-            cmds.append("/execute at @s rotated %.1f 0 positioned ^ ^1 ^%.1f run damage @a[r=1.6,m=!creative] 12 magic "
+            cmds.append("/execute at @s rotated %.1f 0 positioned ^ ^1 ^%.1f run damage @a[r=1.6,m=!creative] 13 magic "
                         "entity @s" % (ang, d))
     if abs((t * 2) - round(t * 2)) < 1e-6:
-        cmds.append(sound("note.bit", 0.5 + (t - 1) * 0.2, 64, 0.7))
+        cmds.append(sound("note.bit", 0.5 + (t - DREAM_T0) * 0.2, 64, 0.7))
     add(tl, t, cmds)
     t = round(t + 0.25, 2)
-add(tl, 7.3, [say("§b独§7「――おはよう」"), pt("destruction", "~ ~1 ~"), pt("shockwave_big", "~ ~0.1 ~"),
-              "/damage %s 20 magic entity @s" % p(8), flash(255, 255, 255, 64, (0.1, 0.3, 0.8)), shake(2.0, 0.8, 48),
-              sound("random.explode", 0.6, 64)])
-skill(FINAL_V, "Re: End of a Dream", 8.0, tl)
+add(tl, 8.9, [say("§b独§7「――おはよう」"), pt("destruction", "~ ~1 ~"), pt("shockwave_big", "~ ~0.1 ~"),
+              "/damage %s 22 magic entity @s" % p(8), "/summon hitori:blast ~ ~0.5 ~ hitori:big",
+              flash(255, 255, 255, 64, (0.1, 0.3, 0.8)), shake(2.0, 0.8, 48), sound("random.explode", 0.6, 64)])
+skill(FINAL_V, "Re: End of a Dream", 9.6, tl)
 
 # 99 強制解除（スタン）
 tl = {0: ["/title @a[r=48] title §c§lFATAL ERROR", "/title @a[r=48] subtitle §7Glitch 強制解除 ―― 今なら攻撃が通る！",
           pt("noise_big", "~ ~1 ~"), pt("error_popup", "~ ~1 ~"), sound("random.glass", 0.5, 48),
           sound("beacon.deactivate", 0.6, 48), flash(255, 255, 255, 32, (0, 0.05, 0.2))]}
-for i in range(1, 5):
+for i in range(1, int(STUN) + 1):
     add(tl, float(i), [pt("error_popup", "~ ~1 ~"), sound("note.bit", 0.5, 30, 0.6)])
 add(tl, STUN - 1.0, ["/title @a[r=48] actionbar §eGlitch 再起動まで 1秒……"])
 skill(STUN_V, "強制解除", STUN, tl)
+
+CINE_V = [FINAL_V, 30, 31, 32]
+
+# 撃破カットシーン（監督役の見えないエンティティが再生する）
+DEATH = {}
+add(DEATH, 0, CINE.begin(6) + [CINE.cam("~3 ~1.4 ~-3", "~ ~1 ~"), CINE.fade(0, 0.2, 0.8, (40, 220, 255)),
+                              pt("noise_big", "~ ~1 ~"), pt("error_popup", "~ ~1 ~"),
+                              "/playsound beacon.deactivate @a[r=64] ~ ~ ~ 1 0.5"])
+add(DEATH, 0.1, [CINE.cam("~3 ~1.6 ~3", "~ ~1 ~", 1.7, "linear")])
+add(DEATH, 0.8, [say("§b独§7「……あーあ。バグ、直されちゃった」")])
+add(DEATH, 1.8, [CINE.cam("~-3 ~2 ~3", "~ ~1 ~", 1.7, "linear"), pt("error_popup", "~ ~1 ~")])
+add(DEATH, 3.0, [say("§b独§7「……でも、楽しかったよ。また、遊んでね」"), pt("noise_burst", "~ ~1 ~")])
+add(DEATH, 3.6, [CINE.cam("~ ~8 ~0.5", "~ ~0.5 ~", 1.2, "in_out_sine")])
+add(DEATH, 4.6, [pt("noise_big", "~ ~1 ~"), pt("fall_pixels"), "/playsound random.glass @a[r=64] ~ ~ ~ 1 0.5"])
+add(DEATH, 5.3, [CINE.fade(0, 0.1, 0.6, (40, 220, 255))] + CINE.end())
+add(DEATH, 5.5, ["@s hitori:despawn"])
+DEATH = {"%.2f" % k: v for k, v in sorted(DEATH.items())}
 
 
 # ---------------------------------------------------------------------------
@@ -426,7 +544,9 @@ def phase_group(skin, speed, dmg, timer):
                                 "time_down_event": {"event": "hitori:choose_skill", "target": "self"}}}
 
 
-SENSORS = ["glitch_on", "glitch_cd", "stunned_sensor", "final_guard"]
+SENSORS = ["glitch_on", "glitch_cd", "glitch_reboot", "stunned_sensor", "final_guard"]
+FOE = {"any_of": [{"test": "is_family", "subject": "other", "value": "player"},
+                  {"test": "is_family", "subject": "other", "value": "byakuya"}]}
 
 
 def meter(n, limit):
@@ -438,22 +558,26 @@ def meter(n, limit):
 def bp_entity():
     immune = [{"cause": c, "deal_damage": False} for c in ("fall", "suffocation", "fire", "fire_tick", "lava",
                                                            "drowning", "magic", "entity_explosion", "lightning")]
+    all_off = {"minecraft:damage_sensor": {"triggers": [{"cause": "all", "deal_damage": False}]}}
     groups = {
-        "phase_1": phase_group(0, 0.32, 15, [2.5, 4.0]),
-        "phase_2": phase_group(1, 0.36, 18, [2.0, 3.0]),
-        "phase_3": phase_group(2, 0.4, 22, [1.5, 2.5]),
-        # Glitch 展開中: すべて無効。プレイヤーの攻撃は「負荷」として数える
+        "phase_1": phase_group(0, 0.33, 16, [2.3, 3.6]),
+        "phase_2": phase_group(1, 0.37, 20, [1.8, 2.8]),
+        "phase_3": phase_group(2, 0.41, 25, [1.4, 2.3]),
+        # Glitch 展開中: すべて無効。プレイヤー（と白夜）の攻撃は「負荷」として数える
         "glitch_on": {"minecraft:damage_sensor": {"triggers": [
-            {"on_damage": {"filters": {"test": "is_family", "subject": "other", "value": "player"},
-                           "event": "hitori:glitch_hit"}, "deal_damage": False},
+            {"on_damage": {"filters": FOE, "event": "hitori:glitch_hit"}, "deal_damage": False},
             {"cause": "projectile", "on_damage": {"event": "hitori:glitch_hit"}, "deal_damage": False},
             {"cause": "all", "deal_damage": False}]}},
         # 連打対策のクールダウン中（is_sheared は BP コントローラーで時間を測る目印）
-        "glitch_cd": {"minecraft:is_sheared": {},
-                      "minecraft:damage_sensor": {"triggers": [{"cause": "all", "deal_damage": False}]}},
-        # 強制解除中: ダメージが通る
-        "stunned_sensor": {"minecraft:damage_sensor": {"triggers": immune[:4]}},
-        "final_guard": {"minecraft:damage_sensor": {"triggers": [{"cause": "all", "deal_damage": False}]}},
+        "glitch_cd": dict(all_off, **{"minecraft:is_sheared": {}}),
+        # 強制解除から復帰した直後の再構築中（is_charged が目印）: 負荷を受け付けない
+        "glitch_reboot": dict(all_off, **{"minecraft:is_charged": {}}),
+        # 強制解除中: ダメージが通る（近接 70%・飛び道具 50%）
+        "stunned_sensor": {"minecraft:damage_sensor": {"triggers": immune[:4] + [
+            {"cause": "entity_explosion", "deal_damage": False},
+            {"cause": "entity_attack", "damage_multiplier": 0.7},
+            {"cause": "projectile", "damage_multiplier": 0.5}]}},
+        "final_guard": dict(all_off),
         "ai": {
             "minecraft:behavior.float": {"priority": 0},
             "minecraft:behavior.melee_attack": {"priority": 2, "speed_multiplier": 1.3, "track_target": True},
@@ -461,7 +585,9 @@ def bp_entity():
             "minecraft:behavior.nearest_attackable_target": {
                 "priority": 2, "must_see": False, "reselect_targets": True, "within_radius": 48,
                 "entity_types": [{"filters": {"test": "is_family", "subject": "other", "value": "player"},
-                                  "max_dist": 48}]},
+                                  "max_dist": 48},
+                                 {"filters": {"test": "is_family", "subject": "other", "value": "byakuya"},
+                                  "max_dist": 40}]},
             "minecraft:behavior.random_stroll": {"priority": 6, "speed_multiplier": 0.8},
             "minecraft:behavior.look_at_player": {"priority": 7, "look_distance": 16},
         },
@@ -478,8 +604,12 @@ def bp_entity():
     def sensor(name):
         return [s for s in SENSORS if s != name], [name]
 
-    not_busy = {"all_of": [{"test": "is_mark_variant", "operator": "!=", "value": STUN_V},
-                           {"test": "is_mark_variant", "operator": "!=", "value": FINAL_V}]}
+    def cine(v, add_=(), remove_=()):
+        rm_, ad_ = sensor("final_guard")
+        return set_variant(v, ad_ + list(add_), rm_ + ["ai"] + list(remove_))
+
+    busy_v = [STUN_V] + CINE_V
+    not_busy = {"all_of": [{"test": "is_mark_variant", "operator": "!=", "value": b} for b in busy_v]}
 
     rm, ad = sensor("glitch_cd")
     hit_seq = [{"remove": {"component_groups": rm}, "add": {"component_groups": ad},
@@ -492,70 +622,70 @@ def bp_entity():
     for skin, limit in GLITCH_LIMIT.items():
         hit_seq.append({"filters": {"test": "is_skin_id", "value": skin}, "queue_command": {"command":
                         [meter(n, limit) for n in range(1, limit)] +
-                        ["execute if score @s %s matches %d.. run event entity @s hitori:glitch_break" % (OBJ, limit)]}})
+                        ["execute if score @s %s matches %d.. run event entity @s hitori:glitch_break" % (OBJ, limit),
+                         # 負荷が上限近くになると、確率で「過負荷放出」して周りを吹き飛ばす
+                         "execute if score @s %s matches %d..%d run event entity @s hitori:purge_roll"
+                         % (OBJ, limit - 3, limit - 1)]}})
 
     rm_s, ad_s = sensor("stunned_sensor")
+    rm_r, ad_r = sensor("glitch_reboot")
     rm_g, ad_g = sensor("glitch_on")
+    stun_n = int(math.ceil(STUN))
     events = {
-        "minecraft:entity_spawned": {
-            "add": {"component_groups": ["phase_1", "v_0", "glitch_on", "ai"]},
-            "queue_command": {"command": [
-                "scoreboard objectives add %s dummy" % OBJ,
-                "scoreboard players set @s %s 0" % OBJ,
-                "scoreboard objectives add %s dummy" % OBJ_PLAYERS,
-                "title @a[r=64] title §b電子 独",
-                "title @a[r=64] subtitle §7不具合・Glitch ―― 自我の使者",
-                "playsound beacon.activate @a[r=64] ~ ~ ~ 1 0.5",
-                "playsound random.glass @a[r=64] ~ ~ ~ 1 0.5",
-                "particle hitori:noise_big ~ ~1 ~",
-                "particle hitori:shockwave_big ~ ~0.1 ~",
-                'tellraw @a[r=64] {"rawtext":[{"text":"§8[TIP] §7Glitch 展開中は攻撃が効かない。§b短い間隔で連続ヒット§7させて負荷をかけろ！（人数が多いほど、強制解除中の防御が上がる）"}]}',
-            ]},
-        },
+        "minecraft:entity_spawned": {"add": {"component_groups": ["phase_1", "v_30", "final_guard"]}},
         "hitori:glitch_hit": {"sequence": hit_seq},
         "hitori:cd_end": {"sequence": [{"filters": not_busy, "remove": {"component_groups": ["glitch_cd"]},
                                         "add": {"component_groups": ["glitch_on"]}}]},
+        "hitori:purge_roll": {"randomize": [{"weight": 35, "trigger": "hitori:purge"}, {"weight": 65, "queue_command": {
+            "command": ["particle hitori:noise_burst ~ ~1.5 ~"]}}]},
+        "hitori:purge": {"queue_command": {"command": [
+            "scoreboard players remove @s %s 4" % OBJ,
+            "summon hitori:blast ~ ~0.8 ~",
+            "particle hitori:noise_big ~ ~1 ~", "particle hitori:shockwave ~ ~0.1 ~",
+            "playsound beacon.deactivate @a[r=24] ~ ~ ~ 1 1.8",
+            "title @a[r=32] actionbar §c§l◆ OVERLOAD PURGE ◆ §7負荷 -4",
+            "camerashake add @a[r=12] 0.6 0.3 positional"]}},
         # 強制解除: 周りのプレイヤー人数に応じて、スタン中の被ダメージを軽減（集団戦対策）
         "hitori:glitch_break": dict(set_variant(STUN_V, ad_s, rm_s + ["ai"]), queue_command={"command": [
             "scoreboard players set @s %s 0" % OBJ,
             "scoreboard players set @s %s 0" % OBJ_PLAYERS,
             "execute as @a[r=40,m=!creative] run scoreboard players add %s %s 1" % (BOSS, OBJ_PLAYERS),
-            "execute if score @s %s matches 2 run effect @s resistance %d 0 true" % (OBJ_PLAYERS, STUN),
-            "execute if score @s %s matches 3 run effect @s resistance %d 1 true" % (OBJ_PLAYERS, STUN),
-            "execute if score @s %s matches 4.. run effect @s resistance %d 2 true" % (OBJ_PLAYERS, STUN),
+            "execute if score @s %s matches 2 run effect @s resistance %d 0 true" % (OBJ_PLAYERS, stun_n),
+            "execute if score @s %s matches 3 run effect @s resistance %d 1 true" % (OBJ_PLAYERS, stun_n),
+            "execute if score @s %s matches 4.. run effect @s resistance %d 2 true" % (OBJ_PLAYERS, stun_n),
             "execute if score @s %s matches 2.. run title @a[r=48] actionbar §7人数補正：強制解除中の被ダメージ軽減" % OBJ_PLAYERS]}),
-        "hitori:glitch_restore": dict(set_variant(0, ad_g + ["ai"], rm_g), queue_command={"command": [
+        # 復帰: しばらくは再構築中で負荷を受け付けない
+        "hitori:glitch_restore": dict(set_variant(0, ad_r + ["ai"], rm_r), queue_command={"command": [
             "scoreboard players set @s %s 0" % OBJ,
-            "title @a[r=48] actionbar §c§lGlitch 再起動",
+            "title @a[r=48] actionbar §c§lGlitch 再構築中…… §7(%d秒間 負荷無効)" % int(REBOOT),
             "particle hitori:noise_big ~ ~1 ~", "particle hitori:shockwave ~ ~0.1 ~",
+            "summon hitori:blast ~ ~0.8 ~",
             "playsound beacon.activate @a[r=32] ~ ~ ~ 1 1.5"]}),
+        "hitori:reboot_end": {"sequence": [{"filters": not_busy, "remove": {"component_groups": ["glitch_reboot"]},
+                                            "add": {"component_groups": ["glitch_on"]},
+                                            "queue_command": {"command": [
+                                                "title @a[r=48] actionbar §b§lGlitch 再起動完了"]}}]},
         "hitori:skill_end": {"sequence": [{"filters": not_busy, **set_variant(0)}]},
-        "hitori:phase2": {
-            "remove": {"component_groups": ["phase_1"]}, "add": {"component_groups": ["phase_2"]},
-            "queue_command": {"command": [
-                "title @a[r=64] title §b§l↓FREEDOM DiVE↓", "title @a[r=64] subtitle §7――『落下』の概念、解放",
-                "particle hitori:arrow_rain ~ ~ ~", "particle hitori:fall_pixels ~ ~ ~",
-                "playsound mob.wither.spawn @a[r=64] ~ ~ ~ 1 1.4", "particle hitori:noise_big ~ ~1 ~",
-                "particle hitori:shockwave_big ~ ~0.1 ~", "camerashake add @a[r=32] 1.0 0.6 positional",
-                'tellraw @a[r=64] {"rawtext":[{"text":"§8[TIP] §7独が『落下』の能力を解放した。落下技が解禁、Glitch 負荷上限 8"}]}']}},
-        "hitori:final": set_variant(FINAL_V, ["final_guard", "phase_3"],
-                                    ["glitch_on", "glitch_cd", "stunned_sensor", "phase_1", "phase_2"]),
-        "hitori:final_end": dict(set_variant(0, ["glitch_on"], ["final_guard", "glitch_cd"]), queue_command={"command": [
+        "hitori:cine_end": dict(set_variant(0, ad_g + ["ai"], rm_g), queue_command={"command": [
             "scoreboard players set @s %s 0" % OBJ]}),
+        "hitori:phase2": cine(31, ["phase_2"], ["phase_1"]),
+        "hitori:final": cine(FINAL_V, ["phase_3"], ["phase_1", "phase_2"]),
+        "hitori:rival_cut": {"sequence": [{"filters": {"test": "is_mark_variant", "value": 0}, **cine(32)}]},
     }
     for v in sorted(SKILLS):
-        if v not in (STUN_V, FINAL_V):
+        if v not in busy_v:
             events["hitori:skill_%d" % v] = set_variant(v)
 
-    near1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11]
-    far1 = [1, 2, 3, 3, 7, 8, 10, 10, 11, 11]
-    near2 = near1 + [12, 13, 14, 15, 16, 17, 18, 5, 6]
-    far2 = far1 + [12, 13, 14, 15, 16, 16, 17, 17, 18, 18]
+    near1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 21]
+    far1 = [1, 2, 3, 3, 7, 8, 10, 10, 11, 11, 21]
+    near2 = near1 + [12, 13, 14, 15, 16, 17, 18, 5, 6, 22, 23]
+    far2 = far1 + [12, 13, 14, 15, 16, 16, 17, 17, 18, 18, 22, 23]
     near_f = {"test": "distance_to_nearest_player", "operator": "<=", "value": 7}
     far_f = {"test": "distance_to_nearest_player", "operator": ">", "value": 7}
     base = [{"test": "is_mark_variant", "value": 0}, {"test": "has_target", "value": True}]
     seq = []
-    for skin, near, far in ((0, near1, far1), (1, near2, far2), (2, near2 + [13, 15, 18], far2 + [13, 14, 18])):
+    for skin, near, far in ((0, near1, far1), (1, near2, far2),
+                            (2, near2 + [13, 15, 18, 22], far2 + [13, 14, 18, 23])):
         for cond, lst in ((near_f, near), (far_f, far)):
             seq.append({"filters": {"all_of": base + [{"test": "is_skin_id", "value": skin}, cond]},
                         "randomize": [{"weight": 10, "trigger": "hitori:skill_%d" % s} for s in lst]})
@@ -575,29 +705,33 @@ def bp_entity():
         "minecraft:breathable": {"total_supply": 15, "suffocate_time": 0, "breathes_water": True},
         "minecraft:jump.static": {},
         "minecraft:movement.basic": {},
-        "minecraft:movement": {"value": 0.32},
+        "minecraft:movement": {"value": 0.33},
         "minecraft:navigation.walk": {"can_path_over_water": True, "avoid_damage_blocks": True},
         "minecraft:follow_range": {"value": 48, "max": 64},
-        "minecraft:attack": {"damage": 15},
+        "minecraft:attack": {"damage": 16},
         "minecraft:loot": {"table": "loot_tables/entities/denshi_hitori.json"},
-        "minecraft:experience_reward": {"on_death": "1000"},
+        "minecraft:experience_reward": {"on_death": "1200"},
         "minecraft:environment_sensor": {"triggers": [
             {"filters": {"all_of": [{"test": "actor_health", "operator": "<=", "value": PHASE2_HP},
-                                    {"test": "is_skin_id", "value": 0}]}, "event": "hitori:phase2"},
+                                    {"test": "is_skin_id", "value": 0}] + not_busy["all_of"]},
+             "event": "hitori:phase2"},
             {"filters": {"all_of": [{"test": "actor_health", "operator": "<=", "value": FINAL_HP},
-                                    {"test": "is_skin_id", "value": 1},
-                                    {"test": "is_mark_variant", "value": 0}]}, "event": "hitori:final"},
+                                    {"test": "is_skin_id", "value": 1}] + not_busy["all_of"]},
+             "event": "hitori:final"},
         ]},
     }
     return {"format_version": "1.21.0", "minecraft:entity": {
         "description": {"identifier": ID, "is_spawnable": True, "is_summonable": True, "is_experimental": False,
-                        "scripts": {"animate": ["skills", "cooldown", "decay", "death", "bgm"]},
+                        "scripts": {"animate": ["skills", "cooldown", "reboot", "decay", "death", "bgm"]},
                         "animations": {"skills": "controller.animation.hitori.skills",
                                        "cooldown": "controller.animation.hitori.cooldown",
+                                       "reboot": "controller.animation.hitori.reboot",
                                        "decay": "animation.hitori.decay",
                                        "death": "controller.animation.hitori.death",
                                        "bgm": "controller.animation.hitori.bgm",
                                        "cd_timer": "animation.hitori.cd_timer",
+                                       "reboot_timer": "animation.hitori.reboot_timer",
+                                       "idle_loop": "animation.hitori.idle_loop",
                                        **{"skill_%d" % v: "animation.hitori.skill_%d" % v for v in SKILLS}}},
         "component_groups": groups, "components": components, "events": events}}
 
@@ -606,15 +740,24 @@ def bp_animations():
     a = {"animation.hitori.skill_%d" % v: {"animation_length": length, "loop": False, "timeline": tl}
          for v, (name, length, tl) in SKILLS.items()}
     a["animation.hitori.cd_timer"] = {"animation_length": HIT_COOLDOWN, "loop": False}
+    a["animation.hitori.reboot_timer"] = {"animation_length": REBOOT, "loop": False}
     a["animation.hitori.decay"] = {"animation_length": DECAY, "loop": True, "timeline": {"%.2f" % (DECAY - 0.05): [
         "/scoreboard players remove @s[scores={%s=1..}] %s 1" % (OBJ, OBJ)]}}
+    # 待機中だけ動く: カメラの後片付け
+    a["animation.hitori.idle_loop"] = {"animation_length": 2.0, "loop": True, "timeline": {"1.00": CINE.end()}}
     return {"format_version": "1.10.0", "animations": a}
 
 
 def bp_controllers():
-    states = {"default": {"transitions": [{"skill_%d" % v: "q.mark_variant == %d" % v} for v in sorted(SKILLS)]}}
+    states = {"default": {"animations": ["idle_loop"],
+                          "transitions": [{"skill_%d" % v: "q.mark_variant == %d" % v} for v in sorted(SKILLS)]}}
     for v in sorted(SKILLS):
-        exit_ev = {STUN_V: "@s hitori:glitch_restore", FINAL_V: "@s hitori:final_end"}.get(v, "@s hitori:skill_end")
+        if v == STUN_V:
+            exit_ev = "@s hitori:glitch_restore"
+        elif v in CINE_V:
+            exit_ev = "@s hitori:cine_end"
+        else:
+            exit_ev = "@s hitori:skill_end"
         states["skill_%d" % v] = {"animations": ["skill_%d" % v],
                                   "transitions": [{"default": "q.all_animations_finished || q.mark_variant != %d" % v}],
                                   "on_exit": [exit_ev]}
@@ -624,12 +767,15 @@ def bp_controllers():
             "ready": {"transitions": [{"cd": "q.is_sheared"}]},
             "cd": {"animations": ["cd_timer"], "transitions": [{"ready": "q.all_animations_finished || !q.is_sheared"}],
                    "on_exit": ["@s hitori:cd_end"]}}},
+        "controller.animation.hitori.reboot": {"initial_state": "ready", "states": {
+            "ready": {"transitions": [{"rb": "q.is_charged"}]},
+            "rb": {"animations": ["reboot_timer"],
+                   "transitions": [{"ready": "q.all_animations_finished || !q.is_charged"}],
+                   "on_exit": ["@s hitori:reboot_end"]}}},
         "controller.animation.hitori.death": {"initial_state": "alive", "states": {
             "alive": {"transitions": [{"dead": "!q.is_alive"}]},
-            "dead": {"on_entry": [say("§b独§7「……あーあ。バグ、直されちゃった」"),
-                                  pt("noise_big", "~ ~1 ~"), pt("error_popup", "~ ~1 ~"), pt("shockwave_big", "~ ~0.1 ~"),
-                                  "/playsound beacon.deactivate @a[r=64] ~ ~ ~ 1 0.5",
-                                  "/scoreboard players reset @s %s" % OBJ]}}},
+            "dead": {"on_entry": ["/summon hitori:director ~ ~ ~", "/scoreboard players reset @s %s" % OBJ]
+                     + CINE.end()}}},
         # BGM: 独がいる間は「隔絶された記憶」、↓FREEDOM DiVE↓ 解放後は「FREEDOM DiVE」
         # （ワールドを読み込み直したときも、初期状態から入り直すので BGM が再開する）
         "controller.animation.hitori.bgm": {"initial_state": "start", "states": {
@@ -642,10 +788,15 @@ def bp_controllers():
         "controller.animation.hitori.gravity_cube": {"initial_state": "fall", "states": {
             "fall": {"animations": ["life"], "transitions": [{"boom": "q.is_on_ground"}]},
             "boom": {"on_entry": ["/damage @a[r=2.8,m=!creative] 14 entity_explosion",
+                                  "/damage @e[type=%s,r=2.8] 14 entity_attack" % BYAKUYA_ID,
                                   "/particle hitori:missing_burst ~ ~0.5 ~", "/particle hitori:noise_big ~ ~0.5 ~",
                                   "/particle hitori:shockwave ~ ~0.1 ~", "/particle hitori:fall_pixels ~ ~ ~",
                                   "/playsound random.explode @a[r=24] ~ ~ ~ 0.8 1.4",
                                   "/camerashake add @a[r=10] 0.5 0.3 positional", "@s hitori:despawn"]}}},
+        # Infinite Loop の残像: 番号ごとに違う角度から回り始める
+        "controller.animation.hitori.echo": {"initial_state": "pick", "states": {
+            "pick": {"transitions": [{"o%d" % k: "q.variant == %d" % k} for k in range(4)]},
+            **{"o%d" % k: {"animations": ["orbit_%d" % k]} for k in range(4)}}},
     }}
 
 
@@ -670,7 +821,7 @@ def bp_loot():
 # ---------------------------------------------------------------------------
 AIM_ANGLES = sorted({a for pair in spread for a in pair} | {-5, 0, 4})
 MARKERS = ["rollback", "missing_a", "missing_b", "swap_a", "swap_b", "beam_a", "beam_b", "note_0", "note_1",
-           "void_a", "void_b", "cube_a", "cube_b"]
+           "void_a", "void_b", "cube_a", "cube_b", "loop_center"]
 TICK = 0.05
 DESPAWN_G = {"despawn": {"minecraft:instant_despawn": {}}}
 DESPAWN_E = {"hitori:despawn": {"add": {"component_groups": ["despawn"]}}}
@@ -758,6 +909,40 @@ def summons_bp():
     out["gravity_cube"] = entity("hitori:gravity_cube", cube_c, dict(DESPAWN_G), dict(DESPAWN_E),
                                  {"ctrl": "controller.animation.hitori.gravity_cube",
                                   "life": "animation.hitori.gravity_cube.life"}, ["ctrl"])
+    # Infinite Loop の残像: 中心の目印のまわりを回り、最後に収束する
+    echo_g, echo_e = dict(DESPAWN_G), dict(DESPAWN_E)
+    echo_anims = {}
+    for k in range(4):
+        echo_g["e_%d" % k] = {"minecraft:variant": {"value": k}}
+        echo_e["hitori:echo_%d" % k] = {"add": {"component_groups": ["e_%d" % k]}}
+        ctr = "@e[family=loop_center,c=1]"
+
+        def orbit(i, k=k, ctr=ctr):
+            if i < 36:
+                return ["/execute at %s rotated %.1f 0 positioned ^ ^ ^4.5 run tp @s ~ ~ ~ facing %s"
+                        % (ctr, k * 90 + i * 16, ctr)]
+            return ["/execute at @s facing entity %s feet positioned ^ ^ ^0.7 run tp @s ~ ~ ~" % ctr]
+        anims_bp["animation.hitori.echo.orbit_%d" % k] = {"animation_length": 2.2, "loop": False, "timeline": ticks(
+            2.15, orbit, end=["/particle hitori:noise_burst ~ ~1 ~", "@s hitori:despawn"])}
+        echo_anims["orbit_%d" % k] = "animation.hitori.echo.orbit_%d" % k
+    out["echo"] = entity("hitori:echo", fx_base(["hitori_fx", "inanimate"], 0.5), echo_g, echo_e,
+                         dict(echo_anims, ctrl="controller.animation.hitori.echo"), ["ctrl"])
+    # 見えない爆発（ブロックは壊さない）: 本物の爆風で吹き飛ばす
+    blast = fx_base(["hitori_fx", "inanimate"], 0.1)
+    ex = {"fuse_length": 0, "fuse_lit": True, "causes_fire": False, "breaks_blocks": False,
+          "destroy_affected_by_griefing": False}
+    out["blast"] = {"format_version": "1.21.0", "minecraft:entity": {
+        "description": {"identifier": "hitori:blast", "is_spawnable": False, "is_summonable": True,
+                        "is_experimental": False},
+        "component_groups": {"small": {"minecraft:explode": dict(ex, power=2)},
+                             "big": {"minecraft:explode": dict(ex, power=4)}},
+        "components": blast,
+        "events": {"minecraft:entity_spawned": {"add": {"component_groups": ["small"]}},
+                   "hitori:big": {"add": {"component_groups": ["big"]}}}}}
+    # 撃破カットシーンの監督（独の像として表示）
+    anims_bp["animation.hitori.director.death"] = {"animation_length": 5.6, "loop": False, "timeline": DEATH}
+    out["director"] = entity("hitori:director", fx_base(["hitori_fx", "inanimate"], 0.1), dict(DESPAWN_G),
+                             dict(DESPAWN_E), {"cut": "animation.hitori.director.death"}, ["cut"])
     return out, anims_bp
 
 
@@ -793,7 +978,7 @@ def geo_boss():
     ]
     return {"format_version": "1.12.0", "minecraft:geometry": [{
         "description": {"identifier": "geometry.denshi_hitori", "texture_width": 64, "texture_height": 64,
-                        "visible_bounds_width": 3, "visible_bounds_height": 4, "visible_bounds_offset": [0, 1.5, 0]},
+                        "visible_bounds_width": 4, "visible_bounds_height": 14, "visible_bounds_offset": [0, 6, 0]},
         "bones": bones}]}
 
 
@@ -826,6 +1011,9 @@ def render_controllers():
                               "b": "1.0", "a": "(%s && %s) ? 0.45 : 0.0" % (GLITCH_ON, flick)},
             "uv_anim": {"offset": ["(%s && %s) ? math.random(-0.06, 0.06) : 0.0" % (GLITCH_ON, shift), "0.0"],
                         "scale": [1.0, 1.0]}},
+        "controller.render.hitori_echo": {
+            "geometry": "Geometry.default", "materials": [{"*": "Material.default"}], "textures": ["Texture.default"],
+            "overlay_color": {"r": "0.2", "g": "1.0", "b": "1.0", "a": "0.55 + math.random(0, 0.25)"}},
         "controller.render.hitori_simple": {
             "geometry": "Geometry.default", "materials": [{"*": "Material.default"}], "textures": ["Texture.default"]},
     }}
@@ -859,6 +1047,14 @@ def rp_clients():
                                "entity_alphatest", {"fx": "animation.hitori.gcube_fx"}, ["fx"],
                                {"trail": "hitori:bit_trail"}),
         "marker": client("hitori:marker", "hitori_empty", "geometry.hitori_empty", "entity_alphatest"),
+        "blast": client("hitori:blast", "hitori_empty", "geometry.hitori_empty", "entity_alphatest"),
+        "echo": client("hitori:echo", "denshi_hitori", "geometry.denshi_hitori", "entity_alphablend",
+                       {"pose": "animation.hitori.echo_pose", "glitch": "animation.hitori.glitch",
+                        "fx": "animation.hitori.echo_fx"}, ["pose", "glitch", "fx"],
+                       {"trail": "hitori:glitch_aura"}, rc="controller.render.hitori_echo"),
+        "director": client("hitori:director", "denshi_hitori", "geometry.denshi_hitori", "entity_alphatest",
+                           {"pose": "animation.hitori.director_pose", "glitch": "animation.hitori.glitch"},
+                           ["pose", "glitch"], rc="controller.render.denshi_hitori"),
     }
 
 
@@ -884,6 +1080,7 @@ def lang():
                       "item.spawn_egg.entity.%s.name=%sのスポーンエッグ" % (ID, NAME),
                       "entity.hitori:bit_bullet.name=データ弾", "entity.hitori:fragment.name=フォークボム",
                       "entity.hitori:marker.name=目印", "entity.hitori:gravity_cube.name=重力キューブ",
+                      "entity.hitori:echo.name=残像", "entity.hitori:blast.name=衝撃", "entity.hitori:director.name=電子 独",
                       "item.hitori:music_disc_kakuzetsu.name=隔絶された記憶",
                       # 「隔絶された記憶」はジュークボックス上はレコード 11 の音として鳴らす（下の注記参照）
                       "item.record_11.desc=eight - 隔絶された記憶",
@@ -957,6 +1154,7 @@ def main():
         write(os.path.join(BP, "entities/%s.json" % name), data)
     anims_all = bp_animations()
     anims_all["animations"].update(sa)
+    add_rival(anims_all["animations"], "byakuya:shiraishi_byakuya", cause="entity_attack")
     write(os.path.join(BP, "animations/denshi_hitori.animation.json"), anims_all)
     write(os.path.join(BP, "animation_controllers/denshi_hitori.ac.json"), bp_controllers())
     write(os.path.join(BP, "loot_tables/entities/denshi_hitori.json"), bp_loot())

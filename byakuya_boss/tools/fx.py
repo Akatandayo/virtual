@@ -345,6 +345,34 @@ def build_particles():
                                   lifetime="math.random(0.4, 0.8)", speed="math.random(4, 10)",
                                   accel=(0, -10, 0), drag=1.5, size="0.25 * (" + FADE + ")",
                                   color=_gradient("#FFFFFFFF", "#FFFF5030", "#FF801010", "#00300000"))
+    # --- v1.3: 地走り（跳んで避ける波紋）・範囲表示・煙管の煙・炎の噴出 ---
+    P["ripple_ring"] = particle(
+        "ripple_ring", "byakuya_glow", rate=(500, 600), active=1.8,
+        shape={"minecraft:emitter_shape_custom": {"offset": [
+            "math.cos(v.particle_random_1 * 360) * (1.5 + v.emitter_age * 10)", "0.05",
+            "math.sin(v.particle_random_1 * 360) * (1.5 + v.emitter_age * 10)"], "direction": [0, 1, 0]}},
+        lifetime="0.18", speed="math.random(1, 3)", size="0.16 * (" + FADE + ") + 0.04",
+        color=_gradient("#FFFFFFFF", "#FFFF3020", "#00600000"))
+    P["zone_12"] = particle(
+        "zone_12", "byakuya_glow", rate=(400, 300), active=0.6,
+        shape={"minecraft:emitter_shape_custom": {"offset": [
+            "math.cos(v.particle_random_1 * 360) * 12", "0.1", "math.sin(v.particle_random_1 * 360) * 12"]}},
+        lifetime="0.6", speed=0.5, size="0.2", color=rgba("red", "0.5 + 0.5 * math.sin(v.particle_age * 900)"))
+    P["smoke_puff"] = particle("smoke_puff", "byakuya_glow", "particles_blend", count=4, shape=sphere(0.08),
+                               lifetime="math.random(1.0, 1.6)", speed=0.4, accel=(0.1, 0.5, 0), drag=1,
+                               size="0.1 + v.particle_age * 0.25",
+                               color=[0.85, 0.85, 0.88, "0.45 * (" + FADE + ")"])
+    P["fire_jet"] = particle("fire_jet", "byakuya_glow", rate=(70, 40), active=0.45, shape=disc(0.5),
+                             lifetime="math.random(0.3, 0.6)", speed="math.random(5, 9)", drag=0.5,
+                             size="0.32 * (" + FADE + ")",
+                             color=_gradient("#FFFFF0A0", "#FFFF7020", "#FFC01808", "#00400000"))
+    P["petal_burst"] = particle("petal_burst", "byakuya_petal", "particles_alpha", count=40, shape=sphere(0.5),
+                                lifetime="math.random(1.0, 2.0)", speed="math.random(2, 6)", accel=(0, -1.5, 0),
+                                drag=2, size="0.09", spin={"rotation": "math.random(0, 360)",
+                                                           "rotation_rate": "math.random(-300, 300)"})
+    P["time_stop"] = particle("time_stop", "byakuya_ring", "particles_blend", count=1, lifetime="1.2",
+                              facing="emitter_transform_xz", size="12.5",
+                              color=[0.7, 0.7, 0.75, "0.35 * (" + FADE + ")"])
     return P
 
 

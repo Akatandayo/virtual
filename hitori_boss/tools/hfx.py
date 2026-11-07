@@ -341,6 +341,19 @@ def build_particles():
                                size=BAR, color=RGB)
     P["stun_spark"] = particle("stun_spark", "hitori_glow", count=10, shape=sphere(0.3), lifetime="0.4",
                                speed="math.random(1, 4)", accel=(0, -6, 0), size="0.1", color=tint("white"))
+    # --- v1.2: ♪Rhythm Line♪（跳んで避けるリング）・Infinite Loop の範囲 ---
+    P["rhythm_ring"] = particle(
+        "rhythm_ring", "hitori_pixel", rate=(600, 700), active=1.8,
+        shape={"minecraft:emitter_shape_custom": {"offset": [
+            "math.cos(v.particle_random_1 * 360) * (1.5 + v.emitter_age * 9)", "0.1",
+            "math.sin(v.particle_random_1 * 360) * (1.5 + v.emitter_age * 9)"]}},
+        lifetime="0.15", size=["0.18", "0.06 + v.particle_random_3 * 0.12"],
+        color=["v.particle_random_2 > 0.5 ? 0.3 : 1.0", "v.particle_random_2 > 0.5 ? 1.0 : 0.2", "1.0", "1.0"])
+    P["zone_loop"] = particle(
+        "zone_loop", "hitori_pixel", rate=(300, 200), active=0.5,
+        shape={"minecraft:emitter_shape_custom": {"offset": [
+            "math.cos(v.particle_random_1 * 360) * 4.5", "0.1", "math.sin(v.particle_random_1 * 360) * 4.5"]}},
+        lifetime="0.5", size=BAR, color=tint("cyan", FLICKER))
     # --- ↓FREEDOM DiVE↓（落下） ---
     P["arrow_rain"] = particle("arrow_rain", "hitori_arrow", "particles_alpha", rate=(70, 220), active=3.0,
                                shape=box((12, 0.5, 12), (0, -1, 0), (0, 10, 0)), lifetime="0.8", speed=14,

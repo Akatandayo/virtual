@@ -1,0 +1,35 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "hitori:echo",
+      "materials": {
+        "default": "entity_alphablend"
+      },
+      "textures": {
+        "default": "textures/entity/denshi_hitori"
+      },
+      "geometry": {
+        "default": "geometry.denshi_hitori"
+      },
+      "render_controllers": [
+        "controller.render.hitori_echo"
+      ],
+      "particle_effects": {
+        "trail": "hitori:glitch_aura"
+      },
+      "animations": {
+        "pose": "animation.hitori.echo_pose",
+        "glitch": "animation.hitori.glitch",
+        "fx": "animation.hitori.echo_fx"
+      },
+      "scripts": {
+        "animate": [
+          "pose",
+          "glitch",
+          "fx"
+        ]
+      }
+    }
+  }
+}

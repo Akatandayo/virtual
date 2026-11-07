@@ -141,24 +141,24 @@ def skill_anims():
     A[14] = anim(5.0, {"rightArm": {"rotation": r}, "leftArm": {"rotation": l},
                        "body": {"rotation": {0: N, 3.6: N, 3.8: [40, 0, 0], 4.6: [40, 0, 0], 5.0: N}}},
                 {0.6 + i * 0.35: fx("hand_noise", "right_hand" if i % 2 == 0 else "left_hand") for i in range(8)})
-    # 20 🤍Re: End of a Dream💙: 宙に浮き、T ポーズのまま回転
-    A[20] = anim(8.0, {
-        "root": {"position": {0: N, 1.0: [0, 10, 0], 7.0: [0, 10, 0], 7.4: N, 8.0: N},
-                 "rotation": {0: N, 1.0: N, 7.0: [0, 360, 0], 8.0: [0, 360, 0]}},
-        "rightArm": {"rotation": hold(TPOSE_R, 1.0, 7.0, end=7.4) | {8.0: N}},
-        "leftArm": {"rotation": hold(TPOSE_L, 1.0, 7.0, end=7.4) | {8.0: N}},
-        "head": {"rotation": hold([-30, 0, 0], 1.0, 7.0, end=7.4) | {8.0: N}},
-    }, {t: fx("glitch_heavy", "body_center") for t in (1.0, 2.0, 3.0, 4.0, 5.0, 6.0)})
-    # 99 強制解除（スタン）: 膝から崩れ落ちる
-    A[99] = anim(5.0, {
-        "root": {"position": {0: N, 0.3: [0, -6, 0], 4.6: [0, -6, 0], 5.0: N}},
-        "rightLeg": {"rotation": hold([-85, 10, 0], 0.3, 4.6, end=5.0)},
-        "leftLeg": {"rotation": hold([70, -5, 0], 0.3, 4.6, end=5.0)},
-        "body": {"rotation": hold([35, 0, 0], 0.3, 4.6, end=5.0)},
-        "head": {"rotation": hold([40, 0, 15], 0.3, 4.6, end=5.0)},
-        "rightArm": {"rotation": hold([5, 0, 10], 0.3, 4.6, end=5.0)},
-        "leftArm": {"rotation": hold([5, 0, -10], 0.3, 4.6, end=5.0)},
-    }, {0.3 + i * 0.6: fx("stun_spark", "body_center") for i in range(7)})
+    # 20 🤍Re: End of a Dream💙（9.6 秒）: 宙に浮き、T ポーズのまま回転
+    A[20] = anim(9.6, {
+        "root": {"position": {0: N, 0.9: N, 2.6: [0, 10, 0], 8.6: [0, 10, 0], 9.0: N, 9.6: N},
+                 "rotation": {0: N, 2.6: N, 8.6: [0, 360, 0], 9.6: [0, 360, 0]}},
+        "rightArm": {"rotation": hold(TPOSE_R, 0.9, 8.6, end=9.0) | {9.6: N}},
+        "leftArm": {"rotation": hold(TPOSE_L, 0.9, 8.6, end=9.0) | {9.6: N}},
+        "head": {"rotation": {0: N, 0.3: [15, 0, 0], 0.9: [-30, 0, 0], 8.6: [-30, 0, 0], 9.0: N}},
+    }, {t: fx("glitch_heavy", "body_center") for t in (0.9, 2.6, 3.6, 4.6, 5.6, 6.6, 7.6)})
+    # 99 強制解除（スタン 3.5 秒）: 膝から崩れ落ちる
+    A[99] = anim(3.5, {
+        "root": {"position": {0: N, 0.25: [0, -6, 0], 3.2: [0, -6, 0], 3.5: N}},
+        "rightLeg": {"rotation": hold([-85, 10, 0], 0.25, 3.2, end=3.5)},
+        "leftLeg": {"rotation": hold([70, -5, 0], 0.25, 3.2, end=3.5)},
+        "body": {"rotation": hold([35, 0, 0], 0.25, 3.2, end=3.5)},
+        "head": {"rotation": hold([40, 0, 15], 0.25, 3.2, end=3.5)},
+        "rightArm": {"rotation": hold([5, 0, 10], 0.25, 3.2, end=3.5)},
+        "leftArm": {"rotation": hold([5, 0, -10], 0.25, 3.2, end=3.5)},
+    }, {0.25 + i * 0.5: fx("stun_spark", "body_center") for i in range(6)})
     # 15 ↓Free Fall↓: 両腕で持ち上げ → 一気に振り下ろして落とす
     A[15] = anim(3.4, {
         "rightArm": {"rotation": {0: N, 0.3: [-170, 0, 20], 1.9: [-175, 0, 20], 2.05: [20, 0, 10], 3.1: [20, 0, 10], 3.4: N}},
@@ -193,6 +193,59 @@ def skill_anims():
     A[18] = anim(4.4, {"rightArm": {"rotation": r}, "leftArm": {"rotation": l}, "body": {"rotation": b},
                        "root": {"position": rt}},
                 {0.2 + 1.3 * k + 1.05: fx("hand_noise", "body_center") for k in range(3)})
+    # 21 BSOD: 一瞬 T ポーズで固まり（フリーズ）、そのあと突き刺す
+    r, l = {0: TPOSE_R, 0.4: TPOSE_R, 0.45: N}, {0: TPOSE_L, 0.4: TPOSE_L, 0.45: N}
+    for t in (0.6, 1.05, 1.5):
+        r.update({t - 0.05: [-30, 0, 0], t: [-100, 0, 0], t + 0.2: [-95, 0, 0], t + 0.3: N})
+    A[21] = anim(2.6, {"rightArm": {"rotation": r}, "leftArm": {"rotation": l},
+                       "head": {"rotation": {0: [0, 0, 25], 0.4: [0, 0, 25], 0.45: N}}},
+                {0.6: fx("hand_noise"), 1.05: fx("hand_noise"), 1.5: fx("hand_noise")})
+    # 22 ♪Rhythm Line♪: 拍ごとに足を踏み鳴らし、腕で拍子をとる
+    rl, r, l, b = {0: N}, {0: N}, {0: N}, {0: N}
+    for k in range(8):
+        t = 0.6 + 0.5 * k
+        rl.update({t - 0.18: [-50, 0, 0], t: N})
+        (r if k % 2 == 0 else l).update({t - 0.18: [-150, 0, 0], t: [-70, 0, 0]})
+        b.update({t - 0.18: [-5, 0, 0], t: [8, 0, 0]})
+    rl[4.4], r[4.6], l[4.6], b[4.4] = N, N, N, N
+    A[22] = anim(6.2, {"rightLeg": {"rotation": rl}, "rightArm": {"rotation": r}, "leftArm": {"rotation": l},
+                       "body": {"rotation": b}},
+                {0.6 + 0.5 * k: fx("hand_noise", "right_hand" if k % 2 == 0 else "left_hand") for k in range(8)})
+    # 23 Infinite Loop: 両腕を広げてゆっくり回り、最後に手を打ち合わせる
+    A[23] = anim(3.2, {
+        "root": {"rotation": {0: N, 2.0: [0, 360, 0], 3.2: [0, 360, 0]}},
+        "rightArm": {"rotation": {0: N, 0.2: TPOSE_R, 2.0: TPOSE_R, 2.15: [-90, 15, 0], 2.6: [-90, 15, 0], 3.2: N}},
+        "leftArm": {"rotation": {0: N, 0.2: TPOSE_L, 2.0: TPOSE_L, 2.15: [-90, -15, 0], 2.6: [-90, -15, 0], 3.2: N}},
+    }, {0.2: fx("hand_noise") + fx("hand_noise", "left_hand"), 2.15: fx("glitch_heavy", "body_center")})
+    # 30 登場: カクカクの T ポーズ → 普段の姿勢に戻り、手を振る
+    A[30] = anim(4.0, {
+        "rightArm": {"rotation": stutter(0, 0.9, [TPOSE_R, [0, 0, 60], TPOSE_R, [-40, 0, 90]], 0.15)
+                     | {0.95: N, 2.9: N, 3.1: [-150, 0, 30], 3.3: [-150, 0, 10], 3.5: [-150, 0, 30], 3.8: N}},
+        "leftArm": {"rotation": stutter(0, 0.9, [TPOSE_L, [0, 0, -60], TPOSE_L, [-40, 0, -90]], 0.15) | {0.95: N}},
+        "head": {"rotation": {0: [0, 0, 40], 0.9: [0, 0, 40], 0.95: N, 2.9: N, 3.1: [0, 0, 15], 3.8: [0, 0, 15],
+                              4.0: N}},
+        "root": {"position": stutter(0, 0.9, [[0, 2, 0], [1, 0, 0], [-1, 1, 0]], 0.1) | {0.95: N}},
+    }, {0.95: fx("glitch_heavy", "body_center"), 3.1: fx("hand_noise")})
+    # 31 ↓FREEDOM DiVE↓ 解放: T ポーズで空へ昇る → 頭から急降下 → 着地
+    A[31] = anim(5.0, {
+        "root": {"position": {0: N, 2.0: [0, 96, 0], 2.4: [0, 100, 0], 2.85: [0, 30, 0], 2.9: [0, -3, 0],
+                              3.3: N, 5.0: N},
+                 "rotation": {0: N, 2.0: N, 2.4: [180, 0, 0], 2.85: [180, 0, 0], 2.9: N}},
+        "rightArm": {"rotation": {0: N, 0.3: TPOSE_R, 2.0: TPOSE_R, 2.4: [-180, 0, 0], 2.85: [-180, 0, 0],
+                                  2.9: [-40, 0, 40], 3.3: N}},
+        "leftArm": {"rotation": {0: N, 0.3: TPOSE_L, 2.0: TPOSE_L, 2.4: [-180, 0, 0], 2.85: [-180, 0, 0],
+                                 2.9: [-40, 0, -40], 3.3: N}},
+        "rightLeg": {"rotation": {2.85: N, 2.9: [-40, 0, 0], 3.3: N}},
+        "leftLeg": {"rotation": {2.85: N, 2.9: [30, 0, 0], 3.3: N}},
+        "head": {"rotation": {3.3: N, 3.5: [0, 0, 15], 5.0: [0, 0, 15]}},
+    }, {0.3: fx("glitch_heavy", "body_center"), 1.2: fx("glitch_heavy", "body_center"),
+        2.4: fx("glitch_heavy", "body_center"), 2.9: fx("glitch_heavy", "body_center")})
+    # 32 宿敵: 手を振る → 指を差す
+    A[32] = anim(9.0, {
+        "rightArm": {"rotation": {0: N, 2.6: N, 2.8: [-150, 0, 30], 3.0: [-150, 0, 10], 3.2: [-150, 0, 30],
+                                  3.5: N, 6.4: N, 6.6: [-90, 0, 0], 8.2: [-90, 0, 0], 8.5: N}},
+        "head": {"rotation": {0: N, 2.6: [0, 0, 15], 4.0: [0, 0, 15], 4.3: N}},
+    }, {6.6: fx("hand_noise"), 8.0: fx("glitch_heavy", "body_center")})
     return A
 
 
@@ -236,10 +289,21 @@ def all_animations():
     }
     for v, a in skill_anims().items():
         anims["animation.hitori.skill_%d" % v] = a
+    # 残像（Infinite Loop）・撃破カットシーンの像
+    anims["animation.hitori.echo_pose"] = {"loop": True, "bones": {
+        "rightArm": {"rotation": TPOSE_R}, "leftArm": {"rotation": TPOSE_L}, "head": {"rotation": [0, 0, 20]}}}
+    anims["animation.hitori.echo_fx"] = {"loop": True, "animation_length": 0.3,
+                                         "particle_effects": {"0.00": [{"effect": "trail", "locator": "body_center"}]}}
+    anims["animation.hitori.director_pose"] = anim(5.6, {
+        "root": {"position": {0: [0, -6, 0]},
+                 "scale": {0: 0, 1.05: 0, 1.1: 1, 4.6: 1, 4.7: [1.3, 0.2, 1.3], 4.8: [0.1, 1.6, 0.1], 4.9: 0}},
+        "body": {"rotation": {0: [35, 0, 0]}}, "head": {"rotation": {0: [40, 0, 15]}},
+        "rightLeg": {"rotation": {0: [-85, 10, 0]}}, "leftLeg": {"rotation": {0: [70, -5, 0]}},
+        "rightArm": {"rotation": {0: [5, 0, 10]}}, "leftArm": {"rotation": {0: [5, 0, -10]}}})
     return {"format_version": "1.10.0", "animations": anims}
 
 
-NO_LOOK = {4, 6, 18, 20, 99}
+NO_LOOK = {4, 6, 18, 20, 23, 31, 99}
 
 
 def short_names(skill_ids):

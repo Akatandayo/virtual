@@ -1,0 +1,29 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "byakuya:director",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/shiraishi_byakuya"
+      },
+      "geometry": {
+        "default": "geometry.shiraishi_byakuya"
+      },
+      "render_controllers": [
+        "controller.render.byakuya_simple"
+      ],
+      "animations": {
+        "pose": "animation.byakuya.director_pose"
+      },
+      "scripts": {
+        "animate": [
+          "pose"
+        ]
+      },
+      "enable_attachables": true
+    }
+  }
+}
