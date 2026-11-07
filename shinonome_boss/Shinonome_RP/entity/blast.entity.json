@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "shinonome:blast",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/toa_empty"
+      },
+      "geometry": {
+        "default": "geometry.toa_empty"
+      },
+      "render_controllers": [
+        "controller.render.toa_simple"
+      ]
+    }
+  }
+}

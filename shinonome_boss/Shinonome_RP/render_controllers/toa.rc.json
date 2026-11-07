@@ -1,0 +1,44 @@
+{
+  "format_version": "1.10.0",
+  "render_controllers": {
+    "controller.render.toa": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "overlay_color": {
+        "r": "q.mark_variant == 20 ? 0.3 : (q.mark_variant == 24 ? 1.0 : 0.9)",
+        "g": "q.mark_variant == 20 ? 0.7 : (q.mark_variant == 24 ? 0.1 : 0.9)",
+        "b": "q.mark_variant == 20 ? 1.0 : (q.mark_variant == 24 ? 0.1 : 0.3)",
+        "a": "q.mark_variant == 20 ? 0.45 + math.sin(q.life_time * 500) * 0.1 : (q.mark_variant == 24 ? 0.25 + math.sin(q.life_time * 900) * 0.1 : (q.mark_variant == 25 ? 0.2 : 0.0))"
+      }
+    },
+    "controller.render.toa_window": {
+      "geometry": "Geometry.window",
+      "materials": [
+        {
+          "*": "Material.window"
+        }
+      ],
+      "textures": [
+        "Texture.window"
+      ]
+    },
+    "controller.render.toa_simple": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ]
+    }
+  }
+}

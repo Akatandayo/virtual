@@ -1,0 +1,12 @@
+entity.shinonome:toa.name=東雲 永々
+entity.shinonome:clone.name=東雲 永々
+entity.shinonome:star.name=星弾
+entity.shinonome:bread.name=ドリルフランス
+entity.shinonome:hole.name=ブラックホール
+entity.shinonome:dragon.name=炎龍
+entity.shinonome:marker.name=目印
+entity.shinonome:blast.name=衝撃
+entity.shinonome:director.name=東雲 永々
+item.spawn_egg.entity.shinonome:toa.name=東雲 永々のスポーンエッグ
+pack.name=東雲 永々 ボス
+pack.description=宇宙から来た「東雲 永々」ボスアドオン

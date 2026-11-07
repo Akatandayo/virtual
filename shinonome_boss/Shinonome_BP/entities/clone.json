@@ -1,0 +1,233 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "shinonome:clone",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      "despawn": {
+        "minecraft:instant_despawn": {}
+      },
+      "window": {
+        "minecraft:skin_id": {
+          "value": 1
+        }
+      },
+      "c1": {
+        "minecraft:type_family": {
+          "family": [
+            "toa_clone",
+            "toa_c1",
+            "monster",
+            "mob"
+          ]
+        }
+      },
+      "c2": {
+        "minecraft:type_family": {
+          "family": [
+            "toa_clone",
+            "toa_c2",
+            "monster",
+            "mob"
+          ]
+        }
+      },
+      "c3": {
+        "minecraft:type_family": {
+          "family": [
+            "toa_clone",
+            "toa_c3",
+            "monster",
+            "mob"
+          ]
+        }
+      },
+      "c4": {
+        "minecraft:type_family": {
+          "family": [
+            "toa_clone",
+            "toa_c4",
+            "monster",
+            "mob"
+          ]
+        }
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "toa_clone",
+          "monster",
+          "mob"
+        ]
+      },
+      "minecraft:health": {
+        "value": 20,
+        "max": 20
+      },
+      "minecraft:scale": {
+        "value": 0.85
+      },
+      "minecraft:collision_box": {
+        "width": 0.6,
+        "height": 1.6
+      },
+      "minecraft:physics": {},
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:movement": {
+        "value": 0.36
+      },
+      "minecraft:movement.basic": {},
+      "minecraft:jump.static": {},
+      "minecraft:navigation.walk": {
+        "can_path_over_water": true
+      },
+      "minecraft:attack": {
+        "damage": 6
+      },
+      "minecraft:follow_range": {
+        "value": 40,
+        "max": 40
+      },
+      "minecraft:nameable": {
+        "always_show": true,
+        "allow_name_tag_renaming": false
+      },
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "entity_explosion",
+            "deal_damage": false
+          },
+          {
+            "cause": "fall",
+            "deal_damage": false
+          },
+          {
+            "cause": "all",
+            "deal_damage": false,
+            "on_damage": {
+              "event": "shinonome:pop",
+              "target": "self"
+            }
+          }
+        ]
+      },
+      "minecraft:equipment": {
+        "table": "loot_tables/entities/toa_equipment.json",
+        "slot_drop_chance": [
+          {
+            "slot": "slot.weapon.mainhand",
+            "drop_chance": 0
+          }
+        ]
+      },
+      "minecraft:behavior.melee_attack": {
+        "priority": 2,
+        "speed_multiplier": 1.4,
+        "track_target": true
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 1,
+        "must_see": false,
+        "within_radius": 40,
+        "entity_types": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "player"
+            },
+            "max_dist": 40
+          }
+        ]
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 6
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 7,
+        "look_distance": 16
+      },
+      "minecraft:timer": {
+        "looping": false,
+        "time": 14,
+        "time_down_event": {
+          "event": "shinonome:poof",
+          "target": "self"
+        }
+      }
+    },
+    "events": {
+      "shinonome:pop": {
+        "add": {
+          "component_groups": [
+            "despawn"
+          ]
+        },
+        "queue_command": {
+          "command": [
+            "summon shinonome:blast ~ ~0.8 ~",
+            "particle shinonome:smoke ~ ~0.8 ~",
+            "title @a[r=8] actionbar §c§lハズレ！ §r§7本物は左目が金色に光っている",
+            "tellraw @a[r=24] {\"rawtext\":[{\"text\":\"§f東雲§7「ざんねーん、ハズレ！」\"}]}"
+          ]
+        }
+      },
+      "shinonome:poof": {
+        "add": {
+          "component_groups": [
+            "despawn"
+          ]
+        },
+        "queue_command": {
+          "command": [
+            "particle shinonome:smoke ~ ~0.8 ~"
+          ]
+        }
+      },
+      "shinonome:with_window": {
+        "add": {
+          "component_groups": [
+            "window"
+          ]
+        }
+      },
+      "shinonome:c1": {
+        "add": {
+          "component_groups": [
+            "c1"
+          ]
+        }
+      },
+      "shinonome:c2": {
+        "add": {
+          "component_groups": [
+            "c2"
+          ]
+        }
+      },
+      "shinonome:c3": {
+        "add": {
+          "component_groups": [
+            "c3"
+          ]
+        }
+      },
+      "shinonome:c4": {
+        "add": {
+          "component_groups": [
+            "c4"
+          ]
+        }
+      }
+    }
+  }
+}

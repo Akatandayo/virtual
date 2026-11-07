@@ -235,6 +235,16 @@ def skill_anims():
         "leftArm": {"rotation": {0: N, 0.3: [-120, 0, -10], 1.9: [-120, 0, -10], 2.1: [-60, 0, 0], 3.2: N}},
         "rightArm": {"rotation": {0: HOLD, 1.9: HOLD, 2.1: UP, 2.3: CAST, 3.2: HOLD}},
     }, {0.3: fx("glow", "left_hand"), 2.2: fx("trail")})
+    # 34 おすわり: 地面におでこをぶつける（土下座）
+    A[34] = anim(3.0, {
+        "root": {"position": {0: N, 0.2: [0, -8, 0], 2.7: [0, -8, 0], 3.0: N}},
+        "rightLeg": {"rotation": {0: N, 0.2: [-90, 0, 0], 2.7: [-90, 0, 0], 3.0: N}},
+        "leftLeg": {"rotation": {0: N, 0.2: [-90, 0, 0], 2.7: [-90, 0, 0], 3.0: N}},
+        "body": {"rotation": {0: N, 0.2: [80, 0, 0], 2.7: [80, 0, 0], 3.0: N}},
+        "head": {"rotation": {0: N, 0.2: [10, 0, 0], 2.7: [10, 0, 0], 3.0: N}},
+        "rightArm": {"rotation": {0: HOLD, 0.2: [-100, 15, 0], 2.7: [-100, 15, 0], 3.0: HOLD}},
+        "leftArm": {"rotation": {0: N, 0.2: [-100, -15, 0], 2.7: [-100, -15, 0], 3.0: N}},
+    }, {0.2: fx("spark", "body_center")})
     return A
 
 
@@ -291,7 +301,7 @@ def all_animations():
     return {"format_version": "1.10.0", "animations": anims}
 
 
-NO_LOOK = {2, 7, 30, 33, 32}
+NO_LOOK = {2, 7, 30, 33, 32, 34}
 
 
 def short_names(skill_ids):

@@ -24,7 +24,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "sophia:sophia_heart"
 NAME = "ソフィア・ハート"
-VERSION = [1, 0, 0]
+VERSION = [1, 0, 1]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "61396506-b3f5-4a1b-92f6-8e34dc87c6de"
 UUID_BP_MODULE = "c8d8c5f1-e6b7-46bb-8808-2e50aa8d0842"
@@ -442,6 +442,12 @@ skill(41, "クロノスピア", 3.2, tl)
 # ===========================================================================
 # カットシーン
 # ===========================================================================
+# 34 おすわり（東雲 永々のアドオンを一緒に入れたときだけ）: 東雲に「おすわり」と言われると土下座してしまう
+tl = {0: [say("§eソフィア§7「ぎゃっ！？」"), "/effect @s slowness 3 255 true", pt("shockwave_white", "~ ~0.1 ~"),
+          sound("random.anvil_land", 1.4, 30), shake(0.3, 0.2, 12)],
+      1.6: [say("§eソフィア§7「……東雲、あとで覚えてなさい」")]}
+skill(34, "おすわり", 3.0, tl)
+
 # 30 登場: 光の柱の中を舞い降りる
 tl = {}
 add(tl, 0, CINE.begin(4.6) + [face_nearest().replace(NEAREST, ANYONE), CINE.cam("^ ^1.5 ^6", "^ ^5 ^"),
@@ -652,6 +658,7 @@ def bp_entity():
                                                    "particle sophia:shockwave_gold ~ ~0.1 ~",
                                                    "particle sophia:spark_burst ~ ~1 ~",
                                                    "playsound random.glass @a[r=24] ~ ~ ~ 1 0.8"]}}]},
+        "sophia:osuwari": {"sequence": [{"filters": {"test": "is_mark_variant", "value": 0}, **set_variant(34)}]},
         "sophia:adapt": cine(31, ["phase_2"], ["phase_1"]),
         "sophia:universe": cine(32, ["phase_3"], ["phase_1", "phase_2"]),
         "sophia:revive": cine(33, ["phase_4"], ["phase_1", "phase_2", "phase_3"]),

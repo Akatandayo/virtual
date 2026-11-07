@@ -106,6 +106,9 @@
               "skill_33": "q.mark_variant == 33"
             },
             {
+              "skill_34": "q.mark_variant == 34"
+            },
+            {
               "skill_40": "q.mark_variant == 40"
             },
             {
@@ -527,6 +530,19 @@
           ],
           "on_exit": [
             "@s sophia:cine_end"
+          ]
+        },
+        "skill_34": {
+          "animations": [
+            "skill_34"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 34"
+            }
+          ],
+          "on_exit": [
+            "@s sophia:skill_end"
           ]
         },
         "skill_40": {

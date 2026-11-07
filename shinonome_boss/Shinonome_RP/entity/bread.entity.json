@@ -1,0 +1,31 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "shinonome:bread",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/toa_bread_e"
+      },
+      "geometry": {
+        "default": "geometry.toa_bread"
+      },
+      "render_controllers": [
+        "controller.render.toa_simple"
+      ],
+      "particle_effects": {
+        "trail": "shinonome:spark"
+      },
+      "animations": {
+        "fx": "animation.toa.bread_fx"
+      },
+      "scripts": {
+        "animate": [
+          "fx"
+        ]
+      }
+    }
+  }
+}

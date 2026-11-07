@@ -1,0 +1,34 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "shinonome:dragon",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/toa_empty"
+      },
+      "geometry": {
+        "default": "geometry.toa_empty"
+      },
+      "render_controllers": [
+        "controller.render.toa_simple"
+      ],
+      "particle_effects": {
+        "dragon": "shinonome:dragon",
+        "head": "shinonome:dragon_head"
+      },
+      "animations": {
+        "fx": "animation.toa.dragon_fx",
+        "head": "animation.toa.dragon_head"
+      },
+      "scripts": {
+        "animate": [
+          "fx",
+          "head"
+        ]
+      }
+    }
+  }
+}

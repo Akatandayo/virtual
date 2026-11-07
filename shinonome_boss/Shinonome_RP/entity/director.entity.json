@@ -1,0 +1,31 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "shinonome:director",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/toa"
+      },
+      "geometry": {
+        "default": "geometry.toa"
+      },
+      "render_controllers": [
+        "controller.render.toa_simple"
+      ],
+      "particle_effects": {
+        "burger": "shinonome:burger"
+      },
+      "animations": {
+        "pose": "animation.toa.director_pose"
+      },
+      "scripts": {
+        "animate": [
+          "pose"
+        ]
+      }
+    }
+  }
+}

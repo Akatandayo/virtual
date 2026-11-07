@@ -1,0 +1,101 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "shinonome:toa",
+      "materials": {
+        "default": "entity_alphatest",
+        "window": "entity_alphablend"
+      },
+      "textures": {
+        "default": "textures/entity/toa",
+        "window": "textures/entity/toa_window"
+      },
+      "geometry": {
+        "default": "geometry.toa",
+        "window": "geometry.toa_window"
+      },
+      "render_controllers": [
+        "controller.render.toa",
+        {
+          "controller.render.toa_window": "q.skin_id >= 1"
+        }
+      ],
+      "particle_effects": {
+        "trail": "shinonome:trail",
+        "hand": "shinonome:hand",
+        "spark": "shinonome:spark",
+        "smoke": "shinonome:smoke",
+        "fire": "shinonome:fire_burst",
+        "cyan": "shinonome:charge_cyan",
+        "dark": "shinonome:dark_aura",
+        "rage": "shinonome:rage",
+        "water": "shinonome:water_aura",
+        "gold_eye": "shinonome:gold_eye",
+        "burger": "shinonome:burger"
+      },
+      "animations": {
+        "look_at": "animation.toa.look_at",
+        "idle": "animation.toa.idle",
+        "move": "animation.toa.move",
+        "attack": "animation.toa.attack",
+        "window": "animation.toa.window",
+        "gold_eye": "animation.toa.gold_eye",
+        "aura_1": "animation.toa.aura_1",
+        "aura_2": "animation.toa.aura_2",
+        "water": "animation.toa.water",
+        "death_pose": "animation.toa.death",
+        "main": "controller.animation.toa.main",
+        "aura_ctrl": "controller.animation.toa.aura",
+        "attack_fx": "controller.animation.toa.attack_fx",
+        "s1": "animation.toa.skill_1",
+        "s2": "animation.toa.skill_2",
+        "s3": "animation.toa.skill_3",
+        "s4": "animation.toa.skill_4",
+        "s5": "animation.toa.skill_5",
+        "s6": "animation.toa.skill_6",
+        "s7": "animation.toa.skill_7",
+        "s8": "animation.toa.skill_8",
+        "s9": "animation.toa.skill_9",
+        "s10": "animation.toa.skill_10",
+        "s11": "animation.toa.skill_11",
+        "s12": "animation.toa.skill_12",
+        "s13": "animation.toa.skill_13",
+        "s14": "animation.toa.skill_14",
+        "s15": "animation.toa.skill_15",
+        "s16": "animation.toa.skill_16",
+        "s17": "animation.toa.skill_17",
+        "s18": "animation.toa.skill_18",
+        "s19": "animation.toa.skill_19",
+        "s20": "animation.toa.skill_20",
+        "s21": "animation.toa.skill_21",
+        "s22": "animation.toa.skill_22",
+        "s23": "animation.toa.skill_23",
+        "s24": "animation.toa.skill_24",
+        "s25": "animation.toa.skill_25",
+        "s30": "animation.toa.skill_30",
+        "s31": "animation.toa.skill_31",
+        "s32": "animation.toa.skill_32",
+        "s51": "animation.toa.skill_51",
+        "s52": "animation.toa.skill_52",
+        "s53": "animation.toa.skill_53",
+        "s54": "animation.toa.skill_54",
+        "s55": "animation.toa.skill_55"
+      },
+      "scripts": {
+        "animate": [
+          "main",
+          "aura_ctrl",
+          "attack_fx",
+          "window",
+          "gold_eye"
+        ]
+      },
+      "enable_attachables": true,
+      "spawn_egg": {
+        "base_color": "#f4f4f8",
+        "overlay_color": "#2a1840"
+      }
+    }
+  }
+}

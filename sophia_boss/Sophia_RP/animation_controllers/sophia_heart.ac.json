@@ -114,6 +114,9 @@
               "s33": "q.mark_variant == 33"
             },
             {
+              "s34": "q.mark_variant == 34"
+            },
+            {
               "s40": "q.mark_variant == 40"
             },
             {
@@ -598,6 +601,20 @@
             },
             {
               "default": "q.mark_variant != 33"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s34": {
+          "animations": [
+            "s34"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 34"
             }
           ],
           "blend_transition": 0.08

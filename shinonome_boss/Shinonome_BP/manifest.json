@@ -1,0 +1,39 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "東雲 永々 ボス BP",
+    "description": "ボス「東雲 永々」を追加します",
+    "uuid": "a694ca4a-12aa-4554-8bdb-12089cc1e7f6",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "f1947c40-91af-45a7-8801-580cb386961f",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "318594ae-9cab-43a7-b7d6-a2fd008b0011",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ]
+}

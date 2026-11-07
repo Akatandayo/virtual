@@ -1,0 +1,70 @@
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "shinonome:silver_beam",
+      "basic_render_parameters": {
+        "material": "particles_add",
+        "texture": "textures/particle/toa_glow"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 2
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 0.1
+      },
+      "minecraft:emitter_shape_sphere": {
+        "radius": 0.15,
+        "surface_only": false,
+        "direction": "outwards",
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      },
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": "0.4"
+      },
+      "minecraft:particle_motion_dynamic": {
+        "linear_acceleration": [
+          0,
+          0,
+          0
+        ],
+        "linear_drag_coefficient": 0.0
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          "0.75 * (1 - v.particle_age / v.particle_lifetime)",
+          "0.75 * (1 - v.particle_age / v.particle_lifetime)"
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 1,
+          "texture_height": 1,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            1,
+            1
+          ]
+        }
+      },
+      "minecraft:particle_appearance_tinting": {
+        "color": {
+          "interpolant": "v.particle_age / v.particle_lifetime",
+          "gradient": {
+            "0.00": "#FFFFFFFF",
+            "0.50": "#FFC8D2E6",
+            "1.00": "#00505A70"
+          }
+        }
+      }
+    }
+  }
+}

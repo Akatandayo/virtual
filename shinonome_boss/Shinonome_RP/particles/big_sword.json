@@ -1,0 +1,56 @@
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "shinonome:big_sword",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/toa_sword"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 0.1
+      },
+      "minecraft:emitter_shape_point": {
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      },
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": "0.55"
+      },
+      "minecraft:particle_motion_parametric": {
+        "relative_position": [
+          "0",
+          "math.max(0, 16 - v.particle_age * 60)",
+          "0"
+        ]
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          "1.6",
+          "6"
+        ],
+        "facing_camera_mode": "lookat_y",
+        "uv": {
+          "texture_width": 1,
+          "texture_height": 1,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            1,
+            1
+          ]
+        }
+      }
+    }
+  }
+}

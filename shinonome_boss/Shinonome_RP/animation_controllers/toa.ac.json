@@ -1,0 +1,681 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.toa.main": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "look_at",
+            "idle",
+            "move",
+            {
+              "attack": "variable.attack_time > 0"
+            }
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "s1": "q.mark_variant == 1"
+            },
+            {
+              "s2": "q.mark_variant == 2"
+            },
+            {
+              "s3": "q.mark_variant == 3"
+            },
+            {
+              "s4": "q.mark_variant == 4"
+            },
+            {
+              "s5": "q.mark_variant == 5"
+            },
+            {
+              "s6": "q.mark_variant == 6"
+            },
+            {
+              "s7": "q.mark_variant == 7"
+            },
+            {
+              "s8": "q.mark_variant == 8"
+            },
+            {
+              "s9": "q.mark_variant == 9"
+            },
+            {
+              "s10": "q.mark_variant == 10"
+            },
+            {
+              "s11": "q.mark_variant == 11"
+            },
+            {
+              "s12": "q.mark_variant == 12"
+            },
+            {
+              "s13": "q.mark_variant == 13"
+            },
+            {
+              "s14": "q.mark_variant == 14"
+            },
+            {
+              "s15": "q.mark_variant == 15"
+            },
+            {
+              "s16": "q.mark_variant == 16"
+            },
+            {
+              "s17": "q.mark_variant == 17"
+            },
+            {
+              "s18": "q.mark_variant == 18"
+            },
+            {
+              "s19": "q.mark_variant == 19"
+            },
+            {
+              "s20": "q.mark_variant == 20"
+            },
+            {
+              "s21": "q.mark_variant == 21"
+            },
+            {
+              "s22": "q.mark_variant == 22"
+            },
+            {
+              "s23": "q.mark_variant == 23"
+            },
+            {
+              "s24": "q.mark_variant == 24"
+            },
+            {
+              "s25": "q.mark_variant == 25"
+            },
+            {
+              "s30": "q.mark_variant == 30"
+            },
+            {
+              "s31": "q.mark_variant == 31"
+            },
+            {
+              "s32": "q.mark_variant == 32"
+            },
+            {
+              "s51": "q.mark_variant == 51"
+            },
+            {
+              "s52": "q.mark_variant == 52"
+            },
+            {
+              "s53": "q.mark_variant == 53"
+            },
+            {
+              "s54": "q.mark_variant == 54"
+            },
+            {
+              "s55": "q.mark_variant == 55"
+            }
+          ],
+          "blend_transition": 0.1
+        },
+        "death": {
+          "animations": [
+            "death_pose"
+          ]
+        },
+        "s1": {
+          "animations": [
+            "look_at",
+            "s1"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 1"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s2": {
+          "animations": [
+            "look_at",
+            "s2"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 2"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s3": {
+          "animations": [
+            "look_at",
+            "s3"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 3"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s4": {
+          "animations": [
+            "look_at",
+            "s4"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 4"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s5": {
+          "animations": [
+            "look_at",
+            "s5"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 5"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s6": {
+          "animations": [
+            "look_at",
+            "s6"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 6"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s7": {
+          "animations": [
+            "look_at",
+            "s7"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 7"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s8": {
+          "animations": [
+            "look_at",
+            "s8"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 8"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s9": {
+          "animations": [
+            "look_at",
+            "s9"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 9"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s10": {
+          "animations": [
+            "look_at",
+            "s10"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 10"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s11": {
+          "animations": [
+            "look_at",
+            "s11"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 11"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s12": {
+          "animations": [
+            "s12"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 12"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s13": {
+          "animations": [
+            "s13"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 13"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s14": {
+          "animations": [
+            "look_at",
+            "s14"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 14"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s15": {
+          "animations": [
+            "s15"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 15"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s16": {
+          "animations": [
+            "look_at",
+            "s16"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 16"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s17": {
+          "animations": [
+            "look_at",
+            "s17"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 17"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s18": {
+          "animations": [
+            "look_at",
+            "s18"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 18"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s19": {
+          "animations": [
+            "look_at",
+            "s19"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 19"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s20": {
+          "animations": [
+            "look_at",
+            "s20",
+            "water"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 20"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s21": {
+          "animations": [
+            "look_at",
+            "s21"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 21"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s22": {
+          "animations": [
+            "look_at",
+            "s22"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 22"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s23": {
+          "animations": [
+            "s23"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 23"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s24": {
+          "animations": [
+            "s24"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 24"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s25": {
+          "animations": [
+            "s25"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 25"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s30": {
+          "animations": [
+            "s30"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 30"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s31": {
+          "animations": [
+            "s31"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 31"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s32": {
+          "animations": [
+            "look_at",
+            "s32"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 32"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s51": {
+          "animations": [
+            "look_at",
+            "s51"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 51"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s52": {
+          "animations": [
+            "look_at",
+            "s52"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 52"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s53": {
+          "animations": [
+            "look_at",
+            "s53"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 53"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s54": {
+          "animations": [
+            "look_at",
+            "s54"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 54"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s55": {
+          "animations": [
+            "look_at",
+            "s55"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 55"
+            }
+          ],
+          "blend_transition": 0.08
+        }
+      }
+    },
+    "controller.animation.toa.aura": {
+      "initial_state": "none",
+      "states": {
+        "none": {
+          "transitions": [
+            {
+              "a2": "q.skin_id >= 2"
+            },
+            {
+              "a1": "q.skin_id == 1"
+            }
+          ]
+        },
+        "a1": {
+          "animations": [
+            "aura_1"
+          ],
+          "transitions": [
+            {
+              "a2": "q.skin_id >= 2"
+            },
+            {
+              "none": "!q.is_alive"
+            }
+          ]
+        },
+        "a2": {
+          "animations": [
+            "aura_2"
+          ],
+          "transitions": [
+            {
+              "none": "!q.is_alive"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.toa.attack_fx": {
+      "initial_state": "ready",
+      "states": {
+        "ready": {
+          "transitions": [
+            {
+              "swing": "variable.attack_time > 0.25"
+            }
+          ]
+        },
+        "swing": {
+          "particle_effects": [
+            {
+              "effect": "trail",
+              "locator": "right_hand"
+            }
+          ],
+          "transitions": [
+            {
+              "ready": "variable.attack_time < 0.2"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

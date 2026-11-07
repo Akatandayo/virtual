@@ -1963,6 +1963,22 @@
         ]
       }
     },
+    "animation.sophia.skill_34": {
+      "animation_length": 3.0,
+      "loop": false,
+      "timeline": {
+        "0.00": [
+          "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§eソフィア§7「ぎゃっ！？」\"}]}",
+          "/effect @s slowness 3 255 true",
+          "/particle sophia:shockwave_white ~ ~0.1 ~",
+          "/playsound random.anvil_land @a[r=30] ~ ~ ~ 1.0 1.40",
+          "/camerashake add @a[r=12] 0.30 0.20 positional"
+        ],
+        "1.60": [
+          "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§eソフィア§7「……東雲、あとで覚えてなさい」\"}]}"
+        ]
+      }
+    },
     "animation.sophia.skill_30": {
       "animation_length": 4.6,
       "loop": false,

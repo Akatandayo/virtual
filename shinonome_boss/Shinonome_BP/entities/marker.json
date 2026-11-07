@@ -1,0 +1,269 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "shinonome:marker",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false,
+      "animations": {
+        "life": "animation.toa.marker.life"
+      },
+      "scripts": {
+        "animate": [
+          "life"
+        ]
+      }
+    },
+    "component_groups": {
+      "despawn": {
+        "minecraft:instant_despawn": {}
+      },
+      "cage": {
+        "minecraft:type_family": {
+          "family": [
+            "toa_marker",
+            "cage",
+            "inanimate"
+          ]
+        }
+      },
+      "crush": {
+        "minecraft:type_family": {
+          "family": [
+            "toa_marker",
+            "crush",
+            "inanimate"
+          ]
+        }
+      },
+      "oil": {
+        "minecraft:type_family": {
+          "family": [
+            "toa_marker",
+            "oil",
+            "inanimate"
+          ]
+        }
+      },
+      "sun": {
+        "minecraft:type_family": {
+          "family": [
+            "toa_marker",
+            "sun",
+            "inanimate"
+          ]
+        }
+      },
+      "sword_0": {
+        "minecraft:type_family": {
+          "family": [
+            "toa_marker",
+            "sword_0",
+            "inanimate"
+          ]
+        }
+      },
+      "sword_1": {
+        "minecraft:type_family": {
+          "family": [
+            "toa_marker",
+            "sword_1",
+            "inanimate"
+          ]
+        }
+      },
+      "aim_0": {
+        "minecraft:type_family": {
+          "family": [
+            "toa_marker",
+            "aim_0",
+            "inanimate"
+          ]
+        }
+      },
+      "aim_1": {
+        "minecraft:type_family": {
+          "family": [
+            "toa_marker",
+            "aim_1",
+            "inanimate"
+          ]
+        }
+      },
+      "bread_0": {
+        "minecraft:type_family": {
+          "family": [
+            "toa_marker",
+            "bread_0",
+            "inanimate"
+          ]
+        }
+      },
+      "bread_1": {
+        "minecraft:type_family": {
+          "family": [
+            "toa_marker",
+            "bread_1",
+            "inanimate"
+          ]
+        }
+      },
+      "halo_a": {
+        "minecraft:type_family": {
+          "family": [
+            "toa_marker",
+            "halo_a",
+            "inanimate"
+          ]
+        }
+      },
+      "halo_b": {
+        "minecraft:type_family": {
+          "family": [
+            "toa_marker",
+            "halo_b",
+            "inanimate"
+          ]
+        }
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "toa_marker",
+          "inanimate"
+        ]
+      },
+      "minecraft:health": {
+        "value": 1,
+        "max": 1
+      },
+      "minecraft:collision_box": {
+        "width": 0.1,
+        "height": 0.1
+      },
+      "minecraft:physics": {
+        "has_gravity": false,
+        "has_collision": false
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:knockback_resistance": {
+        "value": 1.0
+      },
+      "minecraft:body_rotation_blocked": {},
+      "minecraft:fire_immune": {},
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "all",
+            "deal_damage": false
+          }
+        ]
+      },
+      "minecraft:conditional_bandwidth_optimization": {
+        "default_values": {
+          "max_optimized_distance": 0,
+          "max_dropped_ticks": 0,
+          "use_motion_prediction_hints": true
+        }
+      }
+    },
+    "events": {
+      "shinonome:despawn": {
+        "add": {
+          "component_groups": [
+            "despawn"
+          ]
+        }
+      },
+      "shinonome:as_cage": {
+        "add": {
+          "component_groups": [
+            "cage"
+          ]
+        }
+      },
+      "shinonome:as_crush": {
+        "add": {
+          "component_groups": [
+            "crush"
+          ]
+        }
+      },
+      "shinonome:as_oil": {
+        "add": {
+          "component_groups": [
+            "oil"
+          ]
+        }
+      },
+      "shinonome:as_sun": {
+        "add": {
+          "component_groups": [
+            "sun"
+          ]
+        }
+      },
+      "shinonome:as_sword_0": {
+        "add": {
+          "component_groups": [
+            "sword_0"
+          ]
+        }
+      },
+      "shinonome:as_sword_1": {
+        "add": {
+          "component_groups": [
+            "sword_1"
+          ]
+        }
+      },
+      "shinonome:as_aim_0": {
+        "add": {
+          "component_groups": [
+            "aim_0"
+          ]
+        }
+      },
+      "shinonome:as_aim_1": {
+        "add": {
+          "component_groups": [
+            "aim_1"
+          ]
+        }
+      },
+      "shinonome:as_bread_0": {
+        "add": {
+          "component_groups": [
+            "bread_0"
+          ]
+        }
+      },
+      "shinonome:as_bread_1": {
+        "add": {
+          "component_groups": [
+            "bread_1"
+          ]
+        }
+      },
+      "shinonome:as_halo_a": {
+        "add": {
+          "component_groups": [
+            "halo_a"
+          ]
+        }
+      },
+      "shinonome:as_halo_b": {
+        "add": {
+          "component_groups": [
+            "halo_b"
+          ]
+        }
+      }
+    }
+  }
+}
