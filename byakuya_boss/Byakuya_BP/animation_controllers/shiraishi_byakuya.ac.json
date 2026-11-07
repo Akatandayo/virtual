@@ -232,6 +232,10 @@
           "on_entry": [
             "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§f白石白夜§7「……いい腕だ。人間の意地、確かに見せてもらったよ、お前さん」\"}]}",
             "/playsound random.totem @a[r=64] ~ ~ ~ 1 0.8",
+            "/fog @a[r=64] remove byakuya_final",
+            "/particle byakuya:petal_storm ~ ~ ~",
+            "/particle byakuya:shockwave_big_white ~ ~0.1 ~",
+            "/particle byakuya:afterimage ~ ~0.9 ~",
             "/particle minecraft:totem_particle ~ ~1 ~"
           ]
         }

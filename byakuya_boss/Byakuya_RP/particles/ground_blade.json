@@ -1,0 +1,66 @@
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "byakuya:ground_blade",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/byakuya_blade"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 7
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 0.1
+      },
+      "minecraft:emitter_shape_disc": {
+        "radius": 1.0,
+        "plane_normal": "y",
+        "surface_only": false,
+        "direction": [
+          0,
+          1,
+          0
+        ],
+        "offset": [
+          0,
+          -0.8,
+          0
+        ]
+      },
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": "0.7"
+      },
+      "minecraft:particle_initial_speed": 10,
+      "minecraft:particle_motion_dynamic": {
+        "linear_acceleration": [
+          0,
+          0,
+          0
+        ],
+        "linear_drag_coefficient": 12
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          "0.22",
+          "0.9"
+        ],
+        "facing_camera_mode": "lookat_y",
+        "uv": {
+          "texture_width": 1,
+          "texture_height": 1,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            1,
+            1
+          ]
+        }
+      }
+    }
+  }
+}

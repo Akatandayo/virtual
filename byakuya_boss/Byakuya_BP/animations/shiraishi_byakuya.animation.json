@@ -7,16 +7,23 @@
       "timeline": {
         "0.00": [
           "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§f白石白夜§7「遅いよ、お前さん」\"}]}",
-          "/playsound mob.endermen.portal @a[r=40] ~ ~ ~ 1 0.6",
-          "/particle minecraft:large_explosion ~ ~1 ~",
-          "/execute as @p[r=40,m=!creative] at @s positioned ^ ^ ^-2 run tp @e[type=byakuya:shiraishi_byakuya,c=1] ~ ~ ~ facing @s"
+          "/particle byakuya:charge_white ~ ~1 ~"
+        ],
+        "0.15": [
+          "/playsound mob.endermen.portal @a[r=40] ~ ~ ~ 1.0 0.6",
+          "/particle byakuya:afterimage ~ ~0.9 ~",
+          "/execute as @p[r=40,m=!creative] at @s positioned ^ ^ ^-2 run tp @e[type=byakuya:shiraishi_byakuya,c=1] ~ ~ ~ facing @s",
+          "/particle byakuya:afterimage ~ ~0.9 ~"
         ],
         "0.45": [
-          "/playsound game.player.attack.strong @a[r=30] ~ ~ ~ 1 0.5",
-          "/particle minecraft:critical_hit_emitter ^ ^1 ^1.5",
-          "/particle minecraft:critical_hit_emitter ^0.6 ^1.3 ^1.2",
-          "/particle minecraft:critical_hit_emitter ^-0.6 ^0.7 ^1.2",
-          "/damage @a[r=4,m=!creative] 14 entity_attack entity @s"
+          "/playsound game.player.attack.strong @a[r=30] ~ ~ ~ 1.0 0.5",
+          "/playsound item.trident.riptide_1 @a[r=30] ~ ~ ~ 0.6 1.6",
+          "/particle byakuya:slash_flat_white ~ ~1.1 ~",
+          "/particle byakuya:slash_white ^ ^1.2 ^1.2",
+          "/particle byakuya:slash_white ^ ^1 ^1.5",
+          "/execute at @a[r=4,m=!creative] run particle byakuya:spark_burst ~ ~1 ~",
+          "/damage @a[r=4,m=!creative] 14 entity_attack entity @s",
+          "/camerashake add @a[r=10] 0.50 0.30 positional"
         ]
       }
     },
@@ -26,21 +33,45 @@
       "timeline": {
         "0.00": [
           "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§e【天地雷鳴】§7――天よ、地よ、鳴り響け\"}]}",
-          "/playsound ambient.weather.thunder @a[r=48] ~ ~ ~ 1 0.6",
-          "/particle minecraft:huge_explosion_emitter ~ ~3 ~"
+          "/playsound ambient.weather.thunder @a[r=48] ~ ~ ~ 1.0 0.6",
+          "/particle byakuya:charge_yellow ~ ~3 ~",
+          "/particle byakuya:shockwave_yellow ~ ~0.1 ~"
+        ],
+        "0.25": [
+          "/execute at @a[r=32,m=!creative] run particle byakuya:warn_yellow ~ ~0.1 ~",
+          "/execute at @a[r=32,m=!creative] run particle byakuya:charge_yellow ~ ~6 ~"
         ],
         "0.60": [
-          "/execute at @a[r=32,m=!creative] run summon lightning_bolt ~ ~ ~"
+          "/execute at @a[r=32,m=!creative] run summon lightning_bolt ~ ~ ~",
+          "/execute at @a[r=32,m=!creative] run particle byakuya:shockwave_yellow ~ ~0.1 ~",
+          "/execute at @a[r=32,m=!creative] run particle byakuya:spark_burst ~ ~0.5 ~",
+          "/camerashake add @a[r=32] 0.60 0.30 positional"
+        ],
+        "0.85": [
+          "/execute at @a[r=32,m=!creative] run particle byakuya:warn_yellow ~ ~0.1 ~",
+          "/execute at @a[r=32,m=!creative] run particle byakuya:charge_yellow ~ ~6 ~"
         ],
         "1.20": [
-          "/execute at @a[r=32,m=!creative] run summon lightning_bolt ~ ~ ~"
+          "/execute at @a[r=32,m=!creative] run summon lightning_bolt ~ ~ ~",
+          "/execute at @a[r=32,m=!creative] run particle byakuya:shockwave_yellow ~ ~0.1 ~",
+          "/execute at @a[r=32,m=!creative] run particle byakuya:spark_burst ~ ~0.5 ~",
+          "/camerashake add @a[r=32] 0.60 0.30 positional"
+        ],
+        "1.45": [
+          "/execute at @a[r=32,m=!creative] run particle byakuya:warn_yellow ~ ~0.1 ~",
+          "/execute at @a[r=32,m=!creative] run particle byakuya:charge_yellow ~ ~6 ~"
         ],
         "1.80": [
-          "/execute at @a[r=32,m=!creative] run summon lightning_bolt ~ ~ ~"
+          "/execute at @a[r=32,m=!creative] run summon lightning_bolt ~ ~ ~",
+          "/execute at @a[r=32,m=!creative] run particle byakuya:shockwave_yellow ~ ~0.1 ~",
+          "/execute at @a[r=32,m=!creative] run particle byakuya:spark_burst ~ ~0.5 ~",
+          "/camerashake add @a[r=32] 0.60 0.30 positional"
         ],
         "2.30": [
+          "/execute at @a[r=32,m=!creative] run summon lightning_bolt ~2 ~ ~2",
           "/execute at @a[r=32,m=!creative] run summon lightning_bolt ~-2 ~ ~-2",
-          "/execute at @a[r=32,m=!creative] run summon lightning_bolt ~2 ~ ~-2"
+          "/particle byakuya:shockwave_big_yellow ~ ~0.1 ~",
+          "/camerashake add @a[r=32] 1.00 0.50 positional"
         ]
       }
     },
@@ -50,131 +81,76 @@
       "timeline": {
         "0.00": [
           "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§c【火炎の狂滅】§7「炎はわしの得意分野でね」\"}]}",
-          "/playsound mob.blaze.shoot @a[r=40] ~ ~ ~ 1 0.5"
+          "/playsound mob.blaze.shoot @a[r=40] ~ ~ ~ 1.0 0.5",
+          "/particle byakuya:fire_pillar ~ ~ ~",
+          "/particle byakuya:charge_red ~ ~1 ~"
         ],
         "0.20": [
-          "/particle minecraft:mobflame_emitter ~2.00 ~0.30 ~0.00",
-          "/particle minecraft:mobflame_emitter ~1.62 ~0.30 ~1.18",
-          "/particle minecraft:mobflame_emitter ~0.62 ~0.30 ~1.90",
-          "/particle minecraft:mobflame_emitter ~-0.62 ~0.30 ~1.90",
-          "/particle minecraft:mobflame_emitter ~-1.62 ~0.30 ~1.18",
-          "/particle minecraft:mobflame_emitter ~-2.00 ~0.30 ~0.00",
-          "/particle minecraft:mobflame_emitter ~-1.62 ~0.30 ~-1.18",
-          "/particle minecraft:mobflame_emitter ~-0.62 ~0.30 ~-1.90",
-          "/particle minecraft:mobflame_emitter ~0.62 ~0.30 ~-1.90",
-          "/particle minecraft:mobflame_emitter ~1.62 ~0.30 ~-1.18"
+          "/particle byakuya:shockwave_red ~ ~0.2 ~",
+          "/particle byakuya:ember_burst ~2.00 ~0.20 ~0.00",
+          "/particle byakuya:ember_burst ~1.00 ~0.20 ~1.73",
+          "/particle byakuya:ember_burst ~-1.00 ~0.20 ~1.73",
+          "/particle byakuya:ember_burst ~-2.00 ~0.20 ~0.00",
+          "/particle byakuya:ember_burst ~-1.00 ~0.20 ~-1.73",
+          "/particle byakuya:ember_burst ~1.00 ~0.20 ~-1.73"
         ],
         "0.40": [
-          "/particle minecraft:mobflame_emitter ~3.50 ~0.30 ~0.00",
-          "/particle minecraft:mobflame_emitter ~3.15 ~0.30 ~1.52",
-          "/particle minecraft:mobflame_emitter ~2.18 ~0.30 ~2.74",
-          "/particle minecraft:mobflame_emitter ~0.78 ~0.30 ~3.41",
-          "/particle minecraft:mobflame_emitter ~-0.78 ~0.30 ~3.41",
-          "/particle minecraft:mobflame_emitter ~-2.18 ~0.30 ~2.74",
-          "/particle minecraft:mobflame_emitter ~-3.15 ~0.30 ~1.52",
-          "/particle minecraft:mobflame_emitter ~-3.50 ~0.30 ~0.00",
-          "/particle minecraft:mobflame_emitter ~-3.15 ~0.30 ~-1.52",
-          "/particle minecraft:mobflame_emitter ~-2.18 ~0.30 ~-2.74",
-          "/particle minecraft:mobflame_emitter ~-0.78 ~0.30 ~-3.41",
-          "/particle minecraft:mobflame_emitter ~0.78 ~0.30 ~-3.41",
-          "/particle minecraft:mobflame_emitter ~2.18 ~0.30 ~-2.74",
-          "/particle minecraft:mobflame_emitter ~3.15 ~0.30 ~-1.52"
+          "/particle byakuya:shockwave_red ~ ~0.2 ~",
+          "/particle byakuya:ember_burst ~3.50 ~0.20 ~0.00",
+          "/particle byakuya:ember_burst ~1.75 ~0.20 ~3.03",
+          "/particle byakuya:ember_burst ~-1.75 ~0.20 ~3.03",
+          "/particle byakuya:ember_burst ~-3.50 ~0.20 ~0.00",
+          "/particle byakuya:ember_burst ~-1.75 ~0.20 ~-3.03",
+          "/particle byakuya:ember_burst ~1.75 ~0.20 ~-3.03"
         ],
         "0.60": [
-          "/particle minecraft:mobflame_emitter ~5.00 ~0.30 ~0.00",
-          "/particle minecraft:mobflame_emitter ~4.70 ~0.30 ~1.71",
-          "/particle minecraft:mobflame_emitter ~3.83 ~0.30 ~3.21",
-          "/particle minecraft:mobflame_emitter ~2.50 ~0.30 ~4.33",
-          "/particle minecraft:mobflame_emitter ~0.87 ~0.30 ~4.92",
-          "/particle minecraft:mobflame_emitter ~-0.87 ~0.30 ~4.92",
-          "/particle minecraft:mobflame_emitter ~-2.50 ~0.30 ~4.33",
-          "/particle minecraft:mobflame_emitter ~-3.83 ~0.30 ~3.21",
-          "/particle minecraft:mobflame_emitter ~-4.70 ~0.30 ~1.71",
-          "/particle minecraft:mobflame_emitter ~-5.00 ~0.30 ~0.00",
-          "/particle minecraft:mobflame_emitter ~-4.70 ~0.30 ~-1.71",
-          "/particle minecraft:mobflame_emitter ~-3.83 ~0.30 ~-3.21",
-          "/particle minecraft:mobflame_emitter ~-2.50 ~0.30 ~-4.33",
-          "/particle minecraft:mobflame_emitter ~-0.87 ~0.30 ~-4.92",
-          "/particle minecraft:mobflame_emitter ~0.87 ~0.30 ~-4.92",
-          "/particle minecraft:mobflame_emitter ~2.50 ~0.30 ~-4.33",
-          "/particle minecraft:mobflame_emitter ~3.83 ~0.30 ~-3.21",
-          "/particle minecraft:mobflame_emitter ~4.70 ~0.30 ~-1.71"
+          "/particle byakuya:shockwave_red ~ ~0.2 ~",
+          "/particle byakuya:ember_burst ~5.00 ~0.20 ~0.00",
+          "/particle byakuya:ember_burst ~2.50 ~0.20 ~4.33",
+          "/particle byakuya:ember_burst ~-2.50 ~0.20 ~4.33",
+          "/particle byakuya:ember_burst ~-5.00 ~0.20 ~0.00",
+          "/particle byakuya:ember_burst ~-2.50 ~0.20 ~-4.33",
+          "/particle byakuya:ember_burst ~2.50 ~0.20 ~-4.33"
         ],
         "0.80": [
-          "/particle minecraft:mobflame_emitter ~6.50 ~0.30 ~0.00",
-          "/particle minecraft:mobflame_emitter ~6.24 ~0.30 ~1.83",
-          "/particle minecraft:mobflame_emitter ~5.47 ~0.30 ~3.51",
-          "/particle minecraft:mobflame_emitter ~4.26 ~0.30 ~4.91",
-          "/particle minecraft:mobflame_emitter ~2.70 ~0.30 ~5.91",
-          "/particle minecraft:mobflame_emitter ~0.93 ~0.30 ~6.43",
-          "/particle minecraft:mobflame_emitter ~-0.93 ~0.30 ~6.43",
-          "/particle minecraft:mobflame_emitter ~-2.70 ~0.30 ~5.91",
-          "/particle minecraft:mobflame_emitter ~-4.26 ~0.30 ~4.91",
-          "/particle minecraft:mobflame_emitter ~-5.47 ~0.30 ~3.51",
-          "/particle minecraft:mobflame_emitter ~-6.24 ~0.30 ~1.83",
-          "/particle minecraft:mobflame_emitter ~-6.50 ~0.30 ~0.00",
-          "/particle minecraft:mobflame_emitter ~-6.24 ~0.30 ~-1.83",
-          "/particle minecraft:mobflame_emitter ~-5.47 ~0.30 ~-3.51",
-          "/particle minecraft:mobflame_emitter ~-4.26 ~0.30 ~-4.91",
-          "/particle minecraft:mobflame_emitter ~-2.70 ~0.30 ~-5.91",
-          "/particle minecraft:mobflame_emitter ~-0.93 ~0.30 ~-6.43",
-          "/particle minecraft:mobflame_emitter ~0.93 ~0.30 ~-6.43",
-          "/particle minecraft:mobflame_emitter ~2.70 ~0.30 ~-5.91",
-          "/particle minecraft:mobflame_emitter ~4.26 ~0.30 ~-4.91",
-          "/particle minecraft:mobflame_emitter ~5.47 ~0.30 ~-3.51",
-          "/particle minecraft:mobflame_emitter ~6.24 ~0.30 ~-1.83"
-        ],
-        "1.00": [
-          "/particle minecraft:mobflame_emitter ~8.00 ~0.30 ~0.00",
-          "/particle minecraft:mobflame_emitter ~7.77 ~0.30 ~1.91",
-          "/particle minecraft:mobflame_emitter ~7.08 ~0.30 ~3.72",
-          "/particle minecraft:mobflame_emitter ~5.99 ~0.30 ~5.30",
-          "/particle minecraft:mobflame_emitter ~4.54 ~0.30 ~6.58",
-          "/particle minecraft:mobflame_emitter ~2.84 ~0.30 ~7.48",
-          "/particle minecraft:mobflame_emitter ~0.96 ~0.30 ~7.94",
-          "/particle minecraft:mobflame_emitter ~-0.96 ~0.30 ~7.94",
-          "/particle minecraft:mobflame_emitter ~-2.84 ~0.30 ~7.48",
-          "/particle minecraft:mobflame_emitter ~-4.54 ~0.30 ~6.58",
-          "/particle minecraft:mobflame_emitter ~-5.99 ~0.30 ~5.30",
-          "/particle minecraft:mobflame_emitter ~-7.08 ~0.30 ~3.72",
-          "/particle minecraft:mobflame_emitter ~-7.77 ~0.30 ~1.91",
-          "/particle minecraft:mobflame_emitter ~-8.00 ~0.30 ~-0.00",
-          "/particle minecraft:mobflame_emitter ~-7.77 ~0.30 ~-1.91",
-          "/particle minecraft:mobflame_emitter ~-7.08 ~0.30 ~-3.72",
-          "/particle minecraft:mobflame_emitter ~-5.99 ~0.30 ~-5.30",
-          "/particle minecraft:mobflame_emitter ~-4.54 ~0.30 ~-6.58",
-          "/particle minecraft:mobflame_emitter ~-2.84 ~0.30 ~-7.48",
-          "/particle minecraft:mobflame_emitter ~-0.96 ~0.30 ~-7.94",
-          "/particle minecraft:mobflame_emitter ~0.96 ~0.30 ~-7.94",
-          "/particle minecraft:mobflame_emitter ~2.84 ~0.30 ~-7.48",
-          "/particle minecraft:mobflame_emitter ~4.54 ~0.30 ~-6.58",
-          "/particle minecraft:mobflame_emitter ~5.99 ~0.30 ~-5.30",
-          "/particle minecraft:mobflame_emitter ~7.08 ~0.30 ~-3.72",
-          "/particle minecraft:mobflame_emitter ~7.77 ~0.30 ~-1.91"
+          "/particle byakuya:shockwave_red ~ ~0.2 ~",
+          "/particle byakuya:ember_burst ~6.50 ~0.20 ~0.00",
+          "/particle byakuya:ember_burst ~3.25 ~0.20 ~5.63",
+          "/particle byakuya:ember_burst ~-3.25 ~0.20 ~5.63",
+          "/particle byakuya:ember_burst ~-6.50 ~0.20 ~0.00",
+          "/particle byakuya:ember_burst ~-3.25 ~0.20 ~-5.63",
+          "/particle byakuya:ember_burst ~3.25 ~0.20 ~-5.63"
         ],
         "1.20": [
           "/damage @a[r=8,m=!creative] 9 fire entity @s",
-          "/playsound mob.ghast.fireball @a[r=40] ~ ~ ~ 1 0.6",
-          "/particle minecraft:lava_particle ~4.00 ~1.00 ~0.00",
-          "/particle minecraft:lava_particle ~3.70 ~1.00 ~1.53",
-          "/particle minecraft:lava_particle ~2.83 ~1.00 ~2.83",
-          "/particle minecraft:lava_particle ~1.53 ~1.00 ~3.70",
-          "/particle minecraft:lava_particle ~0.00 ~1.00 ~4.00",
-          "/particle minecraft:lava_particle ~-1.53 ~1.00 ~3.70",
-          "/particle minecraft:lava_particle ~-2.83 ~1.00 ~2.83",
-          "/particle minecraft:lava_particle ~-3.70 ~1.00 ~1.53",
-          "/particle minecraft:lava_particle ~-4.00 ~1.00 ~0.00",
-          "/particle minecraft:lava_particle ~-3.70 ~1.00 ~-1.53",
-          "/particle minecraft:lava_particle ~-2.83 ~1.00 ~-2.83",
-          "/particle minecraft:lava_particle ~-1.53 ~1.00 ~-3.70",
-          "/particle minecraft:lava_particle ~-0.00 ~1.00 ~-4.00",
-          "/particle minecraft:lava_particle ~1.53 ~1.00 ~-3.70",
-          "/particle minecraft:lava_particle ~2.83 ~1.00 ~-2.83",
-          "/particle minecraft:lava_particle ~3.70 ~1.00 ~-1.53"
+          "/playsound mob.ghast.fireball @a[r=40] ~ ~ ~ 1.0 0.6",
+          "/camerashake add @a[r=16] 0.60 0.40 positional",
+          "/particle byakuya:fire_pillar ~4.00 ~0.00 ~0.00",
+          "/particle byakuya:fire_pillar ~2.83 ~0.00 ~2.83",
+          "/particle byakuya:fire_pillar ~0.00 ~0.00 ~4.00",
+          "/particle byakuya:fire_pillar ~-2.83 ~0.00 ~2.83",
+          "/particle byakuya:fire_pillar ~-4.00 ~0.00 ~0.00",
+          "/particle byakuya:fire_pillar ~-2.83 ~0.00 ~-2.83",
+          "/particle byakuya:fire_pillar ~-0.00 ~0.00 ~-4.00",
+          "/particle byakuya:fire_pillar ~2.83 ~0.00 ~-2.83"
         ],
         "1.80": [
           "/damage @a[r=8,m=!creative] 9 fire entity @s",
-          "/particle minecraft:huge_explosion_emitter ~ ~1 ~"
+          "/playsound random.explode @a[r=40] ~ ~ ~ 1.0 0.8",
+          "/particle byakuya:shockwave_big_red ~ ~0.2 ~",
+          "/particle byakuya:ember_burst ~ ~1 ~",
+          "/particle minecraft:huge_explosion_emitter ~ ~1 ~",
+          "/camerashake add @a[r=16] 1.00 0.50 positional",
+          "/particle byakuya:fire_pillar ~7.00 ~0.00 ~0.00",
+          "/particle byakuya:fire_pillar ~5.66 ~0.00 ~4.11",
+          "/particle byakuya:fire_pillar ~2.16 ~0.00 ~6.66",
+          "/particle byakuya:fire_pillar ~-2.16 ~0.00 ~6.66",
+          "/particle byakuya:fire_pillar ~-5.66 ~0.00 ~4.11",
+          "/particle byakuya:fire_pillar ~-7.00 ~0.00 ~0.00",
+          "/particle byakuya:fire_pillar ~-5.66 ~0.00 ~-4.11",
+          "/particle byakuya:fire_pillar ~-2.16 ~0.00 ~-6.66",
+          "/particle byakuya:fire_pillar ~2.16 ~0.00 ~-6.66",
+          "/particle byakuya:fire_pillar ~5.66 ~0.00 ~-4.11"
         ]
       }
     },
@@ -184,22 +160,39 @@
       "timeline": {
         "0.00": [
           "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§9【水没の重滅】§7「沈め」\"}]}",
-          "/playsound random.splash @a[r=40] ~ ~ ~ 1 0.5",
-          "/effect @a[r=18,m=!creative] levitation 2 4 true"
+          "/playsound random.splash @a[r=40] ~ ~ ~ 1.0 0.5",
+          "/effect @a[r=18,m=!creative] levitation 2 4 true",
+          "/execute at @a[r=18,m=!creative] run particle byakuya:water_pillar ~ ~ ~",
+          "/particle byakuya:shockwave_blue ~ ~0.1 ~"
         ],
-        "0.50": [
-          "/execute at @a[r=18,m=!creative] run particle minecraft:bubble_column_up_particle ~ ~ ~"
+        "0.40": [
+          "/execute at @a[r=18,m=!creative] run particle byakuya:water_spiral ~ ~-0.5 ~",
+          "/playsound bubble.upinside @a[r=30] ~ ~ ~ 1.0 0.8"
         ],
-        "1.00": [
-          "/execute at @a[r=18,m=!creative] run particle minecraft:bubble_column_up_particle ~ ~ ~"
+        "0.90": [
+          "/execute at @a[r=18,m=!creative] run particle byakuya:water_spiral ~ ~-0.5 ~",
+          "/playsound bubble.upinside @a[r=30] ~ ~ ~ 1.0 0.8"
+        ],
+        "1.40": [
+          "/execute at @a[r=18,m=!creative] run particle byakuya:water_spiral ~ ~-0.5 ~",
+          "/playsound bubble.upinside @a[r=30] ~ ~ ~ 1.0 0.8"
+        ],
+        "1.80": [
+          "/particle byakuya:charge_blue ~ ~1.5 ~"
         ],
         "2.00": [
           "/effect @a[r=18,m=!creative] slowness 6 3 true",
           "/effect @a[r=18,m=!creative] mining_fatigue 6 2 true",
-          "/playsound random.explode @a[r=40] ~ ~ ~ 1 0.5"
+          "/playsound random.explode @a[r=40] ~ ~ ~ 1.0 0.5",
+          "/particle byakuya:water_burst ~ ~0.2 ~",
+          "/particle byakuya:shockwave_big_blue ~ ~0.1 ~",
+          "/camerashake add @a[r=20] 0.80 0.40 positional"
         ],
         "2.60": [
-          "/damage @a[r=18,m=!creative] 8 drowning entity @s"
+          "/damage @a[r=18,m=!creative] 8 drowning entity @s",
+          "/execute at @a[r=18,m=!creative] run particle byakuya:water_burst ~ ~0.2 ~",
+          "/execute at @a[r=18,m=!creative] run particle byakuya:shockwave_blue ~ ~0.1 ~",
+          "/playsound random.splash @a[r=40] ~ ~ ~ 1.0 0.4"
         ]
       }
     },
@@ -209,11 +202,14 @@
       "timeline": {
         "0.00": [
           "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§2【樹海の誘滅】§7「こっちへおいで」\"}]}",
-          "/playsound mob.evocation_illager.cast_spell @a[r=40] ~ ~ ~ 1 0.6"
+          "/playsound mob.evocation_illager.cast_spell @a[r=40] ~ ~ ~ 1.0 0.6",
+          "/particle byakuya:leaf_swirl ~ ~ ~",
+          "/particle byakuya:shockwave_green ~ ~0.1 ~"
         ],
         "0.10": [
           "/execute as @a[r=22,rm=2.5,m=!creative] at @s facing entity @e[type=byakuya:shiraishi_byakuya,c=1] feet run tp @s ^ ^ ^0.9",
-          "/execute at @a[r=22,m=!creative] run particle minecraft:villager_happy ~ ~0.5 ~"
+          "/execute at @a[r=22,m=!creative] run particle byakuya:leaf_burst ~ ~0.6 ~",
+          "/playsound block.sweet_berry_bush.hurt @a[r=30] ~ ~ ~ 1.0 0.7"
         ],
         "0.20": [
           "/execute as @a[r=22,rm=2.5,m=!creative] at @s facing entity @e[type=byakuya:shiraishi_byakuya,c=1] feet run tp @s ^ ^ ^0.9"
@@ -223,7 +219,8 @@
         ],
         "0.40": [
           "/execute as @a[r=22,rm=2.5,m=!creative] at @s facing entity @e[type=byakuya:shiraishi_byakuya,c=1] feet run tp @s ^ ^ ^0.9",
-          "/execute at @a[r=22,m=!creative] run particle minecraft:villager_happy ~ ~0.5 ~"
+          "/execute at @a[r=22,m=!creative] run particle byakuya:leaf_burst ~ ~0.6 ~",
+          "/playsound block.sweet_berry_bush.hurt @a[r=30] ~ ~ ~ 1.0 0.7"
         ],
         "0.50": [
           "/execute as @a[r=22,rm=2.5,m=!creative] at @s facing entity @e[type=byakuya:shiraishi_byakuya,c=1] feet run tp @s ^ ^ ^0.9"
@@ -233,7 +230,8 @@
         ],
         "0.70": [
           "/execute as @a[r=22,rm=2.5,m=!creative] at @s facing entity @e[type=byakuya:shiraishi_byakuya,c=1] feet run tp @s ^ ^ ^0.9",
-          "/execute at @a[r=22,m=!creative] run particle minecraft:villager_happy ~ ~0.5 ~"
+          "/execute at @a[r=22,m=!creative] run particle byakuya:leaf_burst ~ ~0.6 ~",
+          "/playsound block.sweet_berry_bush.hurt @a[r=30] ~ ~ ~ 1.0 0.7"
         ],
         "0.80": [
           "/execute as @a[r=22,rm=2.5,m=!creative] at @s facing entity @e[type=byakuya:shiraishi_byakuya,c=1] feet run tp @s ^ ^ ^0.9"
@@ -243,7 +241,8 @@
         ],
         "1.00": [
           "/execute as @a[r=22,rm=2.5,m=!creative] at @s facing entity @e[type=byakuya:shiraishi_byakuya,c=1] feet run tp @s ^ ^ ^0.9",
-          "/execute at @a[r=22,m=!creative] run particle minecraft:villager_happy ~ ~0.5 ~"
+          "/execute at @a[r=22,m=!creative] run particle byakuya:leaf_burst ~ ~0.6 ~",
+          "/playsound block.sweet_berry_bush.hurt @a[r=30] ~ ~ ~ 1.0 0.7"
         ],
         "1.10": [
           "/execute as @a[r=22,rm=2.5,m=!creative] at @s facing entity @e[type=byakuya:shiraishi_byakuya,c=1] feet run tp @s ^ ^ ^0.9"
@@ -253,7 +252,8 @@
         ],
         "1.30": [
           "/execute as @a[r=22,rm=2.5,m=!creative] at @s facing entity @e[type=byakuya:shiraishi_byakuya,c=1] feet run tp @s ^ ^ ^0.9",
-          "/execute at @a[r=22,m=!creative] run particle minecraft:villager_happy ~ ~0.5 ~"
+          "/execute at @a[r=22,m=!creative] run particle byakuya:leaf_burst ~ ~0.6 ~",
+          "/playsound block.sweet_berry_bush.hurt @a[r=30] ~ ~ ~ 1.0 0.7"
         ],
         "1.40": [
           "/execute as @a[r=22,rm=2.5,m=!creative] at @s facing entity @e[type=byakuya:shiraishi_byakuya,c=1] feet run tp @s ^ ^ ^0.9"
@@ -264,19 +264,12 @@
         "1.70": [
           "/damage @a[r=4,m=!creative] 12 entity_attack entity @s",
           "/effect @a[r=6,m=!creative] poison 5 1 true",
-          "/playsound game.player.attack.strong @a[r=30] ~ ~ ~ 1 0.5",
-          "/particle minecraft:critical_hit_emitter ~3.00 ~1.00 ~0.00",
-          "/particle minecraft:critical_hit_emitter ~2.60 ~1.00 ~1.50",
-          "/particle minecraft:critical_hit_emitter ~1.50 ~1.00 ~2.60",
-          "/particle minecraft:critical_hit_emitter ~0.00 ~1.00 ~3.00",
-          "/particle minecraft:critical_hit_emitter ~-1.50 ~1.00 ~2.60",
-          "/particle minecraft:critical_hit_emitter ~-2.60 ~1.00 ~1.50",
-          "/particle minecraft:critical_hit_emitter ~-3.00 ~1.00 ~0.00",
-          "/particle minecraft:critical_hit_emitter ~-2.60 ~1.00 ~-1.50",
-          "/particle minecraft:critical_hit_emitter ~-1.50 ~1.00 ~-2.60",
-          "/particle minecraft:critical_hit_emitter ~-0.00 ~1.00 ~-3.00",
-          "/particle minecraft:critical_hit_emitter ~1.50 ~1.00 ~-2.60",
-          "/particle minecraft:critical_hit_emitter ~2.60 ~1.00 ~-1.50"
+          "/playsound game.player.attack.strong @a[r=30] ~ ~ ~ 1.0 0.5",
+          "/particle byakuya:slash_flat_green ~ ~1 ~",
+          "/particle byakuya:slash_green ^ ^1.2 ^1.3",
+          "/particle byakuya:leaf_burst ~ ~1 ~",
+          "/execute at @a[r=4,m=!creative] run particle byakuya:spark_burst ~ ~1 ~",
+          "/camerashake add @a[r=10] 0.60 0.30 positional"
         ]
       }
     },
@@ -286,26 +279,50 @@
       "timeline": {
         "0.00": [
           "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§d【スコーピオン】§7足元にご注意を\"}]}",
-          "/playsound mob.evocation_illager.prepare_attack @a[r=40] ~ ~ ~"
+          "/playsound mob.evocation_illager.prepare_attack @a[r=40] ~ ~ ~ 1.0 1.0"
+        ],
+        "0.10": [
+          "/execute at @a[r=28,m=!creative] run particle byakuya:warn_purple ~ ~0.1 ~"
+        ],
+        "0.35": [
+          "/particle byakuya:shockwave_purple ~ ~0.1 ~",
+          "/particle byakuya:ground_blade ~ ~ ~",
+          "/playsound random.anvil_land @a[r=30] ~ ~ ~ 1.0 0.6",
+          "/camerashake add @a[r=12] 0.40 0.20 positional"
         ],
         "0.40": [
-          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~ ~ ~"
+          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~ ~ ~",
+          "/execute at @a[r=28,m=!creative] run particle byakuya:ground_blade ~ ~ ~"
         ],
         "0.80": [
-          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~1.5 ~ ~0.0",
-          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~0.8 ~ ~1.3",
-          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~-0.7 ~ ~1.3",
-          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~-1.5 ~ ~0.0",
-          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~-0.8 ~ ~-1.3",
-          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~0.8 ~ ~-1.3"
+          "/execute at @a[r=28,m=!creative] run particle byakuya:warn_purple ~ ~0.1 ~",
+          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~0.1 ~ ~1.5",
+          "/execute at @a[r=28,m=!creative] run particle byakuya:ground_blade ~0.1 ~ ~1.5",
+          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~-1.2 ~ ~0.8",
+          "/execute at @a[r=28,m=!creative] run particle byakuya:ground_blade ~-1.2 ~ ~0.8",
+          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~-1.3 ~ ~-0.7",
+          "/execute at @a[r=28,m=!creative] run particle byakuya:ground_blade ~-1.3 ~ ~-0.7",
+          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~-0.1 ~ ~-1.5",
+          "/execute at @a[r=28,m=!creative] run particle byakuya:ground_blade ~-0.1 ~ ~-1.5",
+          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~1.2 ~ ~-0.8",
+          "/execute at @a[r=28,m=!creative] run particle byakuya:ground_blade ~1.2 ~ ~-0.8",
+          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~1.3 ~ ~0.7",
+          "/execute at @a[r=28,m=!creative] run particle byakuya:ground_blade ~1.3 ~ ~0.7"
         ],
         "1.20": [
-          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~2.5 ~ ~0.0",
-          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~1.3 ~ ~2.2",
-          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~-1.2 ~ ~2.2",
-          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~-2.5 ~ ~0.0",
-          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~-1.3 ~ ~-2.2",
-          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~1.3 ~ ~-2.2"
+          "/execute at @a[r=28,m=!creative] run particle byakuya:warn_purple ~ ~0.1 ~",
+          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~-2.0 ~ ~1.5",
+          "/execute at @a[r=28,m=!creative] run particle byakuya:ground_blade ~-2.0 ~ ~1.5",
+          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~-2.3 ~ ~-1.0",
+          "/execute at @a[r=28,m=!creative] run particle byakuya:ground_blade ~-2.3 ~ ~-1.0",
+          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~-0.3 ~ ~-2.5",
+          "/execute at @a[r=28,m=!creative] run particle byakuya:ground_blade ~-0.3 ~ ~-2.5",
+          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~2.0 ~ ~-1.5",
+          "/execute at @a[r=28,m=!creative] run particle byakuya:ground_blade ~2.0 ~ ~-1.5",
+          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~2.3 ~ ~1.0",
+          "/execute at @a[r=28,m=!creative] run particle byakuya:ground_blade ~2.3 ~ ~1.0",
+          "/execute at @a[r=28,m=!creative] run summon evocation_fang ~0.3 ~ ~2.5",
+          "/execute at @a[r=28,m=!creative] run particle byakuya:ground_blade ~0.3 ~ ~2.5"
         ]
       }
     },
@@ -315,42 +332,60 @@
       "timeline": {
         "0.00": [
           "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§6【千本投擲】§7投擲は昔から得意なんだ\"}]}",
-          "/playsound item.trident.throw @a[r=40] ~ ~ ~ 1 0.6"
+          "/playsound item.trident.throw @a[r=40] ~ ~ ~ 1.0 0.6",
+          "/execute at @a[r=32,m=!creative] run particle byakuya:warn_white ~ ~0.1 ~"
+        ],
+        "0.20": [
+          "/execute at @a[r=32,m=!creative] run particle byakuya:blade_halo ~ ~9 ~"
         ],
         "0.50": [
+          "/execute at @a[r=32,m=!creative] run particle byakuya:blade_rain ~ ~9 ~",
+          "/playsound item.trident.throw @a[r=30] ~ ~ ~ 0.6 1.2",
+          "/execute at @a[r=32,m=!creative] run summon arrow ~-0.9 ~12 ~-0.4",
           "/execute at @a[r=32,m=!creative] run summon arrow ~-0.3 ~12 ~-1.4",
-          "/execute at @a[r=32,m=!creative] run summon arrow ~1.3 ~12 ~-1.2",
-          "/execute at @a[r=32,m=!creative] run summon arrow ~1.4 ~12 ~-0.9"
+          "/execute at @a[r=32,m=!creative] run summon arrow ~1.3 ~12 ~-1.2"
         ],
         "0.75": [
+          "/execute at @a[r=32,m=!creative] run particle byakuya:blade_rain ~ ~9 ~",
+          "/playsound item.trident.throw @a[r=30] ~ ~ ~ 0.6 1.2",
+          "/execute at @a[r=32,m=!creative] run summon arrow ~1.4 ~12 ~-0.9",
           "/execute at @a[r=32,m=!creative] run summon arrow ~1.1 ~12 ~0.6",
-          "/execute at @a[r=32,m=!creative] run summon arrow ~0.3 ~12 ~-1.0",
-          "/execute at @a[r=32,m=!creative] run summon arrow ~-0.5 ~12 ~1.1"
+          "/execute at @a[r=32,m=!creative] run summon arrow ~0.3 ~12 ~-1.0"
         ],
         "1.00": [
+          "/execute at @a[r=32,m=!creative] run particle byakuya:blade_rain ~ ~9 ~",
+          "/playsound item.trident.throw @a[r=30] ~ ~ ~ 0.6 1.3",
+          "/execute at @a[r=32,m=!creative] run summon arrow ~-0.5 ~12 ~1.1",
           "/execute at @a[r=32,m=!creative] run summon arrow ~-0.1 ~12 ~0.3",
-          "/execute at @a[r=32,m=!creative] run summon arrow ~1.5 ~12 ~-0.7",
-          "/execute at @a[r=32,m=!creative] run summon arrow ~0.3 ~12 ~-1.4"
+          "/execute at @a[r=32,m=!creative] run summon arrow ~1.5 ~12 ~-0.7"
         ],
         "1.25": [
+          "/execute at @a[r=32,m=!creative] run particle byakuya:blade_rain ~ ~9 ~",
+          "/playsound item.trident.throw @a[r=30] ~ ~ ~ 0.6 1.4",
+          "/execute at @a[r=32,m=!creative] run summon arrow ~0.3 ~12 ~-1.4",
           "/execute at @a[r=32,m=!creative] run summon arrow ~-0.8 ~12 ~0.2",
-          "/execute at @a[r=32,m=!creative] run summon arrow ~-0.8 ~12 ~-0.7",
-          "/execute at @a[r=32,m=!creative] run summon arrow ~-0.3 ~12 ~0.8"
+          "/execute at @a[r=32,m=!creative] run summon arrow ~-0.8 ~12 ~-0.7"
         ],
         "1.50": [
+          "/execute at @a[r=32,m=!creative] run particle byakuya:blade_rain ~ ~9 ~",
+          "/playsound item.trident.throw @a[r=30] ~ ~ ~ 0.6 1.4",
+          "/execute at @a[r=32,m=!creative] run summon arrow ~-0.3 ~12 ~0.8",
           "/execute at @a[r=32,m=!creative] run summon arrow ~1.3 ~12 ~-0.4",
-          "/execute at @a[r=32,m=!creative] run summon arrow ~-0.2 ~12 ~1.1",
-          "/execute at @a[r=32,m=!creative] run summon arrow ~0.9 ~12 ~1.1"
+          "/execute at @a[r=32,m=!creative] run summon arrow ~-0.2 ~12 ~1.1"
         ],
         "1.75": [
+          "/execute at @a[r=32,m=!creative] run particle byakuya:blade_rain ~ ~9 ~",
+          "/playsound item.trident.throw @a[r=30] ~ ~ ~ 0.6 1.4",
+          "/execute at @a[r=32,m=!creative] run summon arrow ~0.9 ~12 ~1.1",
           "/execute at @a[r=32,m=!creative] run summon arrow ~-1.3 ~12 ~-0.1",
-          "/execute at @a[r=32,m=!creative] run summon arrow ~0.4 ~12 ~1.3",
-          "/execute at @a[r=32,m=!creative] run summon arrow ~0.4 ~12 ~-0.9"
+          "/execute at @a[r=32,m=!creative] run summon arrow ~0.4 ~12 ~1.3"
         ],
         "2.00": [
+          "/execute at @a[r=32,m=!creative] run particle byakuya:blade_rain ~ ~9 ~",
+          "/playsound item.trident.throw @a[r=30] ~ ~ ~ 0.6 1.5",
+          "/execute at @a[r=32,m=!creative] run summon arrow ~0.4 ~12 ~-0.9",
           "/execute at @a[r=32,m=!creative] run summon arrow ~1.0 ~12 ~0.8",
-          "/execute at @a[r=32,m=!creative] run summon arrow ~-0.1 ~12 ~0.2",
-          "/execute at @a[r=32,m=!creative] run summon arrow ~-0.6 ~12 ~-0.6"
+          "/execute at @a[r=32,m=!creative] run summon arrow ~-0.1 ~12 ~0.2"
         ]
       }
     },
@@ -360,103 +395,35 @@
       "timeline": {
         "0.00": [
           "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b【ホッパー】§7反射板展開――叩いても無駄だよ\"}]}",
-          "/playsound random.anvil_land @a[r=40] ~ ~ ~ 1 1.5"
+          "/playsound random.anvil_land @a[r=40] ~ ~ ~ 1.0 1.5",
+          "/particle byakuya:shockwave_cyan ~ ~0.1 ~"
         ],
-        "0.20": [
-          "/particle minecraft:endrod ~1.30 ~1.00 ~0.00",
-          "/particle minecraft:endrod ~1.05 ~1.00 ~0.76",
-          "/particle minecraft:endrod ~0.40 ~1.00 ~1.24",
-          "/particle minecraft:endrod ~-0.40 ~1.00 ~1.24",
-          "/particle minecraft:endrod ~-1.05 ~1.00 ~0.76",
-          "/particle minecraft:endrod ~-1.30 ~1.00 ~0.00",
-          "/particle minecraft:endrod ~-1.05 ~1.00 ~-0.76",
-          "/particle minecraft:endrod ~-0.40 ~1.00 ~-1.24",
-          "/particle minecraft:endrod ~0.40 ~1.00 ~-1.24",
-          "/particle minecraft:endrod ~1.05 ~1.00 ~-0.76"
+        "0.10": [
+          "/particle byakuya:hopper_panel ~ ~1 ~"
         ],
-        "0.65": [
-          "/particle minecraft:endrod ~1.30 ~1.50 ~0.00",
-          "/particle minecraft:endrod ~1.05 ~1.50 ~0.76",
-          "/particle minecraft:endrod ~0.40 ~1.50 ~1.24",
-          "/particle minecraft:endrod ~-0.40 ~1.50 ~1.24",
-          "/particle minecraft:endrod ~-1.05 ~1.50 ~0.76",
-          "/particle minecraft:endrod ~-1.30 ~1.50 ~0.00",
-          "/particle minecraft:endrod ~-1.05 ~1.50 ~-0.76",
-          "/particle minecraft:endrod ~-0.40 ~1.50 ~-1.24",
-          "/particle minecraft:endrod ~0.40 ~1.50 ~-1.24",
-          "/particle minecraft:endrod ~1.05 ~1.50 ~-0.76"
+        "0.53": [
+          "/particle byakuya:hopper_panel ~ ~1 ~"
         ],
-        "1.10": [
-          "/particle minecraft:endrod ~1.30 ~2.00 ~0.00",
-          "/particle minecraft:endrod ~1.05 ~2.00 ~0.76",
-          "/particle minecraft:endrod ~0.40 ~2.00 ~1.24",
-          "/particle minecraft:endrod ~-0.40 ~2.00 ~1.24",
-          "/particle minecraft:endrod ~-1.05 ~2.00 ~0.76",
-          "/particle minecraft:endrod ~-1.30 ~2.00 ~0.00",
-          "/particle minecraft:endrod ~-1.05 ~2.00 ~-0.76",
-          "/particle minecraft:endrod ~-0.40 ~2.00 ~-1.24",
-          "/particle minecraft:endrod ~0.40 ~2.00 ~-1.24",
-          "/particle minecraft:endrod ~1.05 ~2.00 ~-0.76"
+        "0.96": [
+          "/particle byakuya:hopper_panel ~ ~1 ~"
         ],
-        "1.55": [
-          "/particle minecraft:endrod ~1.30 ~1.00 ~0.00",
-          "/particle minecraft:endrod ~1.05 ~1.00 ~0.76",
-          "/particle minecraft:endrod ~0.40 ~1.00 ~1.24",
-          "/particle minecraft:endrod ~-0.40 ~1.00 ~1.24",
-          "/particle minecraft:endrod ~-1.05 ~1.00 ~0.76",
-          "/particle minecraft:endrod ~-1.30 ~1.00 ~0.00",
-          "/particle minecraft:endrod ~-1.05 ~1.00 ~-0.76",
-          "/particle minecraft:endrod ~-0.40 ~1.00 ~-1.24",
-          "/particle minecraft:endrod ~0.40 ~1.00 ~-1.24",
-          "/particle minecraft:endrod ~1.05 ~1.00 ~-0.76"
+        "1.39": [
+          "/particle byakuya:hopper_panel ~ ~1 ~"
         ],
-        "2.00": [
-          "/particle minecraft:endrod ~1.30 ~1.50 ~0.00",
-          "/particle minecraft:endrod ~1.05 ~1.50 ~0.76",
-          "/particle minecraft:endrod ~0.40 ~1.50 ~1.24",
-          "/particle minecraft:endrod ~-0.40 ~1.50 ~1.24",
-          "/particle minecraft:endrod ~-1.05 ~1.50 ~0.76",
-          "/particle minecraft:endrod ~-1.30 ~1.50 ~0.00",
-          "/particle minecraft:endrod ~-1.05 ~1.50 ~-0.76",
-          "/particle minecraft:endrod ~-0.40 ~1.50 ~-1.24",
-          "/particle minecraft:endrod ~0.40 ~1.50 ~-1.24",
-          "/particle minecraft:endrod ~1.05 ~1.50 ~-0.76"
+        "1.82": [
+          "/particle byakuya:hopper_panel ~ ~1 ~"
         ],
-        "2.45": [
-          "/particle minecraft:endrod ~1.30 ~2.00 ~0.00",
-          "/particle minecraft:endrod ~1.05 ~2.00 ~0.76",
-          "/particle minecraft:endrod ~0.40 ~2.00 ~1.24",
-          "/particle minecraft:endrod ~-0.40 ~2.00 ~1.24",
-          "/particle minecraft:endrod ~-1.05 ~2.00 ~0.76",
-          "/particle minecraft:endrod ~-1.30 ~2.00 ~0.00",
-          "/particle minecraft:endrod ~-1.05 ~2.00 ~-0.76",
-          "/particle minecraft:endrod ~-0.40 ~2.00 ~-1.24",
-          "/particle minecraft:endrod ~0.40 ~2.00 ~-1.24",
-          "/particle minecraft:endrod ~1.05 ~2.00 ~-0.76"
+        "2.25": [
+          "/particle byakuya:hopper_panel ~ ~1 ~"
         ],
-        "2.90": [
-          "/particle minecraft:endrod ~1.30 ~1.00 ~0.00",
-          "/particle minecraft:endrod ~1.05 ~1.00 ~0.76",
-          "/particle minecraft:endrod ~0.40 ~1.00 ~1.24",
-          "/particle minecraft:endrod ~-0.40 ~1.00 ~1.24",
-          "/particle minecraft:endrod ~-1.05 ~1.00 ~0.76",
-          "/particle minecraft:endrod ~-1.30 ~1.00 ~0.00",
-          "/particle minecraft:endrod ~-1.05 ~1.00 ~-0.76",
-          "/particle minecraft:endrod ~-0.40 ~1.00 ~-1.24",
-          "/particle minecraft:endrod ~0.40 ~1.00 ~-1.24",
-          "/particle minecraft:endrod ~1.05 ~1.00 ~-0.76"
+        "2.68": [
+          "/particle byakuya:hopper_panel ~ ~1 ~"
         ],
-        "3.35": [
-          "/particle minecraft:endrod ~1.30 ~1.50 ~0.00",
-          "/particle minecraft:endrod ~1.05 ~1.50 ~0.76",
-          "/particle minecraft:endrod ~0.40 ~1.50 ~1.24",
-          "/particle minecraft:endrod ~-0.40 ~1.50 ~1.24",
-          "/particle minecraft:endrod ~-1.05 ~1.50 ~0.76",
-          "/particle minecraft:endrod ~-1.30 ~1.50 ~0.00",
-          "/particle minecraft:endrod ~-1.05 ~1.50 ~-0.76",
-          "/particle minecraft:endrod ~-0.40 ~1.50 ~-1.24",
-          "/particle minecraft:endrod ~0.40 ~1.50 ~-1.24",
-          "/particle minecraft:endrod ~1.05 ~1.50 ~-0.76"
+        "3.11": [
+          "/particle byakuya:hopper_panel ~ ~1 ~"
+        ],
+        "3.54": [
+          "/particle byakuya:hopper_panel ~ ~1 ~"
         ]
       }
     },
@@ -465,11 +432,15 @@
       "loop": false,
       "timeline": {
         "0.00": [
-          "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§7【武装を解除する程度の能力】§f「その刀、預かっておくよ」\"}]}",
-          "/playsound random.break @a[r=40] ~ ~ ~ 1 0.6",
+          "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§7【武装を解除する程度の能力】§f「その刀、預かっておくよ」\"}]}"
+        ],
+        "0.30": [
+          "/playsound random.break @a[r=40] ~ ~ ~ 1.0 0.6",
           "/effect @a[r=14,m=!creative] weakness 8 255 true",
           "/effect @a[r=14,m=!creative] mining_fatigue 8 2 true",
-          "/execute at @a[r=14,m=!creative] run particle minecraft:villager_angry ~ ~2 ~"
+          "/execute at @a[r=14,m=!creative] run particle byakuya:shatter ~ ~1.2 ~",
+          "/execute at @a[r=14,m=!creative] run particle byakuya:slash_white ~ ~1.2 ~",
+          "/execute at @a[r=14,m=!creative] run particle byakuya:spark_burst ~ ~1.2 ~"
         ]
       }
     },
@@ -479,26 +450,72 @@
       "timeline": {
         "0.00": [
           "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§7【鋼糸】§f「動けないだろう？」\"}]}",
-          "/effect @a[r=18,m=!creative] slowness 3 255 true",
-          "/playsound random.bow @a[r=40] ~ ~ ~ 1 0.5"
+          "/playsound random.bow @a[r=40] ~ ~ ~ 1.0 0.5"
         ],
-        "0.30": [
-          "/execute at @a[r=18,m=!creative] run particle minecraft:endrod ~ ~1 ~"
+        "0.20": [
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^1",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^2",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^3",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^4",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^5",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^6",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^7",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^8",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^9"
+        ],
+        "0.35": [
+          "/effect @a[r=18,m=!creative] slowness 3 255 true",
+          "/playsound random.anvil_use @a[r=30] ~ ~ ~ 1.0 1.8",
+          "/execute at @a[r=18,m=!creative] run particle byakuya:spark_burst ~ ~1 ~"
+        ],
+        "0.50": [
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^1",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^2",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^3",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^4",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^5",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^6",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^7",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^8",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^9"
         ],
         "0.80": [
-          "/execute at @a[r=18,m=!creative] run particle minecraft:endrod ~ ~1 ~"
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^1",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^2",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^3",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^4",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^5",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^6",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^7",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^8",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^9"
+        ],
+        "1.10": [
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^1",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^2",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^3",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^4",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^5",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^6",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^7",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^8",
+          "/execute at @a[r=18,m=!creative] facing entity @e[type=byakuya:shiraishi_byakuya,c=1] eyes run particle byakuya:wire ^ ^1 ^9"
         ],
         "1.30": [
-          "/playsound mob.endermen.portal @a[r=40] ~ ~ ~ 1 0.6",
-          "/particle minecraft:large_explosion ~ ~1 ~",
-          "/execute as @p[r=40,m=!creative] at @s positioned ^ ^ ^-2 run tp @e[type=byakuya:shiraishi_byakuya,c=1] ~ ~ ~ facing @s"
+          "/playsound mob.endermen.portal @a[r=40] ~ ~ ~ 1.0 0.6",
+          "/particle byakuya:afterimage ~ ~0.9 ~",
+          "/execute as @p[r=40,m=!creative] at @s positioned ^ ^ ^-2 run tp @e[type=byakuya:shiraishi_byakuya,c=1] ~ ~ ~ facing @s",
+          "/particle byakuya:afterimage ~ ~0.9 ~"
         ],
         "1.70": [
-          "/playsound game.player.attack.strong @a[r=30] ~ ~ ~ 1 0.5",
-          "/particle minecraft:critical_hit_emitter ^ ^1 ^1.5",
-          "/particle minecraft:critical_hit_emitter ^0.6 ^1.3 ^1.2",
-          "/particle minecraft:critical_hit_emitter ^-0.6 ^0.7 ^1.2",
-          "/damage @a[r=4,m=!creative] 12 entity_attack entity @s"
+          "/playsound game.player.attack.strong @a[r=30] ~ ~ ~ 1.0 0.5",
+          "/playsound item.trident.riptide_1 @a[r=30] ~ ~ ~ 0.6 1.6",
+          "/particle byakuya:slash_flat_white ~ ~1.1 ~",
+          "/particle byakuya:slash_white ^ ^1.2 ^1.2",
+          "/particle byakuya:slash_white ^ ^1 ^1.5",
+          "/execute at @a[r=4,m=!creative] run particle byakuya:spark_burst ~ ~1 ~",
+          "/damage @a[r=4,m=!creative] 12 entity_attack entity @s",
+          "/camerashake add @a[r=10] 0.50 0.30 positional"
         ]
       }
     },
@@ -508,67 +525,77 @@
       "timeline": {
         "0.00": [
           "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§4【集散】§7二十の刃よ――集い、散れ\"}]}",
-          "/playsound mob.wither.shoot @a[r=40] ~ ~ ~ 1 0.5"
+          "/playsound mob.wither.shoot @a[r=40] ~ ~ ~ 1.0 0.5",
+          "/particle byakuya:charge_red ~ ~1 ~"
         ],
         "0.40": [
           "/damage @a[r=8,m=!creative] 5 entity_attack entity @s",
-          "/playsound game.player.attack.strong @a[r=30] ~ ~ ~ 1 0.6",
-          "/particle minecraft:critical_hit_emitter ~-0.5 ~1.4 ~3.6",
-          "/particle minecraft:critical_hit_emitter ~-2.3 ~1.8 ~3.3",
-          "/particle minecraft:critical_hit_emitter ~-0.7 ~0.7 ~1.6",
-          "/particle minecraft:critical_hit_emitter ~-3.7 ~1.6 ~1.4",
-          "/particle minecraft:critical_hit_emitter ~-2.4 ~1.8 ~-0.2",
-          "/particle minecraft:critical_hit_emitter ~-3.1 ~0.7 ~-1.1"
+          "/playsound game.player.attack.strong @a[r=30] ~ ~ ~ 1.0 0.6",
+          "/particle byakuya:slash_flat_red ~ ~1 ~",
+          "/execute at @a[r=8,m=!creative] run particle byakuya:spark_burst ~ ~1 ~",
+          "/camerashake add @a[r=10] 0.30 0.20 positional",
+          "/particle byakuya:slash_red ~-1.5 ~1.1 ~-0.5",
+          "/particle byakuya:slash_red ~0.9 ~2.4 ~-2.3",
+          "/particle byakuya:slash_red ~3.0 ~2.3 ~-0.7",
+          "/particle byakuya:slash_red ~-3.0 ~1.9 ~-3.7"
         ],
         "0.90": [
           "/damage @a[r=8,m=!creative] 5 entity_attack entity @s",
-          "/playsound game.player.attack.strong @a[r=30] ~ ~ ~ 1 0.7",
-          "/particle minecraft:critical_hit_emitter ~-3.7 ~1.3 ~-1.2",
-          "/particle minecraft:critical_hit_emitter ~0.2 ~1.2 ~1.4",
-          "/particle minecraft:critical_hit_emitter ~-0.1 ~1.5 ~-2.4",
-          "/particle minecraft:critical_hit_emitter ~3.5 ~1.5 ~2.1",
-          "/particle minecraft:critical_hit_emitter ~3.2 ~0.7 ~3.2",
-          "/particle minecraft:critical_hit_emitter ~-3.3 ~1.8 ~-0.9"
+          "/playsound game.player.attack.strong @a[r=30] ~ ~ ~ 1.0 0.7",
+          "/particle byakuya:slash_flat_red ~ ~1 ~",
+          "/execute at @a[r=8,m=!creative] run particle byakuya:spark_burst ~ ~1 ~",
+          "/camerashake add @a[r=10] 0.30 0.20 positional",
+          "/particle byakuya:slash_red ~1.7 ~1.8 ~-2.4",
+          "/particle byakuya:slash_red ~2.8 ~1.4 ~-3.1",
+          "/particle byakuya:slash_red ~-3.2 ~1.2 ~-3.7",
+          "/particle byakuya:slash_red ~0.3 ~1.2 ~0.2"
         ],
         "1.40": [
           "/damage @a[r=8,m=!creative] 5 entity_attack entity @s",
-          "/playsound game.player.attack.strong @a[r=30] ~ ~ ~ 1 0.8",
-          "/particle minecraft:critical_hit_emitter ~-0.9 ~1.0 ~1.2",
-          "/particle minecraft:critical_hit_emitter ~-4.0 ~0.9 ~1.2",
-          "/particle minecraft:critical_hit_emitter ~-2.1 ~0.8 ~2.0",
-          "/particle minecraft:critical_hit_emitter ~-2.1 ~0.8 ~0.7",
-          "/particle minecraft:critical_hit_emitter ~2.1 ~0.5 ~0.1",
-          "/particle minecraft:critical_hit_emitter ~2.9 ~1.8 ~-1.9"
+          "/playsound game.player.attack.strong @a[r=30] ~ ~ ~ 1.0 0.8",
+          "/particle byakuya:slash_flat_red ~ ~1 ~",
+          "/execute at @a[r=8,m=!creative] run particle byakuya:spark_burst ~ ~1 ~",
+          "/camerashake add @a[r=10] 0.30 0.20 positional",
+          "/particle byakuya:slash_red ~-0.3 ~1.8 ~-0.1",
+          "/particle byakuya:slash_red ~1.6 ~0.9 ~3.5",
+          "/particle byakuya:slash_red ~1.4 ~2.0 ~3.2",
+          "/particle byakuya:slash_red ~-3.1 ~2.3 ~-3.3"
         ],
         "1.90": [
           "/damage @a[r=8,m=!creative] 5 entity_attack entity @s",
-          "/playsound game.player.attack.strong @a[r=30] ~ ~ ~ 1 0.9",
-          "/particle minecraft:critical_hit_emitter ~3.0 ~2.0 ~1.6",
-          "/particle minecraft:critical_hit_emitter ~-0.1 ~1.0 ~-2.5",
-          "/particle minecraft:critical_hit_emitter ~3.0 ~1.3 ~0.9",
-          "/particle minecraft:critical_hit_emitter ~-0.0 ~0.7 ~-3.8",
-          "/particle minecraft:critical_hit_emitter ~3.7 ~1.4 ~0.4",
-          "/particle minecraft:critical_hit_emitter ~3.0 ~0.6 ~2.6"
+          "/playsound game.player.attack.strong @a[r=30] ~ ~ ~ 1.0 0.9",
+          "/particle byakuya:slash_flat_red ~ ~1 ~",
+          "/execute at @a[r=8,m=!creative] run particle byakuya:spark_burst ~ ~1 ~",
+          "/camerashake add @a[r=10] 0.30 0.20 positional",
+          "/particle byakuya:slash_red ~3.1 ~1.3 ~-0.9",
+          "/particle byakuya:slash_red ~-1.4 ~1.8 ~-4.0",
+          "/particle byakuya:slash_red ~-2.1 ~1.8 ~-2.1",
+          "/particle byakuya:slash_red ~-2.3 ~2.0 ~-2.1"
         ],
         "2.40": [
           "/damage @a[r=8,m=!creative] 5 entity_attack entity @s",
-          "/playsound game.player.attack.strong @a[r=30] ~ ~ ~ 1 1.0",
-          "/particle minecraft:critical_hit_emitter ~-1.6 ~0.7 ~-3.2",
-          "/particle minecraft:critical_hit_emitter ~1.6 ~1.1 ~2.0",
-          "/particle minecraft:critical_hit_emitter ~0.7 ~1.4 ~0.7",
-          "/particle minecraft:critical_hit_emitter ~-1.8 ~1.4 ~3.5",
-          "/particle minecraft:critical_hit_emitter ~-2.5 ~0.9 ~-3.1",
-          "/particle minecraft:critical_hit_emitter ~-3.5 ~1.5 ~1.6"
+          "/playsound game.player.attack.strong @a[r=30] ~ ~ ~ 1.0 1.0",
+          "/particle byakuya:slash_flat_red ~ ~1 ~",
+          "/execute at @a[r=8,m=!creative] run particle byakuya:spark_burst ~ ~1 ~",
+          "/camerashake add @a[r=10] 0.30 0.20 positional",
+          "/particle byakuya:slash_red ~-2.4 ~1.7 ~2.1",
+          "/particle byakuya:slash_red ~-3.9 ~1.5 ~2.9",
+          "/particle byakuya:slash_red ~3.1 ~1.0 ~3.0",
+          "/particle byakuya:slash_red ~4.0 ~1.9 ~-0.1"
         ],
         "2.90": [
           "/damage @a[r=8,m=!creative] 5 entity_attack entity @s",
-          "/playsound game.player.attack.strong @a[r=30] ~ ~ ~ 1 1.1",
-          "/particle minecraft:critical_hit_emitter ~-2.7 ~1.2 ~3.1",
-          "/particle minecraft:critical_hit_emitter ~-0.6 ~1.7 ~3.3",
-          "/particle minecraft:critical_hit_emitter ~-2.0 ~1.6 ~3.7",
-          "/particle minecraft:critical_hit_emitter ~1.4 ~2.0 ~3.6",
-          "/particle minecraft:critical_hit_emitter ~1.0 ~2.0 ~-1.2",
-          "/particle minecraft:critical_hit_emitter ~1.9 ~1.7 ~3.2"
+          "/playsound game.player.attack.strong @a[r=30] ~ ~ ~ 1.0 1.1",
+          "/particle byakuya:slash_flat_red ~ ~1 ~",
+          "/execute at @a[r=8,m=!creative] run particle byakuya:spark_burst ~ ~1 ~",
+          "/camerashake add @a[r=10] 0.30 0.20 positional",
+          "/particle byakuya:slash_red ~-1.4 ~0.9 ~3.0",
+          "/particle byakuya:slash_red ~0.5 ~1.7 ~-0.0",
+          "/particle byakuya:slash_red ~-3.1 ~0.6 ~3.7",
+          "/particle byakuya:slash_red ~0.6 ~1.6 ~3.0"
+        ],
+        "3.00": [
+          "/particle byakuya:shockwave_big_red ~ ~0.2 ~"
         ]
       }
     },
@@ -580,12 +607,30 @@
           "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§0§l【無刀 無残】\"}]}",
           "/effect @a[r=24,m=!creative] darkness 4 0 true",
           "/effect @a[r=24,m=!creative] slowness 2 2 true",
-          "/playsound mob.warden.sonic_charge @a[r=40] ~ ~ ~ 1 0.7"
+          "/playsound mob.warden.sonic_charge @a[r=40] ~ ~ ~ 1.0 0.7",
+          "/particle byakuya:charge_purple ~ ~1 ~"
+        ],
+        "0.30": [
+          "/particle byakuya:warn_purple ~ ~0.1 ~",
+          "/particle byakuya:charge_purple ~ ~1 ~"
+        ],
+        "0.70": [
+          "/particle byakuya:warn_purple ~ ~0.1 ~",
+          "/particle byakuya:charge_purple ~ ~1 ~"
+        ],
+        "1.10": [
+          "/particle byakuya:warn_purple ~ ~0.1 ~",
+          "/particle byakuya:charge_purple ~ ~1 ~"
         ],
         "1.50": [
-          "/playsound mob.warden.sonic_boom @a[r=48] ~ ~ ~ 1 0.6",
+          "/playsound mob.warden.sonic_boom @a[r=48] ~ ~ ~ 1.0 0.6",
           "/damage @a[r=10,m=!creative] 16 entity_attack entity @s",
           "/effect @a[r=10,m=!creative] wither 5 1 true",
+          "/particle byakuya:big_slash_purple ~ ~1.2 ~",
+          "/particle byakuya:big_slash_white ~ ~1.2 ~",
+          "/particle byakuya:shockwave_big_purple ~ ~0.1 ~",
+          "/execute at @a[r=10,m=!creative] run particle byakuya:spark_burst ~ ~1 ~",
+          "/camerashake add @a[r=24] 1.50 0.60 positional",
           "/particle minecraft:sonic_explosion ~4.00 ~1.00 ~0.00",
           "/particle minecraft:sonic_explosion ~2.83 ~1.00 ~2.83",
           "/particle minecraft:sonic_explosion ~0.00 ~1.00 ~4.00",
@@ -605,197 +650,178 @@
           "/title @a[r=64] title §4§l最終演技",
           "/title @a[r=64] subtitle §7――彼の全てを賭けた技",
           "/effect @a[r=48,m=!creative] darkness 8 0 true",
-          "/playsound mob.wither.spawn @a[r=64] ~ ~ ~ 1 0.5"
+          "/playsound mob.wither.spawn @a[r=64] ~ ~ ~ 1.0 0.5",
+          "/fog @a[r=64] push byakuya:final_fog byakuya_final",
+          "/particle byakuya:petal_storm ~ ~ ~",
+          "/particle byakuya:shockwave_big_red ~ ~0.1 ~"
         ],
         "1.00": [
-          "/particle minecraft:mobflame_emitter ~8.00 ~0.50 ~0.00",
-          "/particle minecraft:mobflame_emitter ~6.93 ~0.50 ~4.00",
-          "/particle minecraft:mobflame_emitter ~4.00 ~0.50 ~6.93",
-          "/particle minecraft:mobflame_emitter ~0.00 ~0.50 ~8.00",
-          "/particle minecraft:mobflame_emitter ~-4.00 ~0.50 ~6.93",
-          "/particle minecraft:mobflame_emitter ~-6.93 ~0.50 ~4.00",
-          "/particle minecraft:mobflame_emitter ~-8.00 ~0.50 ~0.00",
-          "/particle minecraft:mobflame_emitter ~-6.93 ~0.50 ~-4.00",
-          "/particle minecraft:mobflame_emitter ~-4.00 ~0.50 ~-6.93",
-          "/particle minecraft:mobflame_emitter ~-0.00 ~0.50 ~-8.00",
-          "/particle minecraft:mobflame_emitter ~4.00 ~0.50 ~-6.93",
-          "/particle minecraft:mobflame_emitter ~6.93 ~0.50 ~-4.00",
-          "/playsound note.bass @a[r=48] ~ ~ ~ 1 0.5"
+          "/particle byakuya:ember_burst ~9.00 ~0.50 ~0.00",
+          "/particle byakuya:ember_burst ~4.50 ~0.50 ~7.79",
+          "/particle byakuya:ember_burst ~-4.50 ~0.50 ~7.79",
+          "/particle byakuya:ember_burst ~-9.00 ~0.50 ~0.00",
+          "/particle byakuya:ember_burst ~-4.50 ~0.50 ~-7.79",
+          "/particle byakuya:ember_burst ~4.50 ~0.50 ~-7.79",
+          "/playsound note.bass @a[r=48] ~ ~ ~ 1.0 0.5",
+          "/particle byakuya:charge_red ~ ~1.5 ~"
         ],
         "1.50": [
           "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§f白石白夜§7「わしは……どこまでいっても『人間』でね」\"}]}",
-          "/particle minecraft:mobflame_emitter ~7.30 ~0.50 ~0.00",
-          "/particle minecraft:mobflame_emitter ~6.32 ~0.50 ~3.65",
-          "/particle minecraft:mobflame_emitter ~3.65 ~0.50 ~6.32",
-          "/particle minecraft:mobflame_emitter ~0.00 ~0.50 ~7.30",
-          "/particle minecraft:mobflame_emitter ~-3.65 ~0.50 ~6.32",
-          "/particle minecraft:mobflame_emitter ~-6.32 ~0.50 ~3.65",
-          "/particle minecraft:mobflame_emitter ~-7.30 ~0.50 ~0.00",
-          "/particle minecraft:mobflame_emitter ~-6.32 ~0.50 ~-3.65",
-          "/particle minecraft:mobflame_emitter ~-3.65 ~0.50 ~-6.32",
-          "/particle minecraft:mobflame_emitter ~-0.00 ~0.50 ~-7.30",
-          "/particle minecraft:mobflame_emitter ~3.65 ~0.50 ~-6.32",
-          "/particle minecraft:mobflame_emitter ~6.32 ~0.50 ~-3.65",
-          "/playsound note.bass @a[r=48] ~ ~ ~ 1 0.6"
+          "/particle byakuya:ember_burst ~8.20 ~0.50 ~0.00",
+          "/particle byakuya:ember_burst ~4.10 ~0.50 ~7.10",
+          "/particle byakuya:ember_burst ~-4.10 ~0.50 ~7.10",
+          "/particle byakuya:ember_burst ~-8.20 ~0.50 ~0.00",
+          "/particle byakuya:ember_burst ~-4.10 ~0.50 ~-7.10",
+          "/particle byakuya:ember_burst ~4.10 ~0.50 ~-7.10",
+          "/playsound note.bass @a[r=48] ~ ~ ~ 1.0 0.6",
+          "/particle byakuya:charge_red ~ ~1.5 ~"
         ],
         "2.00": [
-          "/particle minecraft:mobflame_emitter ~6.60 ~0.50 ~0.00",
-          "/particle minecraft:mobflame_emitter ~5.72 ~0.50 ~3.30",
-          "/particle minecraft:mobflame_emitter ~3.30 ~0.50 ~5.72",
-          "/particle minecraft:mobflame_emitter ~0.00 ~0.50 ~6.60",
-          "/particle minecraft:mobflame_emitter ~-3.30 ~0.50 ~5.72",
-          "/particle minecraft:mobflame_emitter ~-5.72 ~0.50 ~3.30",
-          "/particle minecraft:mobflame_emitter ~-6.60 ~0.50 ~0.00",
-          "/particle minecraft:mobflame_emitter ~-5.72 ~0.50 ~-3.30",
-          "/particle minecraft:mobflame_emitter ~-3.30 ~0.50 ~-5.72",
-          "/particle minecraft:mobflame_emitter ~-0.00 ~0.50 ~-6.60",
-          "/particle minecraft:mobflame_emitter ~3.30 ~0.50 ~-5.72",
-          "/particle minecraft:mobflame_emitter ~5.72 ~0.50 ~-3.30",
-          "/playsound note.bass @a[r=48] ~ ~ ~ 1 0.7"
+          "/particle byakuya:ember_burst ~7.40 ~0.50 ~0.00",
+          "/particle byakuya:ember_burst ~3.70 ~0.50 ~6.41",
+          "/particle byakuya:ember_burst ~-3.70 ~0.50 ~6.41",
+          "/particle byakuya:ember_burst ~-7.40 ~0.50 ~0.00",
+          "/particle byakuya:ember_burst ~-3.70 ~0.50 ~-6.41",
+          "/particle byakuya:ember_burst ~3.70 ~0.50 ~-6.41",
+          "/playsound note.bass @a[r=48] ~ ~ ~ 1.0 0.7",
+          "/particle byakuya:charge_red ~ ~1.5 ~"
         ],
         "2.50": [
-          "/particle minecraft:mobflame_emitter ~5.90 ~0.50 ~0.00",
-          "/particle minecraft:mobflame_emitter ~5.11 ~0.50 ~2.95",
-          "/particle minecraft:mobflame_emitter ~2.95 ~0.50 ~5.11",
-          "/particle minecraft:mobflame_emitter ~0.00 ~0.50 ~5.90",
-          "/particle minecraft:mobflame_emitter ~-2.95 ~0.50 ~5.11",
-          "/particle minecraft:mobflame_emitter ~-5.11 ~0.50 ~2.95",
-          "/particle minecraft:mobflame_emitter ~-5.90 ~0.50 ~0.00",
-          "/particle minecraft:mobflame_emitter ~-5.11 ~0.50 ~-2.95",
-          "/particle minecraft:mobflame_emitter ~-2.95 ~0.50 ~-5.11",
-          "/particle minecraft:mobflame_emitter ~-0.00 ~0.50 ~-5.90",
-          "/particle minecraft:mobflame_emitter ~2.95 ~0.50 ~-5.11",
-          "/particle minecraft:mobflame_emitter ~5.11 ~0.50 ~-2.95",
-          "/playsound note.bass @a[r=48] ~ ~ ~ 1 0.8"
+          "/particle byakuya:ember_burst ~6.60 ~0.50 ~0.00",
+          "/particle byakuya:ember_burst ~3.30 ~0.50 ~5.72",
+          "/particle byakuya:ember_burst ~-3.30 ~0.50 ~5.72",
+          "/particle byakuya:ember_burst ~-6.60 ~0.50 ~0.00",
+          "/particle byakuya:ember_burst ~-3.30 ~0.50 ~-5.72",
+          "/particle byakuya:ember_burst ~3.30 ~0.50 ~-5.72",
+          "/playsound note.bass @a[r=48] ~ ~ ~ 1.0 0.8",
+          "/particle byakuya:charge_red ~ ~1.5 ~"
         ],
         "3.00": [
           "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§f白石白夜§7「だからこそ届く刃がある。――受けてみな、お前さん」\"}]}",
           "/title @a[r=64] actionbar §c§l16ブロック以上離れろ……！",
-          "/particle minecraft:mobflame_emitter ~5.20 ~0.50 ~0.00",
-          "/particle minecraft:mobflame_emitter ~4.50 ~0.50 ~2.60",
-          "/particle minecraft:mobflame_emitter ~2.60 ~0.50 ~4.50",
-          "/particle minecraft:mobflame_emitter ~0.00 ~0.50 ~5.20",
-          "/particle minecraft:mobflame_emitter ~-2.60 ~0.50 ~4.50",
-          "/particle minecraft:mobflame_emitter ~-4.50 ~0.50 ~2.60",
-          "/particle minecraft:mobflame_emitter ~-5.20 ~0.50 ~0.00",
-          "/particle minecraft:mobflame_emitter ~-4.50 ~0.50 ~-2.60",
-          "/particle minecraft:mobflame_emitter ~-2.60 ~0.50 ~-4.50",
-          "/particle minecraft:mobflame_emitter ~-0.00 ~0.50 ~-5.20",
-          "/particle minecraft:mobflame_emitter ~2.60 ~0.50 ~-4.50",
-          "/particle minecraft:mobflame_emitter ~4.50 ~0.50 ~-2.60",
-          "/playsound note.bass @a[r=48] ~ ~ ~ 1 0.9"
+          "/particle byakuya:petal_storm ~ ~ ~",
+          "/particle byakuya:ember_burst ~5.80 ~0.50 ~0.00",
+          "/particle byakuya:ember_burst ~2.90 ~0.50 ~5.02",
+          "/particle byakuya:ember_burst ~-2.90 ~0.50 ~5.02",
+          "/particle byakuya:ember_burst ~-5.80 ~0.50 ~0.00",
+          "/particle byakuya:ember_burst ~-2.90 ~0.50 ~-5.02",
+          "/particle byakuya:ember_burst ~2.90 ~0.50 ~-5.02",
+          "/playsound note.bass @a[r=48] ~ ~ ~ 1.0 0.9",
+          "/particle byakuya:charge_red ~ ~1.5 ~",
+          "/execute at @a[r=48,m=!creative] run particle byakuya:warn_red ~ ~0.1 ~",
+          "/camerashake add @a[r=48] 0.26 0.50 positional"
         ],
         "3.50": [
-          "/particle minecraft:mobflame_emitter ~4.50 ~0.50 ~0.00",
-          "/particle minecraft:mobflame_emitter ~3.90 ~0.50 ~2.25",
-          "/particle minecraft:mobflame_emitter ~2.25 ~0.50 ~3.90",
-          "/particle minecraft:mobflame_emitter ~0.00 ~0.50 ~4.50",
-          "/particle minecraft:mobflame_emitter ~-2.25 ~0.50 ~3.90",
-          "/particle minecraft:mobflame_emitter ~-3.90 ~0.50 ~2.25",
-          "/particle minecraft:mobflame_emitter ~-4.50 ~0.50 ~0.00",
-          "/particle minecraft:mobflame_emitter ~-3.90 ~0.50 ~-2.25",
-          "/particle minecraft:mobflame_emitter ~-2.25 ~0.50 ~-3.90",
-          "/particle minecraft:mobflame_emitter ~-0.00 ~0.50 ~-4.50",
-          "/particle minecraft:mobflame_emitter ~2.25 ~0.50 ~-3.90",
-          "/particle minecraft:mobflame_emitter ~3.90 ~0.50 ~-2.25",
-          "/playsound note.bass @a[r=48] ~ ~ ~ 1 1.0"
+          "/particle byakuya:ember_burst ~5.00 ~0.50 ~0.00",
+          "/particle byakuya:ember_burst ~2.50 ~0.50 ~4.33",
+          "/particle byakuya:ember_burst ~-2.50 ~0.50 ~4.33",
+          "/particle byakuya:ember_burst ~-5.00 ~0.50 ~0.00",
+          "/particle byakuya:ember_burst ~-2.50 ~0.50 ~-4.33",
+          "/particle byakuya:ember_burst ~2.50 ~0.50 ~-4.33",
+          "/playsound note.bass @a[r=48] ~ ~ ~ 1.0 1.0",
+          "/particle byakuya:charge_red ~ ~1.5 ~",
+          "/execute at @a[r=48,m=!creative] run particle byakuya:warn_red ~ ~0.1 ~",
+          "/camerashake add @a[r=48] 0.30 0.50 positional"
         ],
         "4.00": [
-          "/particle minecraft:mobflame_emitter ~3.80 ~0.50 ~0.00",
-          "/particle minecraft:mobflame_emitter ~3.29 ~0.50 ~1.90",
-          "/particle minecraft:mobflame_emitter ~1.90 ~0.50 ~3.29",
-          "/particle minecraft:mobflame_emitter ~0.00 ~0.50 ~3.80",
-          "/particle minecraft:mobflame_emitter ~-1.90 ~0.50 ~3.29",
-          "/particle minecraft:mobflame_emitter ~-3.29 ~0.50 ~1.90",
-          "/particle minecraft:mobflame_emitter ~-3.80 ~0.50 ~0.00",
-          "/particle minecraft:mobflame_emitter ~-3.29 ~0.50 ~-1.90",
-          "/particle minecraft:mobflame_emitter ~-1.90 ~0.50 ~-3.29",
-          "/particle minecraft:mobflame_emitter ~-0.00 ~0.50 ~-3.80",
-          "/particle minecraft:mobflame_emitter ~1.90 ~0.50 ~-3.29",
-          "/particle minecraft:mobflame_emitter ~3.29 ~0.50 ~-1.90",
-          "/playsound note.bass @a[r=48] ~ ~ ~ 1 1.1"
+          "/particle byakuya:ember_burst ~4.20 ~0.50 ~0.00",
+          "/particle byakuya:ember_burst ~2.10 ~0.50 ~3.64",
+          "/particle byakuya:ember_burst ~-2.10 ~0.50 ~3.64",
+          "/particle byakuya:ember_burst ~-4.20 ~0.50 ~0.00",
+          "/particle byakuya:ember_burst ~-2.10 ~0.50 ~-3.64",
+          "/particle byakuya:ember_burst ~2.10 ~0.50 ~-3.64",
+          "/playsound note.bass @a[r=48] ~ ~ ~ 1.0 1.1",
+          "/particle byakuya:charge_red ~ ~1.5 ~",
+          "/execute at @a[r=48,m=!creative] run particle byakuya:warn_red ~ ~0.1 ~",
+          "/camerashake add @a[r=48] 0.34 0.50 positional"
         ],
         "4.50": [
-          "/particle minecraft:mobflame_emitter ~3.10 ~0.50 ~0.00",
-          "/particle minecraft:mobflame_emitter ~2.68 ~0.50 ~1.55",
-          "/particle minecraft:mobflame_emitter ~1.55 ~0.50 ~2.68",
-          "/particle minecraft:mobflame_emitter ~0.00 ~0.50 ~3.10",
-          "/particle minecraft:mobflame_emitter ~-1.55 ~0.50 ~2.68",
-          "/particle minecraft:mobflame_emitter ~-2.68 ~0.50 ~1.55",
-          "/particle minecraft:mobflame_emitter ~-3.10 ~0.50 ~0.00",
-          "/particle minecraft:mobflame_emitter ~-2.68 ~0.50 ~-1.55",
-          "/particle minecraft:mobflame_emitter ~-1.55 ~0.50 ~-2.68",
-          "/particle minecraft:mobflame_emitter ~-0.00 ~0.50 ~-3.10",
-          "/particle minecraft:mobflame_emitter ~1.55 ~0.50 ~-2.68",
-          "/particle minecraft:mobflame_emitter ~2.68 ~0.50 ~-1.55",
-          "/playsound note.bass @a[r=48] ~ ~ ~ 1 1.2"
+          "/particle byakuya:ember_burst ~3.40 ~0.50 ~0.00",
+          "/particle byakuya:ember_burst ~1.70 ~0.50 ~2.94",
+          "/particle byakuya:ember_burst ~-1.70 ~0.50 ~2.94",
+          "/particle byakuya:ember_burst ~-3.40 ~0.50 ~0.00",
+          "/particle byakuya:ember_burst ~-1.70 ~0.50 ~-2.94",
+          "/particle byakuya:ember_burst ~1.70 ~0.50 ~-2.94",
+          "/playsound note.bass @a[r=48] ~ ~ ~ 1.0 1.2",
+          "/particle byakuya:charge_red ~ ~1.5 ~",
+          "/execute at @a[r=48,m=!creative] run particle byakuya:warn_red ~ ~0.1 ~",
+          "/camerashake add @a[r=48] 0.38 0.50 positional"
         ],
         "5.00": [
-          "/particle minecraft:mobflame_emitter ~2.40 ~0.50 ~0.00",
-          "/particle minecraft:mobflame_emitter ~2.08 ~0.50 ~1.20",
-          "/particle minecraft:mobflame_emitter ~1.20 ~0.50 ~2.08",
-          "/particle minecraft:mobflame_emitter ~0.00 ~0.50 ~2.40",
-          "/particle minecraft:mobflame_emitter ~-1.20 ~0.50 ~2.08",
-          "/particle minecraft:mobflame_emitter ~-2.08 ~0.50 ~1.20",
-          "/particle minecraft:mobflame_emitter ~-2.40 ~0.50 ~0.00",
-          "/particle minecraft:mobflame_emitter ~-2.08 ~0.50 ~-1.20",
-          "/particle minecraft:mobflame_emitter ~-1.20 ~0.50 ~-2.08",
-          "/particle minecraft:mobflame_emitter ~-0.00 ~0.50 ~-2.40",
-          "/particle minecraft:mobflame_emitter ~1.20 ~0.50 ~-2.08",
-          "/particle minecraft:mobflame_emitter ~2.08 ~0.50 ~-1.20",
-          "/playsound note.bass @a[r=48] ~ ~ ~ 1 1.3"
+          "/particle byakuya:ember_burst ~2.60 ~0.50 ~0.00",
+          "/particle byakuya:ember_burst ~1.30 ~0.50 ~2.25",
+          "/particle byakuya:ember_burst ~-1.30 ~0.50 ~2.25",
+          "/particle byakuya:ember_burst ~-2.60 ~0.50 ~0.00",
+          "/particle byakuya:ember_burst ~-1.30 ~0.50 ~-2.25",
+          "/particle byakuya:ember_burst ~1.30 ~0.50 ~-2.25",
+          "/playsound note.bass @a[r=48] ~ ~ ~ 1.0 1.3",
+          "/particle byakuya:charge_red ~ ~1.5 ~",
+          "/execute at @a[r=48,m=!creative] run particle byakuya:warn_red ~ ~0.1 ~",
+          "/camerashake add @a[r=48] 0.42 0.50 positional"
         ],
         "5.50": [
-          "/particle minecraft:mobflame_emitter ~1.70 ~0.50 ~0.00",
-          "/particle minecraft:mobflame_emitter ~1.47 ~0.50 ~0.85",
-          "/particle minecraft:mobflame_emitter ~0.85 ~0.50 ~1.47",
-          "/particle minecraft:mobflame_emitter ~0.00 ~0.50 ~1.70",
-          "/particle minecraft:mobflame_emitter ~-0.85 ~0.50 ~1.47",
-          "/particle minecraft:mobflame_emitter ~-1.47 ~0.50 ~0.85",
-          "/particle minecraft:mobflame_emitter ~-1.70 ~0.50 ~0.00",
-          "/particle minecraft:mobflame_emitter ~-1.47 ~0.50 ~-0.85",
-          "/particle minecraft:mobflame_emitter ~-0.85 ~0.50 ~-1.47",
-          "/particle minecraft:mobflame_emitter ~-0.00 ~0.50 ~-1.70",
-          "/particle minecraft:mobflame_emitter ~0.85 ~0.50 ~-1.47",
-          "/particle minecraft:mobflame_emitter ~1.47 ~0.50 ~-0.85",
-          "/playsound note.bass @a[r=48] ~ ~ ~ 1 1.4"
+          "/particle byakuya:ember_burst ~1.80 ~0.50 ~0.00",
+          "/particle byakuya:ember_burst ~0.90 ~0.50 ~1.56",
+          "/particle byakuya:ember_burst ~-0.90 ~0.50 ~1.56",
+          "/particle byakuya:ember_burst ~-1.80 ~0.50 ~0.00",
+          "/particle byakuya:ember_burst ~-0.90 ~0.50 ~-1.56",
+          "/particle byakuya:ember_burst ~0.90 ~0.50 ~-1.56",
+          "/playsound note.bass @a[r=48] ~ ~ ~ 1.0 1.4",
+          "/particle byakuya:charge_red ~ ~1.5 ~",
+          "/execute at @a[r=48,m=!creative] run particle byakuya:warn_red ~ ~0.1 ~",
+          "/camerashake add @a[r=48] 0.46 0.50 positional",
+          "/particle byakuya:charge_white ~ ~2 ~",
+          "/playsound mob.warden.sonic_charge @a[r=64] ~ ~ ~ 1.0 0.5"
         ],
-        "6.50": [
-          "/playsound random.explode @a[r=64] ~ ~ ~ 1 0.4",
-          "/playsound mob.enderdragon.growl @a[r=64] ~ ~ ~ 1 0.6",
-          "/particle minecraft:huge_explosion_emitter ~ ~1 ~",
+        "6.45": [
+          "/playsound random.explode @a[r=64] ~ ~ ~ 1.0 0.4",
+          "/playsound mob.enderdragon.growl @a[r=64] ~ ~ ~ 1.0 0.6",
           "/damage @a[r=16,m=!creative] 30 entity_attack entity @s",
-          "/particle minecraft:huge_explosion_emitter ~6.00 ~1.00 ~0.00",
-          "/particle minecraft:huge_explosion_emitter ~5.20 ~1.00 ~3.00",
-          "/particle minecraft:huge_explosion_emitter ~3.00 ~1.00 ~5.20",
-          "/particle minecraft:huge_explosion_emitter ~0.00 ~1.00 ~6.00",
-          "/particle minecraft:huge_explosion_emitter ~-3.00 ~1.00 ~5.20",
-          "/particle minecraft:huge_explosion_emitter ~-5.20 ~1.00 ~3.00",
-          "/particle minecraft:huge_explosion_emitter ~-6.00 ~1.00 ~0.00",
-          "/particle minecraft:huge_explosion_emitter ~-5.20 ~1.00 ~-3.00",
-          "/particle minecraft:huge_explosion_emitter ~-3.00 ~1.00 ~-5.20",
-          "/particle minecraft:huge_explosion_emitter ~-0.00 ~1.00 ~-6.00",
-          "/particle minecraft:huge_explosion_emitter ~3.00 ~1.00 ~-5.20",
-          "/particle minecraft:huge_explosion_emitter ~5.20 ~1.00 ~-3.00",
+          "/particle byakuya:big_slash_red ~ ~1.5 ~",
+          "/particle byakuya:big_slash_white ~ ~1.5 ~",
+          "/particle byakuya:big_slash_red ~ ~1.5 ~",
+          "/particle byakuya:shockwave_big_red ~ ~0.1 ~",
+          "/particle byakuya:shockwave_big_white ~ ~0.1 ~",
+          "/particle minecraft:huge_explosion_emitter ~ ~1 ~",
+          "/camerashake add @a[r=64] 2.50 1.20 positional",
+          "/particle byakuya:fire_pillar ~6.00 ~0.00 ~0.00",
+          "/particle byakuya:fire_pillar ~4.85 ~0.00 ~3.53",
+          "/particle byakuya:fire_pillar ~1.85 ~0.00 ~5.71",
+          "/particle byakuya:fire_pillar ~-1.85 ~0.00 ~5.71",
+          "/particle byakuya:fire_pillar ~-4.85 ~0.00 ~3.53",
+          "/particle byakuya:fire_pillar ~-6.00 ~0.00 ~0.00",
+          "/particle byakuya:fire_pillar ~-4.85 ~0.00 ~-3.53",
+          "/particle byakuya:fire_pillar ~-1.85 ~0.00 ~-5.71",
+          "/particle byakuya:fire_pillar ~1.85 ~0.00 ~-5.71",
+          "/particle byakuya:fire_pillar ~4.85 ~0.00 ~-3.53",
           "/particle minecraft:huge_explosion_emitter ~12.00 ~1.00 ~0.00",
-          "/particle minecraft:huge_explosion_emitter ~11.09 ~1.00 ~4.59",
-          "/particle minecraft:huge_explosion_emitter ~8.49 ~1.00 ~8.49",
-          "/particle minecraft:huge_explosion_emitter ~4.59 ~1.00 ~11.09",
-          "/particle minecraft:huge_explosion_emitter ~0.00 ~1.00 ~12.00",
-          "/particle minecraft:huge_explosion_emitter ~-4.59 ~1.00 ~11.09",
-          "/particle minecraft:huge_explosion_emitter ~-8.49 ~1.00 ~8.49",
-          "/particle minecraft:huge_explosion_emitter ~-11.09 ~1.00 ~4.59",
+          "/particle minecraft:huge_explosion_emitter ~9.71 ~1.00 ~7.05",
+          "/particle minecraft:huge_explosion_emitter ~3.71 ~1.00 ~11.41",
+          "/particle minecraft:huge_explosion_emitter ~-3.71 ~1.00 ~11.41",
+          "/particle minecraft:huge_explosion_emitter ~-9.71 ~1.00 ~7.05",
           "/particle minecraft:huge_explosion_emitter ~-12.00 ~1.00 ~0.00",
-          "/particle minecraft:huge_explosion_emitter ~-11.09 ~1.00 ~-4.59",
-          "/particle minecraft:huge_explosion_emitter ~-8.49 ~1.00 ~-8.49",
-          "/particle minecraft:huge_explosion_emitter ~-4.59 ~1.00 ~-11.09",
-          "/particle minecraft:huge_explosion_emitter ~-0.00 ~1.00 ~-12.00",
-          "/particle minecraft:huge_explosion_emitter ~4.59 ~1.00 ~-11.09",
-          "/particle minecraft:huge_explosion_emitter ~8.49 ~1.00 ~-8.49",
-          "/particle minecraft:huge_explosion_emitter ~11.09 ~1.00 ~-4.59"
+          "/particle minecraft:huge_explosion_emitter ~-9.71 ~1.00 ~-7.05",
+          "/particle minecraft:huge_explosion_emitter ~-3.71 ~1.00 ~-11.41",
+          "/particle minecraft:huge_explosion_emitter ~3.71 ~1.00 ~-11.41",
+          "/particle minecraft:huge_explosion_emitter ~9.71 ~1.00 ~-7.05"
+        ],
+        "6.80": [
+          "/particle byakuya:ember_burst ~14.00 ~1.00 ~0.00",
+          "/particle byakuya:ember_burst ~12.12 ~1.00 ~7.00",
+          "/particle byakuya:ember_burst ~7.00 ~1.00 ~12.12",
+          "/particle byakuya:ember_burst ~0.00 ~1.00 ~14.00",
+          "/particle byakuya:ember_burst ~-7.00 ~1.00 ~12.12",
+          "/particle byakuya:ember_burst ~-12.12 ~1.00 ~7.00",
+          "/particle byakuya:ember_burst ~-14.00 ~1.00 ~0.00",
+          "/particle byakuya:ember_burst ~-12.12 ~1.00 ~-7.00",
+          "/particle byakuya:ember_burst ~-7.00 ~1.00 ~-12.12",
+          "/particle byakuya:ember_burst ~-0.00 ~1.00 ~-14.00",
+          "/particle byakuya:ember_burst ~7.00 ~1.00 ~-12.12",
+          "/particle byakuya:ember_burst ~12.12 ~1.00 ~-7.00"
         ],
         "7.20": [
-          "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§f白石白夜§7「……まだ立ってるのかい。いいねぇ」\"}]}"
+          "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§f白石白夜§7「……まだ立ってるのかい。いいねぇ」\"}]}",
+          "/fog @a[r=64] remove byakuya_final"
         ]
       }
     }

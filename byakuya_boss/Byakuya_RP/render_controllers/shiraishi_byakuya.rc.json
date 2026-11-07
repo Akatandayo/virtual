@@ -13,9 +13,9 @@
       ],
       "overlay_color": {
         "r": "1.0",
-        "g": "0.1",
-        "b": "0.1",
-        "a": "q.skin_id >= 2 ? 0.22 : 0.0"
+        "g": "q.skin_id >= 2 ? 0.05 : 0.35",
+        "b": "0.05",
+        "a": "q.skin_id >= 2 ? 0.25 + math.sin(q.life_time * 360) * 0.05 : (q.skin_id == 1 ? 0.10 + math.sin(q.life_time * 240) * 0.06 : 0.0)"
       }
     }
   }

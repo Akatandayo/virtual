@@ -21,26 +21,43 @@
         "overlay_color": "#5c1414"
       },
       "particle_effects": {
-        "flame": "minecraft:basic_flame_particle",
-        "soul": "minecraft:soul_particle"
+        "sword_trail": "byakuya:sword_trail",
+        "sword_trail_red": "byakuya:sword_trail_red",
+        "hand_charge": "byakuya:hand_charge",
+        "aura_flame": "byakuya:aura_flame",
+        "aura_soul": "byakuya:aura_soul",
+        "blade_halo": "byakuya:blade_halo"
       },
       "animations": {
         "look_at": "animation.byakuya.look_at",
+        "idle": "animation.byakuya.idle",
         "move": "animation.byakuya.move",
-        "hold": "animation.byakuya.hold",
         "attack": "animation.byakuya.attack",
-        "cast": "animation.byakuya.cast",
-        "spin": "animation.byakuya.spin",
-        "guard": "animation.byakuya.guard",
         "aura": "animation.byakuya.aura",
         "final_aura": "animation.byakuya.final_aura",
+        "death_pose": "animation.byakuya.death",
         "main": "controller.animation.byakuya.main",
-        "aura_ctrl": "controller.animation.byakuya.aura"
+        "aura_ctrl": "controller.animation.byakuya.aura",
+        "attack_fx": "controller.animation.byakuya.attack_fx",
+        "s1": "animation.byakuya.skill_1",
+        "s2": "animation.byakuya.skill_2",
+        "s3": "animation.byakuya.skill_3",
+        "s4": "animation.byakuya.skill_4",
+        "s5": "animation.byakuya.skill_5",
+        "s6": "animation.byakuya.skill_6",
+        "s7": "animation.byakuya.skill_7",
+        "s8": "animation.byakuya.skill_8",
+        "s9": "animation.byakuya.skill_9",
+        "s10": "animation.byakuya.skill_10",
+        "s11": "animation.byakuya.skill_11",
+        "s12": "animation.byakuya.skill_12",
+        "s20": "animation.byakuya.skill_20"
       },
       "scripts": {
         "animate": [
           "main",
-          "aura_ctrl"
+          "aura_ctrl",
+          "attack_fx"
         ]
       }
     }

@@ -425,7 +425,10 @@
           "command": [
             "title @a[r=64] title §f白石白夜",
             "title @a[r=64] subtitle §7『わしはしがない刀鍛冶さ』",
-            "playsound mob.wither.spawn @a[r=64] ~ ~ ~ 1 0.8"
+            "playsound mob.wither.spawn @a[r=64] ~ ~ ~ 1 0.8",
+            "particle byakuya:shockwave_big_white ~ ~0.1 ~",
+            "particle byakuya:petal_storm ~ ~ ~",
+            "particle byakuya:afterimage ~ ~0.9 ~"
           ]
         }
       },
@@ -462,7 +465,9 @@
           "command": [
             "damage @a[r=6,m=!creative] 6 thorns entity @s",
             "playsound random.anvil_land @a[r=30] ~ ~ ~ 0.7 1.8",
-            "particle minecraft:critical_hit_emitter ~ ~1.2 ~"
+            "particle byakuya:spark_burst ~ ~1.2 ~",
+            "particle byakuya:slash_cyan ~ ~1.2 ~",
+            "particle byakuya:shockwave_cyan ~ ~0.1 ~"
           ]
         }
       },
@@ -484,7 +489,11 @@
             "playsound mob.enderdragon.growl @a[r=64] ~ ~ ~ 1 0.7",
             "effect @s regeneration 8 2 true",
             "effect @s resistance 8 1 true",
-            "particle minecraft:huge_explosion_emitter ~ ~1 ~"
+            "particle minecraft:huge_explosion_emitter ~ ~1 ~",
+            "particle byakuya:shockwave_big_red ~ ~0.1 ~",
+            "particle byakuya:fire_pillar ~ ~ ~",
+            "particle byakuya:ember_burst ~ ~1 ~",
+            "camerashake add @a[r=32] 1.0 0.8 positional"
           ]
         }
       },
@@ -817,7 +826,8 @@
             "weight": 50,
             "queue_command": {
               "command": [
-                "tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§7【武装を解除する程度の能力】§8……失敗。§f白石白夜§7「おっと、今日は調子が悪いね」\"}]}"
+                "tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§7【武装を解除する程度の能力】§8……失敗。§f白石白夜§7「おっと、今日は調子が悪いね」\"}]}",
+                "particle byakuya:shatter ~ ~1.5 ~"
               ]
             }
           }

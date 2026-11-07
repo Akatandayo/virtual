@@ -6,8 +6,8 @@
         "identifier": "geometry.shiraishi_byakuya",
         "texture_width": 64,
         "texture_height": 64,
-        "visible_bounds_width": 2,
-        "visible_bounds_height": 3,
+        "visible_bounds_width": 3,
+        "visible_bounds_height": 4,
         "visible_bounds_offset": [
           0,
           1.5,
@@ -164,7 +164,7 @@
           "locators": {
             "right_hand": [
               -6,
-              12,
+              11,
               0
             ]
           }
@@ -224,7 +224,7 @@
           "locators": {
             "left_hand": [
               6,
-              12,
+              11,
               0
             ]
           }

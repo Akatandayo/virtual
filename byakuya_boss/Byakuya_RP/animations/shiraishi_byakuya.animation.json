@@ -13,12 +13,45 @@
         }
       }
     },
+    "animation.byakuya.idle": {
+      "loop": true,
+      "bones": {
+        "body": {
+          "rotation": [
+            "math.sin(q.life_time * 100) * 1.2",
+            0,
+            0
+          ]
+        },
+        "rightArm": {
+          "rotation": [
+            "-25 + math.sin(q.life_time * 100) * 2.5",
+            "-10",
+            0
+          ]
+        },
+        "leftArm": {
+          "rotation": [
+            "math.sin(q.life_time * 100) * -2",
+            0,
+            "-3"
+          ]
+        }
+      }
+    },
     "animation.byakuya.move": {
       "loop": true,
       "bones": {
+        "body": {
+          "rotation": [
+            "8 * math.min(q.modified_move_speed, 1.0)",
+            "math.cos(q.modified_distance_moved * 38.17) * 6 * math.min(q.modified_move_speed, 1.0)",
+            0
+          ]
+        },
         "rightArm": {
           "rotation": [
-            "math.cos(q.modified_distance_moved * 38.17 + 180) * 45 * math.min(q.modified_move_speed, 1.0)",
+            "math.cos(q.modified_distance_moved * 38.17 + 180) * 20 * math.min(q.modified_move_speed, 1.0)",
             0,
             0
           ]
@@ -46,103 +79,20 @@
         }
       }
     },
-    "animation.byakuya.hold": {
-      "loop": true,
-      "bones": {
-        "rightArm": {
-          "rotation": [
-            "-25 + math.sin(q.life_time * 90) * 2",
-            "-10",
-            0
-          ]
-        },
-        "leftArm": {
-          "rotation": [
-            "math.sin(q.life_time * 90) * -2",
-            0,
-            "-4"
-          ]
-        }
-      }
-    },
     "animation.byakuya.attack": {
       "loop": true,
       "bones": {
         "rightArm": {
           "rotation": [
-            "-math.sin(variable.attack_time * 180) * 110",
-            "math.sin(variable.attack_time * 180) * 30",
+            "-math.sin(variable.attack_time * 180) * 130",
+            "60 - variable.attack_time * 120",
             0
           ]
         },
         "body": {
           "rotation": [
-            0,
-            "math.sin(variable.attack_time * 180) * -25",
-            0
-          ]
-        }
-      }
-    },
-    "animation.byakuya.cast": {
-      "loop": true,
-      "bones": {
-        "rightArm": {
-          "rotation": [
-            "-165 + math.sin(q.life_time * 400) * 6",
-            0,
-            "10"
-          ]
-        },
-        "leftArm": {
-          "rotation": [
-            "-150",
-            0,
-            "-15"
-          ]
-        },
-        "body": {
-          "rotation": [
-            "math.sin(q.life_time * 400) * 2",
-            0,
-            0
-          ]
-        }
-      }
-    },
-    "animation.byakuya.spin": {
-      "loop": true,
-      "bones": {
-        "root": {
-          "rotation": [
-            0,
-            "q.anim_time * 900",
-            0
-          ]
-        },
-        "rightArm": {
-          "rotation": [
-            "-90",
-            0,
-            "-60"
-          ]
-        }
-      }
-    },
-    "animation.byakuya.guard": {
-      "loop": true,
-      "bones": {
-        "rightArm": {
-          "rotation": [
-            "-80",
-            "-40",
-            0
-          ]
-        },
-        "leftArm": {
-          "rotation": [
-            "-80",
-            "40",
+            "math.sin(variable.attack_time * 180) * 10",
+            "math.sin(variable.attack_time * 180) * -30",
             0
           ]
         }
@@ -152,50 +102,2489 @@
       "loop": true,
       "animation_length": 0.4,
       "particle_effects": {
-        "0.0": [
+        "0.00": [
           {
-            "effect": "flame",
+            "effect": "aura_flame",
             "locator": "right_foot"
           },
           {
-            "effect": "flame",
-            "locator": "left_hand"
+            "effect": "aura_flame",
+            "locator": "left_foot"
           }
         ],
-        "0.2": [
+        "0.20": [
           {
-            "effect": "flame",
-            "locator": "left_foot"
-          },
-          {
-            "effect": "flame",
-            "locator": "right_hand"
+            "effect": "aura_flame",
+            "locator": "body_center"
           }
         ]
       }
     },
     "animation.byakuya.final_aura": {
       "loop": true,
-      "animation_length": 0.3,
+      "animation_length": 0.4,
       "particle_effects": {
-        "0.0": [
+        "0.00": [
           {
-            "effect": "soul",
-            "locator": "body_center"
-          },
-          {
-            "effect": "flame",
-            "locator": "right_hand"
-          }
-        ],
-        "0.15": [
-          {
-            "effect": "soul",
+            "effect": "aura_soul",
             "locator": "right_foot"
           },
           {
-            "effect": "soul",
+            "effect": "aura_flame",
             "locator": "left_foot"
+          }
+        ],
+        "0.20": [
+          {
+            "effect": "aura_soul",
+            "locator": "body_center"
+          },
+          {
+            "effect": "aura_flame",
+            "locator": "right_hand"
+          }
+        ]
+      }
+    },
+    "animation.byakuya.death": {
+      "animation_length": 1.5,
+      "loop": "hold_on_last_frame",
+      "bones": {
+        "root": {
+          "position": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.40": [
+              0,
+              -6,
+              0
+            ],
+            "1.50": [
+              0,
+              -6,
+              0
+            ]
+          }
+        },
+        "rightLeg": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.40": [
+              -85,
+              10,
+              0
+            ],
+            "1.50": [
+              -85,
+              10,
+              0
+            ]
+          }
+        },
+        "leftLeg": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.40": [
+              70,
+              -5,
+              0
+            ],
+            "1.50": [
+              70,
+              -5,
+              0
+            ]
+          }
+        },
+        "body": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.40": [
+              40,
+              0,
+              0
+            ],
+            "1.50": [
+              45,
+              0,
+              0
+            ]
+          }
+        },
+        "rightArm": {
+          "rotation": {
+            "0.00": [
+              -25,
+              -10,
+              0
+            ],
+            "0.40": [
+              -20,
+              0,
+              0
+            ],
+            "1.50": [
+              -15,
+              0,
+              0
+            ]
+          }
+        },
+        "leftArm": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.40": [
+              -10,
+              0,
+              10
+            ],
+            "1.50": [
+              -5,
+              0,
+              10
+            ]
+          }
+        }
+      }
+    },
+    "animation.byakuya.skill_1": {
+      "animation_length": 1.0,
+      "loop": "hold_on_last_frame",
+      "bones": {
+        "root": {
+          "position": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.15": [
+              0,
+              -2,
+              0
+            ],
+            "0.40": [
+              0,
+              -2,
+              0
+            ],
+            "0.50": [
+              0,
+              -1,
+              0
+            ],
+            "1.00": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "body": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.15": [
+              15,
+              35,
+              0
+            ],
+            "0.40": [
+              15,
+              35,
+              0
+            ],
+            "0.50": [
+              10,
+              -45,
+              0
+            ],
+            "0.80": [
+              5,
+              -35,
+              0
+            ],
+            "1.00": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "rightArm": {
+          "rotation": {
+            "0.00": [
+              -25,
+              -10,
+              0
+            ],
+            "0.15": [
+              -40,
+              65,
+              0
+            ],
+            "0.40": [
+              -40,
+              65,
+              0
+            ],
+            "0.50": [
+              -90,
+              -85,
+              0
+            ],
+            "0.80": [
+              -80,
+              -75,
+              0
+            ],
+            "1.00": [
+              -25,
+              -10,
+              0
+            ]
+          }
+        },
+        "leftArm": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.15": [
+              -35,
+              30,
+              0
+            ],
+            "0.40": [
+              -35,
+              30,
+              0
+            ],
+            "0.50": [
+              20,
+              0,
+              0
+            ],
+            "1.00": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "rightLeg": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.15": [
+              -30,
+              0,
+              0
+            ],
+            "0.80": [
+              -30,
+              0,
+              0
+            ],
+            "1.00": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "leftLeg": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.15": [
+              25,
+              0,
+              0
+            ],
+            "0.80": [
+              25,
+              0,
+              0
+            ],
+            "1.00": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "particle_effects": {
+        "0.10": [
+          {
+            "effect": "hand_charge",
+            "locator": "right_hand"
+          }
+        ],
+        "0.45": [
+          {
+            "effect": "sword_trail",
+            "locator": "right_hand"
+          },
+          {
+            "effect": "sword_trail",
+            "locator": "body_center"
+          }
+        ]
+      }
+    },
+    "animation.byakuya.skill_2": {
+      "animation_length": 2.6,
+      "loop": "hold_on_last_frame",
+      "bones": {
+        "rightArm": {
+          "rotation": {
+            "0.00": [
+              -25,
+              -10,
+              0
+            ],
+            "0.30": [
+              -180,
+              0,
+              0
+            ],
+            "0.55": [
+              -180,
+              0,
+              0
+            ],
+            "0.68": [
+              -150,
+              0,
+              0
+            ],
+            "0.90": [
+              -180,
+              0,
+              0
+            ],
+            "1.15": [
+              -180,
+              0,
+              0
+            ],
+            "1.28": [
+              -150,
+              0,
+              0
+            ],
+            "1.50": [
+              -180,
+              0,
+              0
+            ],
+            "1.75": [
+              -180,
+              0,
+              0
+            ],
+            "1.88": [
+              -150,
+              0,
+              0
+            ],
+            "2.10": [
+              -180,
+              0,
+              0
+            ],
+            "2.25": [
+              -180,
+              0,
+              0
+            ],
+            "2.40": [
+              -50,
+              0,
+              0
+            ],
+            "2.60": [
+              -25,
+              -10,
+              0
+            ]
+          }
+        },
+        "body": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.30": [
+              -12,
+              0,
+              0
+            ],
+            "2.25": [
+              -12,
+              0,
+              0
+            ],
+            "2.40": [
+              20,
+              0,
+              0
+            ],
+            "2.60": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "leftArm": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.30": [
+              -30,
+              0,
+              0
+            ],
+            "2.40": [
+              -30,
+              0,
+              0
+            ],
+            "2.60": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "particle_effects": {
+        "0.30": [
+          {
+            "effect": "hand_charge",
+            "locator": "right_hand"
+          }
+        ],
+        "0.90": [
+          {
+            "effect": "hand_charge",
+            "locator": "right_hand"
+          }
+        ],
+        "1.50": [
+          {
+            "effect": "hand_charge",
+            "locator": "right_hand"
+          }
+        ],
+        "2.40": [
+          {
+            "effect": "sword_trail",
+            "locator": "right_hand"
+          }
+        ]
+      }
+    },
+    "animation.byakuya.skill_3": {
+      "animation_length": 2.2,
+      "loop": "hold_on_last_frame",
+      "bones": {
+        "root": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.20": [
+              0,
+              90,
+              0
+            ],
+            "2.00": [
+              0,
+              1530,
+              0
+            ],
+            "2.20": [
+              0,
+              1620,
+              0
+            ]
+          }
+        },
+        "body": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.20": [
+              10,
+              0,
+              0
+            ],
+            "2.00": [
+              10,
+              0,
+              0
+            ],
+            "2.20": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "rightArm": {
+          "rotation": {
+            "0.00": [
+              -25,
+              -10,
+              0
+            ],
+            "0.20": [
+              -90,
+              -10,
+              0
+            ],
+            "2.00": [
+              -90,
+              -10,
+              0
+            ],
+            "2.20": [
+              -25,
+              -10,
+              0
+            ]
+          }
+        },
+        "leftArm": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.20": [
+              -20,
+              0,
+              0
+            ],
+            "2.00": [
+              -20,
+              0,
+              0
+            ],
+            "2.20": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "particle_effects": {
+        "0.20": [
+          {
+            "effect": "sword_trail_red",
+            "locator": "right_hand"
+          }
+        ],
+        "0.40": [
+          {
+            "effect": "sword_trail_red",
+            "locator": "right_hand"
+          }
+        ],
+        "0.60": [
+          {
+            "effect": "sword_trail_red",
+            "locator": "right_hand"
+          }
+        ],
+        "0.80": [
+          {
+            "effect": "sword_trail_red",
+            "locator": "right_hand"
+          }
+        ],
+        "1.00": [
+          {
+            "effect": "sword_trail_red",
+            "locator": "right_hand"
+          }
+        ],
+        "1.20": [
+          {
+            "effect": "sword_trail_red",
+            "locator": "right_hand"
+          }
+        ],
+        "1.40": [
+          {
+            "effect": "sword_trail_red",
+            "locator": "right_hand"
+          }
+        ],
+        "1.60": [
+          {
+            "effect": "sword_trail_red",
+            "locator": "right_hand"
+          }
+        ],
+        "1.80": [
+          {
+            "effect": "sword_trail_red",
+            "locator": "right_hand"
+          }
+        ],
+        "2.00": [
+          {
+            "effect": "sword_trail_red",
+            "locator": "right_hand"
+          }
+        ]
+      }
+    },
+    "animation.byakuya.skill_4": {
+      "animation_length": 3.0,
+      "loop": "hold_on_last_frame",
+      "bones": {
+        "rightArm": {
+          "rotation": {
+            "0.00": [
+              -25,
+              -10,
+              0
+            ],
+            "1.80": [
+              -170,
+              10,
+              0
+            ],
+            "2.00": [
+              -40,
+              0,
+              0
+            ],
+            "2.80": [
+              -40,
+              0,
+              0
+            ],
+            "3.00": [
+              -25,
+              -10,
+              0
+            ]
+          }
+        },
+        "leftArm": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "1.80": [
+              -170,
+              -10,
+              0
+            ],
+            "2.00": [
+              -40,
+              0,
+              0
+            ],
+            "2.80": [
+              -40,
+              0,
+              0
+            ],
+            "3.00": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "body": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "1.80": [
+              -15,
+              0,
+              0
+            ],
+            "2.00": [
+              30,
+              0,
+              0
+            ],
+            "2.80": [
+              30,
+              0,
+              0
+            ],
+            "3.00": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "root": {
+          "position": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "1.80": [
+              0,
+              1,
+              0
+            ],
+            "2.00": [
+              0,
+              -3,
+              0
+            ],
+            "2.80": [
+              0,
+              -3,
+              0
+            ],
+            "3.00": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "particle_effects": {
+        "0.20": [
+          {
+            "effect": "hand_charge",
+            "locator": "left_hand"
+          }
+        ],
+        "1.00": [
+          {
+            "effect": "hand_charge",
+            "locator": "left_hand"
+          }
+        ],
+        "2.00": [
+          {
+            "effect": "sword_trail",
+            "locator": "right_hand"
+          }
+        ]
+      }
+    },
+    "animation.byakuya.skill_5": {
+      "animation_length": 2.0,
+      "loop": "hold_on_last_frame",
+      "bones": {
+        "leftArm": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.15": [
+              -95,
+              0,
+              0
+            ],
+            "0.27": [
+              -60,
+              0,
+              0
+            ],
+            "0.40": [
+              -95,
+              0,
+              0
+            ],
+            "0.52": [
+              -60,
+              0,
+              0
+            ],
+            "0.65": [
+              -95,
+              0,
+              0
+            ],
+            "0.77": [
+              -60,
+              0,
+              0
+            ],
+            "0.90": [
+              -95,
+              0,
+              0
+            ],
+            "1.02": [
+              -60,
+              0,
+              0
+            ],
+            "1.15": [
+              -95,
+              0,
+              0
+            ],
+            "1.27": [
+              -60,
+              0,
+              0
+            ],
+            "1.40": [
+              -95,
+              0,
+              0
+            ],
+            "1.52": [
+              -60,
+              0,
+              0
+            ],
+            "1.60": [
+              10,
+              0,
+              0
+            ],
+            "2.00": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "rightArm": {
+          "rotation": {
+            "0.00": [
+              -25,
+              -10,
+              0
+            ],
+            "0.20": [
+              -35,
+              60,
+              0
+            ],
+            "1.55": [
+              -35,
+              60,
+              0
+            ],
+            "1.70": [
+              -95,
+              -90,
+              0
+            ],
+            "2.00": [
+              -25,
+              -10,
+              0
+            ]
+          }
+        },
+        "body": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.20": [
+              0,
+              20,
+              0
+            ],
+            "1.55": [
+              0,
+              20,
+              0
+            ],
+            "1.70": [
+              5,
+              -45,
+              0
+            ],
+            "2.00": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "particle_effects": {
+        "1.70": [
+          {
+            "effect": "sword_trail",
+            "locator": "right_hand"
+          },
+          {
+            "effect": "sword_trail",
+            "locator": "body_center"
+          }
+        ]
+      }
+    },
+    "animation.byakuya.skill_6": {
+      "animation_length": 1.8,
+      "loop": "hold_on_last_frame",
+      "bones": {
+        "root": {
+          "position": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.35": [
+              0,
+              -6,
+              0
+            ],
+            "1.50": [
+              0,
+              -6,
+              0
+            ],
+            "1.80": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "rightLeg": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.35": [
+              -85,
+              10,
+              0
+            ],
+            "1.50": [
+              -85,
+              10,
+              0
+            ],
+            "1.80": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "leftLeg": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.35": [
+              70,
+              -5,
+              0
+            ],
+            "1.50": [
+              70,
+              -5,
+              0
+            ],
+            "1.80": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "rightArm": {
+          "rotation": {
+            "0.00": [
+              -25,
+              -10,
+              0
+            ],
+            "0.20": [
+              -175,
+              0,
+              0
+            ],
+            "0.35": [
+              -40,
+              0,
+              0
+            ],
+            "1.50": [
+              -40,
+              0,
+              0
+            ],
+            "1.80": [
+              -25,
+              -10,
+              0
+            ]
+          }
+        },
+        "leftArm": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.20": [
+              -160,
+              0,
+              0
+            ],
+            "0.35": [
+              -45,
+              0,
+              0
+            ],
+            "1.50": [
+              -45,
+              0,
+              0
+            ],
+            "1.80": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "body": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.35": [
+              35,
+              0,
+              0
+            ],
+            "1.50": [
+              35,
+              0,
+              0
+            ],
+            "1.80": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "particle_effects": {
+        "0.35": [
+          {
+            "effect": "sword_trail",
+            "locator": "right_hand"
+          }
+        ]
+      }
+    },
+    "animation.byakuya.skill_7": {
+      "animation_length": 2.4,
+      "loop": "hold_on_last_frame",
+      "bones": {
+        "rightArm": {
+          "rotation": {
+            "0.00": [
+              -25,
+              -10,
+              0
+            ],
+            "0.40": [
+              -165,
+              0,
+              0
+            ],
+            "0.52": [
+              -40,
+              -10,
+              0
+            ],
+            "0.90": [
+              -165,
+              0,
+              0
+            ],
+            "1.02": [
+              -40,
+              -10,
+              0
+            ],
+            "1.40": [
+              -165,
+              0,
+              0
+            ],
+            "1.52": [
+              -40,
+              -10,
+              0
+            ],
+            "1.90": [
+              -165,
+              0,
+              0
+            ],
+            "2.02": [
+              -40,
+              -10,
+              0
+            ],
+            "2.40": [
+              -25,
+              -10,
+              0
+            ]
+          }
+        },
+        "leftArm": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.65": [
+              -165,
+              0,
+              0
+            ],
+            "0.77": [
+              -40,
+              10,
+              0
+            ],
+            "1.15": [
+              -165,
+              0,
+              0
+            ],
+            "1.27": [
+              -40,
+              10,
+              0
+            ],
+            "1.65": [
+              -165,
+              0,
+              0
+            ],
+            "1.77": [
+              -40,
+              10,
+              0
+            ],
+            "2.40": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "body": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.52": [
+              5,
+              -15,
+              0
+            ],
+            "0.77": [
+              5,
+              15,
+              0
+            ],
+            "1.02": [
+              5,
+              -15,
+              0
+            ],
+            "1.27": [
+              5,
+              15,
+              0
+            ],
+            "1.52": [
+              5,
+              -15,
+              0
+            ],
+            "1.77": [
+              5,
+              15,
+              0
+            ],
+            "2.02": [
+              5,
+              -15,
+              0
+            ],
+            "2.40": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "particle_effects": {
+        "0.20": [
+          {
+            "effect": "blade_halo",
+            "locator": "body_center"
+          }
+        ]
+      }
+    },
+    "animation.byakuya.skill_8": {
+      "animation_length": 4.0,
+      "loop": "hold_on_last_frame",
+      "bones": {
+        "rightArm": {
+          "rotation": {
+            "0.00": [
+              -25,
+              -10,
+              0
+            ],
+            "0.20": [
+              -95,
+              -40,
+              0
+            ],
+            "3.80": [
+              -95,
+              -40,
+              0
+            ],
+            "4.00": [
+              -25,
+              -10,
+              0
+            ]
+          }
+        },
+        "leftArm": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.20": [
+              -95,
+              40,
+              0
+            ],
+            "3.80": [
+              -95,
+              40,
+              0
+            ],
+            "4.00": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "root": {
+          "position": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "1.00": [
+              0,
+              -1,
+              0
+            ],
+            "2.00": [
+              0,
+              0,
+              0
+            ],
+            "3.00": [
+              0,
+              -1,
+              0
+            ],
+            "4.00": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    },
+    "animation.byakuya.skill_9": {
+      "animation_length": 1.2,
+      "loop": "hold_on_last_frame",
+      "bones": {
+        "leftArm": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.15": [
+              -90,
+              0,
+              0
+            ],
+            "0.30": [
+              -115,
+              25,
+              0
+            ],
+            "0.90": [
+              -115,
+              25,
+              0
+            ],
+            "1.20": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "body": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.15": [
+              0,
+              -20,
+              0
+            ],
+            "0.90": [
+              0,
+              -20,
+              0
+            ],
+            "1.20": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "particle_effects": {
+        "0.30": [
+          {
+            "effect": "sword_trail",
+            "locator": "left_hand"
+          }
+        ]
+      }
+    },
+    "animation.byakuya.skill_10": {
+      "animation_length": 2.0,
+      "loop": "hold_on_last_frame",
+      "bones": {
+        "rightArm": {
+          "rotation": {
+            "0.00": [
+              -25,
+              -10,
+              0
+            ],
+            "0.15": [
+              -90,
+              -25,
+              0
+            ],
+            "0.35": [
+              -25,
+              -45,
+              0
+            ],
+            "1.20": [
+              -25,
+              -45,
+              0
+            ],
+            "1.30": [
+              -40,
+              65,
+              0
+            ],
+            "1.65": [
+              -40,
+              65,
+              0
+            ],
+            "1.75": [
+              -95,
+              -85,
+              0
+            ],
+            "2.00": [
+              -25,
+              -10,
+              0
+            ]
+          }
+        },
+        "leftArm": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.15": [
+              -90,
+              25,
+              0
+            ],
+            "0.35": [
+              -25,
+              45,
+              0
+            ],
+            "1.20": [
+              -25,
+              45,
+              0
+            ],
+            "1.30": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "body": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.35": [
+              -10,
+              0,
+              0
+            ],
+            "1.20": [
+              -10,
+              0,
+              0
+            ],
+            "1.30": [
+              15,
+              35,
+              0
+            ],
+            "1.65": [
+              15,
+              35,
+              0
+            ],
+            "1.75": [
+              10,
+              -45,
+              0
+            ],
+            "2.00": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "particle_effects": {
+        "0.35": [
+          {
+            "effect": "hand_charge",
+            "locator": "right_hand"
+          },
+          {
+            "effect": "hand_charge",
+            "locator": "left_hand"
+          }
+        ],
+        "1.75": [
+          {
+            "effect": "sword_trail",
+            "locator": "right_hand"
+          }
+        ]
+      }
+    },
+    "animation.byakuya.skill_11": {
+      "animation_length": 3.2,
+      "loop": "hold_on_last_frame",
+      "bones": {
+        "root": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "3.00": [
+              0,
+              720,
+              0
+            ],
+            "3.20": [
+              0,
+              720,
+              0
+            ]
+          }
+        },
+        "rightArm": {
+          "rotation": {
+            "0.00": [
+              -25,
+              -10,
+              0
+            ],
+            "0.30": [
+              -90,
+              75,
+              0
+            ],
+            "0.54": [
+              -100,
+              -75,
+              0
+            ],
+            "0.78": [
+              -90,
+              75,
+              0
+            ],
+            "1.02": [
+              -100,
+              -75,
+              0
+            ],
+            "1.26": [
+              -90,
+              75,
+              0
+            ],
+            "1.50": [
+              -100,
+              -75,
+              0
+            ],
+            "1.74": [
+              -90,
+              75,
+              0
+            ],
+            "1.98": [
+              -100,
+              -75,
+              0
+            ],
+            "2.22": [
+              -90,
+              75,
+              0
+            ],
+            "2.46": [
+              -100,
+              -75,
+              0
+            ],
+            "2.70": [
+              -90,
+              75,
+              0
+            ],
+            "2.94": [
+              -100,
+              -75,
+              0
+            ],
+            "3.20": [
+              -25,
+              -10,
+              0
+            ]
+          }
+        },
+        "body": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.30": [
+              5,
+              30,
+              0
+            ],
+            "0.54": [
+              5,
+              -30,
+              0
+            ],
+            "0.78": [
+              5,
+              30,
+              0
+            ],
+            "1.02": [
+              5,
+              -30,
+              0
+            ],
+            "1.26": [
+              5,
+              30,
+              0
+            ],
+            "1.50": [
+              5,
+              -30,
+              0
+            ],
+            "1.74": [
+              5,
+              30,
+              0
+            ],
+            "1.98": [
+              5,
+              -30,
+              0
+            ],
+            "2.22": [
+              5,
+              30,
+              0
+            ],
+            "2.46": [
+              5,
+              -30,
+              0
+            ],
+            "2.70": [
+              5,
+              30,
+              0
+            ],
+            "2.94": [
+              5,
+              -30,
+              0
+            ],
+            "3.20": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "leftArm": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.30": [
+              -30,
+              0,
+              -10
+            ],
+            "3.00": [
+              -30,
+              0,
+              -10
+            ],
+            "3.20": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "particle_effects": {
+        "0.40": [
+          {
+            "effect": "sword_trail_red",
+            "locator": "right_hand"
+          }
+        ],
+        "0.90": [
+          {
+            "effect": "sword_trail_red",
+            "locator": "right_hand"
+          }
+        ],
+        "1.40": [
+          {
+            "effect": "sword_trail_red",
+            "locator": "right_hand"
+          }
+        ],
+        "1.90": [
+          {
+            "effect": "sword_trail_red",
+            "locator": "right_hand"
+          }
+        ],
+        "2.40": [
+          {
+            "effect": "sword_trail_red",
+            "locator": "right_hand"
+          }
+        ],
+        "2.90": [
+          {
+            "effect": "sword_trail_red",
+            "locator": "right_hand"
+          }
+        ]
+      }
+    },
+    "animation.byakuya.skill_12": {
+      "animation_length": 2.4,
+      "loop": "hold_on_last_frame",
+      "bones": {
+        "root": {
+          "position": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.10": [
+              0,
+              -3,
+              0
+            ],
+            "1.45": [
+              0,
+              -3,
+              0
+            ],
+            "1.50": [
+              0,
+              -2,
+              0
+            ],
+            "2.40": [
+              0,
+              -2,
+              0
+            ]
+          }
+        },
+        "rightLeg": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.10": [
+              -85,
+              10,
+              0
+            ],
+            "1.45": [
+              -85,
+              10,
+              0
+            ],
+            "1.50": [
+              -35,
+              0,
+              0
+            ],
+            "2.40": [
+              -35,
+              0,
+              0
+            ]
+          }
+        },
+        "leftLeg": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.10": [
+              70,
+              -5,
+              0
+            ],
+            "1.45": [
+              70,
+              -5,
+              0
+            ],
+            "1.50": [
+              30,
+              0,
+              0
+            ],
+            "2.40": [
+              30,
+              0,
+              0
+            ]
+          }
+        },
+        "body": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.10": [
+              20,
+              40,
+              0
+            ],
+            "0.20": [
+              21,
+              40,
+              0
+            ],
+            "0.30": [
+              20,
+              40,
+              0
+            ],
+            "0.40": [
+              21,
+              40,
+              0
+            ],
+            "0.50": [
+              20,
+              40,
+              0
+            ],
+            "0.60": [
+              21,
+              40,
+              0
+            ],
+            "0.70": [
+              20,
+              40,
+              0
+            ],
+            "0.80": [
+              21,
+              40,
+              0
+            ],
+            "0.90": [
+              20,
+              40,
+              0
+            ],
+            "1.00": [
+              21,
+              40,
+              0
+            ],
+            "1.10": [
+              20,
+              40,
+              0
+            ],
+            "1.20": [
+              21,
+              40,
+              0
+            ],
+            "1.30": [
+              20,
+              40,
+              0
+            ],
+            "1.40": [
+              21,
+              40,
+              0
+            ],
+            "1.50": [
+              0,
+              -65,
+              0
+            ],
+            "2.40": [
+              0,
+              -60,
+              0
+            ]
+          }
+        },
+        "rightArm": {
+          "rotation": {
+            "0.00": [
+              -25,
+              -10,
+              0
+            ],
+            "0.10": [
+              -30,
+              75,
+              0
+            ],
+            "1.45": [
+              -30,
+              75,
+              0
+            ],
+            "1.50": [
+              -95,
+              -115,
+              0
+            ],
+            "2.40": [
+              -90,
+              -110,
+              0
+            ]
+          }
+        },
+        "leftArm": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.10": [
+              -40,
+              30,
+              0
+            ],
+            "1.45": [
+              -40,
+              30,
+              0
+            ],
+            "1.50": [
+              15,
+              0,
+              0
+            ],
+            "2.40": [
+              15,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "particle_effects": {
+        "0.10": [
+          {
+            "effect": "hand_charge",
+            "locator": "right_hand"
+          }
+        ],
+        "0.35": [
+          {
+            "effect": "hand_charge",
+            "locator": "right_hand"
+          }
+        ],
+        "0.60": [
+          {
+            "effect": "hand_charge",
+            "locator": "right_hand"
+          }
+        ],
+        "0.85": [
+          {
+            "effect": "hand_charge",
+            "locator": "right_hand"
+          }
+        ],
+        "1.10": [
+          {
+            "effect": "hand_charge",
+            "locator": "right_hand"
+          }
+        ],
+        "1.35": [
+          {
+            "effect": "hand_charge",
+            "locator": "right_hand"
+          }
+        ],
+        "1.50": [
+          {
+            "effect": "sword_trail",
+            "locator": "right_hand"
+          },
+          {
+            "effect": "sword_trail",
+            "locator": "body_center"
+          }
+        ]
+      }
+    },
+    "animation.byakuya.skill_20": {
+      "animation_length": 7.5,
+      "loop": "hold_on_last_frame",
+      "bones": {
+        "root": {
+          "position": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.20": [
+              0,
+              -6,
+              0
+            ],
+            "1.80": [
+              0,
+              -6,
+              0
+            ],
+            "2.40": [
+              0,
+              0,
+              0
+            ],
+            "3.00": [
+              0,
+              8,
+              0
+            ],
+            "3.50": [
+              0,
+              9,
+              0
+            ],
+            "4.00": [
+              0,
+              8,
+              0
+            ],
+            "4.50": [
+              0,
+              9,
+              0
+            ],
+            "5.00": [
+              0,
+              8,
+              0
+            ],
+            "5.50": [
+              0,
+              9,
+              0
+            ],
+            "6.00": [
+              0,
+              8,
+              0
+            ],
+            "6.30": [
+              0,
+              9,
+              0
+            ],
+            "6.45": [
+              0,
+              -2,
+              0
+            ],
+            "7.50": [
+              0,
+              -2,
+              0
+            ]
+          }
+        },
+        "rightLeg": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.20": [
+              -85,
+              10,
+              0
+            ],
+            "1.80": [
+              -85,
+              10,
+              0
+            ],
+            "2.40": [
+              0,
+              0,
+              0
+            ],
+            "6.45": [
+              -40,
+              0,
+              0
+            ],
+            "7.50": [
+              -40,
+              0,
+              0
+            ]
+          }
+        },
+        "leftLeg": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.20": [
+              70,
+              -5,
+              0
+            ],
+            "1.80": [
+              70,
+              -5,
+              0
+            ],
+            "2.40": [
+              0,
+              0,
+              0
+            ],
+            "6.45": [
+              35,
+              0,
+              0
+            ],
+            "7.50": [
+              35,
+              0,
+              0
+            ]
+          }
+        },
+        "body": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.20": [
+              30,
+              0,
+              0
+            ],
+            "1.80": [
+              30,
+              0,
+              0
+            ],
+            "2.40": [
+              -10,
+              0,
+              0
+            ],
+            "6.30": [
+              -15,
+              0,
+              0
+            ],
+            "6.45": [
+              45,
+              0,
+              0
+            ],
+            "7.50": [
+              40,
+              0,
+              0
+            ]
+          }
+        },
+        "rightArm": {
+          "rotation": {
+            "0.00": [
+              -25,
+              -10,
+              0
+            ],
+            "0.20": [
+              -15,
+              0,
+              0
+            ],
+            "1.80": [
+              -15,
+              0,
+              0
+            ],
+            "3.00": [
+              -180,
+              0,
+              0
+            ],
+            "6.30": [
+              -185,
+              0,
+              0
+            ],
+            "6.45": [
+              -25,
+              0,
+              0
+            ],
+            "7.50": [
+              -25,
+              0,
+              0
+            ]
+          }
+        },
+        "leftArm": {
+          "rotation": {
+            "0.00": [
+              0,
+              0,
+              0
+            ],
+            "0.20": [
+              -20,
+              0,
+              0
+            ],
+            "1.80": [
+              -20,
+              0,
+              0
+            ],
+            "3.00": [
+              -170,
+              0,
+              0
+            ],
+            "6.30": [
+              -175,
+              0,
+              0
+            ],
+            "6.45": [
+              -25,
+              0,
+              0
+            ],
+            "7.50": [
+              -25,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "particle_effects": {
+        "3.00": [
+          {
+            "effect": "hand_charge",
+            "locator": "right_hand"
+          },
+          {
+            "effect": "aura_soul",
+            "locator": "body_center"
+          }
+        ],
+        "3.40": [
+          {
+            "effect": "hand_charge",
+            "locator": "right_hand"
+          },
+          {
+            "effect": "aura_soul",
+            "locator": "body_center"
+          }
+        ],
+        "3.80": [
+          {
+            "effect": "hand_charge",
+            "locator": "right_hand"
+          },
+          {
+            "effect": "aura_soul",
+            "locator": "body_center"
+          }
+        ],
+        "4.20": [
+          {
+            "effect": "hand_charge",
+            "locator": "right_hand"
+          },
+          {
+            "effect": "aura_soul",
+            "locator": "body_center"
+          }
+        ],
+        "4.60": [
+          {
+            "effect": "hand_charge",
+            "locator": "right_hand"
+          },
+          {
+            "effect": "aura_soul",
+            "locator": "body_center"
+          }
+        ],
+        "5.00": [
+          {
+            "effect": "hand_charge",
+            "locator": "right_hand"
+          },
+          {
+            "effect": "aura_soul",
+            "locator": "body_center"
+          }
+        ],
+        "5.40": [
+          {
+            "effect": "hand_charge",
+            "locator": "right_hand"
+          },
+          {
+            "effect": "aura_soul",
+            "locator": "body_center"
+          }
+        ],
+        "5.80": [
+          {
+            "effect": "hand_charge",
+            "locator": "right_hand"
+          },
+          {
+            "effect": "aura_soul",
+            "locator": "body_center"
+          }
+        ],
+        "6.20": [
+          {
+            "effect": "hand_charge",
+            "locator": "right_hand"
+          },
+          {
+            "effect": "aura_soul",
+            "locator": "body_center"
+          }
+        ],
+        "6.45": [
+          {
+            "effect": "sword_trail_red",
+            "locator": "right_hand"
+          },
+          {
+            "effect": "sword_trail_red",
+            "locator": "body_center"
           }
         ]
       }
