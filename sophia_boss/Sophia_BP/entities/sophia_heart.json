@@ -171,12 +171,7 @@
                     {
                       "test": "is_family",
                       "subject": "other",
-                      "value": "byakuya"
-                    },
-                    {
-                      "test": "is_family",
-                      "subject": "other",
-                      "value": "hitori"
+                      "value": "rival_boss"
                     }
                   ]
                 },
@@ -246,12 +241,7 @@
                     {
                       "test": "is_family",
                       "subject": "other",
-                      "value": "byakuya"
-                    },
-                    {
-                      "test": "is_family",
-                      "subject": "other",
-                      "value": "hitori"
+                      "value": "rival_boss"
                     }
                   ]
                 },
@@ -320,6 +310,24 @@
                 "value": "player"
               },
               "max_dist": 48
+            },
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "rival_boss"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "sophia"
+                  }
+                ]
+              },
+              "max_dist": 40
             }
           ]
         },
@@ -518,6 +526,7 @@
         "family": [
           "sophia",
           "boss",
+          "rival_boss",
           "monster",
           "mob"
         ]

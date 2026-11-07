@@ -16,7 +16,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import anims  # noqa: E402
 import fx  # noqa: E402
 import summons  # noqa: E402
-from cine import Cine, add_arc_trails, add_rival, bake_smooth, vectorize_animations  # noqa: E402
+from cine import (FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, bake_smooth, encounter_cmds,  # noqa: E402
+                  rival_target, smooth_client, split_dashes, vectorize_animations)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BP = os.path.join(ROOT, "Byakuya_BP")
@@ -25,7 +26,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "byakuya:shiraishi_byakuya"
 NAME = "白石白夜"
-VERSION = [1, 4, 0]
+VERSION = [1, 5, 0]
 MIN_ENGINE = [1, 21, 0]
 
 UUID_BP_HEADER = "293c6dbc-978c-4439-aa05-c2fa6e63c99d"
@@ -42,6 +43,8 @@ random.seed(1201)  # 誕生日 12/1
 
 def write(path, data):
     os.makedirs(os.path.dirname(path), exist_ok=True)
+    if not isinstance(data, str) and os.path.abspath(path).startswith(os.path.abspath(BP) + os.sep):
+        add_rival(data, ID)   # プレイヤーへのダメージ命令を、ほかのボスにも当たるように複製する
     with open(path, "w", encoding="utf-8") as f:
         if isinstance(data, str):
             f.write(data)
@@ -399,8 +402,7 @@ skill(23, "森羅万象", 3.0, tl)
 CINE = Cine("byakuya_cine")
 FACE = "^ ^1.6 ^"
 ANYONE = "@p[r=64]"
-HITORI_ID = "hitori:denshi_hitori"
-HITORI = "@e[type=%s,c=1]" % HITORI_ID
+HITORI = "@e[family=hitori,c=1]"   # 独のアドオンが無くてもエラーにならないよう family で
 
 # 24 地走り・波紋: 地面を走る波紋。リングが来たらジャンプで避ける
 tl = {0: [say("§c【地走り・波紋】§7「跳べるかい？　お前さん」"),
@@ -589,7 +591,9 @@ DEATH = {"%.2f" % k: v for k, v in sorted(DEATH.items())}
 # ---------------------------------------------------------------------------
 # v1.4: 大技のカットイン・着地や叩きつけの土煙
 # ---------------------------------------------------------------------------
-SMOOTH_STEP = 0.05
+SMOOTH_STEP = 0.02   # 50 キー/秒（容量より、なめらかさ優先）
+for _v in SKILLS:     # 長距離の斬り抜け（一瞬の tp）は、数 tick に分けた高速移動に
+    split_dashes(SKILLS[_v][2])
 
 
 def patch(v, t, cmds):
@@ -633,8 +637,7 @@ def bp_manifest():
 
 IMMUNE = ("fall", "fire", "fire_tick", "lava", "lightning", "drowning", "suffocation", "magic", "thorns",
           "block_explosion", "entity_explosion")
-FOE = {"any_of": [{"test": "is_family", "subject": "other", "value": "player"},
-                  {"test": "is_family", "subject": "other", "value": "hitori"}]}
+FOE = FOE_ANY   # プレイヤーと、ほかのボス
 
 
 def damage_sensor():
@@ -680,7 +683,7 @@ def bp_entity():
                 "priority": 2, "must_see": False, "reselect_targets": True, "within_radius": 48,
                 "entity_types": [
                     {"filters": {"test": "is_family", "subject": "other", "value": "player"}, "max_dist": 48},
-                    {"filters": {"test": "is_family", "subject": "other", "value": "hitori"}, "max_dist": 40},
+                    rival_target("byakuya"),   # ほかのボス（独・ソフィア・東雲）
                     {"filters": {"test": "is_family", "subject": "other", "value": "irongolem"}, "max_dist": 24},
                 ]},
             "minecraft:behavior.random_stroll": {"priority": 6, "speed_multiplier": 0.8},
@@ -752,7 +755,6 @@ def bp_entity():
         "particle byakuya:big_slash_white ~ ~1.2 ~",
         "particle byakuya:slash_flat_red ~ ~1 ~",
         "damage @a[r=4,m=!creative] 18 entity_attack entity @s",
-        "damage @e[type=%s,r=4] 18 entity_attack entity @s" % HITORI_ID,
         "playsound game.player.attack.strong @a[r=30] ~ ~ ~ 1 0.5",
         "playsound random.anvil_land @a[r=30] ~ ~ ~ 1 0.6",
         "camerashake add @a[r=12] 0.8 0.4 positional",
@@ -789,7 +791,7 @@ def bp_entity():
     events["byakuya:choose_skill"] = {"sequence": seq}
 
     components = {
-        "minecraft:type_family": {"family": ["byakuya", "boss", "monster", "mob"]},
+        "minecraft:type_family": {"family": ["byakuya", "boss", RIVAL_FAMILY, "monster", "mob"]},
         "minecraft:health": {"value": HP, "max": HP},
         "minecraft:boss": {"hud_range": 64, "should_darken_sky": True},
         "minecraft:nameable": {"always_show": True, "allow_name_tag_renaming": False},
@@ -845,6 +847,10 @@ def bp_entity():
     }
 
 
+# ほかのボスと初めて会ったときのひとこと（独とは専用のカットシーン）
+ENCOUNTER = {'sophia': '§f白石白夜§7「……神様、ねぇ。斬れるかどうか、試してみようか」', 'shinonome': '§f白石白夜§7「おや……ただの子どもじゃないね。悪いが、手加減はしないよ」'}
+
+
 def bp_animations():
     a = {"animation.byakuya.skill_%d" % v: {"animation_length": length, "loop": False, "timeline": timeline}
          for v, (name, length, timeline) in SKILLS.items()}
@@ -855,10 +861,10 @@ def bp_animations():
         "/execute if score @s byakuya_players matches 2 run effect @s resistance 6 0 true",
         "/execute if score @s byakuya_players matches 3 run effect @s resistance 6 1 true",
         "/execute if score @s byakuya_players matches 4.. run effect @s resistance 6 2 true"]}}
-    # 待機中だけ動く: カメラの後片付けと、宿敵（電子 独）の発見
+    # 待機中だけ動く: カメラの後片付けと、宿敵（電子 独）・ほかのボスの発見
     a["animation.byakuya.idle_loop"] = {"animation_length": 2.0, "loop": True, "timeline": {"1.00": CINE.end() + [
-        "/execute if entity @s[tag=!byakuya_met] if entity @e[type=%s,r=24] run event entity @s byakuya:rival_meet"
-        % HITORI_ID]}}
+        "/execute if entity @s[tag=!byakuya_met] if entity @e[family=hitori,r=24] run event entity @s byakuya:rival_meet"],
+        "1.50": encounter_cmds("byakuya", say, ENCOUNTER)}}
     return {"format_version": "1.10.0", "animations": a}
 
 
@@ -955,7 +961,7 @@ def rp_geometry():
 
 
 def rp_entity():
-    return {"format_version": "1.10.0", "minecraft:client_entity": {"description": {
+    return {"format_version": "1.10.0", "minecraft:client_entity": {"description": smooth_client({
         "identifier": ID,
         "materials": {"default": "entity_alphatest"},
         "textures": {"default": "textures/entity/shiraishi_byakuya"},
@@ -965,8 +971,8 @@ def rp_entity():
         "spawn_egg": {"base_color": "#f0f0f0", "overlay_color": "#5c1414"},
         "particle_effects": anims.PARTICLE_MAP,
         "animations": anims.short_names(sorted(SKILLS)),
-        "scripts": dict(anims.ATK_SCRIPTS, animate=["main", "aura_ctrl", "attack_fx"]),
-    }}}
+        "scripts": {"animate": ["main", "aura_ctrl", "attack_fx"]},
+    })}}
 
 
 def rp_render_controller():
@@ -1007,7 +1013,6 @@ def main():
     write(os.path.join(BP, "manifest.json"), bp_manifest())
     write(os.path.join(BP, "entities/shiraishi_byakuya.json"), bp_entity())
     boss_anims_bp = bp_animations()
-    add_rival(boss_anims_bp["animations"], "hitori:denshi_hitori")
     write(os.path.join(BP, "animations/shiraishi_byakuya.animation.json"), boss_anims_bp)
     write(os.path.join(BP, "animation_controllers/shiraishi_byakuya.ac.json"), bp_controllers())
     # 補助エンティティ（斬撃波・追尾刀・目印・影分身）
@@ -1020,7 +1025,6 @@ def main():
         write(os.path.join(BP, "entities/%s.json" % name), data)
     summ_anims = {**wave_a, **blade_a, **marker_a,
                   "animation.byakuya.director.death": {"animation_length": 5.6, "loop": False, "timeline": DEATH}}
-    add_rival(summ_anims, "hitori:denshi_hitori")
     write(os.path.join(BP, "animations/summons.animation.json"),
           {"format_version": "1.10.0", "animations": summ_anims})
     write(os.path.join(BP, "animation_controllers/summons.ac.json"),
@@ -1055,14 +1059,15 @@ def main():
     for name, data in summons.rp_clients(boss_anims).items():
         if name == "shadow":
             data["minecraft:client_entity"]["description"]["particle_effects"].update(anims.PARTICLE_MAP)
-            data["minecraft:client_entity"]["description"]["scripts"].update(anims.ATK_SCRIPTS)
+            smooth_client(data["minecraft:client_entity"]["description"])
         write(os.path.join(RP, "entity/%s.entity.json" % name), data)
     write(os.path.join(RP, "models/entity/byakuya_slash_wave.geo.json"), summons.geo_slash_wave())
     write(os.path.join(RP, "models/entity/byakuya_blade.geo.json"), summons.geo_blade())
     write(os.path.join(RP, "models/entity/byakuya_empty.geo.json"), summons.geo_empty())
     write(os.path.join(RP, "render_controllers/summons.rc.json"), summons.rc_simple())
     write(os.path.join(RP, "animations/summons.animation.json"),
-          {"format_version": "1.10.0", "animations": vectorize_animations(summons.rp_animations())})
+          {"format_version": "1.10.0",
+           "animations": vectorize_animations(bake_smooth(summons.rp_animations(), step=SMOOTH_STEP))})
     for name, im in fx.build_entity_textures().items():
         im.save(os.path.join(RP, "textures/entity/%s.png" % name))
     for name, data in fx.build_fogs().items():

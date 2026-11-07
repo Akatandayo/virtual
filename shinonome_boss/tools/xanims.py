@@ -1,15 +1,9 @@
 # -*- coding: utf-8 -*-
 """東雲 永々: クライアント側アニメーション（右手に黒胎刀、背中にクロノスピアの窓）."""
 
+from cine import ALIVE_ANIM, SPD, TURN_ANIM, smooth_controller  # noqa: E402
+
 N = [0, 0, 0]
-# 通常攻撃の左右（技の順番）は「振り始めた瞬間」に切り替える（振っている途中で入れ替わらない）
-ATK_SCRIPTS = {
-    "initialize": ["v.atk_n = 0.0;", "v.atk_was = 0.0;"],
-    "pre_animation": [
-        "v.atk_n = (v.attack_time > 0.0 && (v.atk_was <= 0.0 || v.attack_time < v.atk_was)) ? "
-        "math.mod(v.atk_n + 1, 6) : v.atk_n;",
-        "v.atk_was = v.attack_time;"],
-}
 ALT = "math.mod(v.atk_n, 2) == 0"   # 斬り / 蹴り
 HOLD = [-15, -6, 0]
 UP = [-175, 0, 0]
@@ -185,7 +179,7 @@ def skill_anims():
 
 def all_animations():
     walk = "q.modified_distance_moved * 38.17"
-    spd = "math.min(q.modified_move_speed, 1.0)"
+    spd = SPD   # 走り出し・止まり際をなめらかにした移動速度
     anims = {
         "animation.toa.look_at": {"loop": True, "bones": {
             "head": {"rotation": ["q.target_x_rotation", "q.target_y_rotation", 0]}}},
@@ -208,13 +202,13 @@ def all_animations():
             "leftLeg": {"rotation": ["math.cos(%s + 180) * 55 * %s" % (walk, spd), 0, 0]},
         }},
         "animation.toa.hurt": {"loop": True, "bones": {
-            "body": {"rotation": ["-q.hurt_time * 1.4", 0, 0]},
-            "head": {"rotation": ["-q.hurt_time * 1.0", 0, "q.hurt_time * 1.5"]},
+            "body": {"rotation": ["-v.flinch * 14", 0, 0]},
+            "head": {"rotation": ["-v.flinch * 10", 0, "v.flinch * 15"]},
         }},
         # 通常攻撃: 黒胎刀の斬りと、回し蹴りを交互に
         "animation.toa.attack": {"loop": True, "bones": {
             "rightArm": {"rotation": ["(%s) ? -math.sin(variable.attack_time * 180) * 120 : 0" % ALT,
-                                      "(%s) ? 60 - variable.attack_time * 120 : 0" % ALT, 0]},
+                                      "(%s) ? math.sin(variable.attack_time * 360) * 60 : 0" % ALT, 0]},
             "rightLeg": {"rotation": ["(%s) ? 0 : -math.sin(variable.attack_time * 180) * 95" % ALT, 0,
                                       "(%s) ? 0 : math.sin(variable.attack_time * 180) * 20" % ALT]},
             "body": {"rotation": ["(%s) ? 0 : -math.sin(variable.attack_time * 180) * 12" % ALT,
@@ -258,6 +252,8 @@ def all_animations():
     }
     for v, a in skill_anims().items():
         anims["animation.toa.skill_%d" % v] = a
+    anims["animation.toa.turn"] = TURN_ANIM
+    anims["animation.toa.alive"] = ALIVE_ANIM
     return {"format_version": "1.10.0", "animations": anims}
 
 
@@ -272,6 +268,7 @@ def short_names(skill_ids):
          "aura_1": "animation.toa.aura_1", "aura_2": "animation.toa.aura_2", "water": "animation.toa.water",
          "death_pose": "animation.toa.death", "main": "controller.animation.toa.main",
          "aura_ctrl": "controller.animation.toa.aura", "attack_fx": "controller.animation.toa.attack_fx"}
+    n.update({"turn": "animation.toa.turn", "alive": "animation.toa.alive"})
     for v in skill_ids:
         n["s%d" % v] = "animation.toa.skill_%d" % v
     return n
@@ -292,7 +289,7 @@ def controllers(skill_ids):
         a += [{"move_legs": "q.modified_move_speed > 0.1"}, "hurt"]
         states["s%d" % v] = {"animations": a, "transitions": [dead, {"default": "q.mark_variant != %d" % v}],
                              "blend_transition": 0.08}
-    return {"format_version": "1.10.0", "animation_controllers": {
+    return smooth_controller({"format_version": "1.10.0", "animation_controllers": {
         "controller.animation.toa.main": {"initial_state": "default", "states": states},
         "controller.animation.toa.aura": {"initial_state": "none", "states": {
             "none": {"transitions": [{"a2": "q.skin_id >= 2"}, {"a1": "q.skin_id == 1"}]},
@@ -307,7 +304,7 @@ def controllers(skill_ids):
             "kick": {"particle_effects": [{"effect": "trail", "locator": "right_foot"},
                                           {"effect": "arc", "locator": "right_foot"}],
                      "transitions": [{"ready": "variable.attack_time < 0.2"}]}}},
-    }}
+    }}, "controller.animation.toa.main")
 
 
 PARTICLE_MAP = {"arc": "shinonome:arc", "step": "shinonome:step_dust",

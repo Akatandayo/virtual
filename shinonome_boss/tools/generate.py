@@ -16,7 +16,8 @@ import zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import xanims  # noqa: E402
 import xfx  # noqa: E402
-from cine import Cine, add_arc_trails, bake_smooth, vectorize_animations  # noqa: E402
+from cine import (FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, bake_smooth, encounter_cmds,  # noqa: E402
+                  rival_target, smooth_client, split_dashes, vectorize_animations)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BP = os.path.join(ROOT, "Shinonome_BP")
@@ -25,7 +26,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "shinonome:toa"
 NAME = "東雲 永々"
-VERSION = [1, 2, 0]
+VERSION = [1, 3, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "a694ca4a-12aa-4554-8bdb-12089cc1e7f6"
 UUID_BP_MODULE = "f1947c40-91af-45a7-8801-580cb386961f"
@@ -44,11 +45,12 @@ NEAREST = "@p[r=48,m=!creative]"
 ANYONE = "@p[r=64]"
 FACE = "^ ^1.3 ^"   # 背が低い（137cm）
 CINE = Cine("toa_cine")
-SOPHIA = "sophia:sophia_heart"
 
 
 def write(path, data):
     os.makedirs(os.path.dirname(path), exist_ok=True)
+    if not isinstance(data, str) and os.path.abspath(path).startswith(os.path.abspath(BP) + os.sep):
+        add_rival(data, ID)   # プレイヤーへのダメージ命令を、ほかのボスにも当たるように複製する
     with open(path, "w", encoding="utf-8") as f:
         if isinstance(data, str):
             f.write(data)
@@ -498,7 +500,9 @@ DEATH = {"%.2f" % k: v for k, v in sorted(DEATH.items())}
 # ---------------------------------------------------------------------------
 # v1.2: 大技のカットイン・着地や叩きつけの土煙
 # ---------------------------------------------------------------------------
-SMOOTH_STEP = 0.05
+SMOOTH_STEP = 0.02   # 50 キー/秒（容量より、なめらかさ優先）
+for _v in SKILLS:     # 長距離の斬り抜け（一瞬の tp）は、数 tick に分けた高速移動に
+    split_dashes(SKILLS[_v][2])
 
 
 def patch(v, t, cmds):
@@ -554,7 +558,7 @@ def phase_group(skin, speed, dmg, timer):
 SENSORS = ["sensor_normal", "water", "fainted", "cine_guard"]
 IMMUNE = ("fall", "fire", "fire_tick", "lava", "drowning", "suffocation", "magic", "entity_explosion", "block_explosion",
           "wither", "lightning")
-FOE = {"any_of": [{"test": "is_family", "subject": "other", "value": "player"}]}
+FOE = FOE_ANY   # プレイヤーと、ほかのボス
 
 
 def bp_entity():
@@ -581,7 +585,8 @@ def bp_entity():
             "minecraft:behavior.hurt_by_target": {"priority": 1},
             "minecraft:behavior.nearest_attackable_target": {
                 "priority": 2, "must_see": False, "reselect_targets": True, "within_radius": 48,
-                "entity_types": [{"filters": {"test": "is_family", "subject": "other", "value": "player"}, "max_dist": 48}]},
+                "entity_types": [{"filters": {"test": "is_family", "subject": "other", "value": "player"}, "max_dist": 48},
+                                 rival_target("shinonome")]},   # ほかのボス（白夜・独・ソフィア）
             "minecraft:behavior.random_stroll": {"priority": 6, "speed_multiplier": 0.9},
             "minecraft:behavior.look_at_player": {"priority": 7, "look_distance": 16},
         },
@@ -637,7 +642,7 @@ def bp_entity():
         "shinonome:osuwari": {"queue_command": {"command": [
             "tag @s add toa_osuwari",
             'tellraw @a[r=48] {"rawtext":[{"text":"§f東雲§7「あっ、ソフィアだ！ ……おすわり！」"}]}',
-            "event entity @e[type=%s,r=24] sophia:osuwari" % SOPHIA, "particle shinonome:spark ~ ~1.5 ~"]}},
+            "event entity @e[family=sophia,r=24] sophia:osuwari", "particle shinonome:spark ~ ~1.5 ~"]}},
     }
     for v in sorted(SKILLS):
         if v in busy:
@@ -665,7 +670,7 @@ def bp_entity():
     events["shinonome:choose_skill"] = {"sequence": seq}
 
     components = {
-        "minecraft:type_family": {"family": ["shinonome", "boss", "monster", "mob"]},
+        "minecraft:type_family": {"family": ["shinonome", "boss", RIVAL_FAMILY, "monster", "mob"]},
         "minecraft:health": {"value": HP, "max": HP},
         "minecraft:boss": {"hud_range": 64, "should_darken_sky": True},
         "minecraft:nameable": {"always_show": True, "allow_name_tag_renaming": False},
@@ -703,6 +708,10 @@ def bp_entity():
         "component_groups": groups, "components": components, "events": events}}
 
 
+# ほかのボスと初めて会ったときのひとこと（ソフィアには「おすわり」も）
+ENCOUNTER = {'byakuya': '§f東雲§7「ねえねえ、キセルのひと！\u3000その刀かっこいいね！\u3000遊ぼ！」', 'hitori': '§f東雲§7「あっ、カクカクしてる！\u3000バグってるの？\u3000えへへ、遊ぼ遊ぼ！」', 'sophia': '§f東雲§7「あ、ソフィアだ！\u3000えへへ……今日は本気で遊んじゃおっかな！」'}
+
+
 def bp_animations():
     a = {"animation.toa.skill_%d" % v: {"animation_length": length, "loop": False, "timeline": tl}
          for v, (name, length, tl) in SKILLS.items()}
@@ -716,7 +725,8 @@ def bp_animations():
         "4.00": ["/execute at @a[tag=%s] run particle shinonome:oil_drip ~ ~ ~" % OILED],
         "7.90": ["/tag @a remove %s" % OILED]}}
     a["animation.toa.idle_loop"] = {"animation_length": 2.0, "loop": True, "timeline": {"1.00": CINE.end() + [
-        "/execute if entity @s[tag=!toa_osuwari] if entity @e[type=%s,r=16] run event entity @s shinonome:osuwari" % SOPHIA]}}
+        "/execute if entity @s[tag=!toa_osuwari] if entity @e[family=sophia,r=16] run event entity @s shinonome:osuwari"],
+        "1.50": encounter_cmds("shinonome", say, ENCOUNTER)}}   # ほかのボスの発見
     return {"format_version": "1.10.0", "animations": a}
 
 
@@ -1112,7 +1122,7 @@ def rp_clients():
                            {"pose": "animation.toa.director_pose"}, ["pose"], {"burger": "shinonome:burger"}),
     }
     for key in ('toa', 'clone'):   # 通常攻撃の切り替え用の変数
-        clients[key]["minecraft:client_entity"]["description"]["scripts"].update(xanims.ATK_SCRIPTS)
+        smooth_client(clients[key]["minecraft:client_entity"]["description"])
     return clients
 
 

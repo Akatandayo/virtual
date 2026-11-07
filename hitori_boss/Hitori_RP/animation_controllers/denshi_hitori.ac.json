@@ -15,10 +15,10 @@
             },
             "hurt",
             {
-              "idle_flavor": "q.modified_move_speed < 0.3"
+              "idle_flavor": "math.clamp((0.35 - v.spd) * 5.0, 0.0, 1.0)"
             },
             {
-              "step_fx": "q.modified_move_speed > 0.4"
+              "step_fx": "v.spd > 0.4"
             }
           ],
           "transitions": [
@@ -104,7 +104,8 @@
               "s99": "q.mark_variant == 99"
             }
           ],
-          "blend_transition": 0.1
+          "blend_transition": 0.2,
+          "blend_via_shortest_path": true
         },
         "death": {
           "animations": [
@@ -117,9 +118,10 @@
             "s1",
             "glitch",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -129,7 +131,8 @@
               "default": "q.mark_variant != 1"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         },
         "s2": {
           "animations": [
@@ -137,9 +140,10 @@
             "s2",
             "glitch",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -149,7 +153,8 @@
               "default": "q.mark_variant != 2"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         },
         "s3": {
           "animations": [
@@ -157,9 +162,10 @@
             "s3",
             "glitch",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -169,16 +175,18 @@
               "default": "q.mark_variant != 3"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         },
         "s4": {
           "animations": [
             "s4",
             "glitch",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -188,7 +196,8 @@
               "default": "q.mark_variant != 4"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         },
         "s5": {
           "animations": [
@@ -196,9 +205,10 @@
             "s5",
             "glitch",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -208,16 +218,18 @@
               "default": "q.mark_variant != 5"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         },
         "s6": {
           "animations": [
             "s6",
             "glitch",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -227,7 +239,8 @@
               "default": "q.mark_variant != 6"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         },
         "s7": {
           "animations": [
@@ -235,9 +248,10 @@
             "s7",
             "glitch",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -247,7 +261,8 @@
               "default": "q.mark_variant != 7"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         },
         "s8": {
           "animations": [
@@ -255,9 +270,10 @@
             "s8",
             "glitch",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -267,7 +283,8 @@
               "default": "q.mark_variant != 8"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         },
         "s9": {
           "animations": [
@@ -275,9 +292,10 @@
             "s9",
             "glitch",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -287,7 +305,8 @@
               "default": "q.mark_variant != 9"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         },
         "s10": {
           "animations": [
@@ -295,9 +314,10 @@
             "s10",
             "glitch",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -307,7 +327,8 @@
               "default": "q.mark_variant != 10"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         },
         "s11": {
           "animations": [
@@ -315,9 +336,10 @@
             "s11",
             "glitch",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -327,7 +349,8 @@
               "default": "q.mark_variant != 11"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         },
         "s12": {
           "animations": [
@@ -335,9 +358,10 @@
             "s12",
             "glitch",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -347,7 +371,8 @@
               "default": "q.mark_variant != 12"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         },
         "s13": {
           "animations": [
@@ -355,9 +380,10 @@
             "s13",
             "glitch",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -367,7 +393,8 @@
               "default": "q.mark_variant != 13"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         },
         "s14": {
           "animations": [
@@ -375,9 +402,10 @@
             "s14",
             "glitch",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -387,7 +415,8 @@
               "default": "q.mark_variant != 14"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         },
         "s15": {
           "animations": [
@@ -395,9 +424,10 @@
             "s15",
             "glitch",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -407,7 +437,8 @@
               "default": "q.mark_variant != 15"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         },
         "s16": {
           "animations": [
@@ -415,9 +446,10 @@
             "s16",
             "glitch",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -427,7 +459,8 @@
               "default": "q.mark_variant != 16"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         },
         "s17": {
           "animations": [
@@ -435,9 +468,10 @@
             "s17",
             "glitch",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -447,16 +481,18 @@
               "default": "q.mark_variant != 17"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         },
         "s18": {
           "animations": [
             "s18",
             "glitch",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -466,16 +502,18 @@
               "default": "q.mark_variant != 18"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         },
         "s20": {
           "animations": [
             "s20",
             "glitch",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -485,7 +523,8 @@
               "default": "q.mark_variant != 20"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         },
         "s21": {
           "animations": [
@@ -493,9 +532,10 @@
             "s21",
             "glitch",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -505,7 +545,8 @@
               "default": "q.mark_variant != 21"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         },
         "s22": {
           "animations": [
@@ -513,9 +554,10 @@
             "s22",
             "glitch",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -525,16 +567,18 @@
               "default": "q.mark_variant != 22"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         },
         "s23": {
           "animations": [
             "s23",
             "glitch",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -544,7 +588,8 @@
               "default": "q.mark_variant != 23"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         },
         "s30": {
           "animations": [
@@ -552,9 +597,10 @@
             "s30",
             "glitch",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -564,16 +610,18 @@
               "default": "q.mark_variant != 30"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         },
         "s31": {
           "animations": [
             "s31",
             "glitch",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -583,7 +631,8 @@
               "default": "q.mark_variant != 31"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         },
         "s32": {
           "animations": [
@@ -591,9 +640,10 @@
             "s32",
             "glitch",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -603,15 +653,17 @@
               "default": "q.mark_variant != 32"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         },
         "s99": {
           "animations": [
             "s99",
             {
-              "move_legs": "q.modified_move_speed > 0.1"
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
-            "hurt"
+            "hurt",
+            "alive"
           ],
           "transitions": [
             {
@@ -621,7 +673,8 @@
               "default": "q.mark_variant != 99"
             }
           ],
-          "blend_transition": 0.08
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
         }
       }
     },

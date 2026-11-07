@@ -48,6 +48,8 @@
         "main": "controller.animation.byakuya.main",
         "aura_ctrl": "controller.animation.byakuya.aura",
         "attack_fx": "controller.animation.byakuya.attack_fx",
+        "turn": "animation.byakuya.turn",
+        "alive": "animation.byakuya.alive",
         "s1": "animation.byakuya.skill_1",
         "s2": "animation.byakuya.skill_2",
         "s3": "animation.byakuya.skill_3",
@@ -80,18 +82,37 @@
         "s32": "animation.byakuya.skill_32"
       },
       "scripts": {
-        "initialize": [
-          "v.atk_n = 0.0;",
-          "v.atk_was = 0.0;"
-        ],
-        "pre_animation": [
-          "v.atk_n = (v.attack_time > 0.0 && (v.atk_was <= 0.0 || v.attack_time < v.atk_was)) ? math.mod(v.atk_n + 1, 6) : v.atk_n;",
-          "v.atk_was = v.attack_time;"
-        ],
         "animate": [
           "main",
           "aura_ctrl",
-          "attack_fx"
+          "attack_fx",
+          "turn"
+        ],
+        "initialize": [
+          "v.atk_n = 0.0;",
+          "v.atk_was = 0.0;",
+          "v.hurt_t = -10.0;",
+          "v.hurt_was = 0.0;",
+          "v.flinch = 0.0;",
+          "v.spd = 0.0;",
+          "v.yaw_prev = 0.0;",
+          "v.yaw_ready = 0.0;",
+          "v.yaw_off = 0.0;",
+          "v.dt = 0.016;"
+        ],
+        "pre_animation": [
+          "v.dt = math.clamp(q.delta_time, 0.004, 0.25);",
+          "v.spd = v.spd + (math.clamp(q.modified_move_speed, 0.0, 1.0) - v.spd) * (1.0 - math.exp(-v.dt / 0.12));",
+          "v.yaw_d = (v.yaw_ready > 0.5) ? q.body_y_rotation - v.yaw_prev : 0.0;",
+          "v.yaw_d = v.yaw_d - 360.0 * math.round(v.yaw_d / 360.0);",
+          "v.yaw_prev = q.body_y_rotation;",
+          "v.yaw_ready = 1.0;",
+          "v.yaw_off = math.clamp((v.yaw_off - v.yaw_d) * math.exp(-v.dt / 0.07), -160.0, 160.0);",
+          "v.atk_n = (v.attack_time > 0.0 && (v.atk_was <= 0.0 || v.attack_time < v.atk_was)) ? math.mod(v.atk_n + 1, 6) : v.atk_n;",
+          "v.atk_was = v.attack_time;",
+          "v.hurt_t = (q.hurt_time > v.hurt_was) ? q.life_time : v.hurt_t;",
+          "v.hurt_was = q.hurt_time;",
+          "v.flinch = (q.life_time - v.hurt_t < 0.08) ? math.sin((q.life_time - v.hurt_t) * 1125.0) : ((q.life_time - v.hurt_t < 0.6) ? 0.5 + 0.5 * math.cos((q.life_time - v.hurt_t - 0.08) * 346.15) : 0.0);"
         ]
       }
     }

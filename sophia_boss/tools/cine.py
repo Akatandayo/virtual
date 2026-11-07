@@ -57,23 +57,69 @@ class Cine:
         tl.setdefault(round(t + dur, 2), []).extend(self.end())
 
 
-def add_rival(animations, rival_type, cause=None):
-    """技のダメージがライバルのボスにも当たるように、ダメージ命令を複製する"""
-    for anim in animations.values():
-        tl = anim.get("timeline")
-        if not tl:
-            continue
-        for key, cmds in tl.items():
-            extra = []
-            for c in cmds:
-                if "damage @a[" not in c:
-                    continue
-                r = c.replace("@a[", "@e[type=%s," % rival_type)
-                r = r.replace(",m=!creative", "").replace("m=!creative,", "").replace(",]", "]")
-                if cause:
-                    r = re.sub(r"(damage @e\[[^\]]*\] \d+) \w+", r"\1 %s" % cause, r)
-                extra.append(r)
-            tl[key] = cmds + extra
+# ================================================================ ボス同士の敵対
+RIVAL_FAMILY = "rival_boss"   # 4 体のボス全員が持つ family（自分以外の「ボス」を見分ける）
+BOSS_NAMES = {"byakuya": "白石白夜", "hitori": "電子 独", "sophia": "ソフィア・ハート", "shinonome": "東雲 永々"}
+FOE_ANY = {"any_of": [{"test": "is_family", "subject": "other", "value": "player"},
+                      {"test": "is_family", "subject": "other", "value": RIVAL_FAMILY}]}
+
+
+def rival_target(own_family, max_dist=40):
+    """nearest_attackable_target 用: 自分と同じ種類以外のボスを狙う"""
+    return {"filters": {"all_of": [{"test": "is_family", "subject": "other", "value": RIVAL_FAMILY},
+                                   {"test": "is_family", "subject": "other", "operator": "!=", "value": own_family}]},
+            "max_dist": max_dist}
+
+
+def rival_copy(cmd, self_type, cause="entity_attack"):
+    """プレイヤーへのダメージ命令を、ほかのボス向けに書き換えたものを返す"""
+    r = cmd.replace("@a[", "@e[family=%s,type=!%s," % (RIVAL_FAMILY, self_type))
+    r = r.replace(",m=!creative", "").replace("m=!creative,", "").replace(",]", "]")
+    return re.sub(r"(damage @e\[[^\]]*\] \d+) \w+(?: entity @\w(?:\[[^\]]*\])?)?",
+                  lambda m: "%s %s entity @e[type=%s,c=1]" % (m.group(1), cause, self_type), r)
+
+
+def add_rival(obj, self_type, cause="entity_attack"):
+    """技のダメージが、ほかのボス（family=rival_boss・自分の種類以外）にも当たるように、ダメージ命令を複製する.
+
+    アニメーションのタイムライン・コントローラーの on_entry・イベントの queue_command など、
+    コマンドの並びならどこでも複製する。
+    - ほかのボスのアドオンが入っていなくてもエラーにならないよう、type ではなく family で選ぶ
+    - ダメージの種類は近接（entity_attack）にそろえ、攻撃者は自分（のボス）にする
+      （反撃・Glitch の負荷・バリアの回数などが、プレイヤーに殴られたときと同じように働く）
+    """
+    def walk(o):
+        if isinstance(o, dict):
+            for k, v in o.items():
+                if isinstance(v, list) and v and all(isinstance(x, str) for x in v):
+                    if any("damage @a[" in x for x in v):   # 元の命令のすぐ後ろに入れる（順番を崩さない）
+                        o[k] = [y for x in v for y in ([x, rival_copy(x, self_type, cause)]
+                                                         if "damage @a[" in x else [x])]
+                elif isinstance(v, str) and k == "command" and "damage @a[" in v:
+                    o[k] = [v, rival_copy(v, self_type, cause)]
+                else:
+                    walk(v)
+        elif isinstance(o, list):
+            for x in o:
+                walk(x)
+    walk(obj)
+    return obj
+
+
+def encounter_cmds(own, say, lines, radius=24):
+    """ほかのボスと初めて出会ったときのひとこと（相手のアドオンが無くてもエラーにならないよう family で探す）.
+
+    lines: {相手の family: say() に渡す文}
+    """
+    out = []
+    for rival, text in lines.items():
+        tag = "%s_met_%s" % (own, rival)
+        cond = "/execute if entity @s[tag=!%s] if entity @e[family=%s,r=%d] run " % (tag, rival, radius)
+        out += [cond + say(text)[1:],
+                cond + "title @a[r=40] actionbar §c§l%s §7VS §c§l%s" % (BOSS_NAMES[own], BOSS_NAMES[rival]),
+                cond + "playsound mob.wither.ambient @a[r=40] ~ ~ ~ 0.5 1.6",
+                "/execute if entity @e[family=%s,r=%d] run tag @s add %s" % (rival, radius, tag)]
+    return out
 
 
 def vectorize_animations(anims):
@@ -194,3 +240,110 @@ def add_arc_trails(anims, trail_effects, arc="arc", lead=0.12, reach=True, locat
             cur = cur if isinstance(cur, list) else [cur]
             pe[t2] = cur + [e for e in effs if e not in cur]
     return anims
+
+
+# ================================================================ なめらかさ（クライアント側）
+# 各ボス本体（と分身）のクライアントエンティティに付ける変数の計算。毎フレーム、描画の前に動く。
+CLIENT_SCRIPTS = {
+    "initialize": ["v.atk_n = 0.0;", "v.atk_was = 0.0;", "v.hurt_t = -10.0;", "v.hurt_was = 0.0;", "v.flinch = 0.0;",
+                   "v.spd = 0.0;", "v.yaw_prev = 0.0;", "v.yaw_ready = 0.0;", "v.yaw_off = 0.0;", "v.dt = 0.016;"],
+    "pre_animation": [
+        "v.dt = math.clamp(q.delta_time, 0.004, 0.25);",
+        # 移動速度をなめらかにする（走り出し・止まり際に、走りのモーションがゆっくり出入りする）
+        "v.spd = v.spd + (math.clamp(q.modified_move_speed, 0.0, 1.0) - v.spd) * (1.0 - math.exp(-v.dt / 0.12));",
+        # 体の向きの急な変化（tp で振り向く・tick ごとの回転技）を、なめらかな回転に変える
+        "v.yaw_d = (v.yaw_ready > 0.5) ? q.body_y_rotation - v.yaw_prev : 0.0;",
+        "v.yaw_d = v.yaw_d - 360.0 * math.round(v.yaw_d / 360.0);",
+        "v.yaw_prev = q.body_y_rotation;",
+        "v.yaw_ready = 1.0;",
+        "v.yaw_off = math.clamp((v.yaw_off - v.yaw_d) * math.exp(-v.dt / 0.07), -160.0, 160.0);",
+        # 通常攻撃の左右（技の順番）は「振り始めた瞬間」に切り替える（振っている途中で入れ替わらない）
+        "v.atk_n = (v.attack_time > 0.0 && (v.atk_was <= 0.0 || v.attack_time < v.atk_was)) ? "
+        "math.mod(v.atk_n + 1, 6) : v.atk_n;",
+        "v.atk_was = v.attack_time;",
+        # 被弾ののけぞり: 一瞬でのけぞって、なめらかに戻る（tick ごとの段差をなくす）
+        "v.hurt_t = (q.hurt_time > v.hurt_was) ? q.life_time : v.hurt_t;",
+        "v.hurt_was = q.hurt_time;",
+        "v.flinch = (q.life_time - v.hurt_t < 0.08) ? math.sin((q.life_time - v.hurt_t) * 1125.0) : "
+        "((q.life_time - v.hurt_t < 0.6) ? 0.5 + 0.5 * math.cos((q.life_time - v.hurt_t - 0.08) * 346.15) : 0.0);",
+    ],
+}
+SPD = "v.spd"   # なめらかにした移動速度（0〜1）
+
+# 体の向きの補正（ルートを逆に回して、少しずつ戻す）
+TURN_ANIM = {"loop": True, "bones": {"root": {"rotation": [0, "v.yaw_off", 0]}}}
+
+# 技の最中の「止まっているポーズ」にも、ごくわずかな呼吸と揺れを足す（固まって見えないように）
+ALIVE_ANIM = {"loop": True, "bones": {
+    "body": {"rotation": ["math.sin(q.life_time * 100) * 1.2", "math.sin(q.life_time * 63 + 20) * 1.0", 0]},
+    "head": {"rotation": ["math.sin(q.life_time * 81 + 50) * 1.4", "math.sin(q.life_time * 57 + 10) * 1.8", 0]},
+    "rightArm": {"rotation": ["math.sin(q.life_time * 92 + 30) * 1.6", 0, "math.sin(q.life_time * 74) * 1.3"]},
+    "leftArm": {"rotation": ["math.sin(q.life_time * 87 + 75) * 1.6", 0, "-math.sin(q.life_time * 69 + 40) * 1.3"]},
+}}
+
+# 状態の中の「条件つきアニメーション」を、オン/オフではなく重み（0〜1）で出し入れする
+SOFT_WEIGHTS = {
+    "q.modified_move_speed < 0.3": "math.clamp((0.35 - v.spd) * 5.0, 0.0, 1.0)",
+    "q.modified_move_speed > 0.1": "math.clamp(v.spd * 5.0, 0.0, 1.0)",
+    "q.modified_move_speed > 0.4": "v.spd > 0.4",
+    "q.modified_move_speed > 0.4 && q.skin_id < 2": "v.spd > 0.4 && q.skin_id < 2",
+}
+
+
+def smooth_controller(ac, name, enter=0.2, leave=0.3, skill_extra=("alive",)):
+    """メインのアニメーションコントローラーの切り替えをなめらかにする.
+
+    - 待機 → 技は enter 秒、技 → 待機は leave 秒かけてクロスフェード（技は最後のポーズを保持したまま溶ける）
+    - 回転は近い向きへ（720° 回る技のあとに、逆回転して戻らない）
+    - 条件つきアニメーションは重みで出し入れ（走り出しで腕がパッと戻らない）
+    - 技の最中は ALIVE_ANIM を重ねる
+    """
+    states = ac["animation_controllers"][name]["states"]
+    for sname, st in states.items():
+        if sname != "death":
+            st["blend_transition"] = enter if sname == "default" else leave
+            st["blend_via_shortest_path"] = True
+        new = []
+        for a in st.get("animations", []):
+            if isinstance(a, dict):
+                (k, cond), = a.items()
+                a = {k: SOFT_WEIGHTS.get(cond, cond)}
+            new.append(a)
+        if sname not in ("default", "death"):
+            new += [x for x in skill_extra if x not in new]
+        if "animations" in st:
+            st["animations"] = new
+    return ac
+
+
+def smooth_client(desc, turn=True):
+    """クライアントエンティティに、なめらかさ用の変数と体の向きの補正を付ける"""
+    sc = desc.setdefault("scripts", {})
+    sc["initialize"] = list(CLIENT_SCRIPTS["initialize"])
+    sc["pre_animation"] = list(CLIENT_SCRIPTS["pre_animation"])
+    if turn and "turn" in desc.get("animations", {}) and "turn" not in sc.get("animate", []):
+        sc.setdefault("animate", []).append("turn")
+    return desc
+
+
+def split_dashes(timeline, min_dist=6.0, fracs=(0.5, 0.3, 0.2), dt=0.05):
+    """一瞬の長距離 tp（斬り抜け）を、数 tick に分けた高速移動にする（見た目がなめらかになる）.
+
+    当たり判定・エフェクトは元のタイミングのまま。最初の一歩は、その時刻のコマンドの一番最後に回す。
+    """
+    pat = re.compile(r"^/tp @s \^ \^ \^(-?\d+(?:\.\d+)?)$")
+    adds = []
+    for t in list(timeline):
+        keep = []
+        for c in timeline[t]:
+            m = pat.match(c)
+            if m and abs(float(m.group(1))) >= min_dist:
+                adds.append((float(t), float(m.group(1))))
+            else:
+                keep.append(c)
+        timeline[t] = keep
+    for t, d in adds:
+        for i, f in enumerate(fracs):
+            key = "%.2f" % (t + i * dt)
+            timeline[key] = timeline.get(key, []) + ["/tp @s ^ ^ ^%g" % round(d * f, 3)]
+    return timeline

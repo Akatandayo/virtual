@@ -1,15 +1,9 @@
 # -*- coding: utf-8 -*-
 """電子 独: クライアント側アニメーション."""
 
+from cine import ALIVE_ANIM, SPD, TURN_ANIM, smooth_controller  # noqa: E402
+
 N = [0, 0, 0]
-# 通常攻撃の左右（技の順番）は「振り始めた瞬間」に切り替える（振っている途中で入れ替わらない）
-ATK_SCRIPTS = {
-    "initialize": ["v.atk_n = 0.0;", "v.atk_was = 0.0;"],
-    "pre_animation": [
-        "v.atk_n = (v.attack_time > 0.0 && (v.atk_was <= 0.0 || v.attack_time < v.atk_was)) ? "
-        "math.mod(v.atk_n + 1, 6) : v.atk_n;",
-        "v.atk_was = v.attack_time;"],
-}
 ALT = "math.mod(v.atk_n, 2) == 0"   # 右 / 左
 TPOSE_R, TPOSE_L = [0, 0, 90], [0, 0, -90]   # バグったゲームの象徴「T ポーズ」
 GL = "math.mod(math.floor(q.life_time * %s), %d) == 0"
@@ -260,7 +254,7 @@ def skill_anims():
 
 def all_animations():
     walk = "q.modified_distance_moved * 38.17"
-    spd = "math.min(q.modified_move_speed, 1.0)"
+    spd = SPD   # 走り出し・止まり際をなめらかにした移動速度
     anims = {
         "animation.hitori.look_at": {"loop": True, "bones": {
             "head": {"rotation": ["q.target_x_rotation", "q.target_y_rotation", 0]}}},
@@ -302,8 +296,8 @@ def all_animations():
             "leftLeg": {"rotation": ["math.cos(%s + 180) * 55 * %s" % (walk, spd), 0, 0]},
         }},
         "animation.hitori.hurt": {"loop": True, "bones": {
-            "body": {"rotation": ["-q.hurt_time * 1.2", 0, 0]},
-            "head": {"rotation": ["-q.hurt_time * 1.0", 0, "q.hurt_time * 2"]},
+            "body": {"rotation": ["-v.flinch * 12", 0, 0]},
+            "head": {"rotation": ["-v.flinch * 10", 0, "v.flinch * 20"]},
         }},
         # 通常攻撃: 右と左の拳を交互に（ノイズの拳）
         "animation.hitori.attack": {"loop": True, "bones": {
@@ -333,6 +327,8 @@ def all_animations():
         "body": {"rotation": {0: [35, 0, 0]}}, "head": {"rotation": {0: [40, 0, 15]}},
         "rightLeg": {"rotation": {0: [-85, 10, 0]}}, "leftLeg": {"rotation": {0: [70, -5, 0]}},
         "rightArm": {"rotation": {0: [5, 0, 10]}}, "leftArm": {"rotation": {0: [5, 0, -10]}}})
+    anims["animation.hitori.turn"] = TURN_ANIM
+    anims["animation.hitori.alive"] = ALIVE_ANIM
     return {"format_version": "1.10.0", "animations": anims}
 
 
@@ -349,6 +345,7 @@ def short_names(skill_ids):
         "main": "controller.animation.hitori.main", "aura_ctrl": "controller.animation.hitori.aura",
         "attack_fx": "controller.animation.hitori.attack_fx",
     }
+    names.update({"turn": "animation.hitori.turn", "alive": "animation.hitori.alive"})
     for v in skill_ids:
         names["s%d" % v] = "animation.hitori.skill_%d" % v
     return names
@@ -371,7 +368,7 @@ def controllers(skill_ids):
         a += [{"move_legs": "q.modified_move_speed > 0.1"}, "hurt"]
         states["s%d" % v] = {"animations": a, "transitions": [dead, {"default": "q.mark_variant != %d" % v}],
                              "blend_transition": 0.08}
-    return {"format_version": "1.10.0", "animation_controllers": {
+    return smooth_controller({"format_version": "1.10.0", "animation_controllers": {
         "controller.animation.hitori.main": {"initial_state": "default", "states": states},
         "controller.animation.hitori.aura": {"initial_state": "light", "states": {
             "light": {"animations": ["aura"], "transitions": [{"off": "q.mark_variant == 99 || !q.is_alive"},
@@ -390,7 +387,7 @@ def controllers(skill_ids):
                                              {"effect": "arc", "locator": "left_hand"}],
                         "transitions": [{"ready": "variable.attack_time < 0.2"}]},
         }},
-    }}
+    }}, "controller.animation.hitori.main")
 
 
 PARTICLE_MAP = {"arc": "hitori:arc", "step": "hitori:step_dust",

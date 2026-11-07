@@ -143,7 +143,7 @@
                     {
                       "test": "is_family",
                       "subject": "other",
-                      "value": "hitori"
+                      "value": "rival_boss"
                     }
                   ]
                 },
@@ -268,9 +268,19 @@
             },
             {
               "filters": {
-                "test": "is_family",
-                "subject": "other",
-                "value": "hitori"
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "rival_boss"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "byakuya"
+                  }
+                ]
               },
               "max_dist": 40
             },
@@ -457,6 +467,7 @@
         "family": [
           "byakuya",
           "boss",
+          "rival_boss",
           "monster",
           "mob"
         ]
@@ -735,6 +746,7 @@
         "queue_command": {
           "command": [
             "damage @a[r=6,m=!creative] 6 thorns entity @s",
+            "damage @e[family=rival_boss,type=!byakuya:shiraishi_byakuya,r=6] 6 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
             "playsound random.anvil_land @a[r=30] ~ ~ ~ 0.7 1.8",
             "particle byakuya:spark_burst ~ ~1.2 ~",
             "particle byakuya:slash_cyan ~ ~1.2 ~",
@@ -767,6 +779,7 @@
             "particle byakuya:shockwave_cyan ~ ~0.1 ~",
             "playsound random.anvil_land @a[r=24] ~ ~ ~ 0.8 1.6",
             "damage @a[r=4,m=!creative] 6 entity_attack entity @s",
+            "damage @e[family=rival_boss,type=!byakuya:shiraishi_byakuya,r=4] 6 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
             "summon byakuya:blast ~ ~0.8 ~"
           ]
         }
@@ -2002,7 +2015,7 @@
             "particle byakuya:big_slash_white ~ ~1.2 ~",
             "particle byakuya:slash_flat_red ~ ~1 ~",
             "damage @a[r=4,m=!creative] 18 entity_attack entity @s",
-            "damage @e[type=hitori:denshi_hitori,r=4] 18 entity_attack entity @s",
+            "damage @e[family=rival_boss,type=!byakuya:shiraishi_byakuya,r=4] 18 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
             "playsound game.player.attack.strong @a[r=30] ~ ~ ~ 1 0.5",
             "playsound random.anvil_land @a[r=30] ~ ~ ~ 1 0.6",
             "camerashake add @a[r=12] 0.8 0.4 positional"

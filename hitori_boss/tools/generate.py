@@ -17,7 +17,8 @@ import zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import hanims  # noqa: E402
 import hfx  # noqa: E402
-from cine import Cine, add_arc_trails, add_rival, bake_smooth, vectorize_animations  # noqa: E402
+from cine import (FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, bake_smooth, encounter_cmds,  # noqa: E402
+                  rival_target, smooth_client, split_dashes, vectorize_animations)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BP = os.path.join(ROOT, "Hitori_BP")
@@ -26,7 +27,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "hitori:denshi_hitori"
 NAME = "電子 独"
-VERSION = [1, 3, 0]
+VERSION = [1, 4, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "9b78d68f-ebde-4768-989c-96ab7fa09e02"
 UUID_BP_MODULE = "9263edb8-7005-4aa3-82a3-54ec6c07aaf0"
@@ -64,6 +65,8 @@ NEAREST = "@p[r=48,m=!creative]"
 
 def write(path, data):
     os.makedirs(os.path.dirname(path), exist_ok=True)
+    if not isinstance(data, str) and os.path.abspath(path).startswith(os.path.abspath(BP) + os.sep):
+        add_rival(data, ID)   # プレイヤーへのダメージ命令を、ほかのボスにも当たるように複製する
     with open(path, "w", encoding="utf-8") as f:
         if isinstance(data, str):
             f.write(data)
@@ -379,8 +382,7 @@ skill(18, "Triple DiVE", 4.4, tl)
 CINE = Cine("hitori_cine")
 FACE = "^ ^1.6 ^"
 ANYONE = "@p[r=64]"
-BYAKUYA_ID = "byakuya:shiraishi_byakuya"
-BYAKUYA = "@e[type=%s,c=1]" % BYAKUYA_ID
+BYAKUYA = "@e[family=byakuya,family=boss,c=1]"   # 影分身は除く。白夜のアドオンが無くてもエラーにならない
 
 # 21 BSOD: 画面が青く落ち、その間に背後から 3 回刺される
 tl = {0: [say("§9【BSOD】§7「あ、落ちた」"), "/camera %s fade time 0.15 1.8 0.4 color 16 56 190" % p(24),
@@ -528,7 +530,9 @@ DEATH = {"%.2f" % k: v for k, v in sorted(DEATH.items())}
 # ---------------------------------------------------------------------------
 # v1.3: 大技のカットイン・着地や叩きつけの土煙
 # ---------------------------------------------------------------------------
-SMOOTH_STEP = 0.05
+SMOOTH_STEP = 0.02   # 50 キー/秒（容量より、なめらかさ優先）
+for _v in SKILLS:     # 長距離の斬り抜け（一瞬の tp）は、数 tick に分けた高速移動に
+    split_dashes(SKILLS[_v][2])
 
 
 def patch(v, t, cmds):
@@ -580,8 +584,7 @@ def phase_group(skin, speed, dmg, timer):
 
 
 SENSORS = ["glitch_on", "glitch_cd", "glitch_reboot", "stunned_sensor", "final_guard"]
-FOE = {"any_of": [{"test": "is_family", "subject": "other", "value": "player"},
-                  {"test": "is_family", "subject": "other", "value": "byakuya"}]}
+FOE = FOE_ANY   # プレイヤーと、ほかのボス
 
 
 def meter(n, limit):
@@ -621,8 +624,7 @@ def bp_entity():
                 "priority": 2, "must_see": False, "reselect_targets": True, "within_radius": 48,
                 "entity_types": [{"filters": {"test": "is_family", "subject": "other", "value": "player"},
                                   "max_dist": 48},
-                                 {"filters": {"test": "is_family", "subject": "other", "value": "byakuya"},
-                                  "max_dist": 40}]},
+                                 rival_target("hitori")]},   # ほかのボス（白夜・ソフィア・東雲）
             "minecraft:behavior.random_stroll": {"priority": 6, "speed_multiplier": 0.8},
             "minecraft:behavior.look_at_player": {"priority": 7, "look_distance": 16},
         },
@@ -727,7 +729,7 @@ def bp_entity():
     events["hitori:choose_skill"] = {"sequence": seq}
 
     components = {
-        "minecraft:type_family": {"family": ["hitori", "boss", "monster", "mob"]},
+        "minecraft:type_family": {"family": ["hitori", "boss", RIVAL_FAMILY, "monster", "mob"]},
         "minecraft:health": {"value": HP, "max": HP},
         "minecraft:boss": {"hud_range": 64, "should_darken_sky": True},
         "minecraft:nameable": {"always_show": True, "allow_name_tag_renaming": False},
@@ -771,6 +773,10 @@ def bp_entity():
         "component_groups": groups, "components": components, "events": events}}
 
 
+# ほかのボスと初めて会ったときのひとこと（白夜とは専用のカットシーン）
+ENCOUNTER = {'sophia': '§b独§7「……神様、か。バグを直しに来たの？\u3000……させないよ」', 'shinonome': '§b独§7「……ワープホール？\u3000そんなの、仕様にないよ。……面白いね、遊ぼっか」'}
+
+
 def bp_animations():
     a = {"animation.hitori.skill_%d" % v: {"animation_length": length, "loop": False, "timeline": tl}
          for v, (name, length, tl) in SKILLS.items()}
@@ -778,8 +784,9 @@ def bp_animations():
     a["animation.hitori.reboot_timer"] = {"animation_length": REBOOT, "loop": False}
     a["animation.hitori.decay"] = {"animation_length": DECAY, "loop": True, "timeline": {"%.2f" % (DECAY - 0.05): [
         "/scoreboard players remove @s[scores={%s=1..}] %s 1" % (OBJ, OBJ)]}}
-    # 待機中だけ動く: カメラの後片付け
-    a["animation.hitori.idle_loop"] = {"animation_length": 2.0, "loop": True, "timeline": {"1.00": CINE.end()}}
+    # 待機中だけ動く: カメラの後片付けと、ほかのボスの発見
+    a["animation.hitori.idle_loop"] = {"animation_length": 2.0, "loop": True, "timeline": {
+        "1.00": CINE.end(), "1.50": encounter_cmds("hitori", say, ENCOUNTER)}}
     return {"format_version": "1.10.0", "animations": a}
 
 
@@ -823,7 +830,6 @@ def bp_controllers():
         "controller.animation.hitori.gravity_cube": {"initial_state": "fall", "states": {
             "fall": {"animations": ["life"], "transitions": [{"boom": "q.is_on_ground"}]},
             "boom": {"on_entry": ["/damage @a[r=2.8,m=!creative] 14 entity_explosion",
-                                  "/damage @e[type=%s,r=2.8] 14 entity_attack" % BYAKUYA_ID,
                                   "/particle hitori:missing_burst ~ ~0.5 ~", "/particle hitori:noise_big ~ ~0.5 ~",
                                   "/particle hitori:shockwave ~ ~0.1 ~", "/particle hitori:fall_pixels ~ ~ ~",
                                   "/playsound random.explode @a[r=24] ~ ~ ~ 0.8 1.4",
@@ -1094,7 +1100,7 @@ def rp_clients():
                            ["pose", "glitch"], rc="controller.render.denshi_hitori"),
     }
     # 通常攻撃の左右切り替え用の変数
-    clients["denshi_hitori"]["minecraft:client_entity"]["description"]["scripts"].update(hanims.ATK_SCRIPTS)
+    smooth_client(clients["denshi_hitori"]["minecraft:client_entity"]["description"])
     return clients
 
 
@@ -1194,7 +1200,6 @@ def main():
         write(os.path.join(BP, "entities/%s.json" % name), data)
     anims_all = bp_animations()
     anims_all["animations"].update(sa)
-    add_rival(anims_all["animations"], "byakuya:shiraishi_byakuya", cause="entity_attack")
     write(os.path.join(BP, "animations/denshi_hitori.animation.json"), anims_all)
     write(os.path.join(BP, "animation_controllers/denshi_hitori.ac.json"), bp_controllers())
     write(os.path.join(BP, "loot_tables/entities/denshi_hitori.json"), bp_loot())

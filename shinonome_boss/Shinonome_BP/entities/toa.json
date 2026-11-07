@@ -135,6 +135,11 @@
                       "test": "is_family",
                       "subject": "other",
                       "value": "player"
+                    },
+                    {
+                      "test": "is_family",
+                      "subject": "other",
+                      "value": "rival_boss"
                     }
                   ]
                 },
@@ -346,6 +351,24 @@
                 "value": "player"
               },
               "max_dist": 48
+            },
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "rival_boss"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "shinonome"
+                  }
+                ]
+              },
+              "max_dist": 40
             }
           ]
         },
@@ -534,6 +557,7 @@
         "family": [
           "shinonome",
           "boss",
+          "rival_boss",
           "monster",
           "mob"
         ]
@@ -1083,7 +1107,7 @@
           "command": [
             "tag @s add toa_osuwari",
             "tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§f東雲§7「あっ、ソフィアだ！ ……おすわり！」\"}]}",
-            "event entity @e[type=sophia:sophia_heart,r=24] sophia:osuwari",
+            "event entity @e[family=sophia,r=24] sophia:osuwari",
             "particle shinonome:spark ~ ~1.5 ~"
           ]
         }

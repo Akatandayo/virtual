@@ -559,7 +559,7 @@
         "boom": {
           "on_entry": [
             "/damage @a[r=2.8,m=!creative] 14 entity_explosion",
-            "/damage @e[type=byakuya:shiraishi_byakuya,r=2.8] 14 entity_attack",
+            "/damage @e[family=rival_boss,type=!hitori:denshi_hitori,r=2.8] 14 entity_attack entity @e[type=hitori:denshi_hitori,c=1]",
             "/particle hitori:missing_burst ~ ~0.5 ~",
             "/particle hitori:noise_big ~ ~0.5 ~",
             "/particle hitori:shockwave ~ ~0.1 ~",

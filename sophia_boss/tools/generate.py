@@ -15,7 +15,8 @@ import zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sanims  # noqa: E402
 import sfx  # noqa: E402
-from cine import Cine, add_arc_trails, bake_smooth, vectorize_animations  # noqa: E402
+from cine import (FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, bake_smooth, encounter_cmds,  # noqa: E402
+                  rival_target, smooth_client, split_dashes, vectorize_animations)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BP = os.path.join(ROOT, "Sophia_BP")
@@ -24,7 +25,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "sophia:sophia_heart"
 NAME = "ソフィア・ハート"
-VERSION = [1, 2, 0]
+VERSION = [1, 3, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "61396506-b3f5-4a1b-92f6-8e34dc87c6de"
 UUID_BP_MODULE = "c8d8c5f1-e6b7-46bb-8808-2e50aa8d0842"
@@ -50,6 +51,8 @@ CINE = Cine("sophia_cine")
 
 def write(path, data):
     os.makedirs(os.path.dirname(path), exist_ok=True)
+    if not isinstance(data, str) and os.path.abspath(path).startswith(os.path.abspath(BP) + os.sep):
+        add_rival(data, ID)   # プレイヤーへのダメージ命令を、ほかのボスにも当たるように複製する
     with open(path, "w", encoding="utf-8") as f:
         if isinstance(data, str):
             f.write(data)
@@ -538,7 +541,9 @@ DEATH = {"%.2f" % k: v for k, v in sorted(DEATH.items())}
 # ---------------------------------------------------------------------------
 # v1.2: 大技のカットイン・着地や叩きつけの土煙
 # ---------------------------------------------------------------------------
-SMOOTH_STEP = 0.05
+SMOOTH_STEP = 0.02   # 50 キー/秒（容量より、なめらかさ優先）
+for _v in SKILLS:     # 長距離の斬り抜け（一瞬の tp）は、数 tick に分けた高速移動に
+    split_dashes(SKILLS[_v][2])
 
 
 def patch(v, t, cmds):
@@ -593,9 +598,7 @@ def phase_group(skin, speed, dmg, timer):
 SENSORS = ["sensor_normal", "barrier", "barrier_cd", "cine_guard"]
 IMMUNE = ("fall", "fire", "fire_tick", "lava", "lightning", "drowning", "suffocation", "magic", "entity_explosion",
           "block_explosion")
-FOE = {"any_of": [{"test": "is_family", "subject": "other", "value": "player"},
-                  {"test": "is_family", "subject": "other", "value": "byakuya"},
-                  {"test": "is_family", "subject": "other", "value": "hitori"}]}
+FOE = FOE_ANY   # プレイヤーと、ほかのボス
 
 
 def bp_entity():
@@ -623,7 +626,8 @@ def bp_entity():
             "minecraft:behavior.nearest_attackable_target": {
                 "priority": 2, "must_see": False, "reselect_targets": True, "within_radius": 48,
                 "entity_types": [{"filters": {"test": "is_family", "subject": "other", "value": "player"},
-                                  "max_dist": 48}]},
+                                  "max_dist": 48},
+                                 rival_target("sophia")]},   # ほかのボス（白夜・独・東雲）
             "minecraft:behavior.random_stroll": {"priority": 6, "speed_multiplier": 0.8},
             "minecraft:behavior.look_at_player": {"priority": 7, "look_distance": 16},
         },
@@ -728,7 +732,7 @@ def bp_entity():
     events["sophia:choose_skill"] = {"sequence": seq}
 
     components = {
-        "minecraft:type_family": {"family": ["sophia", "boss", "monster", "mob"]},
+        "minecraft:type_family": {"family": ["sophia", "boss", RIVAL_FAMILY, "monster", "mob"]},
         "minecraft:health": {"value": HP, "max": HP},
         "minecraft:boss": {"hud_range": 64, "should_darken_sky": False},
         "minecraft:nameable": {"always_show": True, "allow_name_tag_renaming": False},
@@ -770,6 +774,10 @@ def bp_entity():
         "component_groups": groups, "components": components, "events": events}}
 
 
+# ほかのボスと初めて会ったときのひとこと
+ENCOUNTER = {'byakuya': '§eソフィア§7「……ふふ。いい刀だね。でも、神様には届くかな？」', 'hitori': '§eソフィア§7「世界のバグ……ふふ。直すのも、神様のお仕事だよね」', 'shinonome': '§eソフィア§7「……東雲。今日は、手加減しないからね」'}
+
+
 def bp_animations():
     a = {"animation.sophia.skill_%d" % v: {"animation_length": length, "loop": False, "timeline": tl}
          for v, (name, length, tl) in SKILLS.items()}
@@ -783,7 +791,8 @@ def bp_animations():
         "/execute if score @s %s matches 2 run effect @s resistance 6 0 true" % OBJ_PLAYERS,
         "/execute if score @s %s matches 3 run effect @s resistance 6 1 true" % OBJ_PLAYERS,
         "/execute if score @s %s matches 4.. run effect @s resistance 6 2 true" % OBJ_PLAYERS]}}
-    a["animation.sophia.idle_loop"] = {"animation_length": 2.0, "loop": True, "timeline": {"1.00": CINE.end()}}
+    a["animation.sophia.idle_loop"] = {"animation_length": 2.0, "loop": True, "timeline": {
+        "1.00": CINE.end(), "1.50": encounter_cmds("sophia", say, ENCOUNTER)}}   # ほかのボスの発見
     return {"format_version": "1.10.0", "animations": a}
 
 
@@ -1182,7 +1191,7 @@ def rp_clients():
         "scripts": {"animate": ["spin", {"fx_slow": "q.variant == 1"}, {"fx_normal": "q.variant == 2"},
                                 {"fx_fast": "q.variant == 3"}]}}}}
     for key in ('sophia_heart', 'clone'):   # 通常攻撃の切り替え用の変数
-        clients[key]["minecraft:client_entity"]["description"]["scripts"].update(sanims.ATK_SCRIPTS)
+        smooth_client(clients[key]["minecraft:client_entity"]["description"])
     return clients
 
 

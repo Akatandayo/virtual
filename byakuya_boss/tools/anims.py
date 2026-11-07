@@ -1,15 +1,9 @@
 # -*- coding: utf-8 -*-
 """クライアント側（RP）のアニメーションとアニメーションコントローラー."""
 
+from cine import ALIVE_ANIM, SPD, TURN_ANIM, smooth_controller  # noqa: E402
+
 N = [0, 0, 0]
-# 通常攻撃の左右（技の順番）は「振り始めた瞬間」に切り替える（振っている途中で入れ替わらない）
-ATK_SCRIPTS = {
-    "initialize": ["v.atk_n = 0.0;", "v.atk_was = 0.0;"],
-    "pre_animation": [
-        "v.atk_n = (v.attack_time > 0.0 && (v.atk_was <= 0.0 || v.attack_time < v.atk_was)) ? "
-        "math.mod(v.atk_n + 1, 6) : v.atk_n;",
-        "v.atk_was = v.attack_time;"],
-}
 ALT = "math.mod(v.atk_n, 2) == 0"   # 袈裟斬り / 逆袈裟
 HOLD_R = [-25, -10, 0]   # 普段の右腕（刀を前に）
 
@@ -385,7 +379,7 @@ def skill_anims():
 
 def all_animations():
     walk = "q.modified_distance_moved * 38.17"
-    spd = "math.min(q.modified_move_speed, 1.0)"
+    spd = SPD   # 走り出し・止まり際をなめらかにした移動速度
     anims = {
         "animation.byakuya.look_at": {"loop": True, "bones": {
             "head": {"rotation": ["q.target_x_rotation", "q.target_y_rotation", 0]}}},
@@ -417,13 +411,13 @@ def all_animations():
             "leftLeg": {"rotation": ["math.cos(%s + 180) * 55 * %s" % (walk, spd), 0, 0]},
         }},
         "animation.byakuya.hurt": {"loop": True, "bones": {
-            "body": {"rotation": ["-q.hurt_time * 1.0", 0, 0]},
-            "head": {"rotation": ["-q.hurt_time * 0.8", 0, 0]},
+            "body": {"rotation": ["-v.flinch * 10", 0, 0]},
+            "head": {"rotation": ["-v.flinch * 8", 0, 0]},
         }},
         # 通常攻撃: 右からの袈裟斬りと、左からの逆袈裟を交互に
         "animation.byakuya.attack": {"loop": True, "bones": {
             "rightArm": {"rotation": ["-math.sin(variable.attack_time * 180) * 130",
-                                      "(%s ? 1 : -1) * (60 - variable.attack_time * 120)" % ALT,
+                                      "(%s ? 1 : -1) * math.sin(variable.attack_time * 360) * 60" % ALT,
                                       "(%s ? 0 : 20) * math.sin(variable.attack_time * 180)" % ALT]},
             "body": {"rotation": ["math.sin(variable.attack_time * 180) * 10",
                                   "(%s ? -1 : 1) * math.sin(variable.attack_time * 180) * 30" % ALT, 0]},
@@ -445,6 +439,8 @@ def all_animations():
     }
     for v, a in skill_anims().items():
         anims["animation.byakuya.skill_%d" % v] = a
+    anims["animation.byakuya.turn"] = TURN_ANIM
+    anims["animation.byakuya.alive"] = ALIVE_ANIM
     return {"format_version": "1.10.0", "animations": anims}
 
 
@@ -459,6 +455,7 @@ def short_names(skill_ids):
         "main": "controller.animation.byakuya.main", "aura_ctrl": "controller.animation.byakuya.aura",
         "attack_fx": "controller.animation.byakuya.attack_fx",
     }
+    names.update({"turn": "animation.byakuya.turn", "alive": "animation.byakuya.alive"})
     for v in skill_ids:
         names["s%d" % v] = "animation.byakuya.skill_%d" % v
     return names
@@ -483,7 +480,7 @@ def controllers(skill_ids):
         states["s%d" % v] = {"animations": anims_,
                              "transitions": [dead, {"default": "q.mark_variant != %d" % v}],
                              "blend_transition": 0.1}
-    return {"format_version": "1.10.0", "animation_controllers": {
+    return smooth_controller({"format_version": "1.10.0", "animation_controllers": {
         "controller.animation.byakuya.main": {"initial_state": "default", "states": states},
         "controller.animation.byakuya.aura": {"initial_state": "none", "states": {
             "none": {"transitions": [{"final": "q.skin_id >= 2"}, {"aura": "q.skin_id == 1"}]},
@@ -497,7 +494,7 @@ def controllers(skill_ids):
                                            {"effect": "arc", "locator": "right_hand"}],
                       "transitions": [{"ready": "variable.attack_time <= 0.0 || variable.attack_time < 0.2"}]},
         }},
-    }}
+    }}, "controller.animation.byakuya.main")
 
 
 PARTICLE_MAP = {
