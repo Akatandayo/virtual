@@ -1,0 +1,97 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.byakuya.main": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "look_at",
+            "move",
+            "hold",
+            {
+              "attack": "variable.attack_time > 0"
+            }
+          ],
+          "transitions": [
+            {
+              "guard": "q.mark_variant == 8"
+            },
+            {
+              "spin": "q.mark_variant == 3 || q.mark_variant == 11"
+            },
+            {
+              "cast": "q.mark_variant > 0"
+            }
+          ],
+          "blend_transition": 0.15
+        },
+        "cast": {
+          "animations": [
+            "look_at",
+            "cast"
+          ],
+          "transitions": [
+            {
+              "default": "q.mark_variant == 0"
+            }
+          ],
+          "blend_transition": 0.15
+        },
+        "spin": {
+          "animations": [
+            "spin"
+          ],
+          "transitions": [
+            {
+              "default": "q.mark_variant == 0"
+            }
+          ],
+          "blend_transition": 0.1
+        },
+        "guard": {
+          "animations": [
+            "look_at",
+            "guard"
+          ],
+          "transitions": [
+            {
+              "default": "q.mark_variant == 0"
+            }
+          ],
+          "blend_transition": 0.15
+        }
+      }
+    },
+    "controller.animation.byakuya.aura": {
+      "initial_state": "none",
+      "states": {
+        "none": {
+          "transitions": [
+            {
+              "final": "q.skin_id >= 2"
+            },
+            {
+              "aura": "q.skin_id == 1"
+            }
+          ]
+        },
+        "aura": {
+          "animations": [
+            "aura"
+          ],
+          "transitions": [
+            {
+              "final": "q.skin_id >= 2"
+            }
+          ]
+        },
+        "final": {
+          "animations": [
+            "final_aura"
+          ]
+        }
+      }
+    }
+  }
+}

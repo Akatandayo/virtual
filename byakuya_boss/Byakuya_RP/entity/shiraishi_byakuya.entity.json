@@ -1,0 +1,48 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "byakuya:shiraishi_byakuya",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/shiraishi_byakuya"
+      },
+      "geometry": {
+        "default": "geometry.shiraishi_byakuya"
+      },
+      "render_controllers": [
+        "controller.render.shiraishi_byakuya"
+      ],
+      "enable_attachables": true,
+      "spawn_egg": {
+        "base_color": "#f0f0f0",
+        "overlay_color": "#5c1414"
+      },
+      "particle_effects": {
+        "flame": "minecraft:basic_flame_particle",
+        "soul": "minecraft:soul_particle"
+      },
+      "animations": {
+        "look_at": "animation.byakuya.look_at",
+        "move": "animation.byakuya.move",
+        "hold": "animation.byakuya.hold",
+        "attack": "animation.byakuya.attack",
+        "cast": "animation.byakuya.cast",
+        "spin": "animation.byakuya.spin",
+        "guard": "animation.byakuya.guard",
+        "aura": "animation.byakuya.aura",
+        "final_aura": "animation.byakuya.final_aura",
+        "main": "controller.animation.byakuya.main",
+        "aura_ctrl": "controller.animation.byakuya.aura"
+      },
+      "scripts": {
+        "animate": [
+          "main",
+          "aura_ctrl"
+        ]
+      }
+    }
+  }
+}

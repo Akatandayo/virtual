@@ -1,0 +1,29 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "白石白夜 ボス RP",
+    "description": "ボス「白石白夜」を追加します（リソースパック）",
+    "uuid": "7a4ebd1f-167b-4145-a8ef-20e335975e29",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "05d778a7-bb90-40f4-8dd9-6e63d1913bf0",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ]
+}

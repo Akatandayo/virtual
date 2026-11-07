@@ -1,0 +1,204 @@
+{
+  "format_version": "1.10.0",
+  "animations": {
+    "animation.byakuya.look_at": {
+      "loop": true,
+      "bones": {
+        "head": {
+          "rotation": [
+            "q.target_x_rotation",
+            "q.target_y_rotation",
+            0
+          ]
+        }
+      }
+    },
+    "animation.byakuya.move": {
+      "loop": true,
+      "bones": {
+        "rightArm": {
+          "rotation": [
+            "math.cos(q.modified_distance_moved * 38.17 + 180) * 45 * math.min(q.modified_move_speed, 1.0)",
+            0,
+            0
+          ]
+        },
+        "leftArm": {
+          "rotation": [
+            "math.cos(q.modified_distance_moved * 38.17) * 45 * math.min(q.modified_move_speed, 1.0)",
+            0,
+            0
+          ]
+        },
+        "rightLeg": {
+          "rotation": [
+            "math.cos(q.modified_distance_moved * 38.17) * 60 * math.min(q.modified_move_speed, 1.0)",
+            0,
+            0
+          ]
+        },
+        "leftLeg": {
+          "rotation": [
+            "math.cos(q.modified_distance_moved * 38.17 + 180) * 60 * math.min(q.modified_move_speed, 1.0)",
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "animation.byakuya.hold": {
+      "loop": true,
+      "bones": {
+        "rightArm": {
+          "rotation": [
+            "-25 + math.sin(q.life_time * 90) * 2",
+            "-10",
+            0
+          ]
+        },
+        "leftArm": {
+          "rotation": [
+            "math.sin(q.life_time * 90) * -2",
+            0,
+            "-4"
+          ]
+        }
+      }
+    },
+    "animation.byakuya.attack": {
+      "loop": true,
+      "bones": {
+        "rightArm": {
+          "rotation": [
+            "-math.sin(variable.attack_time * 180) * 110",
+            "math.sin(variable.attack_time * 180) * 30",
+            0
+          ]
+        },
+        "body": {
+          "rotation": [
+            0,
+            "math.sin(variable.attack_time * 180) * -25",
+            0
+          ]
+        }
+      }
+    },
+    "animation.byakuya.cast": {
+      "loop": true,
+      "bones": {
+        "rightArm": {
+          "rotation": [
+            "-165 + math.sin(q.life_time * 400) * 6",
+            0,
+            "10"
+          ]
+        },
+        "leftArm": {
+          "rotation": [
+            "-150",
+            0,
+            "-15"
+          ]
+        },
+        "body": {
+          "rotation": [
+            "math.sin(q.life_time * 400) * 2",
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "animation.byakuya.spin": {
+      "loop": true,
+      "bones": {
+        "root": {
+          "rotation": [
+            0,
+            "q.anim_time * 900",
+            0
+          ]
+        },
+        "rightArm": {
+          "rotation": [
+            "-90",
+            0,
+            "-60"
+          ]
+        }
+      }
+    },
+    "animation.byakuya.guard": {
+      "loop": true,
+      "bones": {
+        "rightArm": {
+          "rotation": [
+            "-80",
+            "-40",
+            0
+          ]
+        },
+        "leftArm": {
+          "rotation": [
+            "-80",
+            "40",
+            0
+          ]
+        }
+      }
+    },
+    "animation.byakuya.aura": {
+      "loop": true,
+      "animation_length": 0.4,
+      "particle_effects": {
+        "0.0": [
+          {
+            "effect": "flame",
+            "locator": "right_foot"
+          },
+          {
+            "effect": "flame",
+            "locator": "left_hand"
+          }
+        ],
+        "0.2": [
+          {
+            "effect": "flame",
+            "locator": "left_foot"
+          },
+          {
+            "effect": "flame",
+            "locator": "right_hand"
+          }
+        ]
+      }
+    },
+    "animation.byakuya.final_aura": {
+      "loop": true,
+      "animation_length": 0.3,
+      "particle_effects": {
+        "0.0": [
+          {
+            "effect": "soul",
+            "locator": "body_center"
+          },
+          {
+            "effect": "flame",
+            "locator": "right_hand"
+          }
+        ],
+        "0.15": [
+          {
+            "effect": "soul",
+            "locator": "right_foot"
+          },
+          {
+            "effect": "soul",
+            "locator": "left_foot"
+          }
+        ]
+      }
+    }
+  }
+}
