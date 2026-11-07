@@ -74,3 +74,28 @@ def add_rival(animations, rival_type, cause=None):
                     r = re.sub(r"(damage @e\[[^\]]*\] \d+) \w+", r"\1 %s" % cause, r)
                 extra.append(r)
             tl[key] = cmds + extra
+
+
+def vectorize_animations(anims):
+    """アニメーションの値を必ず [x, y, z] にそろえる.
+
+    拡大縮小などを 1 つの数値で書くと、統合版ではアニメーションのファイルごと読み込まれないことがあるため、
+    書き出す前に全部 3 つの値に直しておく。
+    """
+    def vec(v):
+        return [v, v, v] if isinstance(v, (int, float, str)) else v
+
+    for a in anims.values():
+        for chans in a.get("bones", {}).values():
+            for ch, val in list(chans.items()):
+                if isinstance(val, dict) and not ({"pre", "post"} & set(val)):
+                    for t, kv in list(val.items()):
+                        if isinstance(kv, dict):
+                            for side in ("pre", "post"):
+                                if side in kv:
+                                    kv[side] = vec(kv[side])
+                        else:
+                            val[t] = vec(kv)
+                else:
+                    chans[ch] = vec(val)
+    return anims

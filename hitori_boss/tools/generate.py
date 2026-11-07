@@ -17,7 +17,7 @@ import zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import hanims  # noqa: E402
 import hfx  # noqa: E402
-from cine import Cine, add_rival  # noqa: E402
+from cine import Cine, add_rival, vectorize_animations  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BP = os.path.join(ROOT, "Hitori_BP")
@@ -26,7 +26,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "hitori:denshi_hitori"
 NAME = "電子 独"
-VERSION = [1, 2, 0]
+VERSION = [1, 2, 1]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "9b78d68f-ebde-4768-989c-96ab7fa09e02"
 UUID_BP_MODULE = "9263edb8-7005-4aa3-82a3-54ec6c07aaf0"
@@ -1039,12 +1039,12 @@ def rp_clients():
                                 hanims.short_names(sorted(SKILLS)), ["main", "aura_ctrl", "attack_fx"],
                                 hanims.PARTICLE_MAP, rc="controller.render.denshi_hitori",
                                 extra={"spawn_egg": {"base_color": "#f4f4f4", "overlay_color": "#101018"}}),
-        "bit_bullet": client("hitori:bit_bullet", "hitori_missing", "geometry.hitori_bullet", "entity_alphatest",
+        "bit_bullet": client("hitori:bit_bullet", "hitori_missing", "geometry.hitori_bullet", "entity_emissive_alpha",
                              {"fx": "animation.hitori.cube_fx"}, ["fx"], {"trail": "hitori:bit_trail"}),
-        "fragment": client("hitori:fragment", "hitori_missing", "geometry.hitori_fragment", "entity_alphatest",
+        "fragment": client("hitori:fragment", "hitori_missing", "geometry.hitori_fragment", "entity_emissive_alpha",
                            {"fx": "animation.hitori.fragment_fx"}, ["fx"], {"trail": "hitori:bit_trail"}),
         "gravity_cube": client("hitori:gravity_cube", "hitori_missing", "geometry.hitori_gravity_cube",
-                               "entity_alphatest", {"fx": "animation.hitori.gcube_fx"}, ["fx"],
+                               "entity_emissive_alpha", {"fx": "animation.hitori.gcube_fx"}, ["fx"],
                                {"trail": "hitori:bit_trail"}),
         "marker": client("hitori:marker", "hitori_empty", "geometry.hitori_empty", "entity_alphatest"),
         "blast": client("hitori:blast", "hitori_empty", "geometry.hitori_empty", "entity_alphatest"),
@@ -1168,9 +1168,15 @@ def main():
     write(os.path.join(RP, "models/entity/hitori_bullet.geo.json"), geo_cube("geometry.hitori_bullet", 4, 0))
     write(os.path.join(RP, "models/entity/hitori_fragment.geo.json"), geo_cube("geometry.hitori_fragment", 8, 6))
     write(os.path.join(RP, "models/entity/hitori_empty.geo.json"), geo_empty())
+    # 本体のモーションと、召喚物・撃破演出のモーションは別のファイルに分ける
     ra = hanims.all_animations()
-    ra["animations"].update(rp_summon_anims())
+    summ = rp_summon_anims()
+    for k in ("animation.hitori.echo_pose", "animation.hitori.echo_fx", "animation.hitori.director_pose"):
+        summ[k] = ra["animations"].pop(k)
+    vectorize_animations(ra["animations"])
+    vectorize_animations(summ)
     write(os.path.join(RP, "animations/denshi_hitori.animation.json"), ra)
+    write(os.path.join(RP, "animations/hitori_summons.animation.json"), {"format_version": "1.10.0", "animations": summ})
     write(os.path.join(RP, "animation_controllers/denshi_hitori.ac.json"), hanims.controllers(sorted(SKILLS)))
     write(os.path.join(RP, "render_controllers/denshi_hitori.rc.json"), render_controllers())
     for name, data in hfx.build_particles().items():

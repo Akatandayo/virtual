@@ -11,7 +11,8 @@
             "move",
             {
               "attack": "variable.attack_time > 0"
-            }
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -127,7 +128,11 @@
         "s1": {
           "animations": [
             "look_at",
-            "s1"
+            "s1",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -142,7 +147,11 @@
         "s2": {
           "animations": [
             "look_at",
-            "s2"
+            "s2",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -157,7 +166,11 @@
         "s3": {
           "animations": [
             "look_at",
-            "s3"
+            "s3",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -172,7 +185,11 @@
         "s4": {
           "animations": [
             "look_at",
-            "s4"
+            "s4",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -187,7 +204,11 @@
         "s5": {
           "animations": [
             "look_at",
-            "s5"
+            "s5",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -202,7 +223,11 @@
         "s6": {
           "animations": [
             "look_at",
-            "s6"
+            "s6",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -217,7 +242,11 @@
         "s7": {
           "animations": [
             "look_at",
-            "s7"
+            "s7",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -232,7 +261,11 @@
         "s8": {
           "animations": [
             "look_at",
-            "s8"
+            "s8",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -247,7 +280,11 @@
         "s9": {
           "animations": [
             "look_at",
-            "s9"
+            "s9",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -262,7 +299,11 @@
         "s10": {
           "animations": [
             "look_at",
-            "s10"
+            "s10",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -277,7 +318,11 @@
         "s11": {
           "animations": [
             "look_at",
-            "s11"
+            "s11",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -291,7 +336,11 @@
         },
         "s12": {
           "animations": [
-            "s12"
+            "s12",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -305,7 +354,11 @@
         },
         "s13": {
           "animations": [
-            "s13"
+            "s13",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -320,7 +373,11 @@
         "s14": {
           "animations": [
             "look_at",
-            "s14"
+            "s14",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -334,7 +391,11 @@
         },
         "s15": {
           "animations": [
-            "s15"
+            "s15",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -349,7 +410,11 @@
         "s16": {
           "animations": [
             "look_at",
-            "s16"
+            "s16",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -364,7 +429,11 @@
         "s17": {
           "animations": [
             "look_at",
-            "s17"
+            "s17",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -379,7 +448,11 @@
         "s18": {
           "animations": [
             "look_at",
-            "s18"
+            "s18",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -394,7 +467,11 @@
         "s19": {
           "animations": [
             "look_at",
-            "s19"
+            "s19",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -410,7 +487,11 @@
           "animations": [
             "look_at",
             "s20",
-            "water"
+            "water",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -425,7 +506,11 @@
         "s21": {
           "animations": [
             "look_at",
-            "s21"
+            "s21",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -440,7 +525,11 @@
         "s22": {
           "animations": [
             "look_at",
-            "s22"
+            "s22",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -454,7 +543,11 @@
         },
         "s23": {
           "animations": [
-            "s23"
+            "s23",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -468,7 +561,11 @@
         },
         "s24": {
           "animations": [
-            "s24"
+            "s24",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -482,7 +579,11 @@
         },
         "s25": {
           "animations": [
-            "s25"
+            "s25",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -496,7 +597,11 @@
         },
         "s30": {
           "animations": [
-            "s30"
+            "s30",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -510,7 +615,11 @@
         },
         "s31": {
           "animations": [
-            "s31"
+            "s31",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -525,7 +634,11 @@
         "s32": {
           "animations": [
             "look_at",
-            "s32"
+            "s32",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -540,7 +653,11 @@
         "s51": {
           "animations": [
             "look_at",
-            "s51"
+            "s51",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -555,7 +672,11 @@
         "s52": {
           "animations": [
             "look_at",
-            "s52"
+            "s52",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -570,7 +691,11 @@
         "s53": {
           "animations": [
             "look_at",
-            "s53"
+            "s53",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -585,7 +710,11 @@
         "s54": {
           "animations": [
             "look_at",
-            "s54"
+            "s54",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -600,7 +729,11 @@
         "s55": {
           "animations": [
             "look_at",
-            "s55"
+            "s55",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {

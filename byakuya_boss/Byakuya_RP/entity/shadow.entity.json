@@ -31,6 +31,8 @@
         "idle": "animation.byakuya.idle",
         "move": "animation.byakuya.move",
         "attack": "animation.byakuya.attack",
+        "move_legs": "animation.byakuya.move_legs",
+        "hurt": "animation.byakuya.hurt",
         "aura": "animation.byakuya.aura",
         "final_aura": "animation.byakuya.final_aura",
         "death_pose": "animation.byakuya.death",

@@ -393,6 +393,14 @@ def all_animations():
             "leftLeg": {"rotation": ["math.cos(%s + 180) * 60 * %s" % (walk, spd), 0, 0]},
         }},
         # 袈裟斬り
+        "animation.byakuya.move_legs": {"loop": True, "bones": {
+            "rightLeg": {"rotation": ["math.cos(%s) * 55 * %s" % (walk, spd), 0, 0]},
+            "leftLeg": {"rotation": ["math.cos(%s + 180) * 55 * %s" % (walk, spd), 0, 0]},
+        }},
+        "animation.byakuya.hurt": {"loop": True, "bones": {
+            "body": {"rotation": ["-q.hurt_time * 1.0", 0, 0]},
+            "head": {"rotation": ["-q.hurt_time * 0.8", 0, 0]},
+        }},
         "animation.byakuya.attack": {"loop": True, "bones": {
             "rightArm": {"rotation": ["-math.sin(variable.attack_time * 180) * 130",
                                       "60 - variable.attack_time * 120", 0]},
@@ -422,6 +430,7 @@ def short_names(skill_ids):
     names = {
         "look_at": "animation.byakuya.look_at", "idle": "animation.byakuya.idle",
         "move": "animation.byakuya.move", "attack": "animation.byakuya.attack",
+        "move_legs": "animation.byakuya.move_legs", "hurt": "animation.byakuya.hurt",
         "aura": "animation.byakuya.aura", "final_aura": "animation.byakuya.final_aura",
         "death_pose": "animation.byakuya.death",
         "main": "controller.animation.byakuya.main", "aura_ctrl": "controller.animation.byakuya.aura",
@@ -438,14 +447,15 @@ NO_LOOK = {3, 11, 20, 23, 27}  # 回転する技・最終演技は頭を固定�
 def controllers(skill_ids):
     dead = {"death": "!q.is_alive"}
     default = {
-        "animations": ["look_at", "idle", "move", {"attack": "variable.attack_time > 0"}],
+        "animations": ["look_at", "idle", "move", {"attack": "variable.attack_time > 0"}, "hurt"],
         "transitions": [dead] + [{"s%d" % v: "q.mark_variant == %d" % v} for v in skill_ids],
         "blend_transition": 0.12,
     }
     states = {"default": default,
               "death": {"animations": ["death_pose"]}}
     for v in skill_ids:
-        anims_ = ["s%d" % v] if v in NO_LOOK else ["look_at", "s%d" % v]
+        anims_ = (["s%d" % v] if v in NO_LOOK else ["look_at", "s%d" % v]) + [
+            {"move_legs": "q.modified_move_speed > 0.1"}, "hurt"]
         states["s%d" % v] = {"animations": anims_,
                              "transitions": [dead, {"default": "q.mark_variant != %d" % v}],
                              "blend_transition": 0.1}

@@ -116,7 +116,14 @@
               ],
               "inflate": 0.5
             }
-          ]
+          ],
+          "locators": {
+            "eye": [
+              2,
+              28,
+              -4.4
+            ]
+          }
         },
         {
           "name": "rightArm",

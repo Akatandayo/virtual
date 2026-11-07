@@ -16,7 +16,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import anims  # noqa: E402
 import fx  # noqa: E402
 import summons  # noqa: E402
-from cine import Cine, add_rival  # noqa: E402
+from cine import Cine, add_rival, vectorize_animations  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BP = os.path.join(ROOT, "Byakuya_BP")
@@ -25,7 +25,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "byakuya:shiraishi_byakuya"
 NAME = "白石白夜"
-VERSION = [1, 3, 0]
+VERSION = [1, 3, 1]
 MIN_ENGINE = [1, 21, 0]
 
 UUID_BP_HEADER = "293c6dbc-978c-4439-aa05-c2fa6e63c99d"
@@ -1002,7 +1002,9 @@ def main():
     write(os.path.join(RP, "manifest.json"), rp_manifest())
     write(os.path.join(RP, "entity/shiraishi_byakuya.entity.json"), rp_entity())
     write(os.path.join(RP, "models/entity/shiraishi_byakuya.geo.json"), rp_geometry())
-    write(os.path.join(RP, "animations/shiraishi_byakuya.animation.json"), anims.all_animations())
+    ra = anims.all_animations()
+    vectorize_animations(ra["animations"])
+    write(os.path.join(RP, "animations/shiraishi_byakuya.animation.json"), ra)
     write(os.path.join(RP, "animation_controllers/shiraishi_byakuya.ac.json"), anims.controllers(sorted(SKILLS)))
     write(os.path.join(RP, "render_controllers/shiraishi_byakuya.rc.json"), rp_render_controller())
     for name, data in fx.build_particles().items():
@@ -1020,7 +1022,7 @@ def main():
     write(os.path.join(RP, "models/entity/byakuya_empty.geo.json"), summons.geo_empty())
     write(os.path.join(RP, "render_controllers/summons.rc.json"), summons.rc_simple())
     write(os.path.join(RP, "animations/summons.animation.json"),
-          {"format_version": "1.10.0", "animations": summons.rp_animations()})
+          {"format_version": "1.10.0", "animations": vectorize_animations(summons.rp_animations())})
     for name, im in fx.build_entity_textures().items():
         im.save(os.path.join(RP, "textures/entity/%s.png" % name))
     for name, data in fx.build_fogs().items():

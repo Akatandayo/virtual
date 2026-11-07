@@ -274,6 +274,14 @@ def all_animations():
                                   "(%s) ? math.random(-30, 30) : 0" % (GL % ("5", 7))]},
             "rightArm": {"rotation": ["(%s) ? math.random(-90, 0) : 0" % (GL % ("6", 9)), 0, 0]},
         }},
+        "animation.hitori.move_legs": {"loop": True, "bones": {
+            "rightLeg": {"rotation": ["math.cos(%s) * 55 * %s" % (walk, spd), 0, 0]},
+            "leftLeg": {"rotation": ["math.cos(%s + 180) * 55 * %s" % (walk, spd), 0, 0]},
+        }},
+        "animation.hitori.hurt": {"loop": True, "bones": {
+            "body": {"rotation": ["-q.hurt_time * 1.2", 0, 0]},
+            "head": {"rotation": ["-q.hurt_time * 1.0", 0, "q.hurt_time * 2"]},
+        }},
         "animation.hitori.attack": {"loop": True, "bones": {
             "rightArm": {"rotation": ["-math.sin(variable.attack_time * 180) * 100", 0, 0]},
             "body": {"rotation": [0, "math.sin(variable.attack_time * 180) * -20", 0]},
@@ -310,6 +318,7 @@ def short_names(skill_ids):
     names = {
         "look_at": "animation.hitori.look_at", "idle": "animation.hitori.idle", "move": "animation.hitori.move",
         "glitch": "animation.hitori.glitch", "attack": "animation.hitori.attack", "aura": "animation.hitori.aura",
+        "move_legs": "animation.hitori.move_legs", "hurt": "animation.hitori.hurt",
         "aura_heavy": "animation.hitori.aura_heavy", "death_pose": "animation.hitori.death",
         "main": "controller.animation.hitori.main", "aura_ctrl": "controller.animation.hitori.aura",
         "attack_fx": "controller.animation.hitori.attack_fx",
@@ -322,7 +331,7 @@ def short_names(skill_ids):
 def controllers(skill_ids):
     dead = {"death": "!q.is_alive"}
     states = {
-        "default": {"animations": ["look_at", "idle", "move", "glitch", {"attack": "variable.attack_time > 0"}],
+        "default": {"animations": ["look_at", "idle", "move", "glitch", {"attack": "variable.attack_time > 0"}, "hurt"],
                     "transitions": [dead] + [{"s%d" % v: "q.mark_variant == %d" % v} for v in skill_ids],
                     "blend_transition": 0.1},
         "death": {"animations": ["death_pose"]},
@@ -331,6 +340,7 @@ def controllers(skill_ids):
         a = ["s%d" % v] if v in NO_LOOK else ["look_at", "s%d" % v]
         if v not in (99,):
             a.append("glitch")
+        a += [{"move_legs": "q.modified_move_speed > 0.1"}, "hurt"]
         states["s%d" % v] = {"animations": a, "transitions": [dead, {"default": "q.mark_variant != %d" % v}],
                              "blend_transition": 0.08}
     return {"format_version": "1.10.0", "animation_controllers": {

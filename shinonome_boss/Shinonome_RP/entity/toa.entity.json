@@ -41,6 +41,8 @@
         "attack": "animation.toa.attack",
         "window": "animation.toa.window",
         "gold_eye": "animation.toa.gold_eye",
+        "move_legs": "animation.toa.move_legs",
+        "hurt": "animation.toa.hurt",
         "aura_1": "animation.toa.aura_1",
         "aura_2": "animation.toa.aura_2",
         "water": "animation.toa.water",

@@ -4,26 +4,29 @@
     "description": {
       "identifier": "shinonome:star",
       "materials": {
-        "default": "entity_alphatest"
+        "default": "entity_emissive_alpha",
+        "shell": "entity_alphablend"
       },
       "textures": {
-        "default": "textures/entity/toa_empty"
+        "default": "textures/entity/toa_star_e"
       },
       "geometry": {
-        "default": "geometry.toa_empty"
+        "default": "geometry.toa_star"
       },
       "render_controllers": [
-        "controller.render.toa_simple"
+        "controller.render.toa_star"
       ],
       "particle_effects": {
-        "star": "shinonome:gold_eye"
+        "star": "shinonome:star_trail"
       },
       "animations": {
-        "fx": "animation.toa.star_fx"
+        "fx": "animation.toa.star_fx",
+        "spin": "animation.toa.star_spin"
       },
       "scripts": {
         "animate": [
-          "fx"
+          "fx",
+          "spin"
         ]
       }
     }

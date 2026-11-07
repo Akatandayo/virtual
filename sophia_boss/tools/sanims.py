@@ -254,18 +254,44 @@ def all_animations():
     anims = {
         "animation.sophia.look_at": {"loop": True, "bones": {
             "head": {"rotation": ["q.target_x_rotation", "q.target_y_rotation", 0]}}},
+        # 待機: 呼吸・重心移動・刀をゆらす
         "animation.sophia.idle": {"loop": True, "bones": {
-            "body": {"rotation": ["math.sin(q.life_time * 100) * 1.2", 0, 0]},
-            "rightArm": {"rotation": ["-20 + math.sin(q.life_time * 100) * 2", "-8", 0]},
-            "leftArm": {"rotation": ["math.sin(q.life_time * 100) * -2.5", 0, "-4"]},
-            "head": {"rotation": [0, 0, "math.sin(q.life_time * 45) * 3"]},
+            "root": {"position": [0, "math.sin(q.life_time * 100) * 0.3", 0]},
+            "body": {"rotation": ["math.sin(q.life_time * 100) * 1.2", "math.sin(q.life_time * 40) * 3", 0]},
+            "head": {"rotation": [0, 0, "math.sin(q.life_time * 45) * 4"]},
+            "rightArm": {"rotation": ["-20 + math.sin(q.life_time * 100) * 2", "-8 + math.sin(q.life_time * 55) * 6",
+                                     "math.sin(q.life_time * 70) * 3"]},
+            "leftArm": {"rotation": ["math.sin(q.life_time * 100) * -2.5", 0, "-5 - math.sin(q.life_time * 100) * 2"]},
+            "leftLeg": {"rotation": [0, -6, -2]},
         }},
+        # 走る: 前傾・腕の振り・上下の弾み
         "animation.sophia.move": {"loop": True, "bones": {
-            "body": {"rotation": ["6 * %s" % spd, 0, 0]},
-            "rightArm": {"rotation": ["math.cos(%s + 180) * 25 * %s" % (walk, spd), 0, 0]},
-            "leftArm": {"rotation": ["math.cos(%s) * 50 * %s" % (walk, spd), 0, 0]},
-            "rightLeg": {"rotation": ["math.cos(%s) * 60 * %s" % (walk, spd), 0, 0]},
-            "leftLeg": {"rotation": ["math.cos(%s + 180) * 60 * %s" % (walk, spd), 0, 0]},
+            "root": {"position": [0, "math.abs(math.cos(%s)) * 1.3 * %s" % (walk, spd), 0]},
+            "body": {"rotation": ["12 * %s" % spd, "math.cos(%s) * 8 * %s" % (walk, spd), 0]},
+            "head": {"rotation": ["-9 * %s" % spd, 0, 0]},
+            "rightArm": {"rotation": ["math.cos(%s + 180) * 35 * %s - 12 * %s" % (walk, spd, spd), 0, 0]},
+            "leftArm": {"rotation": ["math.cos(%s) * 60 * %s" % (walk, spd), 0, "-8 * %s" % spd]},
+            "rightLeg": {"rotation": ["math.cos(%s) * 70 * %s" % (walk, spd), 0, 0]},
+            "leftLeg": {"rotation": ["math.cos(%s + 180) * 70 * %s" % (walk, spd), 0, 0]},
+        }},
+        # 内なる宇宙のあと: 宙に浮いて移動する（足は後ろに流れる）
+        "animation.sophia.float": {"loop": True, "bones": {
+            "root": {"position": [0, "3 + math.sin(q.life_time * 120) * 1.2", 0]},
+            "body": {"rotation": ["20 * %s" % spd, 0, 0]},
+            "head": {"rotation": ["-15 * %s" % spd, 0, 0]},
+            "rightLeg": {"rotation": ["15 + 30 * %s + math.sin(q.life_time * 120) * 5" % spd, 0, 3]},
+            "leftLeg": {"rotation": ["10 + 30 * %s + math.sin(q.life_time * 120 + 60) * 5" % spd, 0, -3]},
+            "leftArm": {"rotation": ["15 * %s" % spd, 0, "-12"]},
+        }},
+        # 技を使いながら移動するとき: 足だけ動かす
+        "animation.sophia.move_legs": {"loop": True, "bones": {
+            "rightLeg": {"rotation": ["math.cos(%s) * 55 * %s" % (walk, spd), 0, 0]},
+            "leftLeg": {"rotation": ["math.cos(%s + 180) * 55 * %s" % (walk, spd), 0, 0]},
+        }},
+        # 被弾: のけぞる
+        "animation.sophia.hurt": {"loop": True, "bones": {
+            "body": {"rotation": ["-q.hurt_time * 1.4", 0, 0]},
+            "head": {"rotation": ["-q.hurt_time * 1.0", 0, 0]},
         }},
         # 通常攻撃: 刀・左拳・回し蹴りが順番に出る
         "animation.sophia.attack": {"loop": True, "bones": {
@@ -279,13 +305,16 @@ def all_animations():
                                       "-math.sin(variable.attack_time * 180) * 100 : 0", 0, 0]},
             "body": {"rotation": [0, "math.sin(variable.attack_time * 180) * -25", 0]},
         }},
+        # 適応から: 体に電気、左目（ラプラスの目）が青く光る
         "animation.sophia.aura_1": {"loop": True, "animation_length": 0.4, "particle_effects": {
-            "0.00": [{"effect": "electric_aura", "locator": "body_center"}]}},
+            "0.00": [{"effect": "electric_aura", "locator": "body_center"}, {"effect": "eye", "locator": "eye"}]}},
         "animation.sophia.aura_2": {"loop": True, "animation_length": 0.4, "particle_effects": {
-            "0.00": [{"effect": "electric_aura", "locator": "body_center"}, {"effect": "sparkle", "locator": "body_center"}]}},
+            "0.00": [{"effect": "electric_aura", "locator": "body_center"}, {"effect": "sparkle", "locator": "body_center"},
+                     {"effect": "eye", "locator": "eye"}]}},
         "animation.sophia.aura_3": {"loop": True, "animation_length": 0.4, "particle_effects": {
             "0.00": [{"effect": "flame", "locator": "right_foot"}, {"effect": "flame", "locator": "left_foot"}],
-            "0.20": [{"effect": "flame", "locator": "body_center"}, {"effect": "sparkle", "locator": "body_center"}]}},
+            "0.20": [{"effect": "flame", "locator": "body_center"}, {"effect": "sparkle", "locator": "body_center"},
+                     {"effect": "eye", "locator": "eye"}]}},
         "animation.sophia.death": anim(1.0, {
             "body": {"rotation": {0: N, 0.4: [30, 0, 0]}}, "head": {"rotation": {0: N, 0.4: [30, 0, 0]}}}),
     }
@@ -307,6 +336,8 @@ NO_LOOK = {2, 7, 30, 33, 32, 34}
 def short_names(skill_ids):
     names = {"look_at": "animation.sophia.look_at", "idle": "animation.sophia.idle", "move": "animation.sophia.move",
              "attack": "animation.sophia.attack", "aura_1": "animation.sophia.aura_1",
+             "float": "animation.sophia.float", "move_legs": "animation.sophia.move_legs",
+             "hurt": "animation.sophia.hurt",
              "aura_2": "animation.sophia.aura_2", "aura_3": "animation.sophia.aura_3",
              "death_pose": "animation.sophia.death", "main": "controller.animation.sophia.main",
              "aura_ctrl": "controller.animation.sophia.aura", "attack_fx": "controller.animation.sophia.attack_fx"}
@@ -317,12 +348,14 @@ def short_names(skill_ids):
 
 def controllers(skill_ids):
     dead = {"death": "!q.is_alive"}
-    states = {"default": {"animations": ["look_at", "idle", "move", {"attack": "variable.attack_time > 0"}],
+    states = {"default": {"animations": ["look_at", "idle", {"move": "q.skin_id < 2"}, {"float": "q.skin_id >= 2"},
+                                         {"attack": "variable.attack_time > 0"}, "hurt"],
                           "transitions": [dead] + [{"s%d" % v: "q.mark_variant == %d" % v} for v in skill_ids],
                           "blend_transition": 0.1},
               "death": {"animations": ["death_pose"]}}
     for v in skill_ids:
-        states["s%d" % v] = {"animations": ["s%d" % v] if v in NO_LOOK else ["look_at", "s%d" % v],
+        states["s%d" % v] = {"animations": (["s%d" % v] if v in NO_LOOK else ["look_at", "s%d" % v])
+                             + [{"move_legs": "q.modified_move_speed > 0.1"}, "hurt"],
                              "transitions": [dead, {"default": "q.mark_variant != %d" % v}], "blend_transition": 0.08}
     return {"format_version": "1.10.0", "animation_controllers": {
         "controller.animation.sophia.main": {"initial_state": "default", "states": states},
@@ -340,4 +373,4 @@ def controllers(skill_ids):
 
 PARTICLE_MAP = {"trail": "sophia:spark_burst", "spark": "sophia:spark_burst", "glow": "sophia:hand_glow",
                 "electric": "sophia:electric", "electric_aura": "sophia:aura_electric", "sparkle": "sophia:sparkle",
-                "flame": "sophia:aura_flame", "bread": "sophia:bread", "cat": "sophia:cat"}
+                "flame": "sophia:aura_flame", "bread": "sophia:bread", "cat": "sophia:cat", "eye": "sophia:laplace_eye"}

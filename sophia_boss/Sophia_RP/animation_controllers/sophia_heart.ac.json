@@ -8,10 +8,16 @@
           "animations": [
             "look_at",
             "idle",
-            "move",
+            {
+              "move": "q.skin_id < 2"
+            },
+            {
+              "float": "q.skin_id >= 2"
+            },
             {
               "attack": "variable.attack_time > 0"
-            }
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -133,7 +139,11 @@
         "s1": {
           "animations": [
             "look_at",
-            "s1"
+            "s1",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -147,7 +157,11 @@
         },
         "s2": {
           "animations": [
-            "s2"
+            "s2",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -162,7 +176,11 @@
         "s3": {
           "animations": [
             "look_at",
-            "s3"
+            "s3",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -177,7 +195,11 @@
         "s4": {
           "animations": [
             "look_at",
-            "s4"
+            "s4",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -192,7 +214,11 @@
         "s5": {
           "animations": [
             "look_at",
-            "s5"
+            "s5",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -207,7 +233,11 @@
         "s6": {
           "animations": [
             "look_at",
-            "s6"
+            "s6",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -221,7 +251,11 @@
         },
         "s7": {
           "animations": [
-            "s7"
+            "s7",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -236,7 +270,11 @@
         "s8": {
           "animations": [
             "look_at",
-            "s8"
+            "s8",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -251,7 +289,11 @@
         "s9": {
           "animations": [
             "look_at",
-            "s9"
+            "s9",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -266,7 +308,11 @@
         "s10": {
           "animations": [
             "look_at",
-            "s10"
+            "s10",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -281,7 +327,11 @@
         "s11": {
           "animations": [
             "look_at",
-            "s11"
+            "s11",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -296,7 +346,11 @@
         "s12": {
           "animations": [
             "look_at",
-            "s12"
+            "s12",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -311,7 +365,11 @@
         "s13": {
           "animations": [
             "look_at",
-            "s13"
+            "s13",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -326,7 +384,11 @@
         "s14": {
           "animations": [
             "look_at",
-            "s14"
+            "s14",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -341,7 +403,11 @@
         "s15": {
           "animations": [
             "look_at",
-            "s15"
+            "s15",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -356,7 +422,11 @@
         "s16": {
           "animations": [
             "look_at",
-            "s16"
+            "s16",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -371,7 +441,11 @@
         "s17": {
           "animations": [
             "look_at",
-            "s17"
+            "s17",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -386,7 +460,11 @@
         "s18": {
           "animations": [
             "look_at",
-            "s18"
+            "s18",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -401,7 +479,11 @@
         "s19": {
           "animations": [
             "look_at",
-            "s19"
+            "s19",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -416,7 +498,11 @@
         "s21": {
           "animations": [
             "look_at",
-            "s21"
+            "s21",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -431,7 +517,11 @@
         "s22": {
           "animations": [
             "look_at",
-            "s22"
+            "s22",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -446,7 +536,11 @@
         "s23": {
           "animations": [
             "look_at",
-            "s23"
+            "s23",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -461,7 +555,11 @@
         "s24": {
           "animations": [
             "look_at",
-            "s24"
+            "s24",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -476,7 +574,11 @@
         "s25": {
           "animations": [
             "look_at",
-            "s25"
+            "s25",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -491,7 +593,11 @@
         "s26": {
           "animations": [
             "look_at",
-            "s26"
+            "s26",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -506,7 +612,11 @@
         "s27": {
           "animations": [
             "look_at",
-            "s27"
+            "s27",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -521,7 +631,11 @@
         "s28": {
           "animations": [
             "look_at",
-            "s28"
+            "s28",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -536,7 +650,11 @@
         "s29": {
           "animations": [
             "look_at",
-            "s29"
+            "s29",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -550,7 +668,11 @@
         },
         "s30": {
           "animations": [
-            "s30"
+            "s30",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -565,7 +687,11 @@
         "s31": {
           "animations": [
             "look_at",
-            "s31"
+            "s31",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -579,7 +705,11 @@
         },
         "s32": {
           "animations": [
-            "s32"
+            "s32",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -593,7 +723,11 @@
         },
         "s33": {
           "animations": [
-            "s33"
+            "s33",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -607,7 +741,11 @@
         },
         "s34": {
           "animations": [
-            "s34"
+            "s34",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -622,7 +760,11 @@
         "s40": {
           "animations": [
             "look_at",
-            "s40"
+            "s40",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -637,7 +779,11 @@
         "s41": {
           "animations": [
             "look_at",
-            "s41"
+            "s41",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {

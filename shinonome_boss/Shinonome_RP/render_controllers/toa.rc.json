@@ -29,6 +29,20 @@
         "Texture.window"
       ]
     },
+    "controller.render.toa_star": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        },
+        {
+          "shell": "Material.shell"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ]
+    },
     "controller.render.toa_simple": {
       "geometry": "Geometry.default",
       "materials": [

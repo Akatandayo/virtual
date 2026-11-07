@@ -29,6 +29,8 @@
         "glitch": "animation.hitori.glitch",
         "attack": "animation.hitori.attack",
         "aura": "animation.hitori.aura",
+        "move_legs": "animation.hitori.move_legs",
+        "hurt": "animation.hitori.hurt",
         "aura_heavy": "animation.hitori.aura_heavy",
         "death_pose": "animation.hitori.death",
         "main": "controller.animation.hitori.main",

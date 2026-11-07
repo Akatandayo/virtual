@@ -18,6 +18,29 @@
         "a": "q.skin_id >= 3 ? 0.18 + math.sin(q.life_time * 300) * 0.07 : 0.0"
       }
     },
+    "controller.render.sophia_orb": {
+      "arrays": {
+        "textures": {
+          "Array.orb": [
+            "Texture.slow",
+            "Texture.normal",
+            "Texture.fast"
+          ]
+        }
+      },
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        },
+        {
+          "shell": "Material.shell"
+        }
+      ],
+      "textures": [
+        "Array.orb[math.clamp(q.variant - 1, 0, 2)]"
+      ]
+    },
     "controller.render.sophia_simple": {
       "geometry": "Geometry.default",
       "materials": [

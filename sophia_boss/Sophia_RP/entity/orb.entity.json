@@ -4,16 +4,19 @@
     "description": {
       "identifier": "sophia:orb",
       "materials": {
-        "default": "entity_alphatest"
+        "default": "entity_emissive_alpha",
+        "shell": "entity_alphablend"
       },
       "textures": {
-        "default": "textures/entity/sophia_empty"
+        "slow": "textures/entity/sophia_orb_slow",
+        "normal": "textures/entity/sophia_orb_normal",
+        "fast": "textures/entity/sophia_orb_fast"
       },
       "geometry": {
-        "default": "geometry.sophia_empty"
+        "default": "geometry.sophia_orb"
       },
       "render_controllers": [
-        "controller.render.sophia_simple"
+        "controller.render.sophia_orb"
       ],
       "particle_effects": {
         "orb": "sophia:orb_pink",
@@ -21,12 +24,14 @@
         "orb_f": "sophia:orb_blue"
       },
       "animations": {
+        "spin": "animation.sophia.orb_spin",
         "fx_slow": "animation.sophia.orb_fx",
         "fx_normal": "animation.sophia.orb_fx_normal",
         "fx_fast": "animation.sophia.orb_fx_fast"
       },
       "scripts": {
         "animate": [
+          "spin",
           {
             "fx_slow": "q.variant == 1"
           },

@@ -98,6 +98,44 @@
         }
       }
     },
+    "animation.hitori.move_legs": {
+      "loop": true,
+      "bones": {
+        "rightLeg": {
+          "rotation": [
+            "math.cos(q.modified_distance_moved * 38.17) * 55 * math.min(q.modified_move_speed, 1.0)",
+            0,
+            0
+          ]
+        },
+        "leftLeg": {
+          "rotation": [
+            "math.cos(q.modified_distance_moved * 38.17 + 180) * 55 * math.min(q.modified_move_speed, 1.0)",
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "animation.hitori.hurt": {
+      "loop": true,
+      "bones": {
+        "body": {
+          "rotation": [
+            "-q.hurt_time * 1.2",
+            0,
+            0
+          ]
+        },
+        "head": {
+          "rotation": [
+            "-q.hurt_time * 1.0",
+            0,
+            "q.hurt_time * 2"
+          ]
+        }
+      }
+    },
     "animation.hitori.attack": {
       "loop": true,
       "bones": {
@@ -4323,199 +4361,6 @@
           {
             "effect": "glitch_heavy",
             "locator": "body_center"
-          }
-        ]
-      }
-    },
-    "animation.hitori.echo_pose": {
-      "loop": true,
-      "bones": {
-        "rightArm": {
-          "rotation": [
-            0,
-            0,
-            90
-          ]
-        },
-        "leftArm": {
-          "rotation": [
-            0,
-            0,
-            -90
-          ]
-        },
-        "head": {
-          "rotation": [
-            0,
-            0,
-            20
-          ]
-        }
-      }
-    },
-    "animation.hitori.echo_fx": {
-      "loop": true,
-      "animation_length": 0.3,
-      "particle_effects": {
-        "0.00": [
-          {
-            "effect": "trail",
-            "locator": "body_center"
-          }
-        ]
-      }
-    },
-    "animation.hitori.director_pose": {
-      "animation_length": 5.6,
-      "loop": "hold_on_last_frame",
-      "bones": {
-        "root": {
-          "position": {
-            "0.00": [
-              0,
-              -6,
-              0
-            ]
-          },
-          "scale": {
-            "0.00": 0,
-            "1.05": 0,
-            "1.10": 1,
-            "4.60": 1,
-            "4.70": [
-              1.3,
-              0.2,
-              1.3
-            ],
-            "4.80": [
-              0.1,
-              1.6,
-              0.1
-            ],
-            "4.90": 0
-          }
-        },
-        "body": {
-          "rotation": {
-            "0.00": [
-              35,
-              0,
-              0
-            ]
-          }
-        },
-        "head": {
-          "rotation": {
-            "0.00": [
-              40,
-              0,
-              15
-            ]
-          }
-        },
-        "rightLeg": {
-          "rotation": {
-            "0.00": [
-              -85,
-              10,
-              0
-            ]
-          }
-        },
-        "leftLeg": {
-          "rotation": {
-            "0.00": [
-              70,
-              -5,
-              0
-            ]
-          }
-        },
-        "rightArm": {
-          "rotation": {
-            "0.00": [
-              5,
-              0,
-              10
-            ]
-          }
-        },
-        "leftArm": {
-          "rotation": {
-            "0.00": [
-              5,
-              0,
-              -10
-            ]
-          }
-        }
-      }
-    },
-    "animation.hitori.cube_fx": {
-      "loop": true,
-      "animation_length": 0.1,
-      "bones": {
-        "cube": {
-          "rotation": [
-            "q.life_time * 540",
-            "q.life_time * 720",
-            0
-          ]
-        }
-      },
-      "particle_effects": {
-        "0.00": [
-          {
-            "effect": "trail",
-            "locator": "center"
-          }
-        ]
-      }
-    },
-    "animation.hitori.gcube_fx": {
-      "loop": true,
-      "animation_length": 0.1,
-      "bones": {
-        "cube": {
-          "rotation": [
-            0,
-            "q.life_time * 240",
-            0
-          ]
-        }
-      },
-      "particle_effects": {
-        "0.00": [
-          {
-            "effect": "trail",
-            "locator": "center"
-          }
-        ]
-      }
-    },
-    "animation.hitori.fragment_fx": {
-      "loop": true,
-      "animation_length": 0.2,
-      "bones": {
-        "cube": {
-          "rotation": [
-            0,
-            "q.life_time * 360",
-            0
-          ],
-          "position": [
-            "math.random(0, 1) > 0.85 ? math.random(-2, 2) : 0",
-            "math.sin(q.life_time * 360) * 1.5",
-            "math.random(0, 1) > 0.85 ? math.random(-2, 2) : 0"
-          ],
-          "scale": "1 + math.sin(q.life_time * 900) * 0.1"
-        }
-      },
-      "particle_effects": {
-        "0.00": [
-          {
-            "effect": "trail",
-            "locator": "center"
           }
         ]
       }

@@ -12,7 +12,8 @@
             "glitch",
             {
               "attack": "variable.attack_time > 0"
-            }
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -108,7 +109,11 @@
           "animations": [
             "look_at",
             "s1",
-            "glitch"
+            "glitch",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -124,7 +129,11 @@
           "animations": [
             "look_at",
             "s2",
-            "glitch"
+            "glitch",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -140,7 +149,11 @@
           "animations": [
             "look_at",
             "s3",
-            "glitch"
+            "glitch",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -155,7 +168,11 @@
         "s4": {
           "animations": [
             "s4",
-            "glitch"
+            "glitch",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -171,7 +188,11 @@
           "animations": [
             "look_at",
             "s5",
-            "glitch"
+            "glitch",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -186,7 +207,11 @@
         "s6": {
           "animations": [
             "s6",
-            "glitch"
+            "glitch",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -202,7 +227,11 @@
           "animations": [
             "look_at",
             "s7",
-            "glitch"
+            "glitch",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -218,7 +247,11 @@
           "animations": [
             "look_at",
             "s8",
-            "glitch"
+            "glitch",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -234,7 +267,11 @@
           "animations": [
             "look_at",
             "s9",
-            "glitch"
+            "glitch",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -250,7 +287,11 @@
           "animations": [
             "look_at",
             "s10",
-            "glitch"
+            "glitch",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -266,7 +307,11 @@
           "animations": [
             "look_at",
             "s11",
-            "glitch"
+            "glitch",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -282,7 +327,11 @@
           "animations": [
             "look_at",
             "s12",
-            "glitch"
+            "glitch",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -298,7 +347,11 @@
           "animations": [
             "look_at",
             "s13",
-            "glitch"
+            "glitch",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -314,7 +367,11 @@
           "animations": [
             "look_at",
             "s14",
-            "glitch"
+            "glitch",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -330,7 +387,11 @@
           "animations": [
             "look_at",
             "s15",
-            "glitch"
+            "glitch",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -346,7 +407,11 @@
           "animations": [
             "look_at",
             "s16",
-            "glitch"
+            "glitch",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -362,7 +427,11 @@
           "animations": [
             "look_at",
             "s17",
-            "glitch"
+            "glitch",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -377,7 +446,11 @@
         "s18": {
           "animations": [
             "s18",
-            "glitch"
+            "glitch",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -392,7 +465,11 @@
         "s20": {
           "animations": [
             "s20",
-            "glitch"
+            "glitch",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -408,7 +485,11 @@
           "animations": [
             "look_at",
             "s21",
-            "glitch"
+            "glitch",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -424,7 +505,11 @@
           "animations": [
             "look_at",
             "s22",
-            "glitch"
+            "glitch",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -439,7 +524,11 @@
         "s23": {
           "animations": [
             "s23",
-            "glitch"
+            "glitch",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -455,7 +544,11 @@
           "animations": [
             "look_at",
             "s30",
-            "glitch"
+            "glitch",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -470,7 +563,11 @@
         "s31": {
           "animations": [
             "s31",
-            "glitch"
+            "glitch",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -486,7 +583,11 @@
           "animations": [
             "look_at",
             "s32",
-            "glitch"
+            "glitch",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {
@@ -500,7 +601,11 @@
         },
         "s99": {
           "animations": [
-            "s99"
+            "s99",
+            {
+              "move_legs": "q.modified_move_speed > 0.1"
+            },
+            "hurt"
           ],
           "transitions": [
             {

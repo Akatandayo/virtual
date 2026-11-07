@@ -25,6 +25,7 @@
         "flame": "sophia:aura_flame",
         "bread": "sophia:bread",
         "cat": "sophia:cat",
+        "eye": "sophia:laplace_eye",
         "afterimage": "sophia:afterimage"
       },
       "animations": {
@@ -33,6 +34,9 @@
         "move": "animation.sophia.move",
         "attack": "animation.sophia.attack",
         "aura_1": "animation.sophia.aura_1",
+        "float": "animation.sophia.float",
+        "move_legs": "animation.sophia.move_legs",
+        "hurt": "animation.sophia.hurt",
         "aura_2": "animation.sophia.aura_2",
         "aura_3": "animation.sophia.aura_3",
         "death_pose": "animation.sophia.death",

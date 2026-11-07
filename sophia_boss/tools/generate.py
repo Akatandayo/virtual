@@ -15,7 +15,7 @@ import zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sanims  # noqa: E402
 import sfx  # noqa: E402
-from cine import Cine  # noqa: E402
+from cine import Cine, vectorize_animations  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BP = os.path.join(ROOT, "Sophia_BP")
@@ -24,7 +24,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "sophia:sophia_heart"
 NAME = "ソフィア・ハート"
-VERSION = [1, 0, 1]
+VERSION = [1, 1, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "61396506-b3f5-4a1b-92f6-8e34dc87c6de"
 UUID_BP_MODULE = "c8d8c5f1-e6b7-46bb-8808-2e50aa8d0842"
@@ -858,7 +858,9 @@ def summons_bp():
     for spd, (var, step, life, col) in ORB_SPEED.items():
         g["spd_" + spd] = {"minecraft:variant": {"value": var}}
         A["animation.sophia.orb.%s" % spd] = {"animation_length": life + 0.05, "loop": False, "timeline": ticks(
-            life, lambda i, step=step: ["/tp @s ^ ^ ^%.2f" % step] + hit(1.1, 6, dy=-1.0), end=["@s sophia:despawn"])}
+            life, lambda i, step=step: ["/tp @s ^ ^ ^%.2f" % step] + hit(
+                1.1, 6, dy=-1.0, extra=["particle sophia:spark_burst ~ ~1 ~", "playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8"]),
+            end=["@s sophia:despawn"])}
     for name, (mode, deg, spd) in ORB_EVENTS.items():
         rot = ["tp @s ~ ~ ~ facing @p[m=!creative]", "tp @s ~ ~ ~ ~%d 0" % deg] if mode == "aim" else [
             "tp @s ~ ~ ~ %d 0" % deg]
@@ -989,7 +991,8 @@ def geo_boss():
             cube([-4, 12, -2], [8, 12, 4], [16, 16]), cube([-4, 12, -2], [8, 12, 4], [16, 32], 0.25)],
          "locators": {"body_center": [0, 18, 0]}},
         {"name": "head", "parent": "body", "pivot": [0, 24, 0], "cubes": [
-            cube([-4, 24, -4], [8, 8, 8], [0, 0]), cube([-4, 24, -4], [8, 8, 8], [32, 0], 0.5)]},
+            cube([-4, 24, -4], [8, 8, 8], [0, 0]), cube([-4, 24, -4], [8, 8, 8], [32, 0], 0.5)],
+         "locators": {"eye": [2, 28, -4.4]}},
         {"name": "rightArm", "parent": "body", "pivot": [-5, 21.5, 0], "cubes": [
             cube([-7, 11.5, -2], [3, 12, 4], [40, 16]), cube([-7, 11.5, -2], [3, 12, 4], [40, 32], 0.25)],
          "locators": {"right_hand": [-5.5, 11, 0]}},
@@ -1023,6 +1026,14 @@ def geo_simple():
                                    "cubes": [{"origin": [-4, -4, -4], "size": [8, 8, 8], "uv": {
                                        f: {"uv": [0, 0], "uv_size": [16, 16]} for f in
                                        ("north", "south", "east", "west", "up", "down")}}]}],
+        # 弾幕の弾: 発光する芯 + 半透明の外殻（パーティクルが出なくても必ず見える）
+        "geometry.sophia_orb": [
+            {"name": "orb", "pivot": [0, 0, 0], "locators": {"center": [0, 0, 0]},
+             "cubes": [{"origin": [-1.5, -1.5, -1.5], "size": [3, 3, 3], "uv": {
+                 f: {"uv": [0, 0], "uv_size": [8, 8]} for f in ("north", "south", "east", "west", "up", "down")}}]},
+            {"name": "shell", "parent": "orb", "pivot": [0, 0, 0],
+             "cubes": [{"origin": [-3, -3, -3], "size": [6, 6, 6], "uv": {
+                 f: {"uv": [8, 0], "uv_size": [8, 8]} for f in ("north", "south", "east", "west", "up", "down")}}]}],
         "geometry.sophia_letter": [{"name": "card", "pivot": [0, 0, 0], "locators": {"center": [0, 0, 0]},
                                     "cubes": [{"origin": [-3, -2, 0], "size": [6, 4, 0], "uv": {
                                         "north": {"uv": [0, 0], "uv_size": [24, 16]},
@@ -1032,6 +1043,7 @@ def geo_simple():
 
 def geo_files():
     tw = {"geometry.sophia_funnel": (16, 64), "geometry.sophia_drone": (16, 16), "geometry.sophia_letter": (24, 16),
+          "geometry.sophia_orb": (16, 16),
           "geometry.sophia_empty": (16, 16)}
     out = {}
     for ident, bones in geo_simple().items():
@@ -1050,6 +1062,11 @@ def render_controllers():
             # 神核融解（再臨後）は紫の炎のように脈打つ
             "overlay_color": {"r": "0.7", "g": "0.25", "b": "1.0",
                               "a": "q.skin_id >= 3 ? 0.18 + math.sin(q.life_time * 300) * 0.07 : 0.0"}},
+        # 弾幕: 速さ（variant）で色が変わる
+        "controller.render.sophia_orb": {
+            "arrays": {"textures": {"Array.orb": ["Texture.slow", "Texture.normal", "Texture.fast"]}},
+            "geometry": "Geometry.default", "materials": [{"*": "Material.default"}, {"shell": "Material.shell"}],
+            "textures": ["Array.orb[math.clamp(q.variant - 1, 0, 2)]"]},
         "controller.render.sophia_simple": {
             "geometry": "Geometry.default", "materials": [{"*": "Material.default"}], "textures": ["Texture.default"]},
         "controller.render.sophia_clone": {
@@ -1105,7 +1122,7 @@ def rp_clients():
         "tornado": client("sophia:tornado", "sophia_empty", "geometry.sophia_empty", "entity_alphatest",
                           {"fx": "animation.sophia.tornado_fx"}, ["fx"], {"tornado": "sophia:tornado"}),
         "blackhole": client("sophia:blackhole", "sophia_empty", "geometry.sophia_empty", "entity_alphatest"),
-        "drone": client("sophia:drone", "sophia_drone", "geometry.sophia_drone", "entity_alphatest",
+        "drone": client("sophia:drone", "sophia_drone", "geometry.sophia_drone", "entity_emissive_alpha",
                         {"fx": "animation.sophia.drone_fx"}, ["fx"], {"heal": "sophia:heal"}),
         "clone": client("sophia:clone", "sophia_heart", "geometry.sophia_heart", "entity_alphablend",
                         dict(boss_anims, fx="animation.sophia.clone_fx"), ["main", "attack_fx", "fx"],
@@ -1116,12 +1133,18 @@ def rp_clients():
         "director": client("sophia:director", "sophia_heart", "geometry.sophia_heart", "entity_alphatest",
                            {"pose": "animation.sophia.director_pose"}, ["pose"]),
     }
-    # オーブは速さで色を変える（BP の variant がクライアントにも届く）
-    clients["orb"] = client("sophia:orb", "sophia_empty", "geometry.sophia_empty", "entity_alphatest",
-                            {"fx_slow": "animation.sophia.orb_fx", "fx_normal": "animation.sophia.orb_fx_normal",
-                             "fx_fast": "animation.sophia.orb_fx_fast"},
-                            [{"fx_slow": "q.variant == 1"}, {"fx_normal": "q.variant == 2"}, {"fx_fast": "q.variant == 3"}],
-                            {"orb": "sophia:orb_pink", "orb_n": "sophia:orb_gold", "orb_f": "sophia:orb_blue"})
+    # 弾幕の弾: 発光するモデル + 速さで色が変わる軌跡
+    clients["orb"] = {"format_version": "1.10.0", "minecraft:client_entity": {"description": {
+        "identifier": "sophia:orb",
+        "materials": {"default": "entity_emissive_alpha", "shell": "entity_alphablend"},
+        "textures": {k: "textures/entity/sophia_orb_" + k for k in ("slow", "normal", "fast")},
+        "geometry": {"default": "geometry.sophia_orb"},
+        "render_controllers": ["controller.render.sophia_orb"],
+        "particle_effects": {"orb": "sophia:orb_pink", "orb_n": "sophia:orb_gold", "orb_f": "sophia:orb_blue"},
+        "animations": {"spin": "animation.sophia.orb_spin", "fx_slow": "animation.sophia.orb_fx",
+                       "fx_normal": "animation.sophia.orb_fx_normal", "fx_fast": "animation.sophia.orb_fx_fast"},
+        "scripts": {"animate": ["spin", {"fx_slow": "q.variant == 1"}, {"fx_normal": "q.variant == 2"},
+                                {"fx_fast": "q.variant == 3"}]}}}}
     return clients
 
 
@@ -1167,13 +1190,21 @@ def main():
     write(os.path.join(RP, "models/entity/sophia_heart.geo.json"), geo_boss())
     for ident, data in geo_files().items():
         write(os.path.join(RP, "models/entity/%s.geo.json" % ident.split(".")[1]), data)
+    # 本体のモーションと、召喚物・撃破演出のモーションは別のファイルに分ける
     ra = sanims.all_animations()
-    ra["animations"].update(rp_summon_anims())
-    ra["animations"]["animation.sophia.orb_fx_normal"] = {"loop": True, "animation_length": 0.05, "particle_effects": {
+    summ = rp_summon_anims()
+    summ["animation.sophia.director_pose"] = ra["animations"].pop("animation.sophia.director_pose")
+    summ["animation.sophia.orb_fx_normal"] = {"loop": True, "animation_length": 0.05, "particle_effects": {
         "0.00": [{"effect": "orb_n", "locator": "center"}]}}
-    ra["animations"]["animation.sophia.orb_fx_fast"] = {"loop": True, "animation_length": 0.05, "particle_effects": {
+    summ["animation.sophia.orb_fx_fast"] = {"loop": True, "animation_length": 0.05, "particle_effects": {
         "0.00": [{"effect": "orb_f", "locator": "center"}]}}
+    summ["animation.sophia.orb_spin"] = {"loop": True, "bones": {
+        "orb": {"rotation": ["q.life_time * 400", "q.life_time * 650", 0]},
+        "shell": {"scale": ["1 + math.sin(q.life_time * 1500) * 0.12"] * 3}}}
+    vectorize_animations(ra["animations"])
+    vectorize_animations(summ)
     write(os.path.join(RP, "animations/sophia_heart.animation.json"), ra)
+    write(os.path.join(RP, "animations/sophia_summons.animation.json"), {"format_version": "1.10.0", "animations": summ})
     write(os.path.join(RP, "animation_controllers/sophia_heart.ac.json"), sanims.controllers(sorted(SKILLS)))
     write(os.path.join(RP, "render_controllers/sophia_heart.rc.json"), render_controllers())
     for name, data in sfx.build_particles().items():

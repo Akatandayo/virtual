@@ -192,8 +192,21 @@ def build_textures():
     }
 
 
+def star_tex():
+    """星弾: 左半分が芯（不透明・発光）、右半分が外殻（半透明）"""
+    im = Image.new("RGBA", (16, 16))
+    for y in range(8):
+        for x in range(8):
+            d = math.hypot(x - 3.5, y - 3.5) / 4.95
+            core = 1 - d
+            im.putpixel((x, y), (255, _c(215 + 40 * core), _c(90 + 165 * core), 255))
+            im.putpixel((x + 8, y), (180, 140, 255, _c(70 + 90 * d)))
+    return im
+
+
 def entity_textures():
-    return {"toa_window": window_tex(), "toa_bread_e": baguette(32, 8), "toa_empty": Image.new("RGBA", (16, 16))}
+    return {"toa_window": window_tex(), "toa_bread_e": baguette(32, 8), "toa_empty": Image.new("RGBA", (16, 16)),
+            "toa_star_e": star_tex()}
 
 
 # ---------------------------------------------------------------------------
@@ -359,6 +372,8 @@ def build_particles():
         color=rgba("purple"))
     add("trail", tex="toa_glow", count=10, shape=sphere(0.3, surface=False), lifetime="0.3", speed="math.random(0.5, 2)",
         drag=3, size="0.13 * (" + FADE + ")", color=rgba("purple"))
+    add("star_trail", tex="toa_glow", count=1, lifetime="0.22", size="0.45 * (1 - v.particle_age / v.particle_lifetime * 0.6)",
+        color=rgba("gold", 1))
     add("cat_paw", tex="toa_claw", count=4, shape=sphere(0.5), lifetime="0.4", speed=2, size="0.3", color=rgba("gold"))
     return P
 

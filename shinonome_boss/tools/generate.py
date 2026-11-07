@@ -16,7 +16,7 @@ import zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import xanims  # noqa: E402
 import xfx  # noqa: E402
-from cine import Cine  # noqa: E402
+from cine import Cine, vectorize_animations  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BP = os.path.join(ROOT, "Shinonome_BP")
@@ -25,7 +25,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "shinonome:toa"
 NAME = "東雲 永々"
-VERSION = [1, 0, 0]
+VERSION = [1, 1, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "a694ca4a-12aa-4554-8bdb-12089cc1e7f6"
 UUID_BP_MODULE = "f1947c40-91af-45a7-8801-580cb386961f"
@@ -816,7 +816,9 @@ def summons_bp():
     g, e = dict(DESPAWN_G), dict(DESPAWN_E)
     g["spd"] = {"minecraft:variant": {"value": 1}}
     A["animation.toa.star.fly"] = {"animation_length": 2.55, "loop": False, "timeline": ticks(
-        2.5, lambda i: ["/tp @s ^ ^ ^0.6"] + hit(1.2, 6, dy=-1.0), end=["@s shinonome:despawn"])}
+        2.5, lambda i: ["/tp @s ^ ^ ^0.6"] + hit(1.2, 6, dy=-1.0, extra=[
+            "particle shinonome:spark ~ ~1 ~", "playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.4"]),
+        end=["@s shinonome:despawn"])}
     for name, (deg, spd) in STAR_EVENTS.items():
         e[name] = {"add": {"component_groups": ["spd"]}, "queue_command": {"command": [
             "tp @s ~ ~ ~ facing @p[m=!creative]", "tp @s ~ ~ ~ ~%d ~" % deg]}}
@@ -960,6 +962,14 @@ def geo_small():
     bread_uv = {f: face for f in ("north", "south", "east", "west", "up", "down")}
     return {
         "geometry.toa_empty": [{"name": "root", "pivot": [0, 0, 0], "locators": {"center": [0, 0, 0]}}],
+        # 星弾: 発光する芯 + 半透明の外殻
+        "geometry.toa_star": [
+            {"name": "orb", "pivot": [0, 0, 0], "locators": {"center": [0, 0, 0]},
+             "cubes": [{"origin": [-1.5, -1.5, -1.5], "size": [3, 3, 3], "uv": {
+                 f: {"uv": [0, 0], "uv_size": [8, 8]} for f in ("north", "south", "east", "west", "up", "down")}}]},
+            {"name": "shell", "parent": "orb", "pivot": [0, 0, 0],
+             "cubes": [{"origin": [-3, -3, -3], "size": [6, 6, 6], "uv": {
+                 f: {"uv": [8, 0], "uv_size": [8, 8]} for f in ("north", "south", "east", "west", "up", "down")}}]}],
         # 前（-Z）を向いた細長いフランスパン。くるくる回る（ドリル）
         "geometry.toa_bread": [{"name": "roll", "pivot": [0, 0, 0], "locators": {"center": [0, 0, 0]},
                                 "cubes": [{"origin": [-1.5, -1.5, -8], "size": [3, 3, 16], "uv": bread_uv}]}],
@@ -967,7 +977,7 @@ def geo_small():
 
 
 def geo_files():
-    sizes = {"geometry.toa_empty": (16, 16), "geometry.toa_bread": (32, 8)}
+    sizes = {"geometry.toa_empty": (16, 16), "geometry.toa_bread": (32, 8), "geometry.toa_star": (16, 16)}
     out = {}
     for ident, bones in geo_small().items():
         w, h = sizes[ident]
@@ -991,6 +1001,9 @@ def render_controllers():
                                    "0.25 + math.sin(q.life_time * 900) * 0.1 : (q.mark_variant == 25 ? 0.2 : 0.0))" % water}},
         "controller.render.toa_window": {
             "geometry": "Geometry.window", "materials": [{"*": "Material.window"}], "textures": ["Texture.window"]},
+        "controller.render.toa_star": {
+            "geometry": "Geometry.default", "materials": [{"*": "Material.default"}, {"shell": "Material.shell"}],
+            "textures": ["Texture.default"]},
         "controller.render.toa_simple": {
             "geometry": "Geometry.default", "materials": [{"*": "Material.default"}], "textures": ["Texture.default"]},
     }}
@@ -1044,8 +1057,10 @@ def rp_clients():
         "clone": client("shinonome:clone", "toa", "geometry.toa", "entity_alphatest",
                         dict(boss_anims), ["main", "attack_fx", "window"], xanims.PARTICLE_MAP,
                         rc=["controller.render.toa_simple", window_rc], extra=window_extra),
-        "star": client("shinonome:star", "toa_empty", "geometry.toa_empty", "entity_alphatest",
-                       {"fx": "animation.toa.star_fx"}, ["fx"], {"star": "shinonome:gold_eye"}),
+        "star": client("shinonome:star", "toa_star_e", "geometry.toa_star", "entity_emissive_alpha",
+                       {"fx": "animation.toa.star_fx", "spin": "animation.toa.star_spin"}, ["fx", "spin"],
+                       {"star": "shinonome:star_trail"}, rc="controller.render.toa_star",
+                       extra={"materials": {"shell": "entity_alphablend"}}),
         "bread": client("shinonome:bread", "toa_bread_e", "geometry.toa_bread", "entity_alphatest",
                         {"fx": "animation.toa.bread_fx"}, ["fx"], {"trail": "shinonome:spark"}),
         "hole": client("shinonome:hole", "toa_empty", "geometry.toa_empty", "entity_alphatest",
@@ -1059,8 +1074,6 @@ def rp_clients():
         "director": client("shinonome:director", "toa", "geometry.toa", "entity_alphatest",
                            {"pose": "animation.toa.director_pose"}, ["pose"], {"burger": "shinonome:burger"}),
     }
-    # 撃破カットシーンの像も小さく
-    clients["star"]["minecraft:client_entity"]["description"]["particle_effects"] = {"star": "shinonome:gold_eye"}
     return clients
 
 
@@ -1149,9 +1162,17 @@ def main():
     write(os.path.join(RP, "models/entity/toa_window.geo.json"), geo_window())
     for ident, data in geo_files().items():
         write(os.path.join(RP, "models/entity/%s.geo.json" % ident.split(".")[1]), data)
+    # 本体のモーションと、召喚物・撃破演出のモーションは別のファイルに分ける
     ra = xanims.all_animations()
-    ra["animations"].update(rp_summon_anims())
+    summ = rp_summon_anims()
+    summ["animation.toa.director_pose"] = ra["animations"].pop("animation.toa.director_pose")
+    summ["animation.toa.star_spin"] = {"loop": True, "bones": {
+        "orb": {"rotation": ["q.life_time * 400", "q.life_time * 650", 0]},
+        "shell": {"scale": ["1 + math.sin(q.life_time * 1500) * 0.12"] * 3}}}
+    vectorize_animations(ra["animations"])
+    vectorize_animations(summ)
     write(os.path.join(RP, "animations/toa.animation.json"), ra)
+    write(os.path.join(RP, "animations/toa_summons.animation.json"), {"format_version": "1.10.0", "animations": summ})
     write(os.path.join(RP, "animation_controllers/toa.ac.json"), xanims.controllers(sorted(SKILLS)))
     write(os.path.join(RP, "render_controllers/toa.rc.json"), render_controllers())
     for name, data in xfx.build_particles().items():

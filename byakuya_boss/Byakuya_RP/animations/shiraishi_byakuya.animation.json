@@ -79,6 +79,44 @@
         }
       }
     },
+    "animation.byakuya.move_legs": {
+      "loop": true,
+      "bones": {
+        "rightLeg": {
+          "rotation": [
+            "math.cos(q.modified_distance_moved * 38.17) * 55 * math.min(q.modified_move_speed, 1.0)",
+            0,
+            0
+          ]
+        },
+        "leftLeg": {
+          "rotation": [
+            "math.cos(q.modified_distance_moved * 38.17 + 180) * 55 * math.min(q.modified_move_speed, 1.0)",
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "animation.byakuya.hurt": {
+      "loop": true,
+      "bones": {
+        "body": {
+          "rotation": [
+            "-q.hurt_time * 1.0",
+            0,
+            0
+          ]
+        },
+        "head": {
+          "rotation": [
+            "-q.hurt_time * 0.8",
+            0,
+            0
+          ]
+        }
+      }
+    },
     "animation.byakuya.attack": {
       "loop": true,
       "bones": {

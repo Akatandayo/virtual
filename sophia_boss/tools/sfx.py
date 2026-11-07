@@ -365,9 +365,9 @@ def build_particles():
     add("dust", tex="sophia_glow", material="particles_blend", count=20, shape=disc(0.8, "outwards"),
         lifetime="0.8", speed="math.random(1, 3)", accel=(0, 0.5, 0), drag=2, size="0.3 * (" + FADE + ")",
         color=[0.55, 0.45, 0.3, "0.7 * (" + FADE + ")"])
-    add("orb_gold", tex="sophia_orb", count=1, lifetime="0.12", size="0.32", color=rgba("gold", 1))
-    add("orb_blue", tex="sophia_orb", count=1, lifetime="0.12", size="0.28", color=rgba("blue", 1))
-    add("orb_pink", tex="sophia_orb", count=1, lifetime="0.12", size="0.38", color=rgba("pink", 1))
+    add("orb_gold", tex="sophia_orb", count=1, lifetime="0.22", size="0.45 * (1 - v.particle_age / v.particle_lifetime * 0.6)", color=rgba("gold", 1))
+    add("orb_blue", tex="sophia_orb", count=1, lifetime="0.22", size="0.39 * (1 - v.particle_age / v.particle_lifetime * 0.6)", color=rgba("blue", 1))
+    add("orb_pink", tex="sophia_orb", count=1, lifetime="0.22", size="0.53 * (1 - v.particle_age / v.particle_lifetime * 0.6)", color=rgba("pink", 1))
     add("hex_barrier", tex="sophia_hex", material="particles_blend", count=18, shape=sphere(1.4, (0, 0, 0)),
         lifetime="0.45", size="0.4", color=[1.0, 0.95, 0.8, "0.9 * (" + FADE + ")"])
     add("rift", tex="sophia_rift", material="particles_blend", count=1, lifetime="0.6", facing="lookat_y",
@@ -420,6 +420,8 @@ def build_particles():
         lifetime="0.1", size=["0.08", "0.35"], spin={"rotation": "math.random(0, 360)"}, color=rgba("blue", 1))
     add("aura_flame", tex="sophia_glow", rate=(35, 30), active=0.4, shape=disc(0.5), lifetime="math.random(0.4, 0.8)",
         speed="math.random(1, 2.5)", size="0.2 * (" + FADE + ")", color=grad("#FFFFD0FF", "#FFB040FF", "#00400070"))
+    add("laplace_eye", tex="sophia_star", count=1, lifetime="0.45", size="0.13 * (" + FADE + ") + 0.04",
+        color=[0.45, 0.8, 1.0, 1.0])
     add("hand_glow", tex="sophia_glow", count=8, shape=sphere(0.4, "inwards"), lifetime="0.3", speed=2,
         size="0.08", color=rgba("gold"))
     return P
@@ -443,5 +445,16 @@ def entity_textures():
     dd.rectangle([0, 0, 15, 15], outline=(80, 200, 120, 255))
     dd.rectangle([6, 3, 9, 12], fill=(60, 220, 110, 255))
     dd.rectangle([3, 6, 12, 9], fill=(60, 220, 110, 255))
-    return {"sophia_funnel": sword, "sophia_drone": drone, "sophia_letter_e": letter(),
-            "sophia_empty": Image.new("RGBA", (16, 16))}
+    out = {"sophia_funnel": sword, "sophia_drone": drone, "sophia_letter_e": letter(),
+           "sophia_empty": Image.new("RGBA", (16, 16))}
+    # 弾幕の弾: 左半分が芯（不透明・発光）、右半分が外殻（半透明）
+    for name, (r, g, b) in (("slow", (255, 110, 190)), ("normal", (255, 205, 70)), ("fast", (90, 170, 255))):
+        im = Image.new("RGBA", (16, 16))
+        for y in range(8):
+            for x in range(8):
+                d = math.hypot(x - 3.5, y - 3.5) / 4.95
+                core = 1 - d
+                im.putpixel((x, y), (_c(r + (255 - r) * core), _c(g + (255 - g) * core), _c(b + (255 - b) * core), 255))
+                im.putpixel((x + 8, y), (r, g, b, _c(70 + 90 * d)))
+        out["sophia_orb_" + name] = im
+    return out

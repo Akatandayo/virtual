@@ -194,6 +194,14 @@ def all_animations():
             "rightLeg": {"rotation": ["math.cos(%s) * 60 * %s" % (walk, spd), 0, 0]},
             "leftLeg": {"rotation": ["math.cos(%s + 180) * 60 * %s" % (walk, spd), 0, 0]},
         }},
+        "animation.toa.move_legs": {"loop": True, "bones": {
+            "rightLeg": {"rotation": ["math.cos(%s) * 55 * %s" % (walk, spd), 0, 0]},
+            "leftLeg": {"rotation": ["math.cos(%s + 180) * 55 * %s" % (walk, spd), 0, 0]},
+        }},
+        "animation.toa.hurt": {"loop": True, "bones": {
+            "body": {"rotation": ["-q.hurt_time * 1.4", 0, 0]},
+            "head": {"rotation": ["-q.hurt_time * 1.0", 0, "q.hurt_time * 1.5"]},
+        }},
         "animation.toa.attack": {"loop": True, "bones": {
             "rightArm": {"rotation": ["-math.sin(variable.attack_time * 180) * 120", "60 - variable.attack_time * 120", 0]},
             "body": {"rotation": [0, "math.sin(variable.attack_time * 180) * -25", 0]},
@@ -235,6 +243,7 @@ NO_LOOK = {12, 13, 15, 23, 24, 25, 30, 31}
 def short_names(skill_ids):
     n = {"look_at": "animation.toa.look_at", "idle": "animation.toa.idle", "move": "animation.toa.move",
          "attack": "animation.toa.attack", "window": "animation.toa.window", "gold_eye": "animation.toa.gold_eye",
+         "move_legs": "animation.toa.move_legs", "hurt": "animation.toa.hurt",
          "aura_1": "animation.toa.aura_1", "aura_2": "animation.toa.aura_2", "water": "animation.toa.water",
          "death_pose": "animation.toa.death", "main": "controller.animation.toa.main",
          "aura_ctrl": "controller.animation.toa.aura", "attack_fx": "controller.animation.toa.attack_fx"}
@@ -245,7 +254,7 @@ def short_names(skill_ids):
 
 def controllers(skill_ids):
     dead = {"death": "!q.is_alive"}
-    states = {"default": {"animations": ["look_at", "idle", "move", {"attack": "variable.attack_time > 0"}],
+    states = {"default": {"animations": ["look_at", "idle", "move", {"attack": "variable.attack_time > 0"}, "hurt"],
                           "transitions": [dead] + [{"s%d" % v: "q.mark_variant == %d" % v} for v in skill_ids],
                           "blend_transition": 0.1},
               "death": {"animations": ["death_pose"]}}
@@ -253,6 +262,7 @@ def controllers(skill_ids):
         a = ["s%d" % v] if v in NO_LOOK else ["look_at", "s%d" % v]
         if v == 20:
             a.append("water")
+        a += [{"move_legs": "q.modified_move_speed > 0.1"}, "hurt"]
         states["s%d" % v] = {"animations": a, "transitions": [dead, {"default": "q.mark_variant != %d" % v}],
                              "blend_transition": 0.08}
     return {"format_version": "1.10.0", "animation_controllers": {

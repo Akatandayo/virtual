@@ -2368,401 +2368,561 @@
         "0.00": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.05": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.10": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.15": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.20": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.25": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.30": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.35": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.40": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.45": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.50": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.55": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.60": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.65": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.70": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.75": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.80": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.85": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.90": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.95": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.00": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.05": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.10": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.15": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.20": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.25": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.30": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.35": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.40": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.45": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.50": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.55": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.60": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.65": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.70": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.75": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.80": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.85": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.90": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.95": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.00": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.05": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.10": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.15": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.20": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.25": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.30": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.35": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.40": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.45": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.50": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.55": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.60": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.65": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.70": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.75": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.80": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.85": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.90": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.95": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "3.00": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "3.05": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "3.10": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "3.15": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "3.20": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "3.25": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "3.30": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "3.35": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "3.40": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "3.45": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "3.50": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "3.55": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "3.60": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "3.65": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "3.70": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "3.75": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "3.80": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "3.85": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "3.90": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "3.95": [
           "/tp @s ^ ^ ^0.25",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn",
           "@s sophia:despawn"
         ]
@@ -2775,301 +2935,421 @@
         "0.00": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.05": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.10": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.15": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.20": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.25": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.30": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.35": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.40": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.45": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.50": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.55": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.60": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.65": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.70": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.75": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.80": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.85": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.90": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.95": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.00": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.05": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.10": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.15": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.20": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.25": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.30": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.35": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.40": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.45": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.50": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.55": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.60": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.65": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.70": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.75": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.80": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.85": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.90": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.95": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.00": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.05": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.10": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.15": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.20": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.25": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.30": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.35": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.40": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.45": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.50": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.55": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.60": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.65": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.70": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.75": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.80": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.85": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.90": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "2.95": [
           "/tp @s ^ ^ ^0.50",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn",
           "@s sophia:despawn"
         ]
@@ -3082,161 +3362,225 @@
         "0.00": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.05": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.10": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.15": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.20": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.25": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.30": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.35": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.40": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.45": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.50": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.55": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.60": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.65": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.70": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.75": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.80": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.85": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.90": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "0.95": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.00": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.05": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.10": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.15": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.20": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.25": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.30": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.35": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.40": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.45": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.50": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn"
         ],
         "1.55": [
           "/tp @s ^ ^ ^0.90",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run damage @a[r=1.1,m=!creative] 6 magic",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run particle sophia:spark_burst ~ ~1 ~",
+          "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run playsound random.orb @a[r=12] ~ ~ ~ 0.7 1.8",
           "/execute positioned ~ ~-1.0 ~ if entity @a[r=1.1,m=!creative] run event entity @s sophia:despawn",
           "@s sophia:despawn"
         ]
