@@ -1,0 +1,317 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.hitori.skills": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "transitions": [
+            {
+              "skill_1": "q.mark_variant == 1"
+            },
+            {
+              "skill_2": "q.mark_variant == 2"
+            },
+            {
+              "skill_3": "q.mark_variant == 3"
+            },
+            {
+              "skill_4": "q.mark_variant == 4"
+            },
+            {
+              "skill_5": "q.mark_variant == 5"
+            },
+            {
+              "skill_6": "q.mark_variant == 6"
+            },
+            {
+              "skill_7": "q.mark_variant == 7"
+            },
+            {
+              "skill_8": "q.mark_variant == 8"
+            },
+            {
+              "skill_9": "q.mark_variant == 9"
+            },
+            {
+              "skill_10": "q.mark_variant == 10"
+            },
+            {
+              "skill_11": "q.mark_variant == 11"
+            },
+            {
+              "skill_12": "q.mark_variant == 12"
+            },
+            {
+              "skill_13": "q.mark_variant == 13"
+            },
+            {
+              "skill_14": "q.mark_variant == 14"
+            },
+            {
+              "skill_20": "q.mark_variant == 20"
+            },
+            {
+              "skill_99": "q.mark_variant == 99"
+            }
+          ]
+        },
+        "skill_1": {
+          "animations": [
+            "skill_1"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 1"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:skill_end"
+          ]
+        },
+        "skill_2": {
+          "animations": [
+            "skill_2"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 2"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:skill_end"
+          ]
+        },
+        "skill_3": {
+          "animations": [
+            "skill_3"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 3"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:skill_end"
+          ]
+        },
+        "skill_4": {
+          "animations": [
+            "skill_4"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 4"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:skill_end"
+          ]
+        },
+        "skill_5": {
+          "animations": [
+            "skill_5"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 5"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:skill_end"
+          ]
+        },
+        "skill_6": {
+          "animations": [
+            "skill_6"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 6"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:skill_end"
+          ]
+        },
+        "skill_7": {
+          "animations": [
+            "skill_7"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 7"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:skill_end"
+          ]
+        },
+        "skill_8": {
+          "animations": [
+            "skill_8"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 8"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:skill_end"
+          ]
+        },
+        "skill_9": {
+          "animations": [
+            "skill_9"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 9"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:skill_end"
+          ]
+        },
+        "skill_10": {
+          "animations": [
+            "skill_10"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 10"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:skill_end"
+          ]
+        },
+        "skill_11": {
+          "animations": [
+            "skill_11"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 11"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:skill_end"
+          ]
+        },
+        "skill_12": {
+          "animations": [
+            "skill_12"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 12"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:skill_end"
+          ]
+        },
+        "skill_13": {
+          "animations": [
+            "skill_13"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 13"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:skill_end"
+          ]
+        },
+        "skill_14": {
+          "animations": [
+            "skill_14"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 14"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:skill_end"
+          ]
+        },
+        "skill_20": {
+          "animations": [
+            "skill_20"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 20"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:final_end"
+          ]
+        },
+        "skill_99": {
+          "animations": [
+            "skill_99"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 99"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:glitch_restore"
+          ]
+        }
+      }
+    },
+    "controller.animation.hitori.cooldown": {
+      "initial_state": "ready",
+      "states": {
+        "ready": {
+          "transitions": [
+            {
+              "cd": "q.is_sheared"
+            }
+          ]
+        },
+        "cd": {
+          "animations": [
+            "cd_timer"
+          ],
+          "transitions": [
+            {
+              "ready": "q.all_animations_finished || !q.is_sheared"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:cd_end"
+          ]
+        }
+      }
+    },
+    "controller.animation.hitori.death": {
+      "initial_state": "alive",
+      "states": {
+        "alive": {
+          "transitions": [
+            {
+              "dead": "!q.is_alive"
+            }
+          ]
+        },
+        "dead": {
+          "on_entry": [
+            "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b独§7「……あーあ。バグ、直されちゃった」\"}]}",
+            "/particle hitori:noise_big ~ ~1 ~",
+            "/particle hitori:error_popup ~ ~1 ~",
+            "/particle hitori:shockwave_big ~ ~0.1 ~",
+            "/playsound beacon.deactivate @a[r=64] ~ ~ ~ 1 0.5",
+            "/scoreboard players reset @s hitori_glitch"
+          ]
+        }
+      }
+    }
+  }
+}

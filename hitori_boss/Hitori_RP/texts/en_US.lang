@@ -1,0 +1,7 @@
+entity.hitori:denshi_hitori.name=電子 独
+item.spawn_egg.entity.hitori:denshi_hitori.name=電子 独のスポーンエッグ
+entity.hitori:bit_bullet.name=データ弾
+entity.hitori:fragment.name=フォークボム
+entity.hitori:marker.name=目印
+pack.name=電子 独 ボス
+pack.description=不具合・Glitch（自我の使者）ボスアドオン

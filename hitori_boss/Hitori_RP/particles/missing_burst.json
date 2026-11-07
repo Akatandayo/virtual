@@ -1,0 +1,65 @@
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "hitori:missing_burst",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/hitori_missing"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 24
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 0.1
+      },
+      "minecraft:emitter_shape_sphere": {
+        "radius": 0.4,
+        "surface_only": true,
+        "direction": "outwards",
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      },
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": "math.random(0.4, 0.8)"
+      },
+      "minecraft:particle_initial_speed": "math.random(3, 9)",
+      "minecraft:particle_initial_spin": {
+        "rotation": "math.random(0, 360)",
+        "rotation_rate": "math.random(-400, 400)"
+      },
+      "minecraft:particle_motion_dynamic": {
+        "linear_acceleration": [
+          0,
+          -10,
+          0
+        ],
+        "linear_drag_coefficient": 1
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [
+          "0.18",
+          "0.18"
+        ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 1,
+          "texture_height": 1,
+          "uv": [
+            0,
+            0
+          ],
+          "uv_size": [
+            1,
+            1
+          ]
+        }
+      }
+    }
+  }
+}

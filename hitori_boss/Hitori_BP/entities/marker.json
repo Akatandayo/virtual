@@ -1,0 +1,221 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "hitori:marker",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false,
+      "animations": {
+        "life": "animation.hitori.marker.life"
+      },
+      "scripts": {
+        "animate": [
+          "life"
+        ]
+      }
+    },
+    "component_groups": {
+      "despawn": {
+        "minecraft:instant_despawn": {}
+      },
+      "rollback": {
+        "minecraft:type_family": {
+          "family": [
+            "hitori_marker",
+            "rollback",
+            "inanimate"
+          ]
+        }
+      },
+      "missing_a": {
+        "minecraft:type_family": {
+          "family": [
+            "hitori_marker",
+            "missing_a",
+            "inanimate"
+          ]
+        }
+      },
+      "missing_b": {
+        "minecraft:type_family": {
+          "family": [
+            "hitori_marker",
+            "missing_b",
+            "inanimate"
+          ]
+        }
+      },
+      "swap_a": {
+        "minecraft:type_family": {
+          "family": [
+            "hitori_marker",
+            "swap_a",
+            "inanimate"
+          ]
+        }
+      },
+      "swap_b": {
+        "minecraft:type_family": {
+          "family": [
+            "hitori_marker",
+            "swap_b",
+            "inanimate"
+          ]
+        }
+      },
+      "beam_a": {
+        "minecraft:type_family": {
+          "family": [
+            "hitori_marker",
+            "beam_a",
+            "inanimate"
+          ]
+        }
+      },
+      "beam_b": {
+        "minecraft:type_family": {
+          "family": [
+            "hitori_marker",
+            "beam_b",
+            "inanimate"
+          ]
+        }
+      },
+      "note_0": {
+        "minecraft:type_family": {
+          "family": [
+            "hitori_marker",
+            "note_0",
+            "inanimate"
+          ]
+        }
+      },
+      "note_1": {
+        "minecraft:type_family": {
+          "family": [
+            "hitori_marker",
+            "note_1",
+            "inanimate"
+          ]
+        }
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "hitori_marker",
+          "inanimate"
+        ]
+      },
+      "minecraft:health": {
+        "value": 1,
+        "max": 1
+      },
+      "minecraft:collision_box": {
+        "width": 0.1,
+        "height": 0.1
+      },
+      "minecraft:physics": {
+        "has_gravity": false,
+        "has_collision": false
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:knockback_resistance": {
+        "value": 1.0
+      },
+      "minecraft:body_rotation_blocked": {},
+      "minecraft:fire_immune": {},
+      "minecraft:conditional_bandwidth_optimization": {
+        "default_values": {
+          "max_optimized_distance": 0,
+          "max_dropped_ticks": 0,
+          "use_motion_prediction_hints": true
+        }
+      },
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "all",
+            "deal_damage": false
+          }
+        ]
+      }
+    },
+    "events": {
+      "hitori:despawn": {
+        "add": {
+          "component_groups": [
+            "despawn"
+          ]
+        }
+      },
+      "hitori:as_rollback": {
+        "add": {
+          "component_groups": [
+            "rollback"
+          ]
+        }
+      },
+      "hitori:as_missing_a": {
+        "add": {
+          "component_groups": [
+            "missing_a"
+          ]
+        }
+      },
+      "hitori:as_missing_b": {
+        "add": {
+          "component_groups": [
+            "missing_b"
+          ]
+        }
+      },
+      "hitori:as_swap_a": {
+        "add": {
+          "component_groups": [
+            "swap_a"
+          ]
+        }
+      },
+      "hitori:as_swap_b": {
+        "add": {
+          "component_groups": [
+            "swap_b"
+          ]
+        }
+      },
+      "hitori:as_beam_a": {
+        "add": {
+          "component_groups": [
+            "beam_a"
+          ]
+        }
+      },
+      "hitori:as_beam_b": {
+        "add": {
+          "component_groups": [
+            "beam_b"
+          ]
+        }
+      },
+      "hitori:as_note_0": {
+        "add": {
+          "component_groups": [
+            "note_0"
+          ]
+        }
+      },
+      "hitori:as_note_1": {
+        "add": {
+          "component_groups": [
+            "note_1"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "電子 独 ボス BP",
+    "description": "ボス「電子 独（不具合・Glitch）」を追加します",
+    "uuid": "9b78d68f-ebde-4768-989c-96ab7fa09e02",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "9263edb8-7005-4aa3-82a3-54ec6c07aaf0",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "3afd756a-176b-43ec-a0d3-e9a6d255c62a",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ]
+}

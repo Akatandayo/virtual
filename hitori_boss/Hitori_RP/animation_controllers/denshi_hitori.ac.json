@@ -1,0 +1,394 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.hitori.main": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "look_at",
+            "idle",
+            "move",
+            "glitch",
+            {
+              "attack": "variable.attack_time > 0"
+            }
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "s1": "q.mark_variant == 1"
+            },
+            {
+              "s2": "q.mark_variant == 2"
+            },
+            {
+              "s3": "q.mark_variant == 3"
+            },
+            {
+              "s4": "q.mark_variant == 4"
+            },
+            {
+              "s5": "q.mark_variant == 5"
+            },
+            {
+              "s6": "q.mark_variant == 6"
+            },
+            {
+              "s7": "q.mark_variant == 7"
+            },
+            {
+              "s8": "q.mark_variant == 8"
+            },
+            {
+              "s9": "q.mark_variant == 9"
+            },
+            {
+              "s10": "q.mark_variant == 10"
+            },
+            {
+              "s11": "q.mark_variant == 11"
+            },
+            {
+              "s12": "q.mark_variant == 12"
+            },
+            {
+              "s13": "q.mark_variant == 13"
+            },
+            {
+              "s14": "q.mark_variant == 14"
+            },
+            {
+              "s20": "q.mark_variant == 20"
+            },
+            {
+              "s99": "q.mark_variant == 99"
+            }
+          ],
+          "blend_transition": 0.1
+        },
+        "death": {
+          "animations": [
+            "death_pose"
+          ]
+        },
+        "s1": {
+          "animations": [
+            "look_at",
+            "s1",
+            "glitch"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 1"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s2": {
+          "animations": [
+            "look_at",
+            "s2",
+            "glitch"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 2"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s3": {
+          "animations": [
+            "look_at",
+            "s3",
+            "glitch"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 3"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s4": {
+          "animations": [
+            "s4",
+            "glitch"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 4"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s5": {
+          "animations": [
+            "look_at",
+            "s5",
+            "glitch"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 5"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s6": {
+          "animations": [
+            "s6",
+            "glitch"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 6"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s7": {
+          "animations": [
+            "look_at",
+            "s7",
+            "glitch"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 7"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s8": {
+          "animations": [
+            "look_at",
+            "s8",
+            "glitch"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 8"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s9": {
+          "animations": [
+            "look_at",
+            "s9",
+            "glitch"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 9"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s10": {
+          "animations": [
+            "look_at",
+            "s10",
+            "glitch"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 10"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s11": {
+          "animations": [
+            "look_at",
+            "s11",
+            "glitch"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 11"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s12": {
+          "animations": [
+            "look_at",
+            "s12",
+            "glitch"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 12"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s13": {
+          "animations": [
+            "look_at",
+            "s13",
+            "glitch"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 13"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s14": {
+          "animations": [
+            "look_at",
+            "s14",
+            "glitch"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 14"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s20": {
+          "animations": [
+            "s20",
+            "glitch"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 20"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s99": {
+          "animations": [
+            "s99"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 99"
+            }
+          ],
+          "blend_transition": 0.08
+        }
+      }
+    },
+    "controller.animation.hitori.aura": {
+      "initial_state": "light",
+      "states": {
+        "light": {
+          "animations": [
+            "aura"
+          ],
+          "transitions": [
+            {
+              "off": "q.mark_variant == 99 || !q.is_alive"
+            },
+            {
+              "heavy": "q.skin_id >= 1"
+            }
+          ]
+        },
+        "heavy": {
+          "animations": [
+            "aura_heavy"
+          ],
+          "transitions": [
+            {
+              "off": "q.mark_variant == 99 || !q.is_alive"
+            }
+          ]
+        },
+        "off": {
+          "transitions": [
+            {
+              "light": "q.mark_variant != 99 && q.is_alive && q.skin_id == 0"
+            },
+            {
+              "heavy": "q.mark_variant != 99 && q.is_alive && q.skin_id >= 1"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.hitori.attack_fx": {
+      "initial_state": "ready",
+      "states": {
+        "ready": {
+          "transitions": [
+            {
+              "swing": "variable.attack_time > 0.25"
+            }
+          ]
+        },
+        "swing": {
+          "particle_effects": [
+            {
+              "effect": "hand",
+              "locator": "right_hand"
+            }
+          ],
+          "transitions": [
+            {
+              "ready": "variable.attack_time < 0.2"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

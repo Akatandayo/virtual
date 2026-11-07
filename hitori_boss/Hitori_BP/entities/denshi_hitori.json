@@ -1,0 +1,1632 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "hitori:denshi_hitori",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false,
+      "scripts": {
+        "animate": [
+          "skills",
+          "cooldown",
+          "decay",
+          "death"
+        ]
+      },
+      "animations": {
+        "skills": "controller.animation.hitori.skills",
+        "cooldown": "controller.animation.hitori.cooldown",
+        "decay": "animation.hitori.decay",
+        "death": "controller.animation.hitori.death",
+        "cd_timer": "animation.hitori.cd_timer",
+        "skill_1": "animation.hitori.skill_1",
+        "skill_2": "animation.hitori.skill_2",
+        "skill_3": "animation.hitori.skill_3",
+        "skill_4": "animation.hitori.skill_4",
+        "skill_5": "animation.hitori.skill_5",
+        "skill_6": "animation.hitori.skill_6",
+        "skill_7": "animation.hitori.skill_7",
+        "skill_8": "animation.hitori.skill_8",
+        "skill_9": "animation.hitori.skill_9",
+        "skill_10": "animation.hitori.skill_10",
+        "skill_11": "animation.hitori.skill_11",
+        "skill_12": "animation.hitori.skill_12",
+        "skill_13": "animation.hitori.skill_13",
+        "skill_14": "animation.hitori.skill_14",
+        "skill_20": "animation.hitori.skill_20",
+        "skill_99": "animation.hitori.skill_99"
+      }
+    },
+    "component_groups": {
+      "phase_1": {
+        "minecraft:skin_id": {
+          "value": 0
+        },
+        "minecraft:movement": {
+          "value": 0.32
+        },
+        "minecraft:attack": {
+          "damage": 15,
+          "effect_name": "nausea",
+          "effect_duration": 3
+        },
+        "minecraft:timer": {
+          "looping": true,
+          "time": [
+            2.5,
+            4.0
+          ],
+          "randomInterval": true,
+          "time_down_event": {
+            "event": "hitori:choose_skill",
+            "target": "self"
+          }
+        }
+      },
+      "phase_2": {
+        "minecraft:skin_id": {
+          "value": 1
+        },
+        "minecraft:movement": {
+          "value": 0.36
+        },
+        "minecraft:attack": {
+          "damage": 18,
+          "effect_name": "nausea",
+          "effect_duration": 3
+        },
+        "minecraft:timer": {
+          "looping": true,
+          "time": [
+            2.0,
+            3.0
+          ],
+          "randomInterval": true,
+          "time_down_event": {
+            "event": "hitori:choose_skill",
+            "target": "self"
+          }
+        }
+      },
+      "phase_3": {
+        "minecraft:skin_id": {
+          "value": 2
+        },
+        "minecraft:movement": {
+          "value": 0.4
+        },
+        "minecraft:attack": {
+          "damage": 22,
+          "effect_name": "nausea",
+          "effect_duration": 3
+        },
+        "minecraft:timer": {
+          "looping": true,
+          "time": [
+            1.5,
+            2.5
+          ],
+          "randomInterval": true,
+          "time_down_event": {
+            "event": "hitori:choose_skill",
+            "target": "self"
+          }
+        }
+      },
+      "glitch_on": {
+        "minecraft:damage_sensor": {
+          "triggers": [
+            {
+              "on_damage": {
+                "filters": {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "player"
+                },
+                "event": "hitori:glitch_hit"
+              },
+              "deal_damage": false
+            },
+            {
+              "cause": "projectile",
+              "on_damage": {
+                "event": "hitori:glitch_hit"
+              },
+              "deal_damage": false
+            },
+            {
+              "cause": "all",
+              "deal_damage": false
+            }
+          ]
+        }
+      },
+      "glitch_cd": {
+        "minecraft:is_sheared": {},
+        "minecraft:damage_sensor": {
+          "triggers": [
+            {
+              "cause": "all",
+              "deal_damage": false
+            }
+          ]
+        }
+      },
+      "stunned_sensor": {
+        "minecraft:damage_sensor": {
+          "triggers": [
+            {
+              "cause": "fall",
+              "deal_damage": false
+            },
+            {
+              "cause": "suffocation",
+              "deal_damage": false
+            },
+            {
+              "cause": "fire",
+              "deal_damage": false
+            },
+            {
+              "cause": "fire_tick",
+              "deal_damage": false
+            }
+          ]
+        }
+      },
+      "final_guard": {
+        "minecraft:damage_sensor": {
+          "triggers": [
+            {
+              "cause": "all",
+              "deal_damage": false
+            }
+          ]
+        }
+      },
+      "ai": {
+        "minecraft:behavior.float": {
+          "priority": 0
+        },
+        "minecraft:behavior.melee_attack": {
+          "priority": 2,
+          "speed_multiplier": 1.3,
+          "track_target": true
+        },
+        "minecraft:behavior.hurt_by_target": {
+          "priority": 1
+        },
+        "minecraft:behavior.nearest_attackable_target": {
+          "priority": 2,
+          "must_see": false,
+          "reselect_targets": true,
+          "within_radius": 48,
+          "entity_types": [
+            {
+              "filters": {
+                "test": "is_family",
+                "subject": "other",
+                "value": "player"
+              },
+              "max_dist": 48
+            }
+          ]
+        },
+        "minecraft:behavior.random_stroll": {
+          "priority": 6,
+          "speed_multiplier": 0.8
+        },
+        "minecraft:behavior.look_at_player": {
+          "priority": 7,
+          "look_distance": 16
+        }
+      },
+      "v_0": {
+        "minecraft:mark_variant": {
+          "value": 0
+        }
+      },
+      "v_1": {
+        "minecraft:mark_variant": {
+          "value": 1
+        }
+      },
+      "v_2": {
+        "minecraft:mark_variant": {
+          "value": 2
+        }
+      },
+      "v_3": {
+        "minecraft:mark_variant": {
+          "value": 3
+        }
+      },
+      "v_4": {
+        "minecraft:mark_variant": {
+          "value": 4
+        }
+      },
+      "v_5": {
+        "minecraft:mark_variant": {
+          "value": 5
+        }
+      },
+      "v_6": {
+        "minecraft:mark_variant": {
+          "value": 6
+        }
+      },
+      "v_7": {
+        "minecraft:mark_variant": {
+          "value": 7
+        }
+      },
+      "v_8": {
+        "minecraft:mark_variant": {
+          "value": 8
+        }
+      },
+      "v_9": {
+        "minecraft:mark_variant": {
+          "value": 9
+        }
+      },
+      "v_10": {
+        "minecraft:mark_variant": {
+          "value": 10
+        }
+      },
+      "v_11": {
+        "minecraft:mark_variant": {
+          "value": 11
+        }
+      },
+      "v_12": {
+        "minecraft:mark_variant": {
+          "value": 12
+        }
+      },
+      "v_13": {
+        "minecraft:mark_variant": {
+          "value": 13
+        }
+      },
+      "v_14": {
+        "minecraft:mark_variant": {
+          "value": 14
+        }
+      },
+      "v_20": {
+        "minecraft:mark_variant": {
+          "value": 20
+        }
+      },
+      "v_99": {
+        "minecraft:mark_variant": {
+          "value": 99
+        }
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "hitori",
+          "boss",
+          "monster",
+          "mob"
+        ]
+      },
+      "minecraft:health": {
+        "value": 200,
+        "max": 200
+      },
+      "minecraft:boss": {
+        "hud_range": 64,
+        "should_darken_sky": true
+      },
+      "minecraft:nameable": {
+        "always_show": true,
+        "allow_name_tag_renaming": false
+      },
+      "minecraft:persistent": {},
+      "minecraft:collision_box": {
+        "width": 0.6,
+        "height": 1.8
+      },
+      "minecraft:physics": {},
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:knockback_resistance": {
+        "value": 1.0
+      },
+      "minecraft:fire_immune": {},
+      "minecraft:breathable": {
+        "total_supply": 15,
+        "suffocate_time": 0,
+        "breathes_water": true
+      },
+      "minecraft:jump.static": {},
+      "minecraft:movement.basic": {},
+      "minecraft:movement": {
+        "value": 0.32
+      },
+      "minecraft:navigation.walk": {
+        "can_path_over_water": true,
+        "avoid_damage_blocks": true
+      },
+      "minecraft:follow_range": {
+        "value": 48,
+        "max": 64
+      },
+      "minecraft:attack": {
+        "damage": 15
+      },
+      "minecraft:loot": {
+        "table": "loot_tables/entities/denshi_hitori.json"
+      },
+      "minecraft:experience_reward": {
+        "on_death": "1000"
+      },
+      "minecraft:environment_sensor": {
+        "triggers": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "actor_health",
+                  "operator": "<=",
+                  "value": 100
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 0
+                }
+              ]
+            },
+            "event": "hitori:phase2"
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "actor_health",
+                  "operator": "<=",
+                  "value": 50
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 1
+                },
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                }
+              ]
+            },
+            "event": "hitori:final"
+          }
+        ]
+      }
+    },
+    "events": {
+      "minecraft:entity_spawned": {
+        "add": {
+          "component_groups": [
+            "phase_1",
+            "v_0",
+            "glitch_on",
+            "ai"
+          ]
+        },
+        "queue_command": {
+          "command": [
+            "scoreboard objectives add hitori_glitch dummy",
+            "scoreboard players set @s hitori_glitch 0",
+            "title @a[r=64] title §b電子 独",
+            "title @a[r=64] subtitle §7不具合・Glitch ―― 自我の使者",
+            "playsound beacon.activate @a[r=64] ~ ~ ~ 1 0.5",
+            "playsound random.glass @a[r=64] ~ ~ ~ 1 0.5",
+            "particle hitori:noise_big ~ ~1 ~",
+            "particle hitori:shockwave_big ~ ~0.1 ~",
+            "tellraw @a[r=64] {\"rawtext\":[{\"text\":\"§8[TIP] §7Glitch 展開中は攻撃が効かない。§b短い間隔で連続ヒット§7させて負荷をかけろ！\"}]}"
+          ]
+        }
+      },
+      "hitori:glitch_hit": {
+        "sequence": [
+          {
+            "remove": {
+              "component_groups": [
+                "glitch_on",
+                "stunned_sensor",
+                "final_guard"
+              ]
+            },
+            "add": {
+              "component_groups": [
+                "glitch_cd"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "scoreboard players add @s hitori_glitch 1",
+                "particle hitori:noise_burst ~ ~1 ~",
+                "particle hitori:error_one ~ ~2.3 ~",
+                "playsound random.glass @a[r=24] ~ ~ ~ 0.6 1.8",
+                "playsound note.bit @a[r=24] ~ ~ ~ 1 0.6"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "is_skin_id",
+              "value": 0
+            },
+            "queue_command": {
+              "command": [
+                "execute if score @s hitori_glitch matches 1 run title @a[r=32] actionbar §b◆GLITCH 負荷 §c■§8□□□□□ §7(1/6)",
+                "execute if score @s hitori_glitch matches 2 run title @a[r=32] actionbar §b◆GLITCH 負荷 §c■■§8□□□□ §7(2/6)",
+                "execute if score @s hitori_glitch matches 3 run title @a[r=32] actionbar §b◆GLITCH 負荷 §c■■■§8□□□ §7(3/6)",
+                "execute if score @s hitori_glitch matches 4 run title @a[r=32] actionbar §b◆GLITCH 負荷 §c■■■■§8□□ §7(4/6)",
+                "execute if score @s hitori_glitch matches 5 run title @a[r=32] actionbar §b◆GLITCH 負荷 §c■■■■■§8□ §7(5/6)",
+                "execute if score @s hitori_glitch matches 6.. run event entity @s hitori:glitch_break"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "is_skin_id",
+              "value": 1
+            },
+            "queue_command": {
+              "command": [
+                "execute if score @s hitori_glitch matches 1 run title @a[r=32] actionbar §b◆GLITCH 負荷 §c■§8□□□□□□□ §7(1/8)",
+                "execute if score @s hitori_glitch matches 2 run title @a[r=32] actionbar §b◆GLITCH 負荷 §c■■§8□□□□□□ §7(2/8)",
+                "execute if score @s hitori_glitch matches 3 run title @a[r=32] actionbar §b◆GLITCH 負荷 §c■■■§8□□□□□ §7(3/8)",
+                "execute if score @s hitori_glitch matches 4 run title @a[r=32] actionbar §b◆GLITCH 負荷 §c■■■■§8□□□□ §7(4/8)",
+                "execute if score @s hitori_glitch matches 5 run title @a[r=32] actionbar §b◆GLITCH 負荷 §c■■■■■§8□□□ §7(5/8)",
+                "execute if score @s hitori_glitch matches 6 run title @a[r=32] actionbar §b◆GLITCH 負荷 §c■■■■■■§8□□ §7(6/8)",
+                "execute if score @s hitori_glitch matches 7 run title @a[r=32] actionbar §b◆GLITCH 負荷 §c■■■■■■■§8□ §7(7/8)",
+                "execute if score @s hitori_glitch matches 8.. run event entity @s hitori:glitch_break"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "is_skin_id",
+              "value": 2
+            },
+            "queue_command": {
+              "command": [
+                "execute if score @s hitori_glitch matches 1 run title @a[r=32] actionbar §b◆GLITCH 負荷 §c■§8□□□□□□□ §7(1/8)",
+                "execute if score @s hitori_glitch matches 2 run title @a[r=32] actionbar §b◆GLITCH 負荷 §c■■§8□□□□□□ §7(2/8)",
+                "execute if score @s hitori_glitch matches 3 run title @a[r=32] actionbar §b◆GLITCH 負荷 §c■■■§8□□□□□ §7(3/8)",
+                "execute if score @s hitori_glitch matches 4 run title @a[r=32] actionbar §b◆GLITCH 負荷 §c■■■■§8□□□□ §7(4/8)",
+                "execute if score @s hitori_glitch matches 5 run title @a[r=32] actionbar §b◆GLITCH 負荷 §c■■■■■§8□□□ §7(5/8)",
+                "execute if score @s hitori_glitch matches 6 run title @a[r=32] actionbar §b◆GLITCH 負荷 §c■■■■■■§8□□ §7(6/8)",
+                "execute if score @s hitori_glitch matches 7 run title @a[r=32] actionbar §b◆GLITCH 負荷 §c■■■■■■■§8□ §7(7/8)",
+                "execute if score @s hitori_glitch matches 8.. run event entity @s hitori:glitch_break"
+              ]
+            }
+          }
+        ]
+      },
+      "hitori:cd_end": {
+        "sequence": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 99
+                },
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 20
+                }
+              ]
+            },
+            "remove": {
+              "component_groups": [
+                "glitch_cd"
+              ]
+            },
+            "add": {
+              "component_groups": [
+                "glitch_on"
+              ]
+            }
+          }
+        ]
+      },
+      "hitori:glitch_break": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_20",
+            "glitch_on",
+            "glitch_cd",
+            "final_guard",
+            "ai"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_99",
+            "stunned_sensor"
+          ]
+        },
+        "queue_command": {
+          "command": [
+            "scoreboard players set @s hitori_glitch 0"
+          ]
+        }
+      },
+      "hitori:glitch_restore": {
+        "remove": {
+          "component_groups": [
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_20",
+            "v_99",
+            "glitch_cd",
+            "stunned_sensor",
+            "final_guard"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_0",
+            "glitch_on",
+            "ai"
+          ]
+        },
+        "queue_command": {
+          "command": [
+            "scoreboard players set @s hitori_glitch 0",
+            "title @a[r=48] actionbar §c§lGlitch 再起動",
+            "particle hitori:noise_big ~ ~1 ~",
+            "particle hitori:shockwave ~ ~0.1 ~",
+            "playsound beacon.activate @a[r=32] ~ ~ ~ 1 1.5"
+          ]
+        }
+      },
+      "hitori:skill_end": {
+        "sequence": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 99
+                },
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 20
+                }
+              ]
+            },
+            "remove": {
+              "component_groups": [
+                "v_1",
+                "v_2",
+                "v_3",
+                "v_4",
+                "v_5",
+                "v_6",
+                "v_7",
+                "v_8",
+                "v_9",
+                "v_10",
+                "v_11",
+                "v_12",
+                "v_13",
+                "v_14",
+                "v_20",
+                "v_99"
+              ]
+            },
+            "add": {
+              "component_groups": [
+                "v_0"
+              ]
+            }
+          }
+        ]
+      },
+      "hitori:phase2": {
+        "remove": {
+          "component_groups": [
+            "phase_1"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "phase_2"
+          ]
+        },
+        "queue_command": {
+          "command": [
+            "title @a[r=64] title §5名前のない怪物",
+            "title @a[r=64] subtitle §7――ノイズが、止まらない",
+            "playsound mob.wither.spawn @a[r=64] ~ ~ ~ 1 1.4",
+            "particle hitori:noise_big ~ ~1 ~",
+            "particle hitori:shockwave_big ~ ~0.1 ~",
+            "camerashake add @a[r=32] 1.0 0.6 positional",
+            "tellraw @a[r=64] {\"rawtext\":[{\"text\":\"§8[TIP] §7Glitch がより強固になった（負荷上限 8）\"}]}"
+          ]
+        }
+      },
+      "hitori:final": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_99",
+            "glitch_on",
+            "glitch_cd",
+            "stunned_sensor",
+            "phase_1",
+            "phase_2"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_20",
+            "final_guard",
+            "phase_3"
+          ]
+        }
+      },
+      "hitori:final_end": {
+        "remove": {
+          "component_groups": [
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_20",
+            "v_99",
+            "final_guard",
+            "glitch_cd"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_0",
+            "glitch_on"
+          ]
+        },
+        "queue_command": {
+          "command": [
+            "scoreboard players set @s hitori_glitch 0"
+          ]
+        }
+      },
+      "hitori:skill_1": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_20",
+            "v_99"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_1"
+          ]
+        }
+      },
+      "hitori:skill_2": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_20",
+            "v_99"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_2"
+          ]
+        }
+      },
+      "hitori:skill_3": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_20",
+            "v_99"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_3"
+          ]
+        }
+      },
+      "hitori:skill_4": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_20",
+            "v_99"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_4"
+          ]
+        }
+      },
+      "hitori:skill_5": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_20",
+            "v_99"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_5"
+          ]
+        }
+      },
+      "hitori:skill_6": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_20",
+            "v_99"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_6"
+          ]
+        }
+      },
+      "hitori:skill_7": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_20",
+            "v_99"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_7"
+          ]
+        }
+      },
+      "hitori:skill_8": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_20",
+            "v_99"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_8"
+          ]
+        }
+      },
+      "hitori:skill_9": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_20",
+            "v_99"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_9"
+          ]
+        }
+      },
+      "hitori:skill_10": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_20",
+            "v_99"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_10"
+          ]
+        }
+      },
+      "hitori:skill_11": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_20",
+            "v_99"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_11"
+          ]
+        }
+      },
+      "hitori:skill_12": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_13",
+            "v_14",
+            "v_20",
+            "v_99"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_12"
+          ]
+        }
+      },
+      "hitori:skill_13": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_14",
+            "v_20",
+            "v_99"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_13"
+          ]
+        }
+      },
+      "hitori:skill_14": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_20",
+            "v_99"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_14"
+          ]
+        }
+      },
+      "hitori:choose_skill": {
+        "sequence": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 0
+                },
+                {
+                  "test": "distance_to_nearest_player",
+                  "operator": "<=",
+                  "value": 7
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_3"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_4"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_6"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_7"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_8"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_9"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_11"
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 0
+                },
+                {
+                  "test": "distance_to_nearest_player",
+                  "operator": ">",
+                  "value": 7
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_3"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_3"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_7"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_8"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_11"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_11"
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 1
+                },
+                {
+                  "test": "distance_to_nearest_player",
+                  "operator": "<=",
+                  "value": 7
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_3"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_4"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_6"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_7"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_8"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_9"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_11"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_12"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_6"
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 1
+                },
+                {
+                  "test": "distance_to_nearest_player",
+                  "operator": ">",
+                  "value": 7
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_3"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_3"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_7"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_8"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_11"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_11"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_12"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_10"
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 2
+                },
+                {
+                  "test": "distance_to_nearest_player",
+                  "operator": "<=",
+                  "value": 7
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_3"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_4"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_6"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_7"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_8"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_9"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_11"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_12"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_6"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_14"
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 2
+                },
+                {
+                  "test": "distance_to_nearest_player",
+                  "operator": ">",
+                  "value": 7
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_3"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_3"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_7"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_8"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_11"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_11"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_12"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_14"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

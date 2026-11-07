@@ -1,0 +1,2787 @@
+{
+  "format_version": "1.10.0",
+  "animations": {
+    "animation.hitori.skill_1": {
+      "animation_length": 1.2,
+      "loop": false,
+      "timeline": {
+        "0.00": [
+          "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b独§7「……ラグってる？　ごめんね」\"}]}",
+          "/playsound note.bit @a[r=40] ~ ~ ~ 1.0 0.50"
+        ],
+        "0.10": [
+          "/particle hitori:afterimage ~ ~0.9 ~",
+          "/execute at @p[r=48,m=!creative] run tp @s ~-3.2 ~ ~-1.2",
+          "/particle hitori:noise_burst ~ ~1 ~",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 1.0 1.60"
+        ],
+        "0.30": [
+          "/particle hitori:afterimage ~ ~0.9 ~",
+          "/execute at @p[r=48,m=!creative] run tp @s ~2.4 ~ ~-0.1",
+          "/particle hitori:noise_burst ~ ~1 ~",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 1.0 1.80"
+        ],
+        "0.50": [
+          "/particle hitori:afterimage ~ ~0.9 ~",
+          "/execute at @p[r=48,m=!creative] run tp @s ~-0.0 ~ ~2.4",
+          "/particle hitori:noise_burst ~ ~1 ~",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 1.0 2.00"
+        ],
+        "0.75": [
+          "/particle hitori:afterimage ~ ~0.9 ~",
+          "/execute as @p[r=48,m=!creative] at @s positioned ^ ^ ^-1.5 run tp @e[type=hitori:denshi_hitori,c=1] ~ ~ ~ facing @s",
+          "/camera @a[r=16] fade time 0.00 0.05 0.05 color 0 0 0"
+        ],
+        "0.90": [
+          "/damage @a[r=3.5,m=!creative] 17 entity_attack entity @s",
+          "/execute at @a[r=3.5,m=!creative] run particle hitori:noise_burst ~ ~1 ~",
+          "/playsound random.glass @a[r=30] ~ ~ ~ 1.0 0.60",
+          "/camerashake add @a[r=10] 0.60 0.30 positional"
+        ]
+      }
+    },
+    "animation.hitori.skill_2": {
+      "animation_length": 2.2,
+      "loop": false,
+      "timeline": {
+        "0.00": [
+          "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b【Remake】§7「――最初から、やり直そっか」\"}]}",
+          "/execute at @a[r=48,m=!creative] run summon hitori:marker ~ ~ ~ hitori:as_rollback",
+          "/execute at @a[r=48,m=!creative] run particle hitori:error_one ~ ~2.4 ~",
+          "/playsound random.orb @a[r=40] ~ ~ ~ 1.0 0.50"
+        ],
+        "0.30": [
+          "/execute at @e[family=rollback] run particle hitori:warn_cyan ~ ~0.1 ~",
+          "/playsound note.bit @a[r=40] ~ ~ ~ 0.6 1.82"
+        ],
+        "0.60": [
+          "/execute at @e[family=rollback] run particle hitori:warn_cyan ~ ~0.1 ~",
+          "/playsound note.bit @a[r=40] ~ ~ ~ 0.6 1.64"
+        ],
+        "0.90": [
+          "/execute at @e[family=rollback] run particle hitori:warn_cyan ~ ~0.1 ~",
+          "/playsound note.bit @a[r=40] ~ ~ ~ 0.6 1.46"
+        ],
+        "1.20": [
+          "/execute at @e[family=rollback] run particle hitori:warn_cyan ~ ~0.1 ~",
+          "/playsound note.bit @a[r=40] ~ ~ ~ 0.6 1.28"
+        ],
+        "1.40": [
+          "/execute as @a[r=48,m=!creative] at @s run tp @s @e[family=rollback,c=1]",
+          "/execute at @e[family=rollback] run damage @a[r=1.6,m=!creative] 16 magic entity @e[type=hitori:denshi_hitori,c=1]",
+          "/execute at @e[family=rollback] run particle hitori:noise_big ~ ~1 ~",
+          "/effect @a[r=48,m=!creative] nausea 5 0 true",
+          "/camera @a[r=48] fade time 0.05 0.10 0.20 color 40 255 255",
+          "/playsound random.glass @a[r=48] ~ ~ ~ 1.0 0.50",
+          "/camerashake add @a[r=48] 0.70 0.40 positional"
+        ],
+        "1.60": [
+          "/event entity @e[family=rollback] hitori:despawn"
+        ]
+      }
+    },
+    "animation.hitori.skill_3": {
+      "animation_length": 2.2,
+      "loop": false,
+      "timeline": {
+        "0.00": [
+          "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§d【Missing Texture】§7「あれ、テクスチャ読み込めてないや」\"}]}",
+          "/playsound random.glass @a[r=40] ~ ~ ~ 1.0 1.50"
+        ],
+        "0.10": [
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~ ~ ~ hitori:as_missing_a",
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~-2.9 ~ ~-1.3 hitori:as_missing_a",
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~-2.3 ~ ~2.9 hitori:as_missing_a",
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~-0.2 ~ ~1.1 hitori:as_missing_a",
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~-1.6 ~ ~0.7 hitori:as_missing_a"
+        ],
+        "0.15": [
+          "/execute at @e[family=missing_a] run particle hitori:missing_tex ~ ~0.8 ~",
+          "/execute at @e[family=missing_a] run particle hitori:warn_magenta ~ ~0.1 ~"
+        ],
+        "0.40": [
+          "/execute at @e[family=missing_a] run particle hitori:missing_tex ~ ~0.8 ~",
+          "/execute at @e[family=missing_a] run particle hitori:warn_magenta ~ ~0.1 ~"
+        ],
+        "0.65": [
+          "/execute at @e[family=missing_a] run particle hitori:missing_tex ~ ~0.8 ~",
+          "/execute at @e[family=missing_a] run particle hitori:warn_magenta ~ ~0.1 ~"
+        ],
+        "0.90": [
+          "/execute at @e[family=missing_a] run particle hitori:missing_tex ~ ~0.8 ~",
+          "/execute at @e[family=missing_a] run particle hitori:warn_magenta ~ ~0.1 ~",
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~ ~ ~ hitori:as_missing_b",
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~-3.2 ~ ~3.6 hitori:as_missing_b",
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~-1.3 ~ ~-1.8 hitori:as_missing_b",
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~3.8 ~ ~0.1 hitori:as_missing_b",
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~0.8 ~ ~1.7 hitori:as_missing_b"
+        ],
+        "0.95": [
+          "/execute at @e[family=missing_b] run particle hitori:missing_tex ~ ~0.8 ~",
+          "/execute at @e[family=missing_b] run particle hitori:warn_magenta ~ ~0.1 ~"
+        ],
+        "1.20": [
+          "/execute at @e[family=missing_a] run damage @a[r=2.6,m=!creative] 15 entity_explosion entity @e[type=hitori:denshi_hitori,c=1]",
+          "/execute at @e[family=missing_a] run particle hitori:missing_burst ~ ~0.8 ~",
+          "/execute at @e[family=missing_a] run particle hitori:noise_burst ~ ~0.8 ~",
+          "/execute at @e[family=missing_a] run playsound random.explode @a[r=24] ~ ~ ~ 0.7 1.6",
+          "/camerashake add @a[r=32] 0.50 0.30 positional",
+          "/event entity @e[family=missing_a] hitori:despawn",
+          "/execute at @e[family=missing_b] run particle hitori:missing_tex ~ ~0.8 ~",
+          "/execute at @e[family=missing_b] run particle hitori:warn_magenta ~ ~0.1 ~"
+        ],
+        "1.45": [
+          "/execute at @e[family=missing_b] run particle hitori:missing_tex ~ ~0.8 ~",
+          "/execute at @e[family=missing_b] run particle hitori:warn_magenta ~ ~0.1 ~"
+        ],
+        "1.70": [
+          "/execute at @e[family=missing_b] run particle hitori:missing_tex ~ ~0.8 ~",
+          "/execute at @e[family=missing_b] run particle hitori:warn_magenta ~ ~0.1 ~"
+        ],
+        "2.00": [
+          "/execute at @e[family=missing_b] run damage @a[r=2.6,m=!creative] 15 entity_explosion entity @e[type=hitori:denshi_hitori,c=1]",
+          "/execute at @e[family=missing_b] run particle hitori:missing_burst ~ ~0.8 ~",
+          "/execute at @e[family=missing_b] run particle hitori:noise_burst ~ ~0.8 ~",
+          "/execute at @e[family=missing_b] run playsound random.explode @a[r=24] ~ ~ ~ 0.7 1.6",
+          "/camerashake add @a[r=32] 0.50 0.30 positional",
+          "/event entity @e[family=missing_b] hitori:despawn"
+        ]
+      }
+    },
+    "animation.hitori.skill_4": {
+      "animation_length": 2.2,
+      "loop": false,
+      "timeline": {
+        "0.00": [
+          "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§c【座標破損】§7「x = NaN、y = NaN……あはは」\"}]}",
+          "/effect @a[r=14,m=!creative] levitation 2 3 true",
+          "/effect @a[r=14,m=!creative] nausea 6 0 true",
+          "/execute at @a[r=14,m=!creative] run particle hitori:noise_big ~ ~1 ~",
+          "/playsound random.glass @a[r=40] ~ ~ ~ 1.0 0.40"
+        ],
+        "0.20": [
+          "/execute as @a[r=16,m=!creative] at @s run tp @s ~ ~0.35 ~",
+          "/execute at @a[r=16,m=!creative] run particle hitori:noise_burst ~ ~1 ~",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 0.6 0.50"
+        ],
+        "0.40": [
+          "/execute as @a[r=16,m=!creative] at @s run tp @s ~ ~0.35 ~",
+          "/execute at @a[r=16,m=!creative] run particle hitori:noise_burst ~ ~1 ~",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 0.6 0.70"
+        ],
+        "0.60": [
+          "/execute as @a[r=16,m=!creative] at @s run tp @s ~ ~0.35 ~",
+          "/execute at @a[r=16,m=!creative] run particle hitori:noise_burst ~ ~1 ~",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 0.6 0.90"
+        ],
+        "0.80": [
+          "/execute as @a[r=16,m=!creative] at @s run tp @s ~ ~0.35 ~",
+          "/execute at @a[r=16,m=!creative] run particle hitori:noise_burst ~ ~1 ~",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 0.6 1.10"
+        ],
+        "1.00": [
+          "/execute as @a[r=16,m=!creative] at @s run tp @s ~ ~0.35 ~",
+          "/execute at @a[r=16,m=!creative] run particle hitori:noise_burst ~ ~1 ~",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 0.6 1.30"
+        ],
+        "1.20": [
+          "/execute as @a[r=16,m=!creative] at @s run tp @s ~ ~0.35 ~",
+          "/execute at @a[r=16,m=!creative] run particle hitori:noise_burst ~ ~1 ~",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 0.6 1.50"
+        ],
+        "1.60": [
+          "/damage @a[r=18,m=!creative] 14 magic entity @s",
+          "/execute at @a[r=18,m=!creative] run particle hitori:shockwave ~ ~0.1 ~",
+          "/effect @a[r=18,m=!creative] slowness 3 2 true",
+          "/camera @a[r=24] fade time 0.05 0.10 0.20 color 255 0 80",
+          "/camerashake add @a[r=24] 0.80 0.40 positional"
+        ]
+      }
+    },
+    "animation.hitori.skill_5": {
+      "animation_length": 2.0,
+      "loop": false,
+      "timeline": {
+        "0.00": [
+          "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§7【フレーム落ち】§f「カク、カク、カク……」\"}]}",
+          "/effect @a[r=10,m=!creative] slowness 2 255 true",
+          "/playsound note.bit @a[r=40] ~ ~ ~ 1.0 0.50"
+        ],
+        "0.35": [
+          "/particle hitori:afterimage ~ ~0.9 ~",
+          "/execute as @p[r=48,m=!creative] at @s positioned ^1.3 ^ ^ run tp @e[type=hitori:denshi_hitori,c=1] ~ ~ ~ facing @s",
+          "/camera @a[r=16] fade time 0.00 0.10 0.05 color 0 0 0"
+        ],
+        "0.40": [
+          "/damage @a[r=3.2,m=!creative] 9 entity_attack entity @s",
+          "/execute at @a[r=3.2,m=!creative] run particle hitori:noise_burst ~ ~1 ~",
+          "/playsound random.glass @a[r=30] ~ ~ ~ 1.0 0.80",
+          "/camerashake add @a[r=10] 0.40 0.20 positional"
+        ],
+        "0.85": [
+          "/particle hitori:afterimage ~ ~0.9 ~",
+          "/execute as @p[r=48,m=!creative] at @s positioned ^-1.3 ^ ^ run tp @e[type=hitori:denshi_hitori,c=1] ~ ~ ~ facing @s",
+          "/camera @a[r=16] fade time 0.00 0.10 0.05 color 0 0 0"
+        ],
+        "0.90": [
+          "/damage @a[r=3.2,m=!creative] 9 entity_attack entity @s",
+          "/execute at @a[r=3.2,m=!creative] run particle hitori:noise_burst ~ ~1 ~",
+          "/playsound random.glass @a[r=30] ~ ~ ~ 1.0 1.00",
+          "/camerashake add @a[r=10] 0.40 0.20 positional"
+        ],
+        "1.35": [
+          "/particle hitori:afterimage ~ ~0.9 ~",
+          "/execute as @p[r=48,m=!creative] at @s positioned ^ ^ ^-1.3 run tp @e[type=hitori:denshi_hitori,c=1] ~ ~ ~ facing @s",
+          "/camera @a[r=16] fade time 0.00 0.10 0.05 color 0 0 0"
+        ],
+        "1.40": [
+          "/damage @a[r=3.2,m=!creative] 9 entity_attack entity @s",
+          "/execute at @a[r=3.2,m=!creative] run particle hitori:noise_burst ~ ~1 ~",
+          "/playsound random.glass @a[r=30] ~ ~ ~ 1.0 1.20",
+          "/camerashake add @a[r=10] 0.40 0.20 positional"
+        ]
+      }
+    },
+    "animation.hitori.skill_6": {
+      "animation_length": 2.2,
+      "loop": false,
+      "timeline": {
+        "0.00": [
+          "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§9【☂Mebius☂】§7「操縦権、もらうね」\"}]}",
+          "/playsound beacon.activate @a[r=40] ~ ~ ~ 1.0 1.50"
+        ],
+        "0.10": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]",
+          "/execute at @a[r=14,m=!creative] run particle hitori:bit_trail ~ ~1 ~",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 0.5 1.00"
+        ],
+        "0.15": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]"
+        ],
+        "0.20": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]"
+        ],
+        "0.25": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]"
+        ],
+        "0.30": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]",
+          "/execute at @a[r=14,m=!creative] run particle hitori:bit_trail ~ ~1 ~",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 0.5 1.12"
+        ],
+        "0.35": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]"
+        ],
+        "0.40": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]"
+        ],
+        "0.45": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]"
+        ],
+        "0.50": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]",
+          "/execute at @a[r=14,m=!creative] run particle hitori:bit_trail ~ ~1 ~",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 0.5 1.24"
+        ],
+        "0.55": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]"
+        ],
+        "0.60": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]"
+        ],
+        "0.65": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]"
+        ],
+        "0.70": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]",
+          "/execute at @a[r=14,m=!creative] run particle hitori:bit_trail ~ ~1 ~",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 0.5 1.36"
+        ],
+        "0.75": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]"
+        ],
+        "0.80": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]"
+        ],
+        "0.85": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]"
+        ],
+        "0.90": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]",
+          "/execute at @a[r=14,m=!creative] run particle hitori:bit_trail ~ ~1 ~",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 0.5 1.48"
+        ],
+        "0.95": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]"
+        ],
+        "1.00": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]"
+        ],
+        "1.05": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]"
+        ],
+        "1.10": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]",
+          "/execute at @a[r=14,m=!creative] run particle hitori:bit_trail ~ ~1 ~",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 0.5 1.60"
+        ],
+        "1.15": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]"
+        ],
+        "1.20": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]"
+        ],
+        "1.25": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]"
+        ],
+        "1.30": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]",
+          "/execute at @a[r=14,m=!creative] run particle hitori:bit_trail ~ ~1 ~",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 0.5 1.72"
+        ],
+        "1.35": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]"
+        ],
+        "1.40": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]"
+        ],
+        "1.45": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]"
+        ],
+        "1.50": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]",
+          "/execute at @a[r=14,m=!creative] run particle hitori:bit_trail ~ ~1 ~",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 0.5 1.84"
+        ],
+        "1.55": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]"
+        ],
+        "1.60": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]"
+        ],
+        "1.65": [
+          "/execute as @a[r=14,m=!creative] at @s facing entity @e[type=hitori:denshi_hitori,c=1] feet run tp @s ^0.55 ^ ^ facing @e[type=hitori:denshi_hitori,c=1]"
+        ],
+        "1.80": [
+          "/damage @a[r=14,m=!creative] 16 entity_attack entity @s",
+          "/effect @a[r=14,m=!creative] levitation 1 8 true",
+          "/particle hitori:shockwave ~ ~0.1 ~",
+          "/execute at @a[r=14,m=!creative] run particle hitori:noise_big ~ ~1 ~",
+          "/playsound random.explode @a[r=40] ~ ~ ~ 1.0 1.40",
+          "/camerashake add @a[r=16] 0.80 0.40 positional"
+        ]
+      }
+    },
+    "animation.hitori.skill_7": {
+      "animation_length": 3.2,
+      "loop": false,
+      "timeline": {
+        "0.00": [
+          "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§a【✮Northern Lights✮】§7「綺麗でしょ？　……見惚れてる場合じゃないよ」\"}]}",
+          "/particle hitori:aurora_sky ~ ~ ~",
+          "/playsound beacon.power @a[r=48] ~ ~ ~ 1.0 1.20"
+        ],
+        "0.40": [
+          "/particle hitori:aurora_ring ~ ~0.1 ~",
+          "/particle hitori:shockwave ~ ~0.1 ~",
+          "/playsound random.orb @a[r=40] ~ ~ ~ 1.0 0.72",
+          "/damage @a[r=2.9,rm=1.1,m=!creative] 12 magic entity @s"
+        ],
+        "0.50": [
+          "/damage @a[r=4.2,rm=2.4,m=!creative] 12 magic entity @s"
+        ],
+        "0.60": [
+          "/damage @a[r=5.5,rm=3.7,m=!creative] 12 magic entity @s"
+        ],
+        "0.70": [
+          "/damage @a[r=6.8,rm=5.0,m=!creative] 12 magic entity @s"
+        ],
+        "0.80": [
+          "/damage @a[r=8.1,rm=6.3,m=!creative] 12 magic entity @s"
+        ],
+        "0.90": [
+          "/damage @a[r=9.4,rm=7.6,m=!creative] 12 magic entity @s"
+        ],
+        "1.00": [
+          "/damage @a[r=10.7,rm=8.9,m=!creative] 12 magic entity @s",
+          "/particle hitori:aurora_ring ~ ~0.1 ~",
+          "/particle hitori:shockwave ~ ~0.1 ~",
+          "/playsound random.orb @a[r=40] ~ ~ ~ 1.0 0.90",
+          "/damage @a[r=2.9,rm=1.1,m=!creative] 12 magic entity @s"
+        ],
+        "1.10": [
+          "/damage @a[r=12.0,rm=10.2,m=!creative] 12 magic entity @s",
+          "/damage @a[r=4.2,rm=2.4,m=!creative] 12 magic entity @s"
+        ],
+        "1.20": [
+          "/damage @a[r=13.3,rm=11.5,m=!creative] 12 magic entity @s",
+          "/damage @a[r=5.5,rm=3.7,m=!creative] 12 magic entity @s"
+        ],
+        "1.30": [
+          "/damage @a[r=14.6,rm=12.8,m=!creative] 12 magic entity @s",
+          "/damage @a[r=6.8,rm=5.0,m=!creative] 12 magic entity @s"
+        ],
+        "1.40": [
+          "/damage @a[r=15.9,rm=14.1,m=!creative] 12 magic entity @s",
+          "/damage @a[r=8.1,rm=6.3,m=!creative] 12 magic entity @s"
+        ],
+        "1.50": [
+          "/damage @a[r=17.2,rm=15.4,m=!creative] 12 magic entity @s",
+          "/damage @a[r=9.4,rm=7.6,m=!creative] 12 magic entity @s"
+        ],
+        "1.60": [
+          "/damage @a[r=18.5,rm=16.7,m=!creative] 12 magic entity @s",
+          "/damage @a[r=10.7,rm=8.9,m=!creative] 12 magic entity @s",
+          "/particle hitori:aurora_ring ~ ~0.1 ~",
+          "/particle hitori:shockwave ~ ~0.1 ~",
+          "/playsound random.orb @a[r=40] ~ ~ ~ 1.0 1.08",
+          "/damage @a[r=2.9,rm=1.1,m=!creative] 12 magic entity @s"
+        ],
+        "1.70": [
+          "/damage @a[r=19.8,rm=18.0,m=!creative] 12 magic entity @s",
+          "/damage @a[r=12.0,rm=10.2,m=!creative] 12 magic entity @s",
+          "/damage @a[r=4.2,rm=2.4,m=!creative] 12 magic entity @s"
+        ],
+        "1.80": [
+          "/damage @a[r=13.3,rm=11.5,m=!creative] 12 magic entity @s",
+          "/damage @a[r=5.5,rm=3.7,m=!creative] 12 magic entity @s"
+        ],
+        "1.90": [
+          "/damage @a[r=14.6,rm=12.8,m=!creative] 12 magic entity @s",
+          "/damage @a[r=6.8,rm=5.0,m=!creative] 12 magic entity @s"
+        ],
+        "2.00": [
+          "/damage @a[r=15.9,rm=14.1,m=!creative] 12 magic entity @s",
+          "/damage @a[r=8.1,rm=6.3,m=!creative] 12 magic entity @s"
+        ],
+        "2.10": [
+          "/damage @a[r=17.2,rm=15.4,m=!creative] 12 magic entity @s",
+          "/damage @a[r=9.4,rm=7.6,m=!creative] 12 magic entity @s"
+        ],
+        "2.20": [
+          "/damage @a[r=18.5,rm=16.7,m=!creative] 12 magic entity @s",
+          "/damage @a[r=10.7,rm=8.9,m=!creative] 12 magic entity @s"
+        ],
+        "2.30": [
+          "/damage @a[r=19.8,rm=18.0,m=!creative] 12 magic entity @s",
+          "/damage @a[r=12.0,rm=10.2,m=!creative] 12 magic entity @s"
+        ],
+        "2.40": [
+          "/damage @a[r=13.3,rm=11.5,m=!creative] 12 magic entity @s"
+        ],
+        "2.50": [
+          "/damage @a[r=14.6,rm=12.8,m=!creative] 12 magic entity @s"
+        ],
+        "2.60": [
+          "/damage @a[r=15.9,rm=14.1,m=!creative] 12 magic entity @s"
+        ],
+        "2.70": [
+          "/damage @a[r=17.2,rm=15.4,m=!creative] 12 magic entity @s"
+        ],
+        "2.80": [
+          "/damage @a[r=18.5,rm=16.7,m=!creative] 12 magic entity @s"
+        ],
+        "2.90": [
+          "/damage @a[r=19.8,rm=18.0,m=!creative] 12 magic entity @s"
+        ]
+      }
+    },
+    "animation.hitori.skill_8": {
+      "animation_length": 1.4,
+      "loop": false,
+      "timeline": {
+        "0.00": [
+          "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§e【番狂わせ】§7「入れ替わっちゃった。……どっちが本物？」\"}]}",
+          "/playsound note.bit @a[r=40] ~ ~ ~ 1.0 1.80"
+        ],
+        "0.35": [
+          "/summon hitori:marker ~ ~ ~ hitori:as_swap_a",
+          "/execute at @p[r=48,m=!creative] run summon hitori:marker ~ ~ ~ hitori:as_swap_b",
+          "/tp @s @e[family=swap_b,c=1]",
+          "/execute at @e[family=swap_b,c=1] run tp @p[r=3,m=!creative] @e[family=swap_a,c=1]",
+          "/execute at @e[family=swap_a] run particle hitori:noise_big ~ ~1 ~",
+          "/execute at @e[family=swap_b] run particle hitori:noise_big ~ ~1 ~",
+          "/camera @a[r=32] fade time 0.05 0.10 0.20 color 255 255 255",
+          "/playsound mob.endermen.portal @a[r=40] ~ ~ ~ 1.0 1.60"
+        ],
+        "0.60": [
+          "/execute at @e[family=swap_a] run damage @a[r=2.5,m=!creative] 12 magic entity @e[type=hitori:denshi_hitori,c=1]",
+          "/execute at @e[family=swap_a] run effect @a[r=2.5,m=!creative] blindness 3 0 true",
+          "/execute at @e[family=swap_a] run effect @a[r=2.5,m=!creative] poison 4 1 true",
+          "/execute at @e[family=swap_a] run effect @a[r=2.5,m=!creative] hunger 8 2 true",
+          "/execute at @e[family=swap_a] run particle hitori:error_popup ~ ~1 ~"
+        ],
+        "0.80": [
+          "/event entity @e[family=swap_a] hitori:despawn",
+          "/event entity @e[family=swap_b] hitori:despawn"
+        ]
+      }
+    },
+    "animation.hitori.skill_9": {
+      "animation_length": 2.2,
+      "loop": false,
+      "timeline": {
+        "0.00": [
+          "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§8【目を隠す】§7「……見えないでしょ」\"}]}",
+          "/effect @s invisibility 2 0 true",
+          "/effect @a[r=20,m=!creative] darkness 3 0 true",
+          "/effect @a[r=20,m=!creative] blindness 2 0 true",
+          "/particle hitori:afterimage ~ ~0.9 ~"
+        ],
+        "0.50": [
+          "/execute as @p[r=48,m=!creative] at @s positioned ^ ^ ^-1.3 run tp @e[type=hitori:denshi_hitori,c=1] ~ ~ ~ facing @s"
+        ],
+        "0.65": [
+          "/damage @a[r=3.2,m=!creative] 14 entity_attack entity @s",
+          "/execute at @a[r=3.2,m=!creative] run particle hitori:noise_burst ~ ~1 ~",
+          "/playsound random.glass @a[r=20] ~ ~ ~ 1.0 1.20",
+          "/camerashake add @a[r=8] 0.50 0.20 positional"
+        ],
+        "1.30": [
+          "/execute as @p[r=48,m=!creative] at @s positioned ^ ^ ^-1.3 run tp @e[type=hitori:denshi_hitori,c=1] ~ ~ ~ facing @s"
+        ],
+        "1.45": [
+          "/damage @a[r=3.2,m=!creative] 14 entity_attack entity @s",
+          "/execute at @a[r=3.2,m=!creative] run particle hitori:noise_burst ~ ~1 ~",
+          "/playsound random.glass @a[r=20] ~ ~ ~ 1.0 1.20",
+          "/camerashake add @a[r=8] 0.50 0.20 positional"
+        ]
+      }
+    },
+    "animation.hitori.skill_10": {
+      "animation_length": 2.8,
+      "loop": false,
+      "timeline": {
+        "0.00": [
+          "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§f【俯瞰】§7「上から、全部見えてるよ」\"}]}",
+          "/particle hitori:afterimage ~ ~0.9 ~",
+          "/tp @s ~ ~9 ~",
+          "/effect @s slow_falling 3 0 true",
+          "/playsound beacon.activate @a[r=40] ~ ~ ~ 1.0 0.80"
+        ],
+        "0.40": [
+          "/execute at @a[r=40,m=!creative] run summon hitori:marker ~ ~ ~ hitori:as_beam_a"
+        ],
+        "0.45": [
+          "/execute at @e[family=beam_a] run particle hitori:beam_warn ~ ~ ~",
+          "/execute at @e[family=beam_a] run particle hitori:warn_red ~ ~0.1 ~"
+        ],
+        "0.65": [
+          "/execute at @e[family=beam_a] run particle hitori:beam_warn ~ ~ ~",
+          "/execute at @e[family=beam_a] run particle hitori:warn_red ~ ~0.1 ~"
+        ],
+        "0.85": [
+          "/execute at @e[family=beam_a] run particle hitori:beam_warn ~ ~ ~",
+          "/execute at @e[family=beam_a] run particle hitori:warn_red ~ ~0.1 ~"
+        ],
+        "0.95": [
+          "/execute at @e[family=beam_a] run particle hitori:beam_column ~ ~ ~",
+          "/execute at @e[family=beam_a] run particle hitori:noise_burst ~ ~0.5 ~",
+          "/execute at @e[family=beam_a] run damage @a[r=1.9,m=!creative] 14 magic entity @e[type=hitori:denshi_hitori,c=1]",
+          "/execute at @e[family=beam_a] run playsound beacon.deactivate @a[r=24] ~ ~ ~ 1 1.8",
+          "/camerashake add @a[r=40] 0.30 0.20 positional",
+          "/event entity @e[family=beam_a] hitori:despawn"
+        ],
+        "1.00": [
+          "/execute at @a[r=40,m=!creative] run summon hitori:marker ~ ~ ~ hitori:as_beam_b"
+        ],
+        "1.05": [
+          "/execute at @e[family=beam_b] run particle hitori:beam_warn ~ ~ ~",
+          "/execute at @e[family=beam_b] run particle hitori:warn_red ~ ~0.1 ~"
+        ],
+        "1.25": [
+          "/execute at @e[family=beam_b] run particle hitori:beam_warn ~ ~ ~",
+          "/execute at @e[family=beam_b] run particle hitori:warn_red ~ ~0.1 ~"
+        ],
+        "1.45": [
+          "/execute at @e[family=beam_b] run particle hitori:beam_warn ~ ~ ~",
+          "/execute at @e[family=beam_b] run particle hitori:warn_red ~ ~0.1 ~"
+        ],
+        "1.55": [
+          "/execute at @e[family=beam_b] run particle hitori:beam_column ~ ~ ~",
+          "/execute at @e[family=beam_b] run particle hitori:noise_burst ~ ~0.5 ~",
+          "/execute at @e[family=beam_b] run damage @a[r=1.9,m=!creative] 14 magic entity @e[type=hitori:denshi_hitori,c=1]",
+          "/execute at @e[family=beam_b] run playsound beacon.deactivate @a[r=24] ~ ~ ~ 1 1.8",
+          "/camerashake add @a[r=40] 0.30 0.20 positional",
+          "/event entity @e[family=beam_b] hitori:despawn"
+        ],
+        "1.60": [
+          "/execute at @a[r=40,m=!creative] run summon hitori:marker ~ ~ ~ hitori:as_beam_a"
+        ],
+        "1.65": [
+          "/execute at @e[family=beam_a] run particle hitori:beam_warn ~ ~ ~",
+          "/execute at @e[family=beam_a] run particle hitori:warn_red ~ ~0.1 ~"
+        ],
+        "1.85": [
+          "/execute at @e[family=beam_a] run particle hitori:beam_warn ~ ~ ~",
+          "/execute at @e[family=beam_a] run particle hitori:warn_red ~ ~0.1 ~"
+        ],
+        "2.05": [
+          "/execute at @e[family=beam_a] run particle hitori:beam_warn ~ ~ ~",
+          "/execute at @e[family=beam_a] run particle hitori:warn_red ~ ~0.1 ~"
+        ],
+        "2.15": [
+          "/execute at @e[family=beam_a] run particle hitori:beam_column ~ ~ ~",
+          "/execute at @e[family=beam_a] run particle hitori:noise_burst ~ ~0.5 ~",
+          "/execute at @e[family=beam_a] run damage @a[r=1.9,m=!creative] 14 magic entity @e[type=hitori:denshi_hitori,c=1]",
+          "/execute at @e[family=beam_a] run playsound beacon.deactivate @a[r=24] ~ ~ ~ 1 1.8",
+          "/camerashake add @a[r=40] 0.30 0.20 positional",
+          "/event entity @e[family=beam_a] hitori:despawn"
+        ],
+        "2.20": [
+          "/execute at @a[r=40,m=!creative] run summon hitori:marker ~ ~ ~ hitori:as_beam_b"
+        ],
+        "2.25": [
+          "/execute at @e[family=beam_b] run particle hitori:beam_warn ~ ~ ~",
+          "/execute at @e[family=beam_b] run particle hitori:warn_red ~ ~0.1 ~"
+        ],
+        "2.45": [
+          "/execute at @e[family=beam_b] run particle hitori:beam_warn ~ ~ ~",
+          "/execute at @e[family=beam_b] run particle hitori:warn_red ~ ~0.1 ~"
+        ],
+        "2.65": [
+          "/execute at @e[family=beam_b] run particle hitori:beam_warn ~ ~ ~",
+          "/execute at @e[family=beam_b] run particle hitori:warn_red ~ ~0.1 ~"
+        ],
+        "2.75": [
+          "/execute at @e[family=beam_b] run particle hitori:beam_column ~ ~ ~",
+          "/execute at @e[family=beam_b] run particle hitori:noise_burst ~ ~0.5 ~",
+          "/execute at @e[family=beam_b] run damage @a[r=1.9,m=!creative] 14 magic entity @e[type=hitori:denshi_hitori,c=1]",
+          "/execute at @e[family=beam_b] run playsound beacon.deactivate @a[r=24] ~ ~ ~ 1 1.8",
+          "/camerashake add @a[r=40] 0.30 0.20 positional",
+          "/event entity @e[family=beam_b] hitori:despawn"
+        ]
+      }
+    },
+    "animation.hitori.skill_11": {
+      "animation_length": 1.6,
+      "loop": false,
+      "timeline": {
+        "0.00": [
+          "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§d【Bit Shot】§7「バン、バン、バン」\"}]}"
+        ],
+        "0.35": [
+          "/summon hitori:bit_bullet ^ ^1.3 ^0.6 hitori:aim_m14",
+          "/summon hitori:bit_bullet ^ ^1.3 ^0.6 hitori:aim_2",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 1.0 1.00",
+          "/particle hitori:noise_burst ^ ^1.3 ^0.8"
+        ],
+        "0.53": [
+          "/summon hitori:bit_bullet ^ ^1.3 ^0.6 hitori:aim_m5",
+          "/summon hitori:bit_bullet ^ ^1.3 ^0.6 hitori:aim_6",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 1.0 1.15",
+          "/particle hitori:noise_burst ^ ^1.3 ^0.8"
+        ],
+        "0.71": [
+          "/summon hitori:bit_bullet ^ ^1.3 ^0.6 hitori:aim_4",
+          "/summon hitori:bit_bullet ^ ^1.3 ^0.6 hitori:aim_12",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 1.0 1.30",
+          "/particle hitori:noise_burst ^ ^1.3 ^0.8"
+        ],
+        "0.89": [
+          "/summon hitori:bit_bullet ^ ^1.3 ^0.6 hitori:aim_m10",
+          "/summon hitori:bit_bullet ^ ^1.3 ^0.6 hitori:aim_9",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 1.0 1.45",
+          "/particle hitori:noise_burst ^ ^1.3 ^0.8"
+        ],
+        "1.07": [
+          "/summon hitori:bit_bullet ^ ^1.3 ^0.6 hitori:aim_0",
+          "/summon hitori:bit_bullet ^ ^1.3 ^0.6 hitori:aim_14",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 1.0 1.60",
+          "/particle hitori:noise_burst ^ ^1.3 ^0.8"
+        ],
+        "1.25": [
+          "/summon hitori:bit_bullet ^ ^1.3 ^0.6 hitori:aim_10",
+          "/summon hitori:bit_bullet ^ ^1.3 ^0.6 hitori:aim_m2",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 1.0 1.75",
+          "/particle hitori:noise_burst ^ ^1.3 ^0.8"
+        ]
+      }
+    },
+    "animation.hitori.skill_12": {
+      "animation_length": 1.4,
+      "loop": false,
+      "timeline": {
+        "0.00": [
+          "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§c【Fork Bomb】§7「増えて、増えて、弾けて」\"}]}",
+          "/playsound mob.evocation_illager.prepare_summon @a[r=40] ~ ~ ~ 1.0 1.60"
+        ],
+        "0.80": [
+          "/summon hitori:fragment ^1.5 ^1 ^",
+          "/summon hitori:fragment ^-1.5 ^1 ^",
+          "/summon hitori:fragment ^ ^1 ^-1.5",
+          "/particle hitori:noise_big ~ ~1 ~",
+          "/playsound random.glass @a[r=40] ~ ~ ~ 1.0 1.80"
+        ]
+      }
+    },
+    "animation.hitori.skill_13": {
+      "animation_length": 4.0,
+      "loop": false,
+      "timeline": {
+        "0.00": [
+          "/title @a[r=48] title §c§lDESTRUCTION",
+          "/title @a[r=48] subtitle §73, 2, 1――",
+          "/effect @s slowness 4 255 true",
+          "/playsound mob.wither.spawn @a[r=48] ~ ~ ~ 1.0 1.60"
+        ],
+        "0.20": [
+          "/particle hitori:safe_zone ~ ~0.1 ~"
+        ],
+        "0.50": [
+          "/particle hitori:num_3 ~ ~4.5 ~",
+          "/playsound note.bit @a[r=48] ~ ~ ~ 1.0 0.70",
+          "/playsound note.bass @a[r=48] ~ ~ ~ 1.0 0.70",
+          "/title @a[r=48] actionbar §a§l安全地帯 → 独のすぐそば（4マス以内）",
+          "/camera @a[r=48] fade time 0.00 0.05 0.20 color 255 0 0"
+        ],
+        "0.70": [
+          "/particle hitori:safe_zone ~ ~0.1 ~"
+        ],
+        "1.20": [
+          "/particle hitori:safe_zone ~ ~0.1 ~"
+        ],
+        "1.50": [
+          "/particle hitori:num_2 ~ ~4.5 ~",
+          "/playsound note.bit @a[r=48] ~ ~ ~ 1.0 0.90",
+          "/playsound note.bass @a[r=48] ~ ~ ~ 1.0 0.90",
+          "/title @a[r=48] actionbar §a§l安全地帯 → 独のすぐそば（4マス以内）",
+          "/camera @a[r=48] fade time 0.00 0.05 0.20 color 255 0 0"
+        ],
+        "1.70": [
+          "/particle hitori:safe_zone ~ ~0.1 ~"
+        ],
+        "2.20": [
+          "/particle hitori:safe_zone ~ ~0.1 ~"
+        ],
+        "2.50": [
+          "/particle hitori:num_1 ~ ~4.5 ~",
+          "/playsound note.bit @a[r=48] ~ ~ ~ 1.0 1.20",
+          "/playsound note.bass @a[r=48] ~ ~ ~ 1.0 1.20",
+          "/title @a[r=48] actionbar §a§l安全地帯 → 独のすぐそば（4マス以内）",
+          "/camera @a[r=48] fade time 0.00 0.05 0.20 color 255 0 0"
+        ],
+        "2.70": [
+          "/particle hitori:safe_zone ~ ~0.1 ~"
+        ],
+        "3.20": [
+          "/particle hitori:safe_zone ~ ~0.1 ~"
+        ],
+        "3.50": [
+          "/damage @a[r=48,rm=4.5,m=!creative] 30 entity_explosion entity @s",
+          "/particle hitori:destruction ~ ~1 ~",
+          "/particle hitori:shockwave_big ~ ~0.1 ~",
+          "/particle minecraft:huge_explosion_emitter ~ ~1 ~",
+          "/execute at @a[r=48,m=!creative] run particle hitori:noise_big ~ ~1 ~",
+          "/playsound random.explode @a[r=64] ~ ~ ~ 1.0 0.50",
+          "/playsound mob.wither.death @a[r=64] ~ ~ ~ 1.0 1.50",
+          "/camera @a[r=48] fade time 0.00 0.10 0.50 color 255 255 255",
+          "/camerashake add @a[r=48] 2.50 1.00 positional"
+        ]
+      }
+    },
+    "animation.hitori.skill_14": {
+      "animation_length": 5.0,
+      "loop": false,
+      "timeline": {
+        "0.00": [
+          "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b§l【↓FREEDOM DiVE↓】§7「――ついてこれる？」\"}]}",
+          "/playsound note.bit @a[r=40] ~ ~ ~ 1.0 2.00"
+        ],
+        "0.60": [
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~ ~ ~ hitori:as_note_0",
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~-0.0 ~ ~2.8 hitori:as_note_0",
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~-1.2 ~ ~-0.7 hitori:as_note_0",
+          "/playsound note.bit @a[r=48] ~ ~ ~ 1.0 1.00",
+          "/playsound note.hat @a[r=48] ~ ~ ~ 0.6 1.00"
+        ],
+        "0.62": [
+          "/execute at @e[family=note_0] run particle hitori:note_fall ~ ~ ~",
+          "/execute at @e[family=note_0] run particle hitori:warn_cyan ~ ~0.1 ~"
+        ],
+        "0.90": [
+          "/execute at @e[family=note_0] run particle hitori:warn_cyan ~ ~0.1 ~"
+        ],
+        "0.95": [
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~ ~ ~ hitori:as_note_1",
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~0.3 ~ ~-0.9 hitori:as_note_1",
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~-1.4 ~ ~1.1 hitori:as_note_1",
+          "/playsound note.bit @a[r=48] ~ ~ ~ 1.0 1.19",
+          "/playsound note.hat @a[r=48] ~ ~ ~ 0.6 1.00"
+        ],
+        "0.97": [
+          "/execute at @e[family=note_1] run particle hitori:note_fall ~ ~ ~",
+          "/execute at @e[family=note_1] run particle hitori:warn_cyan ~ ~0.1 ~"
+        ],
+        "1.20": [
+          "/execute at @e[family=note_0] run damage @a[r=1.6,m=!creative] 10 magic entity @e[type=hitori:denshi_hitori,c=1]",
+          "/execute at @e[family=note_0] run particle hitori:note_hit ~ ~0.2 ~",
+          "/event entity @e[family=note_0] hitori:despawn"
+        ],
+        "1.25": [
+          "/execute at @e[family=note_1] run particle hitori:warn_cyan ~ ~0.1 ~"
+        ],
+        "1.30": [
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~ ~ ~ hitori:as_note_0",
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~1.8 ~ ~3.0 hitori:as_note_0",
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~2.1 ~ ~0.1 hitori:as_note_0",
+          "/playsound note.bit @a[r=48] ~ ~ ~ 1.0 1.50",
+          "/playsound note.hat @a[r=48] ~ ~ ~ 0.6 1.00"
+        ],
+        "1.32": [
+          "/execute at @e[family=note_0] run particle hitori:note_fall ~ ~ ~",
+          "/execute at @e[family=note_0] run particle hitori:warn_cyan ~ ~0.1 ~"
+        ],
+        "1.55": [
+          "/execute at @e[family=note_1] run damage @a[r=1.6,m=!creative] 10 magic entity @e[type=hitori:denshi_hitori,c=1]",
+          "/execute at @e[family=note_1] run particle hitori:note_hit ~ ~0.2 ~",
+          "/event entity @e[family=note_1] hitori:despawn"
+        ],
+        "1.60": [
+          "/execute at @e[family=note_0] run particle hitori:warn_cyan ~ ~0.1 ~"
+        ],
+        "1.65": [
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~ ~ ~ hitori:as_note_1",
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~1.1 ~ ~-2.4 hitori:as_note_1",
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~-1.8 ~ ~1.6 hitori:as_note_1",
+          "/playsound note.bit @a[r=48] ~ ~ ~ 1.0 1.19",
+          "/playsound note.hat @a[r=48] ~ ~ ~ 0.6 1.00"
+        ],
+        "1.67": [
+          "/execute at @e[family=note_1] run particle hitori:note_fall ~ ~ ~",
+          "/execute at @e[family=note_1] run particle hitori:warn_cyan ~ ~0.1 ~"
+        ],
+        "1.90": [
+          "/execute at @e[family=note_0] run damage @a[r=1.6,m=!creative] 10 magic entity @e[type=hitori:denshi_hitori,c=1]",
+          "/execute at @e[family=note_0] run particle hitori:note_hit ~ ~0.2 ~",
+          "/event entity @e[family=note_0] hitori:despawn"
+        ],
+        "1.95": [
+          "/execute at @e[family=note_1] run particle hitori:warn_cyan ~ ~0.1 ~"
+        ],
+        "2.00": [
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~ ~ ~ hitori:as_note_0",
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~2.2 ~ ~-1.0 hitori:as_note_0",
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~2.4 ~ ~2.9 hitori:as_note_0",
+          "/playsound note.bit @a[r=48] ~ ~ ~ 1.0 1.00",
+          "/playsound note.hat @a[r=48] ~ ~ ~ 0.6 1.00"
+        ],
+        "2.02": [
+          "/execute at @e[family=note_0] run particle hitori:note_fall ~ ~ ~",
+          "/execute at @e[family=note_0] run particle hitori:warn_cyan ~ ~0.1 ~"
+        ],
+        "2.25": [
+          "/execute at @e[family=note_1] run damage @a[r=1.6,m=!creative] 10 magic entity @e[type=hitori:denshi_hitori,c=1]",
+          "/execute at @e[family=note_1] run particle hitori:note_hit ~ ~0.2 ~",
+          "/event entity @e[family=note_1] hitori:despawn"
+        ],
+        "2.30": [
+          "/execute at @e[family=note_0] run particle hitori:warn_cyan ~ ~0.1 ~"
+        ],
+        "2.35": [
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~ ~ ~ hitori:as_note_1",
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~2.3 ~ ~2.7 hitori:as_note_1",
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~0.1 ~ ~0.8 hitori:as_note_1",
+          "/playsound note.bit @a[r=48] ~ ~ ~ 1.0 1.50",
+          "/playsound note.hat @a[r=48] ~ ~ ~ 0.6 1.00"
+        ],
+        "2.37": [
+          "/execute at @e[family=note_1] run particle hitori:note_fall ~ ~ ~",
+          "/execute at @e[family=note_1] run particle hitori:warn_cyan ~ ~0.1 ~"
+        ],
+        "2.60": [
+          "/execute at @e[family=note_0] run damage @a[r=1.6,m=!creative] 10 magic entity @e[type=hitori:denshi_hitori,c=1]",
+          "/execute at @e[family=note_0] run particle hitori:note_hit ~ ~0.2 ~",
+          "/event entity @e[family=note_0] hitori:despawn"
+        ],
+        "2.65": [
+          "/execute at @e[family=note_1] run particle hitori:warn_cyan ~ ~0.1 ~"
+        ],
+        "2.70": [
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~ ~ ~ hitori:as_note_0",
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~-2.2 ~ ~0.2 hitori:as_note_0",
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~1.4 ~ ~-0.3 hitori:as_note_0",
+          "/playsound note.bit @a[r=48] ~ ~ ~ 1.0 1.78",
+          "/playsound note.hat @a[r=48] ~ ~ ~ 0.6 1.00"
+        ],
+        "2.72": [
+          "/execute at @e[family=note_0] run particle hitori:note_fall ~ ~ ~",
+          "/execute at @e[family=note_0] run particle hitori:warn_cyan ~ ~0.1 ~"
+        ],
+        "2.95": [
+          "/execute at @e[family=note_1] run damage @a[r=1.6,m=!creative] 10 magic entity @e[type=hitori:denshi_hitori,c=1]",
+          "/execute at @e[family=note_1] run particle hitori:note_hit ~ ~0.2 ~",
+          "/event entity @e[family=note_1] hitori:despawn"
+        ],
+        "3.00": [
+          "/execute at @e[family=note_0] run particle hitori:warn_cyan ~ ~0.1 ~"
+        ],
+        "3.05": [
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~ ~ ~ hitori:as_note_1",
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~0.0 ~ ~-1.3 hitori:as_note_1",
+          "/execute at @a[r=32,m=!creative] run summon hitori:marker ~1.7 ~ ~-0.1 hitori:as_note_1",
+          "/playsound note.bit @a[r=48] ~ ~ ~ 1.0 2.00",
+          "/playsound note.hat @a[r=48] ~ ~ ~ 0.6 1.00"
+        ],
+        "3.07": [
+          "/execute at @e[family=note_1] run particle hitori:note_fall ~ ~ ~",
+          "/execute at @e[family=note_1] run particle hitori:warn_cyan ~ ~0.1 ~"
+        ],
+        "3.30": [
+          "/execute at @e[family=note_0] run damage @a[r=1.6,m=!creative] 10 magic entity @e[type=hitori:denshi_hitori,c=1]",
+          "/execute at @e[family=note_0] run particle hitori:note_hit ~ ~0.2 ~",
+          "/event entity @e[family=note_0] hitori:despawn"
+        ],
+        "3.35": [
+          "/execute at @e[family=note_1] run particle hitori:warn_cyan ~ ~0.1 ~"
+        ],
+        "3.60": [
+          "/tp @s ~ ~12 ~",
+          "/particle hitori:afterimage ~ ~-11 ~",
+          "/playsound mob.enderdragon.flap @a[r=40] ~ ~ ~ 1.0 1.40"
+        ],
+        "3.65": [
+          "/execute at @e[family=note_1] run damage @a[r=1.6,m=!creative] 10 magic entity @e[type=hitori:denshi_hitori,c=1]",
+          "/execute at @e[family=note_1] run particle hitori:note_hit ~ ~0.2 ~",
+          "/event entity @e[family=note_1] hitori:despawn"
+        ],
+        "3.80": [
+          "/execute at @p[r=48,m=!creative] run tp @s ~ ~12 ~",
+          "/execute at @a[r=40,m=!creative] run particle hitori:warn_red ~ ~0.1 ~"
+        ],
+        "4.20": [
+          "/execute at @a[r=40,m=!creative] run particle hitori:warn_red ~ ~0.1 ~"
+        ],
+        "4.70": [
+          "/damage @a[r=5,m=!creative] 22 entity_attack entity @s",
+          "/particle hitori:noise_big ~ ~1 ~",
+          "/particle hitori:shockwave_big ~ ~0.1 ~",
+          "/playsound random.explode @a[r=40] ~ ~ ~ 1.0 1.00",
+          "/playsound note.bit @a[r=48] ~ ~ ~ 1.0 0.50",
+          "/camera @a[r=24] fade time 0.05 0.10 0.20 color 80 220 255",
+          "/camerashake add @a[r=24] 1.50 0.60 positional"
+        ]
+      }
+    },
+    "animation.hitori.skill_20": {
+      "animation_length": 8.0,
+      "loop": false,
+      "timeline": {
+        "0.00": [
+          "/title @a[r=64] title §b§lRe: End of a Dream",
+          "/title @a[r=64] subtitle §7――夢の終わりを、もう一度",
+          "/effect @a[r=64,m=!creative] darkness 9 0 true",
+          "/playsound beacon.power @a[r=64] ~ ~ ~ 1.0 0.50",
+          "/particle hitori:charge ~ ~1 ~"
+        ],
+        "1.00": [
+          "/particle hitori:dream_arms ~ ~ ~",
+          "/playsound beacon.activate @a[r=64] ~ ~ ~ 1.0 0.50",
+          "/execute at @s rotated 0.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 0.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 0.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 0.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 0.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 0.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 0.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 0.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 120.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 120.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 120.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 120.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 120.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 120.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 120.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 120.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 240.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 240.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 240.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 240.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 240.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 240.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 240.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 240.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/playsound note.bit @a[r=64] ~ ~ ~ 0.7 0.50"
+        ],
+        "1.25": [
+          "/execute at @s rotated 15.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 15.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 15.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 15.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 15.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 15.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 15.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 15.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 135.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 135.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 135.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 135.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 135.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 135.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 135.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 135.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 255.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 255.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 255.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 255.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 255.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 255.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 255.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 255.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s"
+        ],
+        "1.50": [
+          "/execute at @s rotated 30.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 30.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 30.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 30.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 30.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 30.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 30.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 30.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 150.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 150.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 150.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 150.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 150.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 150.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 150.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 150.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 270.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 270.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 270.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 270.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 270.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 270.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 270.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 270.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/playsound note.bit @a[r=64] ~ ~ ~ 0.7 0.60"
+        ],
+        "1.75": [
+          "/execute at @s rotated 45.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 45.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 45.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 45.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 45.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 45.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 45.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 45.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 165.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 165.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 165.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 165.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 165.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 165.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 165.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 165.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 285.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 285.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 285.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 285.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 285.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 285.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 285.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 285.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s"
+        ],
+        "2.00": [
+          "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b独§7「……ねぇ。これが夢なら」\"}]}",
+          "/execute at @s rotated 60.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 60.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 60.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 60.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 60.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 60.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 60.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 60.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 180.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 180.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 180.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 180.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 180.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 180.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 180.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 180.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 300.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 300.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 300.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 300.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 300.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 300.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 300.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 300.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/playsound note.bit @a[r=64] ~ ~ ~ 0.7 0.70"
+        ],
+        "2.25": [
+          "/execute at @s rotated 75.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 75.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 75.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 75.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 75.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 75.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 75.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 75.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 195.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 195.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 195.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 195.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 195.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 195.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 195.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 195.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 315.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 315.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 315.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 315.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 315.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 315.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 315.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 315.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s"
+        ],
+        "2.50": [
+          "/execute at @s rotated 90.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 90.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 90.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 90.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 90.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 90.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 90.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 90.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 210.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 210.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 210.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 210.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 210.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 210.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 210.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 210.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 330.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 330.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 330.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 330.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 330.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 330.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 330.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 330.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/playsound note.bit @a[r=64] ~ ~ ~ 0.7 0.80"
+        ],
+        "2.75": [
+          "/execute at @s rotated 105.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 105.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 105.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 105.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 105.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 105.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 105.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 105.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 225.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 225.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 225.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 225.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 225.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 225.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 225.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 225.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 345.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 345.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 345.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 345.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 345.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 345.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 345.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 345.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s"
+        ],
+        "3.00": [
+          "/execute at @s rotated 120.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 120.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 120.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 120.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 120.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 120.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 120.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 120.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 240.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 240.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 240.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 240.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 240.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 240.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 240.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 240.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 360.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 360.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 360.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 360.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 360.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 360.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 360.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 360.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/playsound note.bit @a[r=64] ~ ~ ~ 0.7 0.90"
+        ],
+        "3.25": [
+          "/execute at @s rotated 135.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 135.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 135.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 135.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 135.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 135.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 135.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 135.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 255.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 255.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 255.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 255.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 255.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 255.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 255.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 255.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 375.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 375.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 375.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 375.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 375.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 375.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 375.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 375.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s"
+        ],
+        "3.50": [
+          "/execute at @s rotated 150.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 150.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 150.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 150.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 150.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 150.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 150.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 150.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 270.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 270.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 270.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 270.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 270.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 270.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 270.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 270.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 390.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 390.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 390.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 390.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 390.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 390.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 390.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 390.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/playsound note.bit @a[r=64] ~ ~ ~ 0.7 1.00"
+        ],
+        "3.75": [
+          "/execute at @s rotated 165.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 165.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 165.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 165.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 165.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 165.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 165.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 165.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 285.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 285.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 285.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 285.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 285.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 285.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 285.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 285.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 405.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 405.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 405.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 405.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 405.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 405.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 405.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 405.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s"
+        ],
+        "4.00": [
+          "/execute at @s rotated 180.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 180.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 180.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 180.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 180.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 180.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 180.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 180.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 300.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 300.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 300.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 300.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 300.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 300.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 300.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 300.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 420.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 420.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 420.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 420.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 420.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 420.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 420.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 420.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/playsound note.bit @a[r=64] ~ ~ ~ 0.7 1.10"
+        ],
+        "4.25": [
+          "/execute at @s rotated 195.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 195.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 195.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 195.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 195.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 195.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 195.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 195.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 315.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 315.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 315.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 315.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 315.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 315.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 315.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 315.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 435.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 435.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 435.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 435.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 435.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 435.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 435.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 435.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s"
+        ],
+        "4.50": [
+          "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b独§7「覚めないでほしかったな」\"}]}",
+          "/execute at @s rotated 210.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 210.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 210.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 210.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 210.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 210.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 210.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 210.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 330.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 330.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 330.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 330.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 330.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 330.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 330.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 330.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 450.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 450.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 450.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 450.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 450.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 450.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 450.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 450.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/playsound note.bit @a[r=64] ~ ~ ~ 0.7 1.20"
+        ],
+        "4.75": [
+          "/execute at @s rotated 225.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 225.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 225.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 225.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 225.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 225.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 225.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 225.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 345.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 345.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 345.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 345.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 345.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 345.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 345.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 345.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 465.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 465.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 465.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 465.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 465.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 465.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 465.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 465.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s"
+        ],
+        "5.00": [
+          "/execute at @s rotated 240.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 240.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 240.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 240.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 240.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 240.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 240.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 240.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 360.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 360.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 360.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 360.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 360.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 360.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 360.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 360.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 480.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 480.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 480.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 480.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 480.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 480.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 480.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 480.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/playsound note.bit @a[r=64] ~ ~ ~ 0.7 1.30"
+        ],
+        "5.25": [
+          "/execute at @s rotated 255.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 255.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 255.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 255.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 255.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 255.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 255.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 255.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 375.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 375.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 375.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 375.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 375.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 375.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 375.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 375.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 495.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 495.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 495.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 495.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 495.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 495.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 495.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 495.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s"
+        ],
+        "5.50": [
+          "/execute at @s rotated 270.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 270.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 270.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 270.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 270.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 270.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 270.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 270.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 390.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 390.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 390.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 390.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 390.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 390.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 390.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 390.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 510.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 510.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 510.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 510.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 510.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 510.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 510.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 510.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/playsound note.bit @a[r=64] ~ ~ ~ 0.7 1.40"
+        ],
+        "5.75": [
+          "/execute at @s rotated 285.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 285.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 285.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 285.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 285.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 285.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 285.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 285.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 405.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 405.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 405.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 405.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 405.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 405.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 405.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 405.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 525.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 525.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 525.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 525.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 525.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 525.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 525.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 525.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s"
+        ],
+        "6.00": [
+          "/execute at @s rotated 300.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 300.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 300.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 300.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 300.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 300.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 300.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 300.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 420.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 420.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 420.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 420.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 420.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 420.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 420.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 420.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 540.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 540.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 540.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 540.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 540.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 540.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 540.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 540.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/playsound note.bit @a[r=64] ~ ~ ~ 0.7 1.50"
+        ],
+        "6.25": [
+          "/execute at @s rotated 315.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 315.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 315.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 315.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 315.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 315.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 315.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 315.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 435.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 435.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 435.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 435.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 435.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 435.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 435.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 435.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 555.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 555.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 555.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 555.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 555.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 555.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 555.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 555.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s"
+        ],
+        "6.50": [
+          "/execute at @s rotated 330.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 330.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 330.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 330.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 330.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 330.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 330.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 330.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 450.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 450.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 450.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 450.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 450.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 450.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 450.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 450.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 570.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 570.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 570.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 570.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 570.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 570.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 570.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 570.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/playsound note.bit @a[r=64] ~ ~ ~ 0.7 1.60"
+        ],
+        "6.75": [
+          "/execute at @s rotated 345.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 345.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 345.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 345.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 345.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 345.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 345.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 345.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 465.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 465.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 465.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 465.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 465.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 465.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 465.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 465.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 585.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 585.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 585.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 585.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 585.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 585.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 585.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 585.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s"
+        ],
+        "7.00": [
+          "/execute at @s rotated 360.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 360.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 360.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 360.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 360.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 360.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 360.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 360.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 480.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 480.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 480.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 480.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 480.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 480.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 480.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 480.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 600.0 0 positioned ^ ^1 ^2.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 600.0 0 positioned ^ ^1 ^4.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 600.0 0 positioned ^ ^1 ^7.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 600.0 0 positioned ^ ^1 ^9.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 600.0 0 positioned ^ ^1 ^12.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 600.0 0 positioned ^ ^1 ^14.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 600.0 0 positioned ^ ^1 ^17.0 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/execute at @s rotated 600.0 0 positioned ^ ^1 ^19.5 run damage @a[r=1.6,m=!creative] 12 magic entity @s",
+          "/playsound note.bit @a[r=64] ~ ~ ~ 0.7 1.70"
+        ],
+        "7.30": [
+          "/tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b独§7「――おはよう」\"}]}",
+          "/particle hitori:destruction ~ ~1 ~",
+          "/particle hitori:shockwave_big ~ ~0.1 ~",
+          "/damage @a[r=8,m=!creative] 20 magic entity @s",
+          "/camera @a[r=64] fade time 0.10 0.30 0.80 color 255 255 255",
+          "/camerashake add @a[r=48] 2.00 0.80 positional",
+          "/playsound random.explode @a[r=64] ~ ~ ~ 1.0 0.60"
+        ]
+      }
+    },
+    "animation.hitori.skill_99": {
+      "animation_length": 5.0,
+      "loop": false,
+      "timeline": {
+        "0.00": [
+          "/title @a[r=48] title §c§lFATAL ERROR",
+          "/title @a[r=48] subtitle §7Glitch 強制解除 ―― 今なら攻撃が通る！",
+          "/particle hitori:noise_big ~ ~1 ~",
+          "/particle hitori:error_popup ~ ~1 ~",
+          "/playsound random.glass @a[r=48] ~ ~ ~ 1.0 0.50",
+          "/playsound beacon.deactivate @a[r=48] ~ ~ ~ 1.0 0.60",
+          "/camera @a[r=32] fade time 0.00 0.05 0.20 color 255 255 255"
+        ],
+        "1.00": [
+          "/particle hitori:error_popup ~ ~1 ~",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 0.6 0.50"
+        ],
+        "2.00": [
+          "/particle hitori:error_popup ~ ~1 ~",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 0.6 0.50"
+        ],
+        "3.00": [
+          "/particle hitori:error_popup ~ ~1 ~",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 0.6 0.50"
+        ],
+        "4.00": [
+          "/particle hitori:error_popup ~ ~1 ~",
+          "/playsound note.bit @a[r=30] ~ ~ ~ 0.6 0.50",
+          "/title @a[r=48] actionbar §eGlitch 再起動まで 1秒……"
+        ]
+      }
+    },
+    "animation.hitori.cd_timer": {
+      "animation_length": 0.35,
+      "loop": false
+    },
+    "animation.hitori.decay": {
+      "animation_length": 1.5,
+      "loop": true,
+      "timeline": {
+        "1.45": [
+          "/scoreboard players remove @s[scores={hitori_glitch=1..}] hitori_glitch 1"
+        ]
+      }
+    },
+    "animation.hitori.bullet.fly": {
+      "animation_length": 1.55,
+      "loop": false,
+      "timeline": {
+        "0.00": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.05": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.10": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.15": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.20": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.25": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.30": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.35": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.40": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.45": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.50": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.55": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.60": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.65": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.70": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.75": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.80": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.85": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.90": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.95": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "1.00": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "1.05": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "1.10": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "1.15": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "1.20": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "1.25": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "1.30": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "1.35": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "1.40": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "1.45": [
+          "/tp @s ^ ^ ^0.8",
+          "/execute if entity @a[r=1.5,m=!creative] run damage @a[r=1.5,m=!creative] 8 magic",
+          "/execute if entity @a[r=1.5,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.5,m=!creative] run event entity @s hitori:despawn",
+          "@s hitori:despawn"
+        ]
+      }
+    },
+    "animation.hitori.marker.life": {
+      "animation_length": 4.05,
+      "loop": false,
+      "timeline": {
+        "4.00": [
+          "@s hitori:despawn"
+        ]
+      }
+    },
+    "animation.hitori.fragment.chase": {
+      "animation_length": 8.05,
+      "loop": false,
+      "timeline": {
+        "0.00": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.05": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "0.10": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.15": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "0.20": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.25": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "0.30": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.35": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "0.40": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.45": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "0.50": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.55": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "0.60": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.65": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "0.70": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.75": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "0.80": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.85": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "0.90": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "0.95": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "1.00": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "1.05": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "1.10": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "1.15": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "1.20": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "1.25": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "1.30": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "1.35": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "1.40": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "1.45": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "1.50": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "1.55": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "1.60": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "1.65": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "1.70": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "1.75": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "1.80": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "1.85": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "1.90": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "1.95": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "2.00": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "2.05": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "2.10": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "2.15": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "2.20": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "2.25": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "2.30": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "2.35": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "2.40": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "2.45": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "2.50": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "2.55": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "2.60": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "2.65": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "2.70": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "2.75": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "2.80": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "2.85": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "2.90": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "2.95": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "3.00": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "3.05": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "3.10": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "3.15": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "3.20": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "3.25": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "3.30": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "3.35": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "3.40": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "3.45": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "3.50": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "3.55": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "3.60": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "3.65": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "3.70": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "3.75": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "3.80": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "3.85": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "3.90": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "3.95": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "4.00": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "4.05": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "4.10": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "4.15": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "4.20": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "4.25": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "4.30": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "4.35": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "4.40": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "4.45": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "4.50": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "4.55": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "4.60": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "4.65": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "4.70": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "4.75": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "4.80": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "4.85": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "4.90": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "4.95": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "5.00": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "5.05": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "5.10": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "5.15": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "5.20": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "5.25": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "5.30": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "5.35": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "5.40": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "5.45": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "5.50": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "5.55": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "5.60": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "5.65": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "5.70": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "5.75": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "5.80": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "5.85": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "5.90": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "5.95": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "6.00": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "6.05": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "6.10": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "6.15": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "6.20": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "6.25": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "6.30": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "6.35": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "6.40": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "6.45": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "6.50": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "6.55": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "6.60": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "6.65": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "6.70": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "6.75": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "6.80": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "6.85": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "6.90": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "6.95": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "7.00": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "7.05": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "7.10": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "7.15": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "7.20": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "7.25": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "7.30": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "7.35": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "7.40": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "7.45": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "7.50": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "7.55": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "7.60": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "7.65": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "7.70": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "7.75": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "7.80": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "7.85": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "7.90": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.4,m=!creative] run damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:missing_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run particle hitori:noise_burst ~ ~ ~",
+          "/execute if entity @a[r=1.4,m=!creative] run playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "/execute if entity @a[r=1.4,m=!creative] run event entity @s hitori:despawn"
+        ],
+        "7.95": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.3 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/damage @a[r=3,m=!creative] 12 entity_explosion",
+          "/particle hitori:missing_burst ~ ~ ~",
+          "/playsound random.explode @a[r=24] ~ ~ ~ 0.6 1.8",
+          "@s hitori:despawn"
+        ]
+      }
+    }
+  }
+}

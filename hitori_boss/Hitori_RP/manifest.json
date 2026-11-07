@@ -1,0 +1,29 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "電子 独 ボス RP",
+    "description": "ボス「電子 独（不具合・Glitch）」を追加します",
+    "uuid": "3afd756a-176b-43ec-a0d3-e9a6d255c62a",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "3d795900-fa4f-42b5-ba52-110c1c66fda3",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ]
+}

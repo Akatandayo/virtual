@@ -1,0 +1,54 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:geometry": [
+    {
+      "description": {
+        "identifier": "geometry.hitori_fragment",
+        "texture_width": 16,
+        "texture_height": 16,
+        "visible_bounds_width": 2,
+        "visible_bounds_height": 2,
+        "visible_bounds_offset": [
+          0,
+          0.5,
+          0
+        ]
+      },
+      "bones": [
+        {
+          "name": "cube",
+          "pivot": [
+            0,
+            6,
+            0
+          ],
+          "locators": {
+            "center": [
+              0,
+              6,
+              0
+            ]
+          },
+          "cubes": [
+            {
+              "origin": [
+                -4.0,
+                2.0,
+                -4.0
+              ],
+              "size": [
+                8,
+                8,
+                8
+              ],
+              "uv": [
+                0,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

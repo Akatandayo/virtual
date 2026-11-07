@@ -1,0 +1,67 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "hitori:denshi_hitori",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/denshi_hitori"
+      },
+      "geometry": {
+        "default": "geometry.denshi_hitori"
+      },
+      "render_controllers": [
+        "controller.render.denshi_hitori"
+      ],
+      "particle_effects": {
+        "hand_noise": "hitori:hand_noise",
+        "hand": "hitori:noise_burst",
+        "glitch": "hitori:glitch_aura",
+        "glitch_heavy": "hitori:glitch_aura_heavy",
+        "stun_spark": "hitori:stun_spark"
+      },
+      "animations": {
+        "look_at": "animation.hitori.look_at",
+        "idle": "animation.hitori.idle",
+        "move": "animation.hitori.move",
+        "glitch": "animation.hitori.glitch",
+        "attack": "animation.hitori.attack",
+        "aura": "animation.hitori.aura",
+        "aura_heavy": "animation.hitori.aura_heavy",
+        "death_pose": "animation.hitori.death",
+        "main": "controller.animation.hitori.main",
+        "aura_ctrl": "controller.animation.hitori.aura",
+        "attack_fx": "controller.animation.hitori.attack_fx",
+        "s1": "animation.hitori.skill_1",
+        "s2": "animation.hitori.skill_2",
+        "s3": "animation.hitori.skill_3",
+        "s4": "animation.hitori.skill_4",
+        "s5": "animation.hitori.skill_5",
+        "s6": "animation.hitori.skill_6",
+        "s7": "animation.hitori.skill_7",
+        "s8": "animation.hitori.skill_8",
+        "s9": "animation.hitori.skill_9",
+        "s10": "animation.hitori.skill_10",
+        "s11": "animation.hitori.skill_11",
+        "s12": "animation.hitori.skill_12",
+        "s13": "animation.hitori.skill_13",
+        "s14": "animation.hitori.skill_14",
+        "s20": "animation.hitori.skill_20",
+        "s99": "animation.hitori.skill_99"
+      },
+      "scripts": {
+        "animate": [
+          "main",
+          "aura_ctrl",
+          "attack_fx"
+        ]
+      },
+      "spawn_egg": {
+        "base_color": "#f4f4f4",
+        "overlay_color": "#101018"
+      }
+    }
+  }
+}
