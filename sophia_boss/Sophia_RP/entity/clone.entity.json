@@ -84,6 +84,9 @@
         "s34": "animation.sophia.skill_34",
         "s40": "animation.sophia.skill_40",
         "s41": "animation.sophia.skill_41",
+        "s60": "animation.sophia.skill_60",
+        "s61": "animation.sophia.skill_61",
+        "s62": "animation.sophia.skill_62",
         "fx": "animation.sophia.clone_fx"
       },
       "scripts": {

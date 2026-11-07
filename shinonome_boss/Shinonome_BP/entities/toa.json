@@ -10,7 +10,8 @@
         "animate": [
           "skills",
           "upkeep",
-          "death"
+          "death",
+          "foe_tags"
         ]
       },
       "animations": {
@@ -18,6 +19,7 @@
         "death": "controller.animation.toa.death",
         "upkeep": "animation.toa.upkeep",
         "idle_loop": "animation.toa.idle_loop",
+        "foe_tags": "animation.toa.foe_tags",
         "skill_1": "animation.toa.skill_1",
         "skill_51": "animation.toa.skill_51",
         "skill_52": "animation.toa.skill_52",
@@ -50,7 +52,10 @@
         "skill_25": "animation.toa.skill_25",
         "skill_30": "animation.toa.skill_30",
         "skill_31": "animation.toa.skill_31",
-        "skill_32": "animation.toa.skill_32"
+        "skill_32": "animation.toa.skill_32",
+        "skill_60": "animation.toa.skill_60",
+        "skill_61": "animation.toa.skill_61",
+        "skill_62": "animation.toa.skill_62"
       }
     },
     "component_groups": {
@@ -550,6 +555,21 @@
         "minecraft:mark_variant": {
           "value": 55
         }
+      },
+      "v_60": {
+        "minecraft:mark_variant": {
+          "value": 60
+        }
+      },
+      "v_61": {
+        "minecraft:mark_variant": {
+          "value": 61
+        }
+      },
+      "v_62": {
+        "minecraft:mark_variant": {
+          "value": 62
+        }
       }
     },
     "components": {
@@ -776,6 +796,9 @@
                 "v_53",
                 "v_54",
                 "v_55",
+                "v_60",
+                "v_61",
+                "v_62",
                 "water",
                 "fainted",
                 "cine_guard"
@@ -910,6 +933,9 @@
             "v_53",
             "v_54",
             "v_55",
+            "v_60",
+            "v_61",
+            "v_62",
             "water",
             "fainted",
             "cine_guard"
@@ -988,6 +1014,9 @@
             "v_53",
             "v_54",
             "v_55",
+            "v_60",
+            "v_61",
+            "v_62",
             "sensor_normal",
             "water"
           ]
@@ -1035,6 +1064,9 @@
             "v_53",
             "v_54",
             "v_55",
+            "v_60",
+            "v_61",
+            "v_62",
             "sensor_normal",
             "water",
             "fainted",
@@ -1086,6 +1118,9 @@
             "v_53",
             "v_54",
             "v_55",
+            "v_60",
+            "v_61",
+            "v_62",
             "sensor_normal",
             "water",
             "fainted",
@@ -1147,7 +1182,10 @@
             "v_52",
             "v_53",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1191,7 +1229,10 @@
             "v_52",
             "v_53",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1235,7 +1276,10 @@
             "v_52",
             "v_53",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1279,7 +1323,10 @@
             "v_52",
             "v_53",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1323,7 +1370,10 @@
             "v_52",
             "v_53",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1367,7 +1417,10 @@
             "v_52",
             "v_53",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1411,7 +1464,10 @@
             "v_52",
             "v_53",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1455,7 +1511,10 @@
             "v_52",
             "v_53",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1499,7 +1558,10 @@
             "v_52",
             "v_53",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1543,7 +1605,10 @@
             "v_52",
             "v_53",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1587,7 +1652,10 @@
             "v_52",
             "v_53",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1631,7 +1699,10 @@
             "v_52",
             "v_53",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1675,7 +1746,10 @@
             "v_52",
             "v_53",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1719,7 +1793,10 @@
             "v_52",
             "v_53",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1763,7 +1840,10 @@
             "v_52",
             "v_53",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1807,7 +1887,10 @@
             "v_52",
             "v_53",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1851,7 +1934,10 @@
             "v_52",
             "v_53",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1895,7 +1981,10 @@
             "v_52",
             "v_53",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1939,7 +2028,10 @@
             "v_52",
             "v_53",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1984,6 +2076,9 @@
             "v_53",
             "v_54",
             "v_55",
+            "v_60",
+            "v_61",
+            "v_62",
             "sensor_normal",
             "fainted"
           ]
@@ -2030,7 +2125,10 @@
             "v_52",
             "v_53",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -2074,7 +2172,10 @@
             "v_52",
             "v_53",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -2118,7 +2219,10 @@
             "v_52",
             "v_53",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -2162,7 +2266,10 @@
             "v_52",
             "v_53",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -2206,7 +2313,10 @@
             "v_52",
             "v_53",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -2250,7 +2360,10 @@
             "v_51",
             "v_53",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -2294,7 +2407,10 @@
             "v_51",
             "v_52",
             "v_54",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -2338,7 +2454,10 @@
             "v_51",
             "v_52",
             "v_53",
-            "v_55"
+            "v_55",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -2382,12 +2501,156 @@
             "v_51",
             "v_52",
             "v_53",
-            "v_54"
+            "v_54",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
           "component_groups": [
             "v_55"
+          ]
+        }
+      },
+      "shinonome:skill_60": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23",
+            "v_24",
+            "v_25",
+            "v_30",
+            "v_31",
+            "v_32",
+            "v_51",
+            "v_52",
+            "v_53",
+            "v_54",
+            "v_55",
+            "v_61",
+            "v_62"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_60"
+          ]
+        }
+      },
+      "shinonome:skill_61": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23",
+            "v_24",
+            "v_25",
+            "v_30",
+            "v_31",
+            "v_32",
+            "v_51",
+            "v_52",
+            "v_53",
+            "v_54",
+            "v_55",
+            "v_60",
+            "v_62"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_61"
+          ]
+        }
+      },
+      "shinonome:skill_62": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23",
+            "v_24",
+            "v_25",
+            "v_30",
+            "v_31",
+            "v_32",
+            "v_51",
+            "v_52",
+            "v_53",
+            "v_54",
+            "v_55",
+            "v_60",
+            "v_61"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_62"
           ]
         }
       },
@@ -2409,9 +2672,9 @@
                   "value": 0
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": "<=",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "shinonome_near"
                 }
               ]
             },
@@ -2471,6 +2734,22 @@
               {
                 "weight": 10,
                 "trigger": "shinonome:skill_9"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_61"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_62"
               }
             ]
           },
@@ -2490,9 +2769,10 @@
                   "value": 0
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": ">",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "shinonome_near"
                 }
               ]
             },
@@ -2571,9 +2851,9 @@
                   "value": 1
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": "<=",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "shinonome_near"
                 }
               ]
             },
@@ -2621,6 +2901,22 @@
               {
                 "weight": 10,
                 "trigger": "shinonome:skill_9"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_61"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_62"
               },
               {
                 "weight": 10,
@@ -2688,9 +2984,10 @@
                   "value": 1
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": ">",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "shinonome_near"
                 }
               ]
             },
@@ -2801,9 +3098,9 @@
                   "value": 2
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": "<=",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "shinonome_near"
                 }
               ]
             },
@@ -2851,6 +3148,22 @@
               {
                 "weight": 10,
                 "trigger": "shinonome:skill_9"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_61"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_62"
               },
               {
                 "weight": 10,
@@ -2934,9 +3247,10 @@
                   "value": 2
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": ">",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "shinonome_near"
                 }
               ]
             },

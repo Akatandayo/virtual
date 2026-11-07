@@ -88,7 +88,10 @@
         "s52": "animation.toa.skill_52",
         "s53": "animation.toa.skill_53",
         "s54": "animation.toa.skill_54",
-        "s55": "animation.toa.skill_55"
+        "s55": "animation.toa.skill_55",
+        "s60": "animation.toa.skill_60",
+        "s61": "animation.toa.skill_61",
+        "s62": "animation.toa.skill_62"
       },
       "scripts": {
         "animate": [

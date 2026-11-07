@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """クライアント側（RP）のアニメーションとアニメーションコントローラー."""
 
-from cine import ALIVE_ANIM, SPD, TURN_ANIM, smooth_controller  # noqa: E402
+from cine import ALIVE_ANIM, SPD, TURN_ANIM, footwork_bones, smooth_controller  # noqa: E402
 
 N = [0, 0, 0]
 ALT = "math.mod(v.atk_n, 2) == 0"   # 袈裟斬り / 逆袈裟
@@ -374,6 +374,13 @@ def skill_anims():
         "body": {"rotation": {0: N, 4.8: [0, 10, 0], 7.8: [0, 10, 0], 8.1: N}},
         "leftArm": {"rotation": {0: N, 1.0: [-125, 35, 0], 2.4: [-125, 35, 0], 2.8: N}},
     }, {1.3: fx("smoke", "left_hand"), 4.8: fx("sword_trail")})
+    # 60 間合いを取る（後ろへ跳んで遠距離で反撃）/ 61・62 右・左へ回り込んで斬る（立ち回り）
+    A[60] = anim(1.1, footwork_bones("back", HOLD_R), {0.17: fx("step", "left_foot"), 0.17 + 0.01: fx("step", "right_foot"),
+                                                  0.5: fx("sword_trail")})
+    A[61] = anim(1.3, footwork_bones("right", HOLD_R), {0.1: fx("step", "right_foot"), 0.26: fx("step", "right_foot"),
+                                                   0.42: fx("step", "right_foot"), 0.56: fx("sword_trail")})
+    A[62] = anim(1.3, footwork_bones("left", HOLD_R), {0.1: fx("step", "left_foot"), 0.26: fx("step", "left_foot"),
+                                                  0.42: fx("step", "left_foot"), 0.56: fx("sword_trail")})
     return A
 
 

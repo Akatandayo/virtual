@@ -79,7 +79,10 @@
         "s27": "animation.byakuya.skill_27",
         "s30": "animation.byakuya.skill_30",
         "s31": "animation.byakuya.skill_31",
-        "s32": "animation.byakuya.skill_32"
+        "s32": "animation.byakuya.skill_32",
+        "s60": "animation.byakuya.skill_60",
+        "s61": "animation.byakuya.skill_61",
+        "s62": "animation.byakuya.skill_62"
       },
       "scripts": {
         "animate": [

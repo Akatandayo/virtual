@@ -16,8 +16,9 @@ import zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import xanims  # noqa: E402
 import xfx  # noqa: E402
-from cine import (FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, bake_smooth, encounter_cmds,  # noqa: E402
-                  rival_target, smooth_client, split_dashes, vectorize_animations)
+from cine import (FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, aim_at_foes, bake_smooth,  # noqa: E402
+                  encounter_cmds, foe_tag_anim, footwork_steps, near_filters, rival_target, smooth_client,
+                  split_dashes, vectorize_animations)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BP = os.path.join(ROOT, "Shinonome_BP")
@@ -26,7 +27,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "shinonome:toa"
 NAME = "東雲 永々"
-VERSION = [1, 3, 0]
+VERSION = [1, 4, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "a694ca4a-12aa-4554-8bdb-12089cc1e7f6"
 UUID_BP_MODULE = "f1947c40-91af-45a7-8801-580cb386961f"
@@ -50,7 +51,8 @@ CINE = Cine("toa_cine")
 def write(path, data):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     if not isinstance(data, str) and os.path.abspath(path).startswith(os.path.abspath(BP) + os.sep):
-        add_rival(data, ID)   # プレイヤーへのダメージ命令を、ほかのボスにも当たるように複製する
+        add_rival(data, ID)     # プレイヤーへのダメージ命令を、ほかのボスにも当たるように複製する
+        aim_at_foes(data, ID)   # 技の狙いを「一番近い敵（プレイヤー・ほかのボス）」に
     with open(path, "w", encoding="utf-8") as f:
         if isinstance(data, str):
             f.write(data)
@@ -522,6 +524,27 @@ def impact(pos="~ ~ ~"):
     return [pt("debris", pos), pt("dust_ring", pos)]
 
 
+# ---------------------------------------------------------------------------
+# 立ち回り（ボス同士でも、プレイヤー相手でも）: その場で殴り合うだけにならないように
+# ---------------------------------------------------------------------------
+# 60 ぴょーん: 後ろへぴょんと跳んで、星弾で返す
+tl = {0: [act("§b◆ ぴょーん"), pt("smoke", "~ ~0.2 ~"), sound("mob.slime.big", 1.6, 30, 0.6)]}
+footwork_steps(lambda t, c: add(tl, t, c), 0.05, 3, "^ ^0.35 ^-1.5", NEAREST, [pt("stars", "~ ~1 ~")])
+add(tl, 0.22, [pt("step_dust"), pt("dust_ring", "~ ~0.1 ~")])
+add(tl, 0.5, [star(-12), star(0), star(12), sound("random.orb", 1.6, 30), pt("spark", "^ ^1.2 ^0.8")])
+skill(60, "ぴょーん", 1.1, tl)
+# 61 / 62 くるっと回り込み: 相手の右・左へ回り込みながら間合いを詰め、横から斬る
+for v, side in ((61, 1), (62, -1)):
+    tl = {0: [act("§b◆ くるっと回り込み"), pt("smoke", "~ ~0.2 ~"), sound("mob.slime.small", 1.8, 24, 0.5)]}
+    footwork_steps(lambda t, c: add(tl, t, c), 0.08, 7, "^%g ^ ^0.3" % (-1.3 * side), NEAREST,
+                   [pt("spark", "~ ~0.9 ~")])
+    add(tl, 0.56, [pt("slash_purple", "^ ^1.1 ^1.3"), pt("spark", "^ ^1 ^1.6"),
+                   sound("game.player.attack.strong", 1.0, 30), sound("item.trident.riptide_1", 1.9, 30, 0.5),
+                   "/execute positioned ^ ^1 ^1.6 run damage @a[r=2.3,m=!creative] 11 entity_attack entity @s",
+                   shake(0.4, 0.25, 10)] + impact("^ ^ ^1.6"))
+    skill(v, "くるっと回り込み", 1.3, tl)
+
+
 cutin_into(17, 0.0, 0.8, "^ ^0.3 ^2", "^ ^12 ^6")
 cutin_into(16, 0.3, 0.6, "^0.9 ^1.3 ^1.2", "^-0.3 ^1.5 ^0.2")
 for v, t in ((30, 2.3), (6, 1.6), (4, 1.8), (31, 2.4), (12, 0.6), (32, 5.9)):
@@ -652,15 +675,14 @@ def bp_entity():
         else:
             events["shinonome:skill_%d" % v] = set_variant(v)
 
-    near1 = [1, 51, 52, 2, 3, 4, 6, 8, 11, 12, 13, 14, 14, 9]
+    near1 = [1, 51, 52, 2, 3, 4, 6, 8, 11, 12, 13, 14, 14, 9, 60, 60, 61, 62]   # 60〜62: 立ち回り
     far1 = [1, 51, 52, 2, 3, 4, 5, 5, 7, 7, 8, 9, 10, 10]
     late_clone = [53, 54, 55]
     near2 = [s for s in near1 if s not in (1, 51, 52)] + late_clone + [15, 16, 17, 18, 19, 20, 21, 22, 23]
     far2 = [s for s in far1 if s not in (1, 51, 52)] + late_clone + [15, 16, 17, 18, 18, 19, 21, 22]
     near3 = near2 + [24, 24, 16, 22]
     far3 = far2 + [24, 17, 18, 22]
-    NEAR = {"test": "distance_to_nearest_player", "operator": "<=", "value": 7}
-    FAR = {"test": "distance_to_nearest_player", "operator": ">", "value": 7}
+    NEAR, FAR = near_filters("shinonome_near")   # 7 マス以内に敵（プレイヤー・ほかのボス）がいるか
     base = [{"test": "is_mark_variant", "value": 0}, {"test": "has_target", "value": True}]
     seq = []
     for skin, near, far in ((0, near1, far1), (1, near2, far2), (2, near3, far3)):
@@ -701,10 +723,11 @@ def bp_entity():
     }
     anims = {"skills": "controller.animation.toa.skills", "death": "controller.animation.toa.death",
              "upkeep": "animation.toa.upkeep", "idle_loop": "animation.toa.idle_loop",
+             "foe_tags": "animation.toa.foe_tags",
              **{"skill_%d" % v: "animation.toa.skill_%d" % v for v in SKILLS}}
     return {"format_version": "1.21.0", "minecraft:entity": {
         "description": {"identifier": ID, "is_spawnable": True, "is_summonable": True, "is_experimental": False,
-                        "scripts": {"animate": ["skills", "upkeep", "death"]}, "animations": anims},
+                        "scripts": {"animate": ["skills", "upkeep", "death", "foe_tags"]}, "animations": anims},
         "component_groups": groups, "components": components, "events": events}}
 
 
@@ -727,6 +750,8 @@ def bp_animations():
     a["animation.toa.idle_loop"] = {"animation_length": 2.0, "loop": True, "timeline": {"1.00": CINE.end() + [
         "/execute if entity @s[tag=!toa_osuwari] if entity @e[family=sophia,r=16] run event entity @s shinonome:osuwari"],
         "1.50": encounter_cmds("shinonome", say, ENCOUNTER)}}   # ほかのボスの発見
+    # 常に動く: 敵の目印と「近くに敵がいる」タグ
+    a["animation.toa.foe_tags"] = foe_tag_anim(ID, "shinonome_near")
     return {"format_version": "1.10.0", "animations": a}
 
 

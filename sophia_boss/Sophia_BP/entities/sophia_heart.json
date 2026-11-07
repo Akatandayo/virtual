@@ -12,7 +12,8 @@
           "barrier_cd",
           "barrier_time",
           "upkeep",
-          "death"
+          "death",
+          "foe_tags"
         ]
       },
       "animations": {
@@ -22,6 +23,7 @@
         "death": "controller.animation.sophia.death",
         "upkeep": "animation.sophia.upkeep",
         "idle_loop": "animation.sophia.idle_loop",
+        "foe_tags": "animation.sophia.foe_tags",
         "cd_timer": "animation.sophia.cd_timer",
         "barrier_timer": "animation.sophia.barrier_timer",
         "skill_1": "animation.sophia.skill_1",
@@ -58,7 +60,10 @@
         "skill_30": "animation.sophia.skill_30",
         "skill_31": "animation.sophia.skill_31",
         "skill_32": "animation.sophia.skill_32",
-        "skill_33": "animation.sophia.skill_33"
+        "skill_33": "animation.sophia.skill_33",
+        "skill_60": "animation.sophia.skill_60",
+        "skill_61": "animation.sophia.skill_61",
+        "skill_62": "animation.sophia.skill_62"
       }
     },
     "component_groups": {
@@ -519,6 +524,21 @@
         "minecraft:mark_variant": {
           "value": 41
         }
+      },
+      "v_60": {
+        "minecraft:mark_variant": {
+          "value": 60
+        }
+      },
+      "v_61": {
+        "minecraft:mark_variant": {
+          "value": 61
+        }
+      },
+      "v_62": {
+        "minecraft:mark_variant": {
+          "value": 62
+        }
       }
     },
     "components": {
@@ -779,7 +799,10 @@
                 "v_33",
                 "v_34",
                 "v_40",
-                "v_41"
+                "v_41",
+                "v_60",
+                "v_61",
+                "v_62"
               ]
             },
             "add": {
@@ -937,6 +960,9 @@
             "v_34",
             "v_40",
             "v_41",
+            "v_60",
+            "v_61",
+            "v_62",
             "cine_guard",
             "barrier",
             "barrier_cd"
@@ -1209,7 +1235,10 @@
                 "v_32",
                 "v_33",
                 "v_40",
-                "v_41"
+                "v_41",
+                "v_60",
+                "v_61",
+                "v_62"
               ]
             },
             "add": {
@@ -1258,6 +1287,9 @@
             "v_34",
             "v_40",
             "v_41",
+            "v_60",
+            "v_61",
+            "v_62",
             "sensor_normal",
             "barrier",
             "barrier_cd",
@@ -1311,6 +1343,9 @@
             "v_34",
             "v_40",
             "v_41",
+            "v_60",
+            "v_61",
+            "v_62",
             "sensor_normal",
             "barrier",
             "barrier_cd",
@@ -1365,6 +1400,9 @@
             "v_34",
             "v_40",
             "v_41",
+            "v_60",
+            "v_61",
+            "v_62",
             "sensor_normal",
             "barrier",
             "barrier_cd",
@@ -1419,7 +1457,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1465,7 +1506,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1511,7 +1555,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1557,7 +1604,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1603,7 +1653,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1649,7 +1702,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1695,7 +1751,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1741,7 +1800,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1787,7 +1849,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1833,7 +1898,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1879,7 +1947,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1925,7 +1996,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1971,7 +2045,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -2018,6 +2095,9 @@
             "v_34",
             "v_40",
             "v_41",
+            "v_60",
+            "v_61",
+            "v_62",
             "sensor_normal",
             "barrier_cd"
           ]
@@ -2071,7 +2151,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -2117,7 +2200,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -2163,7 +2249,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -2209,7 +2298,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -2255,7 +2347,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -2301,7 +2396,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -2347,7 +2445,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -2393,7 +2494,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -2439,7 +2543,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -2485,7 +2592,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -2531,7 +2641,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -2577,7 +2690,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -2623,7 +2739,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -2669,7 +2788,10 @@
             "v_33",
             "v_34",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -2715,7 +2837,10 @@
             "v_32",
             "v_33",
             "v_40",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -2761,7 +2886,10 @@
             "v_32",
             "v_33",
             "v_34",
-            "v_41"
+            "v_41",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -2807,12 +2935,162 @@
             "v_32",
             "v_33",
             "v_34",
-            "v_40"
+            "v_40",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
           "component_groups": [
             "v_41"
+          ]
+        }
+      },
+      "sophia:skill_60": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_21",
+            "v_22",
+            "v_23",
+            "v_24",
+            "v_25",
+            "v_26",
+            "v_27",
+            "v_28",
+            "v_29",
+            "v_30",
+            "v_31",
+            "v_32",
+            "v_33",
+            "v_34",
+            "v_40",
+            "v_41",
+            "v_61",
+            "v_62"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_60"
+          ]
+        }
+      },
+      "sophia:skill_61": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_21",
+            "v_22",
+            "v_23",
+            "v_24",
+            "v_25",
+            "v_26",
+            "v_27",
+            "v_28",
+            "v_29",
+            "v_30",
+            "v_31",
+            "v_32",
+            "v_33",
+            "v_34",
+            "v_40",
+            "v_41",
+            "v_60",
+            "v_62"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_61"
+          ]
+        }
+      },
+      "sophia:skill_62": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_21",
+            "v_22",
+            "v_23",
+            "v_24",
+            "v_25",
+            "v_26",
+            "v_27",
+            "v_28",
+            "v_29",
+            "v_30",
+            "v_31",
+            "v_32",
+            "v_33",
+            "v_34",
+            "v_40",
+            "v_41",
+            "v_60",
+            "v_61"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_62"
           ]
         }
       },
@@ -2834,9 +3112,9 @@
                   "value": 0
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": "<=",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "sophia_near"
                 }
               ]
             },
@@ -2896,6 +3174,22 @@
               {
                 "weight": 10,
                 "trigger": "sophia:skill_12"
+              },
+              {
+                "weight": 10,
+                "trigger": "sophia:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "sophia:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "sophia:skill_61"
+              },
+              {
+                "weight": 10,
+                "trigger": "sophia:skill_62"
               }
             ]
           },
@@ -2915,9 +3209,10 @@
                   "value": 0
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": ">",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "sophia_near"
                 }
               ]
             },
@@ -2992,9 +3287,9 @@
                   "value": 1
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": "<=",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "sophia_near"
                 }
               ]
             },
@@ -3057,6 +3352,22 @@
               },
               {
                 "weight": 10,
+                "trigger": "sophia:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "sophia:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "sophia:skill_61"
+              },
+              {
+                "weight": 10,
+                "trigger": "sophia:skill_62"
+              },
+              {
+                "weight": 10,
                 "trigger": "sophia:skill_19"
               },
               {
@@ -3105,9 +3416,10 @@
                   "value": 1
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": ">",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "sophia_near"
                 }
               ]
             },
@@ -3218,9 +3530,9 @@
                   "value": 2
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": "<=",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "sophia_near"
                 }
               ]
             },
@@ -3280,6 +3592,22 @@
               {
                 "weight": 10,
                 "trigger": "sophia:skill_12"
+              },
+              {
+                "weight": 10,
+                "trigger": "sophia:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "sophia:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "sophia:skill_61"
+              },
+              {
+                "weight": 10,
+                "trigger": "sophia:skill_62"
               },
               {
                 "weight": 10,
@@ -3343,9 +3671,10 @@
                   "value": 2
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": ">",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "sophia_near"
                 }
               ]
             },
@@ -3468,9 +3797,9 @@
                   "value": 3
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": "<=",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "sophia_near"
                 }
               ]
             },
@@ -3530,6 +3859,22 @@
               {
                 "weight": 10,
                 "trigger": "sophia:skill_12"
+              },
+              {
+                "weight": 10,
+                "trigger": "sophia:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "sophia:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "sophia:skill_61"
+              },
+              {
+                "weight": 10,
+                "trigger": "sophia:skill_62"
               },
               {
                 "weight": 10,
@@ -3609,9 +3954,10 @@
                   "value": 3
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": ">",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "sophia_near"
                 }
               ]
             },

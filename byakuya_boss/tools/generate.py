@@ -16,8 +16,9 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import anims  # noqa: E402
 import fx  # noqa: E402
 import summons  # noqa: E402
-from cine import (FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, bake_smooth, encounter_cmds,  # noqa: E402
-                  rival_target, smooth_client, split_dashes, vectorize_animations)
+from cine import (FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, aim_at_foes, bake_smooth,  # noqa: E402
+                  encounter_cmds, foe_tag_anim, footwork_steps, near_filters, rival_target, smooth_client,
+                  split_dashes, vectorize_animations)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BP = os.path.join(ROOT, "Byakuya_BP")
@@ -26,7 +27,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "byakuya:shiraishi_byakuya"
 NAME = "白石白夜"
-VERSION = [1, 5, 0]
+VERSION = [1, 6, 0]
 MIN_ENGINE = [1, 21, 0]
 
 UUID_BP_HEADER = "293c6dbc-978c-4439-aa05-c2fa6e63c99d"
@@ -44,7 +45,8 @@ random.seed(1201)  # 誕生日 12/1
 def write(path, data):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     if not isinstance(data, str) and os.path.abspath(path).startswith(os.path.abspath(BP) + os.sep):
-        add_rival(data, ID)   # プレイヤーへのダメージ命令を、ほかのボスにも当たるように複製する
+        add_rival(data, ID)     # プレイヤーへのダメージ命令を、ほかのボスにも当たるように複製する
+        aim_at_foes(data, ID)   # 技の狙いを「一番近い敵（プレイヤー・ほかのボス）」に
     with open(path, "w", encoding="utf-8") as f:
         if isinstance(data, str):
             f.write(data)
@@ -613,6 +615,28 @@ def impact(pos="~ ~ ~"):
     return [pt("debris", pos), pt("dust_ring", pos)]
 
 
+# ---------------------------------------------------------------------------
+# 立ち回り（ボス同士でも、プレイヤー相手でも）: その場で殴り合うだけにならないように
+# ---------------------------------------------------------------------------
+# 60 縮地・退: 後ろへ跳んで間合いを取り、飛ぶ斬撃で返す
+tl = {0: [sound("mob.endermen.portal", 1.7, 30, 0.5), pt("afterimage", "~ ~0.9 ~")]}
+footwork_steps(lambda t, c: add(tl, t, c), 0.05, 3, "^ ^ ^-1.7", NEAREST, [pt("afterimage", "~ ~0.9 ~")])
+add(tl, 0.17, [pt("step_dust"), pt("dust_ring", "~ ~0.1 ~")])
+add(tl, 0.5, waves(-10, 0, 10) + [sound("item.trident.riptide_1", 1.4, 30, 0.7),
+                                  sound("game.player.attack.strong", 0.8, 30)])
+skill(60, "縮地・退", 1.1, tl)
+# 61 / 62 回り込み: 相手の右・左へ回り込みながら間合いを詰め、横から斬る
+for v, side in ((61, 1), (62, -1)):
+    tl = {0: [sound("mob.endermen.portal", 1.9, 24, 0.4), pt("afterimage", "~ ~0.9 ~")]}
+    footwork_steps(lambda t, c: add(tl, t, c), 0.08, 7, "^%g ^ ^0.3" % (-1.25 * side), NEAREST,
+                   [pt("afterimage", "~ ~0.9 ~")])
+    add(tl, 0.56, [pt("slash_flat_white", "^ ^1.1 ^1.2"), pt("slash_white", "^ ^1.2 ^1.5"),
+                   sound("game.player.attack.strong", 0.6, 30), sound("item.trident.riptide_1", 1.7, 30, 0.5),
+                   "/execute positioned ^ ^1 ^1.6 run damage @a[r=2.3,m=!creative] 12 entity_attack entity @s",
+                   shake(0.4, 0.25, 10)] + impact("^ ^ ^1.6"))
+    skill(v, "回り込み", 1.3, tl)
+
+
 cutin_into(12, 0.0, 0.8, "^0.8 ^1.3 ^1.3", "^-0.2 ^1.2 ^0.2", "§0§l無刀 無残")
 cutin_into(23, 0.0, 0.7, "^ ^8 ^4", "^ ^1 ^", "§4§l森羅万象")
 for v, times in ((18, [1.3]), (24, [0.5, 1.1, 1.7, 2.3]), (20, [9.3]), (31, [2.8]), (6, [0.35]), (25, [4.4]),
@@ -769,14 +793,13 @@ def bp_entity():
     ]}
 
     # 距離で技を選ぶ: 近い相手には近接技、離れた相手には遠距離技を多めに
-    near1 = [1, 2, 3, 4, 5, 6, 8, "disarm", 10, 17, 17, 19, 22, 22, 13, 24, 27]
+    near1 = [1, 2, 3, 4, 5, 6, 8, "disarm", 10, 17, 17, 19, 22, 22, 13, 24, 27, 60, 60, 61, 62]   # 60〜62: 立ち回り
     far1 = [1, 2, 4, 5, 7, 13, 13, 14, 14, 15, 15, 16, 16, 18, 18, 24]
     near2 = near1 + [11, 11, 12, 12, 21, 17, 22, 25, 26, 27]
     far2 = far1 + [21, 13, 14, 15, 16, 18, 25, 26]
     near3 = near2 + [23, 23, 25, 26]
     far3 = far2 + [23, 23, 25]
-    NEAR = {"test": "distance_to_nearest_player", "operator": "<=", "value": 7}
-    FAR = {"test": "distance_to_nearest_player", "operator": ">", "value": 7}
+    NEAR, FAR = near_filters("byakuya_near")   # 7 マス以内に敵（プレイヤー・ほかのボス）がいるか
 
     def rnd(lst):
         return [{"weight": 10, "trigger": "byakuya:try_disarm" if s == "disarm" else "byakuya:skill_%d" % s}
@@ -831,8 +854,9 @@ def bp_entity():
                 "is_spawnable": True,
                 "is_summonable": True,
                 "is_experimental": False,
-                "scripts": {"animate": ["skills", "upkeep", "death"]},
+                "scripts": {"animate": ["skills", "upkeep", "death", "foe_tags"]},
                 "animations": {
+                    "foe_tags": "animation.byakuya.foe_tags",
                     "skills": "controller.animation.byakuya.skills",
                     "death": "controller.animation.byakuya.death",
                     "upkeep": "animation.byakuya.upkeep",
@@ -865,6 +889,8 @@ def bp_animations():
     a["animation.byakuya.idle_loop"] = {"animation_length": 2.0, "loop": True, "timeline": {"1.00": CINE.end() + [
         "/execute if entity @s[tag=!byakuya_met] if entity @e[family=hitori,r=24] run event entity @s byakuya:rival_meet"],
         "1.50": encounter_cmds("byakuya", say, ENCOUNTER)}}
+    # 常に動く: 敵の目印と「近くに敵がいる」タグ
+    a["animation.byakuya.foe_tags"] = foe_tag_anim(ID, "byakuya_near")
     return {"format_version": "1.10.0", "animations": a}
 
 

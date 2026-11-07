@@ -15,8 +15,9 @@ import zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sanims  # noqa: E402
 import sfx  # noqa: E402
-from cine import (FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, bake_smooth, encounter_cmds,  # noqa: E402
-                  rival_target, smooth_client, split_dashes, vectorize_animations)
+from cine import (FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, aim_at_foes, bake_smooth,  # noqa: E402
+                  encounter_cmds, foe_tag_anim, footwork_steps, near_filters, rival_target, smooth_client,
+                  split_dashes, vectorize_animations)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BP = os.path.join(ROOT, "Sophia_BP")
@@ -25,7 +26,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "sophia:sophia_heart"
 NAME = "ソフィア・ハート"
-VERSION = [1, 3, 0]
+VERSION = [1, 4, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "61396506-b3f5-4a1b-92f6-8e34dc87c6de"
 UUID_BP_MODULE = "c8d8c5f1-e6b7-46bb-8808-2e50aa8d0842"
@@ -52,7 +53,8 @@ CINE = Cine("sophia_cine")
 def write(path, data):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     if not isinstance(data, str) and os.path.abspath(path).startswith(os.path.abspath(BP) + os.sep):
-        add_rival(data, ID)   # プレイヤーへのダメージ命令を、ほかのボスにも当たるように複製する
+        add_rival(data, ID)     # プレイヤーへのダメージ命令を、ほかのボスにも当たるように複製する
+        aim_at_foes(data, ID)   # 技の狙いを「一番近い敵（プレイヤー・ほかのボス）」に
     with open(path, "w", encoding="utf-8") as f:
         if isinstance(data, str):
             f.write(data)
@@ -563,6 +565,28 @@ def impact(pos="~ ~ ~"):
     return [pt("debris", pos), pt("dust_ring", pos)]
 
 
+# ---------------------------------------------------------------------------
+# 立ち回り（ボス同士でも、プレイヤー相手でも）: その場で殴り合うだけにならないように
+# ---------------------------------------------------------------------------
+# 60 ステップ・ショット: 風に乗って後ろへ跳び、弾幕で返す
+tl = {0: [act("§e◆ ステップ・ショット"), pt("wind", "~ ~0.2 ~"), sound("mob.enderdragon.flap", 1.6, 30, 0.6)]}
+footwork_steps(lambda t, c: add(tl, t, c), 0.05, 3, "^ ^0.2 ^-1.6", NEAREST,
+               [pt("afterimage", "~ ~0.9 ~"), pt("sparkle", "~ ~1 ~")])
+add(tl, 0.2, [pt("step_dust"), pt("dust_ring", "~ ~0.1 ~")])
+add(tl, 0.5, [orb(-12), orb(0), orb(12), sound("random.orb", 1.4, 30), pt("charge_gold", "^ ^1.2 ^0.8")])
+skill(60, "ステップ・ショット", 1.1, tl)
+# 61 / 62 回り込み: 相手の右・左へ回り込みながら間合いを詰め、横から斬る
+for v, side in ((61, 1), (62, -1)):
+    tl = {0: [act("§e◆ 回り込み"), pt("afterimage", "~ ~0.9 ~"), sound("mob.enderdragon.flap", 1.9, 24, 0.4)]}
+    footwork_steps(lambda t, c: add(tl, t, c), 0.08, 7, "^%g ^ ^0.3" % (-1.3 * side), NEAREST,
+                   [pt("afterimage", "~ ~0.9 ~")])
+    add(tl, 0.56, [pt("big_slash_gold", "^ ^1.1 ^1.3"), pt("spark_burst", "^ ^1 ^1.6"),
+                   sound("game.player.attack.strong", 0.8, 30), sound("item.trident.riptide_1", 1.8, 30, 0.5),
+                   "/execute positioned ^ ^1 ^1.6 run damage @a[r=2.3,m=!creative] 12 entity_attack entity @s",
+                   shake(0.4, 0.25, 10)] + impact("^ ^ ^1.6"))
+    skill(v, "回り込み", 1.3, tl)
+
+
 cutin_into(19, 0.2, 0.6, "^0.8 ^0.4 ^1.6", "^ ^2.8 ^")
 cutin_into(22, 0.35, 0.8, "^ ^14 ^0.01", "^ ^ ^")
 for v, t in ((16, 0.7), (2, 0.95), (30, 2.6), (33, 4.5), (13, 0.45), (32, 9.8)):
@@ -713,7 +737,7 @@ def bp_entity():
         else:
             events["sophia:skill_%d" % v] = set_variant(v)
 
-    near1 = [1, 1, 2, 2, 3, 4, 6, 13, 14, 15, 16, 17, 18, 12]
+    near1 = [1, 1, 2, 2, 3, 4, 6, 13, 14, 15, 16, 17, 18, 12, 60, 60, 61, 62]   # 60〜62: 立ち回り
     far1 = [1, 5, 5, 7, 8, 9, 10, 11, 11, 12, 15, 17, 18]
     near2 = near1 + [19, 21, 23, 24, 25, 26, 28, 29]
     far2 = far1 + [19, 21, 22, 23, 24, 25, 27, 28, 29]
@@ -721,8 +745,7 @@ def bp_entity():
     far3 = far2 + [22, 27, 29]
     near4 = near3 + [40, 40, 41, 41]
     far4 = far3 + [40, 40, 41, 41]
-    NEAR = {"test": "distance_to_nearest_player", "operator": "<=", "value": 7}
-    FAR = {"test": "distance_to_nearest_player", "operator": ">", "value": 7}
+    NEAR, FAR = near_filters("sophia_near")   # 7 マス以内に敵（プレイヤー・ほかのボス）がいるか
     base = [{"test": "is_mark_variant", "value": 0}, {"test": "has_target", "value": True}]
     seq = []
     for skin, near, far in ((0, near1, far1), (1, near2, far2), (2, near3, far3), (3, near4, far4)):
@@ -765,11 +788,12 @@ def bp_entity():
     anims = {"skills": "controller.animation.sophia.skills", "barrier_cd": "controller.animation.sophia.barrier_cd",
              "barrier_time": "controller.animation.sophia.barrier_time", "death": "controller.animation.sophia.death",
              "upkeep": "animation.sophia.upkeep", "idle_loop": "animation.sophia.idle_loop",
+             "foe_tags": "animation.sophia.foe_tags",
              "cd_timer": "animation.sophia.cd_timer", "barrier_timer": "animation.sophia.barrier_timer",
              **{"skill_%d" % v: "animation.sophia.skill_%d" % v for v in SKILLS}}
     return {"format_version": "1.21.0", "minecraft:entity": {
         "description": {"identifier": ID, "is_spawnable": True, "is_summonable": True, "is_experimental": False,
-                        "scripts": {"animate": ["skills", "barrier_cd", "barrier_time", "upkeep", "death"]},
+                        "scripts": {"animate": ["skills", "barrier_cd", "barrier_time", "upkeep", "death", "foe_tags"]},
                         "animations": anims},
         "component_groups": groups, "components": components, "events": events}}
 
@@ -793,6 +817,8 @@ def bp_animations():
         "/execute if score @s %s matches 4.. run effect @s resistance 6 2 true" % OBJ_PLAYERS]}}
     a["animation.sophia.idle_loop"] = {"animation_length": 2.0, "loop": True, "timeline": {
         "1.00": CINE.end(), "1.50": encounter_cmds("sophia", say, ENCOUNTER)}}   # ほかのボスの発見
+    # 常に動く: 敵の目印と「近くに敵がいる」タグ
+    a["animation.sophia.foe_tags"] = foe_tag_anim(ID, "sophia_near")
     return {"format_version": "1.10.0", "animations": a}
 
 

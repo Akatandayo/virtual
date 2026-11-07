@@ -67,6 +67,9 @@
         "s30": "animation.hitori.skill_30",
         "s31": "animation.hitori.skill_31",
         "s32": "animation.hitori.skill_32",
+        "s60": "animation.hitori.skill_60",
+        "s61": "animation.hitori.skill_61",
+        "s62": "animation.hitori.skill_62",
         "s99": "animation.hitori.skill_99"
       },
       "scripts": {

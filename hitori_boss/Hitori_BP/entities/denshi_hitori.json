@@ -13,10 +13,12 @@
           "reboot",
           "decay",
           "death",
-          "bgm"
+          "bgm",
+          "foe_tags"
         ]
       },
       "animations": {
+        "foe_tags": "animation.hitori.foe_tags",
         "skills": "controller.animation.hitori.skills",
         "cooldown": "controller.animation.hitori.cooldown",
         "reboot": "controller.animation.hitori.reboot",
@@ -51,7 +53,10 @@
         "skill_31": "animation.hitori.skill_31",
         "skill_32": "animation.hitori.skill_32",
         "skill_20": "animation.hitori.skill_20",
-        "skill_99": "animation.hitori.skill_99"
+        "skill_99": "animation.hitori.skill_99",
+        "skill_60": "animation.hitori.skill_60",
+        "skill_61": "animation.hitori.skill_61",
+        "skill_62": "animation.hitori.skill_62"
       }
     },
     "component_groups": {
@@ -416,6 +421,21 @@
       "v_32": {
         "minecraft:mark_variant": {
           "value": 32
+        }
+      },
+      "v_60": {
+        "minecraft:mark_variant": {
+          "value": 60
+        }
+      },
+      "v_61": {
+        "minecraft:mark_variant": {
+          "value": 61
+        }
+      },
+      "v_62": {
+        "minecraft:mark_variant": {
+          "value": 62
         }
       },
       "v_99": {
@@ -786,6 +806,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "glitch_on",
             "glitch_cd",
             "glitch_reboot",
@@ -839,6 +862,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "v_99",
             "glitch_on",
             "glitch_cd",
@@ -973,6 +999,9 @@
                 "v_30",
                 "v_31",
                 "v_32",
+                "v_60",
+                "v_61",
+                "v_62",
                 "v_99"
               ]
             },
@@ -1012,6 +1041,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "v_99",
             "glitch_cd",
             "glitch_reboot",
@@ -1060,6 +1092,9 @@
             "v_23",
             "v_30",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "v_99",
             "glitch_on",
             "glitch_cd",
@@ -1105,6 +1140,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "v_99",
             "glitch_on",
             "glitch_cd",
@@ -1157,6 +1195,9 @@
                 "v_23",
                 "v_30",
                 "v_31",
+                "v_60",
+                "v_61",
+                "v_62",
                 "v_99",
                 "glitch_on",
                 "glitch_cd",
@@ -1202,6 +1243,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "v_99"
           ]
         },
@@ -1239,6 +1283,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "v_99"
           ]
         },
@@ -1276,6 +1323,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "v_99"
           ]
         },
@@ -1313,6 +1363,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "v_99"
           ]
         },
@@ -1350,6 +1403,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "v_99"
           ]
         },
@@ -1387,6 +1443,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "v_99"
           ]
         },
@@ -1424,6 +1483,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "v_99"
           ]
         },
@@ -1461,6 +1523,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "v_99"
           ]
         },
@@ -1498,6 +1563,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "v_99"
           ]
         },
@@ -1535,6 +1603,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "v_99"
           ]
         },
@@ -1572,6 +1643,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "v_99"
           ]
         },
@@ -1609,6 +1683,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "v_99"
           ]
         },
@@ -1646,6 +1723,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "v_99"
           ]
         },
@@ -1683,6 +1763,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "v_99"
           ]
         },
@@ -1720,6 +1803,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "v_99"
           ]
         },
@@ -1757,6 +1843,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "v_99"
           ]
         },
@@ -1794,6 +1883,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "v_99"
           ]
         },
@@ -1831,6 +1923,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "v_99"
           ]
         },
@@ -1868,6 +1963,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "v_99"
           ]
         },
@@ -1905,6 +2003,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "v_99"
           ]
         },
@@ -1942,12 +2043,135 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "v_99"
           ]
         },
         "add": {
           "component_groups": [
             "v_23"
+          ]
+        }
+      },
+      "hitori:skill_60": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23",
+            "v_30",
+            "v_31",
+            "v_32",
+            "v_61",
+            "v_62",
+            "v_99"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_60"
+          ]
+        }
+      },
+      "hitori:skill_61": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23",
+            "v_30",
+            "v_31",
+            "v_32",
+            "v_60",
+            "v_62",
+            "v_99"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_61"
+          ]
+        }
+      },
+      "hitori:skill_62": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23",
+            "v_30",
+            "v_31",
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_99"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_62"
           ]
         }
       },
@@ -1969,9 +2193,9 @@
                   "value": 0
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": "<=",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "hitori_near"
                 }
               ]
             },
@@ -2019,6 +2243,22 @@
               {
                 "weight": 10,
                 "trigger": "hitori:skill_21"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_61"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_62"
               }
             ]
           },
@@ -2038,9 +2278,10 @@
                   "value": 0
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": ">",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_near"
                 }
               ]
             },
@@ -2107,9 +2348,9 @@
                   "value": 1
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": "<=",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "hitori_near"
                 }
               ]
             },
@@ -2157,6 +2398,22 @@
               {
                 "weight": 10,
                 "trigger": "hitori:skill_21"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_61"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_62"
               },
               {
                 "weight": 10,
@@ -2220,9 +2477,10 @@
                   "value": 1
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": ">",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_near"
                 }
               ]
             },
@@ -2337,9 +2595,9 @@
                   "value": 2
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": "<=",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "hitori_near"
                 }
               ]
             },
@@ -2387,6 +2645,22 @@
               {
                 "weight": 10,
                 "trigger": "hitori:skill_21"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_61"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_62"
               },
               {
                 "weight": 10,
@@ -2466,9 +2740,10 @@
                   "value": 2
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": ">",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_near"
                 }
               ]
             },

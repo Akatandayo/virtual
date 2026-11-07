@@ -17,8 +17,9 @@ import zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import hanims  # noqa: E402
 import hfx  # noqa: E402
-from cine import (FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, bake_smooth, encounter_cmds,  # noqa: E402
-                  rival_target, smooth_client, split_dashes, vectorize_animations)
+from cine import (FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, aim_at_foes, bake_smooth,  # noqa: E402
+                  encounter_cmds, foe_tag_anim, near_filters, rival_target, smooth_client, split_dashes,
+                  vectorize_animations)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BP = os.path.join(ROOT, "Hitori_BP")
@@ -27,7 +28,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "hitori:denshi_hitori"
 NAME = "電子 独"
-VERSION = [1, 4, 0]
+VERSION = [1, 5, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "9b78d68f-ebde-4768-989c-96ab7fa09e02"
 UUID_BP_MODULE = "9263edb8-7005-4aa3-82a3-54ec6c07aaf0"
@@ -66,7 +67,8 @@ NEAREST = "@p[r=48,m=!creative]"
 def write(path, data):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     if not isinstance(data, str) and os.path.abspath(path).startswith(os.path.abspath(BP) + os.sep):
-        add_rival(data, ID)   # プレイヤーへのダメージ命令を、ほかのボスにも当たるように複製する
+        add_rival(data, ID)     # プレイヤーへのダメージ命令を、ほかのボスにも当たるように複製する
+        aim_at_foes(data, ID)   # 技の狙いを「一番近い敵（プレイヤー・ほかのボス）」に
     with open(path, "w", encoding="utf-8") as f:
         if isinstance(data, str):
             f.write(data)
@@ -552,6 +554,30 @@ def impact(pos="~ ~ ~"):
     return [pt("debris", pos), pt("dust_ring", pos)]
 
 
+# ---------------------------------------------------------------------------
+# 立ち回り（ボス同士でも、プレイヤー相手でも）: その場で殴り合うだけにならないように
+# ---------------------------------------------------------------------------
+# 60 Rollback Step: カクついたコマ送りで後ろへ下がり、データ弾で返す
+tl = {0: [pt("noise_burst", "~ ~1 ~"), sound("note.bit", 0.6, 30)]}
+for t, d in ((0.05, 2.4), (0.15, 1.4), (0.22, 1.0)):
+    add(tl, t, ["/tp @s ^ ^ ^-%g facing %s true" % (d, NEAREST), pt("noise_burst", "~ ~1 ~"),
+                pt("afterimage", "~ ~0.9 ~")])
+add(tl, 0.22, [pt("step_dust")])
+add(tl, 0.5, ["/summon hitori:bit_bullet ^ ^1.3 ^0.6 hitori:aim_%s" % a for a in ("m5", "4")]
+    + [sound("note.bit", 1.2, 30), pt("noise_burst", "^ ^1.3 ^0.8")])
+add(tl, 0.62, ["/summon hitori:bit_bullet ^ ^1.3 ^0.6 hitori:aim_0", sound("note.bit", 1.4, 30)])
+skill(60, "Rollback Step", 1.1, tl)
+# 61 / 62 Lag Step: ラグったように不規則なコマで横へ回り込み、ノイズの拳
+for v, side in ((61, 1), (62, -1)):
+    tl = {0: [pt("noise_burst", "~ ~1 ~"), sound("note.bit", 0.8, 24)]}
+    for t in (0.08, 0.12, 0.24, 0.3, 0.4):
+        add(tl, t, ["/tp @s ^%g ^ ^0.45 facing %s true" % (-1.5 * side, NEAREST), pt("noise_burst", "~ ~1 ~")])
+    add(tl, 0.56, [pt("noise_big", "^ ^1 ^1.6"), sound("random.glass", 0.6, 30), sound("note.bass", 0.5, 30),
+                   "/execute positioned ^ ^1 ^1.6 run damage @a[r=2.3,m=!creative] 13 magic entity @s",
+                   shake(0.4, 0.25, 10)] + impact("^ ^ ^1.6"))
+    skill(v, "Lag Step", 1.3, tl)
+
+
 cutin_into(13, 0.0, 0.7, "^0.4 ^1.65 ^1.2", "^ ^1.6 ^")
 cutin_into(18, 0.42, 0.5, "^ ^-9.5 ^3", "^ ^ ^")
 for v, times in ((18, [1.25, 2.55, 3.85]), (14, [4.7]), (31, [2.9]), (13, [3.5])):
@@ -713,12 +739,11 @@ def bp_entity():
         if v not in busy_v:
             events["hitori:skill_%d" % v] = set_variant(v)
 
-    near1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 21]
+    near1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 21, 60, 60, 61, 62]   # 60〜62: 立ち回り
     far1 = [1, 2, 3, 3, 7, 8, 10, 10, 11, 11, 21]
     near2 = near1 + [12, 13, 14, 15, 16, 17, 18, 5, 6, 22, 23]
     far2 = far1 + [12, 13, 14, 15, 16, 16, 17, 17, 18, 18, 22, 23]
-    near_f = {"test": "distance_to_nearest_player", "operator": "<=", "value": 7}
-    far_f = {"test": "distance_to_nearest_player", "operator": ">", "value": 7}
+    near_f, far_f = near_filters("hitori_near")   # 7 マス以内に敵（プレイヤー・ほかのボス）がいるか
     base = [{"test": "is_mark_variant", "value": 0}, {"test": "has_target", "value": True}]
     seq = []
     for skin, near, far in ((0, near1, far1), (1, near2, far2),
@@ -759,8 +784,9 @@ def bp_entity():
     }
     return {"format_version": "1.21.0", "minecraft:entity": {
         "description": {"identifier": ID, "is_spawnable": True, "is_summonable": True, "is_experimental": False,
-                        "scripts": {"animate": ["skills", "cooldown", "reboot", "decay", "death", "bgm"]},
-                        "animations": {"skills": "controller.animation.hitori.skills",
+                        "scripts": {"animate": ["skills", "cooldown", "reboot", "decay", "death", "bgm", "foe_tags"]},
+                        "animations": {"foe_tags": "animation.hitori.foe_tags",
+                                       "skills": "controller.animation.hitori.skills",
                                        "cooldown": "controller.animation.hitori.cooldown",
                                        "reboot": "controller.animation.hitori.reboot",
                                        "decay": "animation.hitori.decay",
@@ -787,6 +813,8 @@ def bp_animations():
     # 待機中だけ動く: カメラの後片付けと、ほかのボスの発見
     a["animation.hitori.idle_loop"] = {"animation_length": 2.0, "loop": True, "timeline": {
         "1.00": CINE.end(), "1.50": encounter_cmds("hitori", say, ENCOUNTER)}}
+    # 常に動く: 敵の目印と「近くに敵がいる」タグ
+    a["animation.hitori.foe_tags"] = foe_tag_anim(ID, "hitori_near")
     return {"format_version": "1.10.0", "animations": a}
 
 

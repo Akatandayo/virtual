@@ -347,3 +347,117 @@ def split_dashes(timeline, min_dist=6.0, fracs=(0.5, 0.3, 0.2), dt=0.05):
             key = "%.2f" % (t + i * dt)
             timeline[key] = timeline.get(key, []) + ["/tp @s ^ ^ ^%g" % round(d * f, 3)]
     return timeline
+
+
+# ================================================================ ボス同士でも戦えるAI
+FOE_TAG = "vb_foe"   # 「敵」の目印（サバイバル・アドベンチャーのプレイヤーと、すべてのボス）
+
+
+def foe_sel(self_type, args=""):
+    """一番近い敵（プレイヤー・ほかのボス）。自分と同じ種類のボスは除く"""
+    a = "tag=%s,type=!%s" % (FOE_TAG, self_type)
+    return "@e[%s%s,c=1]" % (a, "," + args if args else "")
+
+
+def aim_at_foes(obj, self_type):
+    """技の狙い「一番近いプレイヤー（@p[...m=!creative]）」を「一番近い敵」に置き換える.
+
+    プレイヤー 1 人と戦うときは今までと同じ相手を狙い、ほかのボスがもっと近ければそちらを狙う。
+    演出用の @p[r=64] や、プレイヤー専用の「鎖」のタグはそのまま。
+    """
+    pat = re.compile(r"@p\[([^\]]*)\]")
+
+    def repl(m):
+        args = [x for x in m.group(1).split(",") if x]
+        if "m=!creative" not in args:
+            return m.group(0)
+        return foe_sel(self_type, ",".join(x for x in args if x != "m=!creative"))
+
+    def fix(s):
+        if "@p[" not in s or s.lstrip("/").startswith("tag @p["):
+            return s
+        return pat.sub(repl, s)
+
+    def walk(o):
+        if isinstance(o, dict):
+            for k, v in o.items():
+                if isinstance(v, str):
+                    o[k] = fix(v)
+                else:
+                    walk(v)
+        elif isinstance(o, list):
+            for i, v in enumerate(o):
+                if isinstance(v, str):
+                    o[i] = fix(v)
+                else:
+                    walk(v)
+    walk(obj)
+    return obj
+
+
+def foe_tag_anim(self_type, near_tag, near=7.0, period=0.5):
+    """常に動く: 敵の目印を付け直し、「近くに敵がいる」タグ（技選びの近距離・遠距離）を更新する"""
+    return {"animation_length": period, "loop": True, "timeline": {"0.00": [
+        "/tag @s add %s" % FOE_TAG,
+        "/tag @a[m=survival] add %s" % FOE_TAG, "/tag @a[m=adventure] add %s" % FOE_TAG,
+        "/tag @a[m=creative] remove %s" % FOE_TAG, "/tag @a[m=spectator] remove %s" % FOE_TAG,
+        "/tag @s remove %s" % near_tag,
+        "/execute if entity @e[tag=%s,type=!%s,r=%g] run tag @s add %s" % (FOE_TAG, self_type, near, near_tag)]}}
+
+
+def near_filters(near_tag):
+    """技選び: 近くに敵がいる / いない"""
+    return ({"test": "has_tag", "subject": "self", "value": near_tag},
+            {"test": "has_tag", "subject": "self", "operator": "!=", "value": near_tag})
+
+
+def footwork_steps(add, t0, n, offset, face, fx=(), dt=0.05, fx_every=2):
+    """t0 から dt ごとに n 回、少しずつ tp する（壁の中には入らない）。向きは毎回 face に合わせ直す"""
+    for i in range(n):
+        add(t0 + i * dt, ["/tp @s %s facing %s true" % (offset, face)] + (list(fx) if i % fx_every == 0 else []))
+
+
+def footwork_bones(kind, hold_r, strike="sword"):
+    """立ち回りのモーション. kind: "back"（後ろへ跳んで遠距離で反撃）/ "right"・"left"（回り込んで斬る）"""
+    N = [0, 0, 0]
+    if strike == "sword":
+        wind, hit, follow = [-128, 48, 0], [-82, -80, 0], [-70, -64, 0]
+    else:   # 拳・魔法: 腕を引いて、まっすぐ突き出す
+        wind, hit, follow = [-35, 25, 0], [-96, 0, 0], [-88, 0, 0]
+    if kind == "back":
+        return {
+            "root": {"position": {0: N, 0.05: [0, 1.6, 0], 0.17: [0, -1.8, 0], 0.3: [0, -0.6, 0], 0.42: [0, -1.0, 0],
+                                  0.52: [0, -1.4, 0], 0.8: [0, -0.6, 0], 1.1: N}},
+            "body": {"rotation": {0: N, 0.05: [-14, 0, 0], 0.17: [12, 0, 0], 0.3: [4, 0, 0], 0.42: [2, 32, 0],
+                                  0.52: [8, -28, 0], 0.8: [5, -18, 0], 1.1: N}},
+            "head": {"rotation": {0: N, 0.05: [8, 0, 0], 0.17: [-8, 0, 0], 0.42: [0, -24, 0], 0.52: [-4, 20, 0],
+                                  1.1: N}},
+            "rightArm": {"rotation": {0: hold_r, 0.05: [-50, 15, 10], 0.17: [-35, 10, 0], 0.42: wind, 0.52: hit,
+                                      0.8: follow, 1.1: hold_r}},
+            "leftArm": {"rotation": {0: N, 0.05: [-30, 0, -40], 0.17: [-20, 0, -25], 0.42: [-55, -20, 0],
+                                     0.52: [10, 0, -15], 1.1: N}},
+            "rightLeg": {"rotation": {0: N, 0.05: [-45, 0, 0], 0.17: [-30, 0, 5], 0.3: [-10, 0, 0], 0.52: [-20, 0, 0],
+                                      1.1: N}},
+            "leftLeg": {"rotation": {0: N, 0.05: [30, 0, 0], 0.17: [20, 0, -5], 0.3: [10, 0, 0], 0.52: [25, 0, 0],
+                                     1.1: N}},
+        }
+    s = 1 if kind == "right" else -1      # 右へ回り込む = +1
+    lead, trail = ("rightLeg", "leftLeg") if s > 0 else ("leftLeg", "rightLeg")
+    step = {0: N, 0.1: [0, 0, 26 * s], 0.18: [0, 0, 4 * s], 0.26: [0, 0, 26 * s], 0.34: [0, 0, 4 * s],
+            0.42: [0, 0, 22 * s], 0.5: [-30, 0, 0], 0.58: [-40, 0, 0], 0.9: [-15, 0, 0], 1.3: N}
+    follow_leg = {0: N, 0.14: [0, 0, 12 * s], 0.22: [0, 0, 0], 0.3: [0, 0, 12 * s], 0.38: [0, 0, 0],
+                  0.5: [20, 0, 0], 0.58: [30, 0, 0], 0.9: [10, 0, 0], 1.3: N}
+    return {
+        "root": {"position": {0: N, 0.08: [0, -2.0, 0], 0.14: [0, -1.2, 0], 0.22: [0, -2.0, 0], 0.3: [0, -1.2, 0],
+                              0.38: [0, -2.0, 0], 0.46: [0, -1.6, 0], 0.58: [0, -2.6, 0], 0.9: [0, -1.0, 0], 1.3: N}},
+        "body": {"rotation": {0: N, 0.08: [16, 0, -10 * s], 0.44: [16, 0, -10 * s], 0.5: [10, 34, 0],
+                              0.58: [18, -40, 0], 0.9: [10, -26, 0], 1.3: N}},
+        "head": {"rotation": {0: N, 0.08: [-12, 0, 8 * s], 0.44: [-12, 0, 8 * s], 0.5: [-6, -26, 0],
+                              0.58: [-10, 28, 0], 1.3: N}},
+        "rightArm": {"rotation": {0: hold_r, 0.08: [-38, 32, 0], 0.44: [-38, 32, 0], 0.5: wind, 0.58: hit,
+                                  0.9: follow, 1.3: hold_r}},
+        "leftArm": {"rotation": {0: N, 0.08: [-18, 0, -28], 0.44: [-18, 0, -28], 0.5: [-60, -20, 0],
+                                 0.58: [12, 0, -18], 1.3: N}},
+        lead: {"rotation": step},
+        trail: {"rotation": follow_leg},
+    }

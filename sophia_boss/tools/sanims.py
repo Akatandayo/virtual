@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """ソフィア・ハート: クライアント側アニメーション（細腕モデル・右手に紺碧刀）."""
 
-from cine import ALIVE_ANIM, SPD, TURN_ANIM, smooth_controller  # noqa: E402
+from cine import ALIVE_ANIM, SPD, TURN_ANIM, footwork_bones, smooth_controller  # noqa: E402
 
 N = [0, 0, 0]
 HOLD = [-20, -8, 0]          # 普段の右腕（刀を軽く前に）
@@ -247,6 +247,13 @@ def skill_anims():
         "rightArm": {"rotation": {0: HOLD, 0.2: [-100, 15, 0], 2.7: [-100, 15, 0], 3.0: HOLD}},
         "leftArm": {"rotation": {0: N, 0.2: [-100, -15, 0], 2.7: [-100, -15, 0], 3.0: N}},
     }, {0.2: fx("spark", "body_center")})
+    # 60 間合いを取る（後ろへ跳んで遠距離で反撃）/ 61・62 右・左へ回り込んで斬る（立ち回り）
+    A[60] = anim(1.1, footwork_bones("back", HOLD), {0.17: fx("step", "left_foot"), 0.17 + 0.01: fx("step", "right_foot"),
+                                                  0.5: fx("glow")})
+    A[61] = anim(1.3, footwork_bones("right", HOLD), {0.1: fx("step", "right_foot"), 0.26: fx("step", "right_foot"),
+                                                   0.42: fx("step", "right_foot"), 0.56: fx("trail")})
+    A[62] = anim(1.3, footwork_bones("left", HOLD), {0.1: fx("step", "left_foot"), 0.26: fx("step", "left_foot"),
+                                                  0.42: fx("step", "left_foot"), 0.56: fx("trail")})
     return A
 
 

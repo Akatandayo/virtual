@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """電子 独: クライアント側アニメーション."""
 
-from cine import ALIVE_ANIM, SPD, TURN_ANIM, smooth_controller  # noqa: E402
+from cine import ALIVE_ANIM, SPD, TURN_ANIM, footwork_bones, smooth_controller  # noqa: E402
 
 N = [0, 0, 0]
 ALT = "math.mod(v.atk_n, 2) == 0"   # 右 / 左
@@ -249,6 +249,13 @@ def skill_anims():
                                   3.5: N, 6.4: N, 6.6: [-90, 0, 0], 8.2: [-90, 0, 0], 8.5: N}},
         "head": {"rotation": {0: N, 2.6: [0, 0, 15], 4.0: [0, 0, 15], 4.3: N}},
     }, {6.6: fx("hand_noise"), 8.0: fx("glitch_heavy", "body_center")})
+    # 60 間合いを取る（後ろへ跳んで遠距離で反撃）/ 61・62 右・左へ回り込んで斬る（立ち回り）
+    A[60] = anim(1.1, footwork_bones("back", N, "punch"), {0.17: fx("step", "left_foot"), 0.17 + 0.01: fx("step", "right_foot"),
+                                                  0.5: fx("hand_noise")})
+    A[61] = anim(1.3, footwork_bones("right", N, "punch"), {0.1: fx("step", "right_foot"), 0.26: fx("step", "right_foot"),
+                                                   0.42: fx("step", "right_foot"), 0.56: fx("hand_noise")})
+    A[62] = anim(1.3, footwork_bones("left", N, "punch"), {0.1: fx("step", "left_foot"), 0.26: fx("step", "left_foot"),
+                                                  0.42: fx("step", "left_foot"), 0.56: fx("hand_noise")})
     return A
 
 

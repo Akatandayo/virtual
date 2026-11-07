@@ -122,6 +122,15 @@
             },
             {
               "s55": "q.mark_variant == 55"
+            },
+            {
+              "s60": "q.mark_variant == 60"
+            },
+            {
+              "s61": "q.mark_variant == 61"
+            },
+            {
+              "s62": "q.mark_variant == 62"
             }
           ],
           "blend_transition": 0.2,
@@ -813,6 +822,69 @@
             },
             {
               "default": "q.mark_variant != 55"
+            }
+          ],
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
+        },
+        "s60": {
+          "animations": [
+            "look_at",
+            "s60",
+            {
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
+            },
+            "hurt",
+            "alive"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 60"
+            }
+          ],
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
+        },
+        "s61": {
+          "animations": [
+            "look_at",
+            "s61",
+            {
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
+            },
+            "hurt",
+            "alive"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 61"
+            }
+          ],
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
+        },
+        "s62": {
+          "animations": [
+            "look_at",
+            "s62",
+            {
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
+            },
+            "hurt",
+            "alive"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 62"
             }
           ],
           "blend_transition": 0.3,

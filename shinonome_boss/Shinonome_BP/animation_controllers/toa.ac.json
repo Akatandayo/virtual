@@ -107,6 +107,15 @@
             },
             {
               "skill_55": "q.mark_variant == 55"
+            },
+            {
+              "skill_60": "q.mark_variant == 60"
+            },
+            {
+              "skill_61": "q.mark_variant == 61"
+            },
+            {
+              "skill_62": "q.mark_variant == 62"
             }
           ]
         },
@@ -533,6 +542,45 @@
           "transitions": [
             {
               "default": "q.all_animations_finished || q.mark_variant != 55"
+            }
+          ],
+          "on_exit": [
+            "@s shinonome:skill_end"
+          ]
+        },
+        "skill_60": {
+          "animations": [
+            "skill_60"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 60"
+            }
+          ],
+          "on_exit": [
+            "@s shinonome:skill_end"
+          ]
+        },
+        "skill_61": {
+          "animations": [
+            "skill_61"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 61"
+            }
+          ],
+          "on_exit": [
+            "@s shinonome:skill_end"
+          ]
+        },
+        "skill_62": {
+          "animations": [
+            "skill_62"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 62"
             }
           ],
           "on_exit": [

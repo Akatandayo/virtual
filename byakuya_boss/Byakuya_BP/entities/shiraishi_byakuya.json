@@ -10,10 +10,12 @@
         "animate": [
           "skills",
           "upkeep",
-          "death"
+          "death",
+          "foe_tags"
         ]
       },
       "animations": {
+        "foe_tags": "animation.byakuya.foe_tags",
         "skills": "controller.animation.byakuya.skills",
         "death": "controller.animation.byakuya.death",
         "upkeep": "animation.byakuya.upkeep",
@@ -47,7 +49,10 @@
         "skill_30": "animation.byakuya.skill_30",
         "skill_31": "animation.byakuya.skill_31",
         "skill_32": "animation.byakuya.skill_32",
-        "skill_20": "animation.byakuya.skill_20"
+        "skill_20": "animation.byakuya.skill_20",
+        "skill_60": "animation.byakuya.skill_60",
+        "skill_61": "animation.byakuya.skill_61",
+        "skill_62": "animation.byakuya.skill_62"
       }
     },
     "component_groups": {
@@ -460,6 +465,21 @@
         "minecraft:mark_variant": {
           "value": 32
         }
+      },
+      "v_60": {
+        "minecraft:mark_variant": {
+          "value": 60
+        }
+      },
+      "v_61": {
+        "minecraft:mark_variant": {
+          "value": 61
+        }
+      },
+      "v_62": {
+        "minecraft:mark_variant": {
+          "value": 62
+        }
       }
     },
     "components": {
@@ -682,6 +702,9 @@
                 "v_30",
                 "v_31",
                 "v_32",
+                "v_60",
+                "v_61",
+                "v_62",
                 "hopper_guard",
                 "mikiri_guard",
                 "cine_guard"
@@ -729,6 +752,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "hopper_guard",
             "mikiri_guard",
             "cine_guard"
@@ -817,6 +843,9 @@
             "v_27",
             "v_30",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "sensor_normal",
             "hopper_guard",
             "mikiri_guard",
@@ -865,6 +894,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "sensor_normal",
             "hopper_guard",
             "mikiri_guard",
@@ -920,6 +952,9 @@
                 "v_27",
                 "v_30",
                 "v_31",
+                "v_60",
+                "v_61",
+                "v_62",
                 "sensor_normal",
                 "hopper_guard",
                 "mikiri_guard",
@@ -967,7 +1002,10 @@
             "v_27",
             "v_30",
             "v_31",
-            "v_32"
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1008,7 +1046,10 @@
             "v_27",
             "v_30",
             "v_31",
-            "v_32"
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1049,7 +1090,10 @@
             "v_27",
             "v_30",
             "v_31",
-            "v_32"
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1090,7 +1134,10 @@
             "v_27",
             "v_30",
             "v_31",
-            "v_32"
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1131,7 +1178,10 @@
             "v_27",
             "v_30",
             "v_31",
-            "v_32"
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1172,7 +1222,10 @@
             "v_27",
             "v_30",
             "v_31",
-            "v_32"
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1213,7 +1266,10 @@
             "v_27",
             "v_30",
             "v_31",
-            "v_32"
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1255,6 +1311,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "sensor_normal"
           ]
         },
@@ -1297,7 +1356,10 @@
             "v_27",
             "v_30",
             "v_31",
-            "v_32"
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1338,7 +1400,10 @@
             "v_27",
             "v_30",
             "v_31",
-            "v_32"
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1379,7 +1444,10 @@
             "v_27",
             "v_30",
             "v_31",
-            "v_32"
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1420,7 +1488,10 @@
             "v_27",
             "v_30",
             "v_31",
-            "v_32"
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1461,7 +1532,10 @@
             "v_27",
             "v_30",
             "v_31",
-            "v_32"
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1502,7 +1576,10 @@
             "v_27",
             "v_30",
             "v_31",
-            "v_32"
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1543,7 +1620,10 @@
             "v_27",
             "v_30",
             "v_31",
-            "v_32"
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1584,7 +1664,10 @@
             "v_27",
             "v_30",
             "v_31",
-            "v_32"
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1625,7 +1708,10 @@
             "v_27",
             "v_30",
             "v_31",
-            "v_32"
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1666,7 +1752,10 @@
             "v_27",
             "v_30",
             "v_31",
-            "v_32"
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1708,6 +1797,9 @@
             "v_30",
             "v_31",
             "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
             "sensor_normal"
           ]
         },
@@ -1750,7 +1842,10 @@
             "v_27",
             "v_30",
             "v_31",
-            "v_32"
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1791,7 +1886,10 @@
             "v_27",
             "v_30",
             "v_31",
-            "v_32"
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1832,7 +1930,10 @@
             "v_27",
             "v_30",
             "v_31",
-            "v_32"
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1873,7 +1974,10 @@
             "v_27",
             "v_30",
             "v_31",
-            "v_32"
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1914,7 +2018,10 @@
             "v_27",
             "v_30",
             "v_31",
-            "v_32"
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1955,7 +2062,10 @@
             "v_27",
             "v_30",
             "v_31",
-            "v_32"
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
@@ -1996,12 +2106,147 @@
             "v_26",
             "v_30",
             "v_31",
-            "v_32"
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_62"
           ]
         },
         "add": {
           "component_groups": [
             "v_27"
+          ]
+        }
+      },
+      "byakuya:skill_60": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23",
+            "v_24",
+            "v_25",
+            "v_26",
+            "v_27",
+            "v_30",
+            "v_31",
+            "v_32",
+            "v_61",
+            "v_62"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_60"
+          ]
+        }
+      },
+      "byakuya:skill_61": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23",
+            "v_24",
+            "v_25",
+            "v_26",
+            "v_27",
+            "v_30",
+            "v_31",
+            "v_32",
+            "v_60",
+            "v_62"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_61"
+          ]
+        }
+      },
+      "byakuya:skill_62": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23",
+            "v_24",
+            "v_25",
+            "v_26",
+            "v_27",
+            "v_30",
+            "v_31",
+            "v_32",
+            "v_60",
+            "v_61"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_62"
           ]
         }
       },
@@ -2011,7 +2256,7 @@
           "command": [
             "tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§f白石白夜§7「――見切った」\"}]}",
             "particle byakuya:afterimage ~ ~0.9 ~",
-            "execute as @p[r=16,m=!creative] at @s positioned ^ ^ ^-1.8 run tp @e[type=byakuya:shiraishi_byakuya,c=1] ~ ~ ~ facing @s",
+            "execute as @e[tag=vb_foe,type=!byakuya:shiraishi_byakuya,r=16,c=1] at @s positioned ^ ^ ^-1.8 run tp @e[type=byakuya:shiraishi_byakuya,c=1] ~ ~ ~ facing @s",
             "particle byakuya:big_slash_white ~ ~1.2 ~",
             "particle byakuya:slash_flat_red ~ ~1 ~",
             "damage @a[r=4,m=!creative] 18 entity_attack entity @s",
@@ -2057,9 +2302,9 @@
                   "value": 0
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": "<=",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "byakuya_near"
                 }
               ]
             },
@@ -2131,6 +2376,22 @@
               {
                 "weight": 10,
                 "trigger": "byakuya:skill_27"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_61"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_62"
               }
             ]
           },
@@ -2150,9 +2411,10 @@
                   "value": 0
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": ">",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "byakuya_near"
                 }
               ]
             },
@@ -2239,9 +2501,9 @@
                   "value": 1
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": "<=",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "byakuya_near"
                 }
               ]
             },
@@ -2316,6 +2578,22 @@
               },
               {
                 "weight": 10,
+                "trigger": "byakuya:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_61"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_62"
+              },
+              {
+                "weight": 10,
                 "trigger": "byakuya:skill_11"
               },
               {
@@ -2372,9 +2650,10 @@
                   "value": 1
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": ">",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "byakuya_near"
                 }
               ]
             },
@@ -2493,9 +2772,9 @@
                   "value": 2
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": "<=",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "byakuya_near"
                 }
               ]
             },
@@ -2567,6 +2846,22 @@
               {
                 "weight": 10,
                 "trigger": "byakuya:skill_27"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_61"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_62"
               },
               {
                 "weight": 10,
@@ -2642,9 +2937,10 @@
                   "value": 2
                 },
                 {
-                  "test": "distance_to_nearest_player",
-                  "operator": ">",
-                  "value": 7
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "byakuya_near"
                 }
               ]
             },

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """東雲 永々: クライアント側アニメーション（右手に黒胎刀、背中にクロノスピアの窓）."""
 
-from cine import ALIVE_ANIM, SPD, TURN_ANIM, smooth_controller  # noqa: E402
+from cine import ALIVE_ANIM, SPD, TURN_ANIM, footwork_bones, smooth_controller  # noqa: E402
 
 N = [0, 0, 0]
 ALT = "math.mod(v.atk_n, 2) == 0"   # 斬り / 蹴り
@@ -174,6 +174,13 @@ def skill_anims():
                                                  2.4: HOLD}},
                        "head": {"rotation": {0: N, 0.45: [0, 0, 12], 1.0: N}}},
                  {0.45: fx("hand", "left_hand"), 5.05: fx("hand", "left_hand")})
+    # 60 間合いを取る（後ろへ跳んで遠距離で反撃）/ 61・62 右・左へ回り込んで斬る（立ち回り）
+    A[60] = anim(1.1, footwork_bones("back", HOLD), {0.17: fx("step", "left_foot"), 0.17 + 0.01: fx("step", "right_foot"),
+                                                  0.5: fx("spark")})
+    A[61] = anim(1.3, footwork_bones("right", HOLD), {0.1: fx("step", "right_foot"), 0.26: fx("step", "right_foot"),
+                                                   0.42: fx("step", "right_foot"), 0.56: fx("trail")})
+    A[62] = anim(1.3, footwork_bones("left", HOLD), {0.1: fx("step", "left_foot"), 0.26: fx("step", "left_foot"),
+                                                  0.42: fx("step", "left_foot"), 0.56: fx("trail")})
     return A
 
 
