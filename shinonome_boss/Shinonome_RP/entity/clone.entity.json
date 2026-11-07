@@ -22,6 +22,8 @@
         }
       ],
       "particle_effects": {
+        "arc": "shinonome:arc",
+        "step": "shinonome:step_dust",
         "trail": "shinonome:trail",
         "hand": "shinonome:hand",
         "spark": "shinonome:spark",
@@ -43,6 +45,8 @@
         "gold_eye": "animation.toa.gold_eye",
         "move_legs": "animation.toa.move_legs",
         "hurt": "animation.toa.hurt",
+        "idle_flavor": "animation.toa.idle_flavor",
+        "step_fx": "animation.toa.step_fx",
         "aura_1": "animation.toa.aura_1",
         "aura_2": "animation.toa.aura_2",
         "water": "animation.toa.water",
@@ -89,6 +93,14 @@
           "main",
           "attack_fx",
           "window"
+        ],
+        "initialize": [
+          "v.atk_n = 0.0;",
+          "v.atk_was = 0.0;"
+        ],
+        "pre_animation": [
+          "v.atk_n = (v.attack_time > 0.0 && (v.atk_was <= 0.0 || v.attack_time < v.atk_was)) ? math.mod(v.atk_n + 1, 6) : v.atk_n;",
+          "v.atk_was = v.attack_time;"
         ]
       },
       "enable_attachables": true

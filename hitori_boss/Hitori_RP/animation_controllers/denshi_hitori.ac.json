@@ -13,7 +13,13 @@
             {
               "attack": "variable.attack_time > 0"
             },
-            "hurt"
+            "hurt",
+            {
+              "idle_flavor": "q.modified_move_speed < 0.3"
+            },
+            {
+              "step_fx": "q.modified_move_speed > 0.4"
+            }
           ],
           "transitions": [
             {
@@ -663,15 +669,39 @@
         "ready": {
           "transitions": [
             {
-              "swing": "variable.attack_time > 0.25"
+              "swing_r": "variable.attack_time > 0.25 && math.mod(v.atk_n, 2) == 0"
+            },
+            {
+              "swing_l": "variable.attack_time > 0.25"
             }
           ]
         },
-        "swing": {
+        "swing_r": {
           "particle_effects": [
             {
               "effect": "hand",
               "locator": "right_hand"
+            },
+            {
+              "effect": "arc",
+              "locator": "right_hand"
+            }
+          ],
+          "transitions": [
+            {
+              "ready": "variable.attack_time < 0.2"
+            }
+          ]
+        },
+        "swing_l": {
+          "particle_effects": [
+            {
+              "effect": "hand",
+              "locator": "left_hand"
+            },
+            {
+              "effect": "arc",
+              "locator": "left_hand"
             }
           ],
           "transitions": [

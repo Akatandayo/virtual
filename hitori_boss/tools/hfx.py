@@ -341,6 +341,20 @@ def build_particles():
                                size=BAR, color=RGB)
     P["stun_spark"] = particle("stun_spark", "hitori_glow", count=10, shape=sphere(0.3), lifetime="0.4",
                                speed="math.random(1, 4)", accel=(0, -6, 0), size="0.1", color=tint("white"))
+    # --- v1.3: 拳の軌跡（RGB のノイズが残る）・足跡のノイズ・着地の破片と土煙 ---
+    P["arc"] = particle("arc", "hitori_pixel", rate=(220, 100), active=0.16, lifetime="0.2",
+                        size=["0.05 + v.particle_random_2 * 0.2", "0.03 + v.particle_random_3 * 0.05"], color=RGB)
+    P["step_dust"] = particle("step_dust", "hitori_pixel", count=4, shape=disc(0.2, "outwards"), lifetime="0.35",
+                              speed=0.8, drag=3, size=BAR, color=[RGB_R, RGB_G, RGB_B, "0.8 * (" + FADE + ")"])
+    P["debris"] = particle("debris", "hitori_pixel", "particles_alpha", count=22, shape=sphere(0.3, (0, 1, 0)),
+                           lifetime="math.random(0.6, 1.0)", speed="math.random(3, 8)", accel=(0, -16, 0), drag=0.5,
+                           size="0.05 + v.particle_random_1 * 0.08",
+                           spin={"rotation": "math.random(0, 360)", "rotation_rate": "math.random(-500, 500)"},
+                           color=["v.particle_random_2 < 0.7 ? 0.35 : %s" % RGB_R, "v.particle_random_2 < 0.7 ? 0.35 : %s" % RGB_G,
+                                  "v.particle_random_2 < 0.7 ? 0.38 : %s" % RGB_B, 1.0])
+    P["dust_ring"] = particle("dust_ring", "hitori_glow", "particles_blend", count=26, shape=disc(0.6, "outwards", True),
+                              lifetime="0.7", speed=5, drag=5, size="0.25 + v.particle_age * 0.8",
+                              color=[0.55, 0.55, 0.6, "0.5 * (" + FADE + ")"])
     # --- v1.2: ♪Rhythm Line♪（跳んで避けるリング）・Infinite Loop の範囲 ---
     P["rhythm_ring"] = particle(
         "rhythm_ring", "hitori_pixel", rate=(600, 700), active=1.8,

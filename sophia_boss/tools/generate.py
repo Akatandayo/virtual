@@ -15,7 +15,7 @@ import zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sanims  # noqa: E402
 import sfx  # noqa: E402
-from cine import Cine, vectorize_animations  # noqa: E402
+from cine import Cine, add_arc_trails, bake_smooth, vectorize_animations  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BP = os.path.join(ROOT, "Sophia_BP")
@@ -24,7 +24,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "sophia:sophia_heart"
 NAME = "ソフィア・ハート"
-VERSION = [1, 1, 0]
+VERSION = [1, 2, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "61396506-b3f5-4a1b-92f6-8e34dc87c6de"
 UUID_BP_MODULE = "c8d8c5f1-e6b7-46bb-8808-2e50aa8d0842"
@@ -53,6 +53,8 @@ def write(path, data):
     with open(path, "w", encoding="utf-8") as f:
         if isinstance(data, str):
             f.write(data)
+        elif "/animations/" in path.replace(os.sep, "/"):
+            json.dump(data, f, ensure_ascii=False, separators=(",", ":"))   # キーが多いので詰めて書く
         else:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
@@ -527,8 +529,42 @@ add(DEATH, 2.9, [say("§eソフィア§7「……猫たちのところ、帰ら�
 add(DEATH, 3.7, [CINE.cam("~ ~7 ~-1", "~ ~0.5 ~", 1.3, "in_out_sine")])
 add(DEATH, 4.6, [pt("sparkle", "~ ~0.5 ~"), pt("afterimage", "~ ~0.5 ~"), pt("light_pillar")])
 add(DEATH, 5.3, [CINE.fade(0, 0.1, 0.6, (255, 250, 220))] + CINE.end())
+add(DEATH, 5.35, ["/title @a[r=64] title §6§l討伐成功", "/title @a[r=64] subtitle §7ソフィア・ハートを倒した",
+                   "/playsound random.levelup @a[r=64] ~ ~ ~ 1 0.8", "/playsound random.totem @a[r=64] ~ ~ ~ 0.5 1.6"])
 add(DEATH, 5.5, ["@s sophia:despawn"])
 DEATH = {"%.2f" % k: v for k, v in sorted(DEATH.items())}
+
+
+# ---------------------------------------------------------------------------
+# v1.2: 大技のカットイン・着地や叩きつけの土煙
+# ---------------------------------------------------------------------------
+SMOOTH_STEP = 0.05
+
+
+def patch(v, t, cmds):
+    tl = SKILLS[v][2]
+    key = "%.2f" % t
+    tl[key] = tl.get(key, []) + list(cmds)
+
+
+def cutin_into(v, t, dur, pos, facing, title=None, sub=None):
+    tmp = {}
+    CINE.cutin(tmp, t, dur, pos, facing, title, sub)
+    for k, cmds in tmp.items():
+        patch(v, k, cmds)
+
+
+def impact(pos="~ ~ ~"):
+    return [pt("debris", pos), pt("dust_ring", pos)]
+
+
+cutin_into(19, 0.2, 0.6, "^0.8 ^0.4 ^1.6", "^ ^2.8 ^")
+cutin_into(22, 0.35, 0.8, "^ ^14 ^0.01", "^ ^ ^")
+for v, t in ((16, 0.7), (2, 0.95), (30, 2.6), (33, 4.5), (13, 0.45), (32, 9.8)):
+    patch(v, t, impact())
+patch(6, 0.4, impact("^ ^ ^1.5"))
+for w, t in enumerate((1.65, 2.25, 2.85)):
+    patch(27, t, [at_fam("shell_%d" % w, "particle sophia:debris ~ ~ ~"), at_fam("shell_%d" % w, "particle sophia:dust_ring ~ ~ ~")])
 
 
 # ---------------------------------------------------------------------------
@@ -995,7 +1031,7 @@ def geo_boss():
          "locators": {"eye": [2, 28, -4.4]}},
         {"name": "rightArm", "parent": "body", "pivot": [-5, 21.5, 0], "cubes": [
             cube([-7, 11.5, -2], [3, 12, 4], [40, 16]), cube([-7, 11.5, -2], [3, 12, 4], [40, 32], 0.25)],
-         "locators": {"right_hand": [-5.5, 11, 0]}},
+         "locators": {"right_hand": [-5.5, 11, 0], "reach": [-5.5, 4.5, -1.5]}},
         {"name": "rightItem", "parent": "rightArm", "pivot": [-5.5, 14.5, 1]},
         {"name": "leftArm", "parent": "body", "pivot": [5, 21.5, 0], "cubes": [
             cube([4, 11.5, -2], [3, 12, 4], [32, 48]), cube([4, 11.5, -2], [3, 12, 4], [48, 48], 0.25)],
@@ -1145,6 +1181,8 @@ def rp_clients():
                        "fx_normal": "animation.sophia.orb_fx_normal", "fx_fast": "animation.sophia.orb_fx_fast"},
         "scripts": {"animate": ["spin", {"fx_slow": "q.variant == 1"}, {"fx_normal": "q.variant == 2"},
                                 {"fx_fast": "q.variant == 3"}]}}}}
+    for key in ('sophia_heart', 'clone'):   # 通常攻撃の切り替え用の変数
+        clients[key]["minecraft:client_entity"]["description"]["scripts"].update(sanims.ATK_SCRIPTS)
     return clients
 
 
@@ -1192,6 +1230,9 @@ def main():
         write(os.path.join(RP, "models/entity/%s.geo.json" % ident.split(".")[1]), data)
     # 本体のモーションと、召喚物・撃破演出のモーションは別のファイルに分ける
     ra = sanims.all_animations()
+    add_arc_trails(ra["animations"], {"trail"}, arc="arc")
+    add_arc_trails(ra["animations"], {"spark"}, arc="arc", reach=False, locators=("right_foot", "left_foot"))
+    bake_smooth(ra["animations"], step=SMOOTH_STEP)
     summ = rp_summon_anims()
     summ["animation.sophia.director_pose"] = ra["animations"].pop("animation.sophia.director_pose")
     summ["animation.sophia.orb_fx_normal"] = {"loop": True, "animation_length": 0.05, "particle_effects": {

@@ -2,6 +2,15 @@
 """電子 独: クライアント側アニメーション."""
 
 N = [0, 0, 0]
+# 通常攻撃の左右（技の順番）は「振り始めた瞬間」に切り替える（振っている途中で入れ替わらない）
+ATK_SCRIPTS = {
+    "initialize": ["v.atk_n = 0.0;", "v.atk_was = 0.0;"],
+    "pre_animation": [
+        "v.atk_n = (v.attack_time > 0.0 && (v.atk_was <= 0.0 || v.attack_time < v.atk_was)) ? "
+        "math.mod(v.atk_n + 1, 6) : v.atk_n;",
+        "v.atk_was = v.attack_time;"],
+}
+ALT = "math.mod(v.atk_n, 2) == 0"   # 右 / 左
 TPOSE_R, TPOSE_L = [0, 0, 90], [0, 0, -90]   # バグったゲームの象徴「T ポーズ」
 GL = "math.mod(math.floor(q.life_time * %s), %d) == 0"
 
@@ -260,12 +269,26 @@ def all_animations():
             "rightArm": {"rotation": ["math.sin(q.life_time * 90) * 3", 0, "3"]},
             "leftArm": {"rotation": ["math.sin(q.life_time * 90) * -3", 0, "-3"]},
         }},
+        # 走る: 猫背で、腕はあまり振らず、うつむき気味に（コマ落ちするように体がカクつく）
         "animation.hitori.move": {"loop": True, "bones": {
-            "rightArm": {"rotation": ["math.cos(%s + 180) * 45 * %s" % (walk, spd), 0, 0]},
-            "leftArm": {"rotation": ["math.cos(%s) * 45 * %s" % (walk, spd), 0, 0]},
+            "root": {"position": [0, "math.abs(math.cos(%s)) * 0.8 * %s" % (walk, spd), 0]},
+            "body": {"rotation": ["10 * %s" % spd, "math.cos(%s) * 5 * %s" % (walk, spd), 0]},
+            "head": {"rotation": ["4 * %s" % spd, 0, 0]},
+            "rightArm": {"rotation": ["math.cos(%s + 180) * 25 * %s + 8 * %s" % (walk, spd, spd), 0, "5 * %s" % spd]},
+            "leftArm": {"rotation": ["math.cos(%s) * 25 * %s + 8 * %s" % (walk, spd, spd), 0, "-5 * %s" % spd]},
             "rightLeg": {"rotation": ["math.cos(%s) * 60 * %s" % (walk, spd), 0, 0]},
             "leftLeg": {"rotation": ["math.cos(%s + 180) * 60 * %s" % (walk, spd), 0, 0]},
         }},
+        # 待機中、時々バグって T ポーズで固まる（9 秒ごと）
+        "animation.hitori.idle_flavor": anim(9.0, {
+            "rightArm": {"rotation": {0: N, 6.0: N, 6.02: TPOSE_R, 6.38: TPOSE_R, 6.4: N, 9.0: N}},
+            "leftArm": {"rotation": {0: N, 6.0: N, 6.02: TPOSE_L, 6.38: TPOSE_L, 6.4: N, 9.0: N}},
+            "head": {"rotation": {0: N, 6.0: N, 6.02: [0, 0, 70], 6.38: [0, 0, 70], 6.4: N, 7.5: N, 7.52: [0, 90, 0],
+                                  7.6: [0, 90, 0], 7.62: N, 9.0: N}},
+            "root": {"position": {0: N, 6.0: N, 6.02: [0, 3, 0], 6.38: [0, 3, 0], 6.4: N, 9.0: N}},
+        }, {6.0: fx("glitch_heavy", "body_center"), 7.5: fx("hand", "body_center")}, loop=True),
+        "animation.hitori.step_fx": {"loop": True, "animation_length": 0.56, "particle_effects": {
+            "0.00": [{"effect": "step", "locator": "right_foot"}], "0.28": [{"effect": "step", "locator": "left_foot"}]}},
         # 時々ブレる・首がカクッと傾く（グリッチ）
         "animation.hitori.glitch": {"loop": True, "bones": {
             "root": {"position": ["(%s) ? math.random(-1.5, 1.5) : 0" % (GL % ("7", 5)), 0,
@@ -282,9 +305,11 @@ def all_animations():
             "body": {"rotation": ["-q.hurt_time * 1.2", 0, 0]},
             "head": {"rotation": ["-q.hurt_time * 1.0", 0, "q.hurt_time * 2"]},
         }},
+        # 通常攻撃: 右と左の拳を交互に（ノイズの拳）
         "animation.hitori.attack": {"loop": True, "bones": {
-            "rightArm": {"rotation": ["-math.sin(variable.attack_time * 180) * 100", 0, 0]},
-            "body": {"rotation": [0, "math.sin(variable.attack_time * 180) * -20", 0]},
+            "rightArm": {"rotation": ["(%s) ? -math.sin(variable.attack_time * 180) * 100 : 0" % ALT, 0, 0]},
+            "leftArm": {"rotation": ["(%s) ? 0 : -math.sin(variable.attack_time * 180) * 100" % ALT, 0, 0]},
+            "body": {"rotation": [0, "(%s ? -1 : 1) * math.sin(variable.attack_time * 180) * 20" % ALT, 0]},
         }},
         "animation.hitori.aura": {"loop": True, "animation_length": 0.3,
                                   "particle_effects": {"0.00": [{"effect": "glitch", "locator": "body_center"}]}},
@@ -319,6 +344,7 @@ def short_names(skill_ids):
         "look_at": "animation.hitori.look_at", "idle": "animation.hitori.idle", "move": "animation.hitori.move",
         "glitch": "animation.hitori.glitch", "attack": "animation.hitori.attack", "aura": "animation.hitori.aura",
         "move_legs": "animation.hitori.move_legs", "hurt": "animation.hitori.hurt",
+        "idle_flavor": "animation.hitori.idle_flavor", "step_fx": "animation.hitori.step_fx",
         "aura_heavy": "animation.hitori.aura_heavy", "death_pose": "animation.hitori.death",
         "main": "controller.animation.hitori.main", "aura_ctrl": "controller.animation.hitori.aura",
         "attack_fx": "controller.animation.hitori.attack_fx",
@@ -331,7 +357,9 @@ def short_names(skill_ids):
 def controllers(skill_ids):
     dead = {"death": "!q.is_alive"}
     states = {
-        "default": {"animations": ["look_at", "idle", "move", "glitch", {"attack": "variable.attack_time > 0"}, "hurt"],
+        "default": {"animations": ["look_at", "idle", "move", "glitch", {"attack": "variable.attack_time > 0"}, "hurt",
+                                   {"idle_flavor": "q.modified_move_speed < 0.3"},
+                                   {"step_fx": "q.modified_move_speed > 0.4"}],
                     "transitions": [dead] + [{"s%d" % v: "q.mark_variant == %d" % v} for v in skill_ids],
                     "blend_transition": 0.1},
         "death": {"animations": ["death_pose"]},
@@ -353,12 +381,18 @@ def controllers(skill_ids):
                                     {"heavy": "q.mark_variant != 99 && q.is_alive && q.skin_id >= 1"}]},
         }},
         "controller.animation.hitori.attack_fx": {"initial_state": "ready", "states": {
-            "ready": {"transitions": [{"swing": "variable.attack_time > 0.25"}]},
-            "swing": {"particle_effects": [{"effect": "hand", "locator": "right_hand"}],
-                      "transitions": [{"ready": "variable.attack_time < 0.2"}]},
+            "ready": {"transitions": [{"swing_r": "variable.attack_time > 0.25 && %s" % ALT},
+                                      {"swing_l": "variable.attack_time > 0.25"}]},
+            "swing_r": {"particle_effects": [{"effect": "hand", "locator": "right_hand"},
+                                             {"effect": "arc", "locator": "right_hand"}],
+                        "transitions": [{"ready": "variable.attack_time < 0.2"}]},
+            "swing_l": {"particle_effects": [{"effect": "hand", "locator": "left_hand"},
+                                             {"effect": "arc", "locator": "left_hand"}],
+                        "transitions": [{"ready": "variable.attack_time < 0.2"}]},
         }},
     }}
 
 
-PARTICLE_MAP = {"hand_noise": "hitori:hand_noise", "hand": "hitori:noise_burst", "glitch": "hitori:glitch_aura",
+PARTICLE_MAP = {"arc": "hitori:arc", "step": "hitori:step_dust",
+                "hand_noise": "hitori:hand_noise", "hand": "hitori:noise_burst", "glitch": "hitori:glitch_aura",
                 "glitch_heavy": "hitori:glitch_aura_heavy", "stun_spark": "hitori:stun_spark"}

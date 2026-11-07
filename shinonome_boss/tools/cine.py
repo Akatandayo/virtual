@@ -99,3 +99,98 @@ def vectorize_animations(anims):
                 else:
                     chans[ch] = vec(val)
     return anims
+
+
+def _pchip_sample(pts, times):
+    """単調な 3 次エルミート補間（PCHIP）。同じ値が続く「保持」からはみ出さない.
+
+    pts: [(t, y), ...]（t は昇順）。両端の傾きは 0（ゆっくり動き始めて、ゆっくり止まる）。
+    """
+    n = len(pts)
+    ts = [p[0] for p in pts]
+    ys = [p[1] for p in pts]
+    hs = [ts[k + 1] - ts[k] for k in range(n - 1)]
+    ds = [(ys[k + 1] - ys[k]) / hs[k] if hs[k] > 0 else 0.0 for k in range(n - 1)]
+    ms = [0.0] * n
+    for k in range(1, n - 1):
+        if ds[k - 1] == 0 or ds[k] == 0 or (ds[k - 1] > 0) != (ds[k] > 0):
+            ms[k] = 0.0
+        else:
+            w1 = 2 * hs[k] + hs[k - 1]
+            w2 = hs[k] + 2 * hs[k - 1]
+            ms[k] = (w1 + w2) / (w1 / ds[k - 1] + w2 / ds[k])
+    out = []
+    k = 0
+    for t in times:
+        if t <= ts[0]:
+            out.append(ys[0])
+            continue
+        if t >= ts[-1]:
+            out.append(ys[-1])
+            continue
+        while ts[k + 1] < t:
+            k += 1
+        h = hs[k]
+        if h <= 0:
+            out.append(ys[k + 1])
+            continue
+        s = (t - ts[k]) / h
+        h00 = 2 * s ** 3 - 3 * s ** 2 + 1
+        h10 = s ** 3 - 2 * s ** 2 + s
+        h01 = -2 * s ** 3 + 3 * s ** 2
+        h11 = s ** 3 - s ** 2
+        out.append(h00 * ys[k] + h10 * h * ms[k] + h01 * ys[k + 1] + h11 * h * ms[k + 1])
+    return out
+
+
+def bake_smooth(anims, skip=(), step=0.1):
+    """キーフレームの間を、なめらかな曲線で細かく焼き直す（統合版では直線補間のキーとして書き出す）.
+
+    動き始めと止まり際にタメが出て、ポーズの保持中は揺れない。数式（文字列）を含むチャンネルはそのまま。
+    """
+    for name, a in anims.items():
+        if name in skip:
+            continue
+        for chans in a.get("bones", {}).values():
+            for ch, val in list(chans.items()):
+                if not isinstance(val, dict) or len(val) < 2 or ({"pre", "post"} & set(val)):
+                    continue
+                pts = []
+                for t, v in val.items():
+                    if isinstance(v, (int, float)):
+                        v = [v, v, v]
+                    if not isinstance(v, list) or len(v) != 3 or any(isinstance(x, str) for x in v):
+                        pts = None
+                        break
+                    pts.append((float(t), [float(x) for x in v]))
+                if not pts:
+                    continue
+                pts.sort()
+                t0, t1 = pts[0][0], pts[-1][0]
+                grid = {round(t0 + i * step, 2) for i in range(int((t1 - t0) / step) + 1)}
+                times = sorted(grid | {round(p[0], 2) for p in pts})
+                comps = [_pchip_sample([(p[0], p[1][c]) for p in pts], times) for c in range(3)]
+                chans[ch] = {"%.2f" % t: [round(comps[0][i], 2), round(comps[1][i], 2), round(comps[2][i], 2)]
+                             for i, t in enumerate(times)}
+    return anims
+
+
+def add_arc_trails(anims, trail_effects, arc="arc", lead=0.12, reach=True, locators=("right_hand", "left_hand")):
+    """斬撃の瞬間（trail_effects）の少し前から、手（や足）の動きに沿って光の粒を出し続ける（剣の軌跡）"""
+    for a in anims.values():
+        pe = a.get("particle_effects")
+        if not pe:
+            continue
+        extra = {}
+        for t, effs in pe.items():
+            for e in (effs if isinstance(effs, list) else [effs]):
+                if e.get("effect") in trail_effects and e.get("locator") in locators:
+                    t2 = "%.2f" % max(0.0, float(t) - lead)
+                    extra.setdefault(t2, []).append({"effect": arc, "locator": e["locator"]})
+                    if reach and e["locator"] == "right_hand":
+                        extra[t2].append({"effect": arc, "locator": "reach"})
+        for t2, effs in extra.items():
+            cur = pe.get(t2, [])
+            cur = cur if isinstance(cur, list) else [cur]
+            pe[t2] = cur + [e for e in effs if e not in cur]
+    return anims

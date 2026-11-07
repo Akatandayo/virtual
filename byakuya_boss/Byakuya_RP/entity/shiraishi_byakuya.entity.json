@@ -23,6 +23,9 @@
       "particle_effects": {
         "smoke": "byakuya:smoke_puff",
         "petal": "byakuya:petal_burst",
+        "arc": "byakuya:arc",
+        "arc_red": "byakuya:arc_red",
+        "step": "byakuya:step_dust",
         "sword_trail": "byakuya:sword_trail",
         "sword_trail_red": "byakuya:sword_trail_red",
         "hand_charge": "byakuya:hand_charge",
@@ -35,6 +38,8 @@
         "idle": "animation.byakuya.idle",
         "move": "animation.byakuya.move",
         "attack": "animation.byakuya.attack",
+        "idle_flavor": "animation.byakuya.idle_flavor",
+        "step_fx": "animation.byakuya.step_fx",
         "move_legs": "animation.byakuya.move_legs",
         "hurt": "animation.byakuya.hurt",
         "aura": "animation.byakuya.aura",
@@ -75,6 +80,14 @@
         "s32": "animation.byakuya.skill_32"
       },
       "scripts": {
+        "initialize": [
+          "v.atk_n = 0.0;",
+          "v.atk_was = 0.0;"
+        ],
+        "pre_animation": [
+          "v.atk_n = (v.attack_time > 0.0 && (v.atk_was <= 0.0 || v.attack_time < v.atk_was)) ? math.mod(v.atk_n + 1, 6) : v.atk_n;",
+          "v.atk_was = v.attack_time;"
+        ],
         "animate": [
           "main",
           "aura_ctrl",

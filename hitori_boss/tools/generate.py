@@ -17,7 +17,7 @@ import zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import hanims  # noqa: E402
 import hfx  # noqa: E402
-from cine import Cine, add_rival, vectorize_animations  # noqa: E402
+from cine import Cine, add_arc_trails, add_rival, bake_smooth, vectorize_animations  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BP = os.path.join(ROOT, "Hitori_BP")
@@ -26,7 +26,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "hitori:denshi_hitori"
 NAME = "電子 独"
-VERSION = [1, 2, 1]
+VERSION = [1, 3, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "9b78d68f-ebde-4768-989c-96ab7fa09e02"
 UUID_BP_MODULE = "9263edb8-7005-4aa3-82a3-54ec6c07aaf0"
@@ -67,6 +67,8 @@ def write(path, data):
     with open(path, "w", encoding="utf-8") as f:
         if isinstance(data, str):
             f.write(data)
+        elif "/animations/" in path.replace(os.sep, "/"):
+            json.dump(data, f, ensure_ascii=False, separators=(",", ":"))   # キーが多いので詰めて書く
         else:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
@@ -517,8 +519,41 @@ add(DEATH, 3.0, [say("§b独§7「……でも、楽しかったよ。また、�
 add(DEATH, 3.6, [CINE.cam("~ ~8 ~0.5", "~ ~0.5 ~", 1.2, "in_out_sine")])
 add(DEATH, 4.6, [pt("noise_big", "~ ~1 ~"), pt("fall_pixels"), "/playsound random.glass @a[r=64] ~ ~ ~ 1 0.5"])
 add(DEATH, 5.3, [CINE.fade(0, 0.1, 0.6, (40, 220, 255))] + CINE.end())
+add(DEATH, 5.35, ["/title @a[r=64] title §6§l討伐成功", "/title @a[r=64] subtitle §7電子 独のバグを直した",
+                   "/playsound random.levelup @a[r=64] ~ ~ ~ 1 0.8", "/playsound random.totem @a[r=64] ~ ~ ~ 0.5 1.6"])
 add(DEATH, 5.5, ["@s hitori:despawn"])
 DEATH = {"%.2f" % k: v for k, v in sorted(DEATH.items())}
+
+
+# ---------------------------------------------------------------------------
+# v1.3: 大技のカットイン・着地や叩きつけの土煙
+# ---------------------------------------------------------------------------
+SMOOTH_STEP = 0.05
+
+
+def patch(v, t, cmds):
+    tl = SKILLS[v][2]
+    key = "%.2f" % t
+    tl[key] = tl.get(key, []) + list(cmds)
+
+
+def cutin_into(v, t, dur, pos, facing, title=None, sub=None):
+    tmp = {}
+    CINE.cutin(tmp, t, dur, pos, facing, title, sub)
+    for k, cmds in tmp.items():
+        patch(v, k, cmds)
+
+
+def impact(pos="~ ~ ~"):
+    return [pt("debris", pos), pt("dust_ring", pos)]
+
+
+cutin_into(13, 0.0, 0.7, "^0.4 ^1.65 ^1.2", "^ ^1.6 ^")
+cutin_into(18, 0.42, 0.5, "^ ^-9.5 ^3", "^ ^ ^")
+for v, times in ((18, [1.25, 2.55, 3.85]), (14, [4.7]), (31, [2.9]), (13, [3.5])):
+    for t in times:
+        patch(v, t, impact())
+patch(4, 1.6, [at_players(18, "dust_ring"), at_players(18, "debris")])
 
 
 # ---------------------------------------------------------------------------
@@ -972,9 +1007,11 @@ def geo_boss():
             cube([4, 11.5, -2], [3, 12, 4], [32, 48]), cube([4, 11.5, -2], [3, 12, 4], [48, 48], 0.25)],
          "locators": {"left_hand": [5.5, 11, 0]}},
         {"name": "rightLeg", "parent": "root", "pivot": [-1.9, 12, 0], "cubes": [
-            cube([-3.9, 0, -2], [4, 12, 4], [0, 16]), cube([-3.9, 0, -2], [4, 12, 4], [0, 32], 0.25)]},
+            cube([-3.9, 0, -2], [4, 12, 4], [0, 16]), cube([-3.9, 0, -2], [4, 12, 4], [0, 32], 0.25)],
+         "locators": {"right_foot": [-1.9, 0, 0]}},
         {"name": "leftLeg", "parent": "root", "pivot": [1.9, 12, 0], "cubes": [
-            cube([-0.1, 0, -2], [4, 12, 4], [16, 48]), cube([-0.1, 0, -2], [4, 12, 4], [0, 48], 0.25)]},
+            cube([-0.1, 0, -2], [4, 12, 4], [16, 48]), cube([-0.1, 0, -2], [4, 12, 4], [0, 48], 0.25)],
+         "locators": {"left_foot": [1.9, 0, 0]}},
     ]
     return {"format_version": "1.12.0", "minecraft:geometry": [{
         "description": {"identifier": "geometry.denshi_hitori", "texture_width": 64, "texture_height": 64,
@@ -1034,7 +1071,7 @@ def client(ident, tex, geo, material, animations=None, animate=None, particles=N
 
 
 def rp_clients():
-    return {
+    clients = {
         "denshi_hitori": client(ID, "denshi_hitori", "geometry.denshi_hitori", "entity_alphatest",
                                 hanims.short_names(sorted(SKILLS)), ["main", "aura_ctrl", "attack_fx"],
                                 hanims.PARTICLE_MAP, rc="controller.render.denshi_hitori",
@@ -1056,6 +1093,9 @@ def rp_clients():
                            {"pose": "animation.hitori.director_pose", "glitch": "animation.hitori.glitch"},
                            ["pose", "glitch"], rc="controller.render.denshi_hitori"),
     }
+    # 通常攻撃の左右切り替え用の変数
+    clients["denshi_hitori"]["minecraft:client_entity"]["description"]["scripts"].update(hanims.ATK_SCRIPTS)
+    return clients
 
 
 def rp_summon_anims():
@@ -1170,6 +1210,8 @@ def main():
     write(os.path.join(RP, "models/entity/hitori_empty.geo.json"), geo_empty())
     # 本体のモーションと、召喚物・撃破演出のモーションは別のファイルに分ける
     ra = hanims.all_animations()
+    add_arc_trails(ra["animations"], {"hand_noise"}, arc="arc", reach=False)
+    bake_smooth(ra["animations"], step=SMOOTH_STEP)
     summ = rp_summon_anims()
     for k in ("animation.hitori.echo_pose", "animation.hitori.echo_fx", "animation.hitori.director_pose"):
         summ[k] = ra["animations"].pop(k)

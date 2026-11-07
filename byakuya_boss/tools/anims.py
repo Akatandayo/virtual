@@ -2,6 +2,15 @@
 """クライアント側（RP）のアニメーションとアニメーションコントローラー."""
 
 N = [0, 0, 0]
+# 通常攻撃の左右（技の順番）は「振り始めた瞬間」に切り替える（振っている途中で入れ替わらない）
+ATK_SCRIPTS = {
+    "initialize": ["v.atk_n = 0.0;", "v.atk_was = 0.0;"],
+    "pre_animation": [
+        "v.atk_n = (v.attack_time > 0.0 && (v.atk_was <= 0.0 || v.attack_time < v.atk_was)) ? "
+        "math.mod(v.atk_n + 1, 6) : v.atk_n;",
+        "v.atk_was = v.attack_time;"],
+}
+ALT = "math.mod(v.atk_n, 2) == 0"   # 袈裟斬り / 逆袈裟
 HOLD_R = [-25, -10, 0]   # 普段の右腕（刀を前に）
 
 
@@ -385,13 +394,23 @@ def all_animations():
             "rightArm": {"rotation": ["-25 + math.sin(q.life_time * 100) * 2.5", "-10", 0]},
             "leftArm": {"rotation": ["math.sin(q.life_time * 100) * -2", 0, "-3"]},
         }},
+        # 走る: 柄に右手を添え、低い前傾で駆ける（居合の構えのまま）
         "animation.byakuya.move": {"loop": True, "bones": {
-            "body": {"rotation": ["8 * %s" % spd, "math.cos(%s) * 6 * %s" % (walk, spd), 0]},
-            "rightArm": {"rotation": ["math.cos(%s + 180) * 20 * %s" % (walk, spd), 0, 0]},
-            "leftArm": {"rotation": ["math.cos(%s) * 45 * %s" % (walk, spd), 0, 0]},
-            "rightLeg": {"rotation": ["math.cos(%s) * 60 * %s" % (walk, spd), 0, 0]},
-            "leftLeg": {"rotation": ["math.cos(%s + 180) * 60 * %s" % (walk, spd), 0, 0]},
+            "root": {"position": [0, "math.abs(math.cos(%s)) * 1.0 * %s" % (walk, spd), 0]},
+            "body": {"rotation": ["14 * %s" % spd, "math.cos(%s) * 6 * %s" % (walk, spd), 0]},
+            "head": {"rotation": ["-11 * %s" % spd, 0, 0]},
+            "rightArm": {"rotation": ["math.cos(%s + 180) * 10 * %s - 15 * %s" % (walk, spd, spd), "50 * %s" % spd, 0]},
+            "leftArm": {"rotation": ["math.cos(%s) * 50 * %s" % (walk, spd), 0, "-6 * %s" % spd]},
+            "rightLeg": {"rotation": ["math.cos(%s) * 65 * %s" % (walk, spd), 0, 0]},
+            "leftLeg": {"rotation": ["math.cos(%s + 180) * 65 * %s" % (walk, spd), 0, 0]},
         }},
+        # 待機中、時々キセルをふかす（12 秒ごと）
+        "animation.byakuya.idle_flavor": anim(12.0, {
+            "leftArm": {"rotation": {0: N, 8.0: N, 8.6: [-125, 35, 0], 10.3: [-125, 35, 0], 10.9: N, 12.0: N}},
+            "head": {"rotation": {0: N, 8.0: N, 8.6: [6, 0, 0], 9.3: [-8, 0, 0], 10.3: [4, 0, 0], 10.9: N, 12.0: N}},
+        }, {9.0: fx("smoke", "left_hand"), 9.5: fx("smoke", "left_hand"), 10.0: fx("smoke", "left_hand")}, loop=True),
+        "animation.byakuya.step_fx": {"loop": True, "animation_length": 0.56, "particle_effects": {
+            "0.00": [{"effect": "step", "locator": "right_foot"}], "0.28": [{"effect": "step", "locator": "left_foot"}]}},
         # 袈裟斬り
         "animation.byakuya.move_legs": {"loop": True, "bones": {
             "rightLeg": {"rotation": ["math.cos(%s) * 55 * %s" % (walk, spd), 0, 0]},
@@ -401,11 +420,14 @@ def all_animations():
             "body": {"rotation": ["-q.hurt_time * 1.0", 0, 0]},
             "head": {"rotation": ["-q.hurt_time * 0.8", 0, 0]},
         }},
+        # 通常攻撃: 右からの袈裟斬りと、左からの逆袈裟を交互に
         "animation.byakuya.attack": {"loop": True, "bones": {
             "rightArm": {"rotation": ["-math.sin(variable.attack_time * 180) * 130",
-                                      "60 - variable.attack_time * 120", 0]},
+                                      "(%s ? 1 : -1) * (60 - variable.attack_time * 120)" % ALT,
+                                      "(%s ? 0 : 20) * math.sin(variable.attack_time * 180)" % ALT]},
             "body": {"rotation": ["math.sin(variable.attack_time * 180) * 10",
-                                  "math.sin(variable.attack_time * 180) * -30", 0]},
+                                  "(%s ? -1 : 1) * math.sin(variable.attack_time * 180) * 30" % ALT, 0]},
+            "root": {"position": [0, 0, "-math.sin(variable.attack_time * 180) * 1.5"]},
         }},
         "animation.byakuya.aura": {"loop": True, "animation_length": 0.4, "particle_effects": {
             "0.00": [{"effect": "aura_flame", "locator": "right_foot"}, {"effect": "aura_flame", "locator": "left_foot"}],
@@ -430,6 +452,7 @@ def short_names(skill_ids):
     names = {
         "look_at": "animation.byakuya.look_at", "idle": "animation.byakuya.idle",
         "move": "animation.byakuya.move", "attack": "animation.byakuya.attack",
+        "idle_flavor": "animation.byakuya.idle_flavor", "step_fx": "animation.byakuya.step_fx",
         "move_legs": "animation.byakuya.move_legs", "hurt": "animation.byakuya.hurt",
         "aura": "animation.byakuya.aura", "final_aura": "animation.byakuya.final_aura",
         "death_pose": "animation.byakuya.death",
@@ -447,7 +470,8 @@ NO_LOOK = {3, 11, 20, 23, 27}  # 回転する技・最終演技は頭を固定�
 def controllers(skill_ids):
     dead = {"death": "!q.is_alive"}
     default = {
-        "animations": ["look_at", "idle", "move", {"attack": "variable.attack_time > 0"}, "hurt"],
+        "animations": ["look_at", "idle", "move", {"attack": "variable.attack_time > 0"}, "hurt",
+                       {"idle_flavor": "q.modified_move_speed < 0.3"}, {"step_fx": "q.modified_move_speed > 0.4"}],
         "transitions": [dead] + [{"s%d" % v: "q.mark_variant == %d" % v} for v in skill_ids],
         "blend_transition": 0.12,
     }
@@ -468,14 +492,17 @@ def controllers(skill_ids):
         }},
         "controller.animation.byakuya.attack_fx": {"initial_state": "ready", "states": {
             "ready": {"transitions": [{"swing": "variable.attack_time > 0.25"}]},
-            "swing": {"particle_effects": [{"effect": "sword_trail", "locator": "right_hand"}],
+            "swing": {"particle_effects": [{"effect": "sword_trail", "locator": "right_hand"},
+                                           {"effect": "arc", "locator": "reach"},
+                                           {"effect": "arc", "locator": "right_hand"}],
                       "transitions": [{"ready": "variable.attack_time <= 0.0 || variable.attack_time < 0.2"}]},
         }},
     }}
 
 
 PARTICLE_MAP = {
-    "smoke": "byakuya:smoke_puff", "petal": "byakuya:petal_burst",
+    "smoke": "byakuya:smoke_puff", "petal": "byakuya:petal_burst", "arc": "byakuya:arc", "arc_red": "byakuya:arc_red",
+    "step": "byakuya:step_dust",
     "sword_trail": "byakuya:sword_trail", "sword_trail_red": "byakuya:sword_trail_red",
     "hand_charge": "byakuya:hand_charge", "aura_flame": "byakuya:aura_flame",
     "aura_soul": "byakuya:aura_soul", "blade_halo": "byakuya:blade_halo",

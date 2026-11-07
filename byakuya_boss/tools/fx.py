@@ -105,6 +105,7 @@ TEXTURES = {
     "byakuya_blade": (16, 64, tex_blade),
     "byakuya_hex": (32, 32, tex_hex),
     "byakuya_petal": (16, 16, tex_petal),
+    "byakuya_chip": (4, 4, lambda u, v: (255, 255, 255, 255)),
 }
 
 
@@ -370,6 +371,23 @@ def build_particles():
                                 lifetime="math.random(1.0, 2.0)", speed="math.random(2, 6)", accel=(0, -1.5, 0),
                                 drag=2, size="0.09", spin={"rotation": "math.random(0, 360)",
                                                            "rotation_rate": "math.random(-300, 300)"})
+    # --- v1.4: 剣の軌跡（手の動きに沿って残る光）・足音の土煙・着地の破片と土煙 ---
+    P["arc"] = particle("arc", "byakuya_glow", rate=(260, 120), active=0.16, lifetime="0.22",
+                        size="0.09 * (" + FADE + ") + 0.02", color=_gradient("#FFFFFFFF", "#FFFFE0D0", "#00FF4040"))
+    P["arc_red"] = particle("arc_red", "byakuya_glow", rate=(260, 120), active=0.16, lifetime="0.26",
+                            size="0.1 * (" + FADE + ") + 0.02", color=_gradient("#FFFFFFFF", "#FFFF5040", "#00800000"))
+    P["step_dust"] = particle("step_dust", "byakuya_glow", "particles_blend", count=3, shape=disc(0.15, "outwards"),
+                              lifetime="0.5", speed=0.7, drag=2, size="0.12 + v.particle_age * 0.3",
+                              color=[0.6, 0.55, 0.48, "0.45 * (" + FADE + ")"])
+    P["debris"] = particle("debris", "byakuya_chip", "particles_alpha", count=18, shape=sphere(0.3, (0, 1, 0)),
+                           lifetime="math.random(0.6, 1.0)", speed="math.random(3, 7)", accel=(0, -16, 0), drag=0.5,
+                           size="0.05 + v.particle_random_1 * 0.07",
+                           spin={"rotation": "math.random(0, 360)", "rotation_rate": "math.random(-500, 500)"},
+                           color=["0.35 + v.particle_random_2 * 0.2", "0.3 + v.particle_random_2 * 0.15",
+                                  "0.25 + v.particle_random_2 * 0.1", 1.0])
+    P["dust_ring"] = particle("dust_ring", "byakuya_glow", "particles_blend", count=26, shape=disc(0.6, "outwards", True),
+                              lifetime="0.7", speed=5, drag=5, size="0.25 + v.particle_age * 0.8",
+                              color=[0.62, 0.56, 0.47, "0.55 * (" + FADE + ")"])
     P["time_stop"] = particle("time_stop", "byakuya_ring", "particles_blend", count=1, lifetime="1.2",
                               facing="emitter_transform_xz", size="12.5",
                               color=[0.7, 0.7, 0.75, "0.35 * (" + FADE + ")"])

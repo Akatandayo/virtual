@@ -189,6 +189,7 @@ def build_textures():
         "toa_portal": _fn(64, 64, t_portal), "toa_slash": _fn(128, 128, t_slash), "toa_beam": _fn(16, 64, t_beam),
         "toa_bread": baguette(), "toa_bread_point": bread_point(), "toa_claw": claw(), "toa_chain": chain(),
         "toa_halo": halo(), "toa_clock": clock(), "toa_sun": sun(), "toa_sword": big_sword(), "toa_burger": burger(),
+        "toa_chip": Image.new("RGBA", (4, 4), (255, 255, 255, 255)),
     }
 
 
@@ -372,6 +373,18 @@ def build_particles():
         color=rgba("purple"))
     add("trail", tex="toa_glow", count=10, shape=sphere(0.3, surface=False), lifetime="0.3", speed="math.random(0.5, 2)",
         drag=3, size="0.13 * (" + FADE + ")", color=rgba("purple"))
+    # --- v1.2: 剣の軌跡（紫）・足音の土煙・着地の破片と土煙 ---
+    add("arc", tex="toa_glow", rate=(260, 120), active=0.16, lifetime="0.24", size="0.09 * (" + FADE + ") + 0.02",
+        color=grad("#FFFFFFFF", "#FFC090FF", "#004010A0"))
+    add("step_dust", tex="toa_glow", material="particles_blend", count=3, shape=disc(0.15, "outwards"), lifetime="0.5",
+        speed=0.7, drag=2, size="0.12 + v.particle_age * 0.3", color=[0.62, 0.6, 0.62, "0.45 * (" + FADE + ")"])
+    add("debris", tex="toa_chip", material="particles_alpha", count=18, shape=sphere(0.3, (0, 1, 0)),
+        lifetime="math.random(0.6, 1.0)", speed="math.random(3, 7)", accel=(0, -16, 0), drag=0.5,
+        size="0.05 + v.particle_random_1 * 0.07",
+        spin={"rotation": "math.random(0, 360)", "rotation_rate": "math.random(-500, 500)"},
+        color=["0.35 + v.particle_random_2 * 0.2", "0.3 + v.particle_random_2 * 0.15", "0.25 + v.particle_random_2 * 0.1", 1.0])
+    add("dust_ring", tex="toa_glow", material="particles_blend", count=26, shape=disc(0.6, "outwards", True),
+        lifetime="0.7", speed=5, drag=5, size="0.25 + v.particle_age * 0.8", color=[0.62, 0.6, 0.62, "0.55 * (" + FADE + ")"])
     add("star_trail", tex="toa_glow", count=1, lifetime="0.22", size="0.45 * (1 - v.particle_age / v.particle_lifetime * 0.6)",
         color=rgba("gold", 1))
     add("cat_paw", tex="toa_claw", count=4, shape=sphere(0.5), lifetime="0.4", speed=2, size="0.3", color=rgba("gold"))

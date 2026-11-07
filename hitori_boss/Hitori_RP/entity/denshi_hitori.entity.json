@@ -16,6 +16,8 @@
         "controller.render.denshi_hitori"
       ],
       "particle_effects": {
+        "arc": "hitori:arc",
+        "step": "hitori:step_dust",
         "hand_noise": "hitori:hand_noise",
         "hand": "hitori:noise_burst",
         "glitch": "hitori:glitch_aura",
@@ -31,6 +33,8 @@
         "aura": "animation.hitori.aura",
         "move_legs": "animation.hitori.move_legs",
         "hurt": "animation.hitori.hurt",
+        "idle_flavor": "animation.hitori.idle_flavor",
+        "step_fx": "animation.hitori.step_fx",
         "aura_heavy": "animation.hitori.aura_heavy",
         "death_pose": "animation.hitori.death",
         "main": "controller.animation.hitori.main",
@@ -68,6 +72,14 @@
           "main",
           "aura_ctrl",
           "attack_fx"
+        ],
+        "initialize": [
+          "v.atk_n = 0.0;",
+          "v.atk_was = 0.0;"
+        ],
+        "pre_animation": [
+          "v.atk_n = (v.attack_time > 0.0 && (v.atk_was <= 0.0 || v.attack_time < v.atk_was)) ? math.mod(v.atk_n + 1, 6) : v.atk_n;",
+          "v.atk_was = v.attack_time;"
         ]
       },
       "spawn_egg": {

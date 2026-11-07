@@ -17,7 +17,13 @@
             {
               "attack": "variable.attack_time > 0"
             },
-            "hurt"
+            "hurt",
+            {
+              "idle_flavor": "q.modified_move_speed < 0.3"
+            },
+            {
+              "step_fx": "q.modified_move_speed > 0.4 && q.skin_id < 2"
+            }
           ],
           "transitions": [
             {
@@ -857,15 +863,59 @@
         "ready": {
           "transitions": [
             {
-              "swing": "variable.attack_time > 0.25"
+              "swing_0": "variable.attack_time > 0.25 && math.mod(v.atk_n, 3) == 0"
+            },
+            {
+              "swing_1": "variable.attack_time > 0.25 && math.mod(v.atk_n, 3) == 1"
+            },
+            {
+              "swing_2": "variable.attack_time > 0.25"
             }
           ]
         },
-        "swing": {
+        "swing_0": {
           "particle_effects": [
             {
               "effect": "trail",
               "locator": "right_hand"
+            },
+            {
+              "effect": "arc",
+              "locator": "reach"
+            }
+          ],
+          "transitions": [
+            {
+              "ready": "variable.attack_time < 0.2"
+            }
+          ]
+        },
+        "swing_1": {
+          "particle_effects": [
+            {
+              "effect": "trail",
+              "locator": "left_hand"
+            },
+            {
+              "effect": "arc",
+              "locator": "left_hand"
+            }
+          ],
+          "transitions": [
+            {
+              "ready": "variable.attack_time < 0.2"
+            }
+          ]
+        },
+        "swing_2": {
+          "particle_effects": [
+            {
+              "effect": "spark",
+              "locator": "right_foot"
+            },
+            {
+              "effect": "arc",
+              "locator": "right_foot"
             }
           ],
           "transitions": [

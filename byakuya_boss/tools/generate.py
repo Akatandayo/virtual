@@ -16,7 +16,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import anims  # noqa: E402
 import fx  # noqa: E402
 import summons  # noqa: E402
-from cine import Cine, add_rival, vectorize_animations  # noqa: E402
+from cine import Cine, add_arc_trails, add_rival, bake_smooth, vectorize_animations  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BP = os.path.join(ROOT, "Byakuya_BP")
@@ -25,7 +25,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "byakuya:shiraishi_byakuya"
 NAME = "白石白夜"
-VERSION = [1, 3, 1]
+VERSION = [1, 4, 0]
 MIN_ENGINE = [1, 21, 0]
 
 UUID_BP_HEADER = "293c6dbc-978c-4439-aa05-c2fa6e63c99d"
@@ -45,6 +45,8 @@ def write(path, data):
     with open(path, "w", encoding="utf-8") as f:
         if isinstance(data, str):
             f.write(data)
+        elif "/animations/" in path.replace(os.sep, "/"):
+            json.dump(data, f, ensure_ascii=False, separators=(",", ":"))   # キーが多いので詰めて書く
         else:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
@@ -578,8 +580,42 @@ add(DEATH, 3.0, [say("§f白石白夜§7「……さて。帰って、団子で�
 add(DEATH, 3.7, [CINE.cam("~ ~7 ~-2", "~ ~0.5 ~", 1.4, "in_out_sine")])
 add(DEATH, 4.6, [pt("petal_storm"), pt("petal_burst", "~ ~1 ~"), pt("afterimage", "~ ~0.9 ~")])
 add(DEATH, 5.3, [CINE.fade(0, 0.1, 0.6, (255, 255, 255))] + CINE.end())
+add(DEATH, 5.35, ["/title @a[r=64] title §6§l討伐成功", "/title @a[r=64] subtitle §7白石白夜を倒した",
+                   "/playsound random.levelup @a[r=64] ~ ~ ~ 1 0.8", "/playsound random.totem @a[r=64] ~ ~ ~ 0.5 1.6"])
 add(DEATH, 5.5, ["@s byakuya:despawn"])
 DEATH = {"%.2f" % k: v for k, v in sorted(DEATH.items())}
+
+
+# ---------------------------------------------------------------------------
+# v1.4: 大技のカットイン・着地や叩きつけの土煙
+# ---------------------------------------------------------------------------
+SMOOTH_STEP = 0.05
+
+
+def patch(v, t, cmds):
+    tl = SKILLS[v][2]
+    key = "%.2f" % t
+    tl[key] = tl.get(key, []) + list(cmds)
+
+
+def cutin_into(v, t, dur, pos, facing, title=None, sub=None):
+    tmp = {}
+    CINE.cutin(tmp, t, dur, pos, facing, title, sub)
+    for k, cmds in tmp.items():
+        patch(v, k, cmds)
+
+
+def impact(pos="~ ~ ~"):
+    return [pt("debris", pos), pt("dust_ring", pos)]
+
+
+cutin_into(12, 0.0, 0.8, "^0.8 ^1.3 ^1.3", "^-0.2 ^1.2 ^0.2", "§0§l無刀 無残")
+cutin_into(23, 0.0, 0.7, "^ ^8 ^4", "^ ^1 ^", "§4§l森羅万象")
+for v, times in ((18, [1.3]), (24, [0.5, 1.1, 1.7, 2.3]), (20, [9.3]), (31, [2.8]), (6, [0.35]), (25, [4.4]),
+                 (17, [1.4]), (4, [2.0]), (30, [2.7])):
+    for t in times:
+        patch(v, t, impact())
+patch(18, 1.3, [pt("debris", q) for q in ring_pts(2.5, 4, 0)])
 
 
 # ---------------------------------------------------------------------------
@@ -900,7 +936,7 @@ def rp_geometry():
             cube([-4, 24, -4], [8, 8, 8], [0, 0]), cube([-4, 24, -4], [8, 8, 8], [32, 0], 0.5)]},
         {"name": "rightArm", "parent": "body", "pivot": [-5, 22, 0], "cubes": [
             cube([-8, 12, -2], [4, 12, 4], [40, 16]), cube([-8, 12, -2], [4, 12, 4], [40, 32], 0.25)],
-         "locators": {"right_hand": [-6, 11, 0]}},
+         "locators": {"right_hand": [-6, 11, 0], "reach": [-6, 5, -1.5]}},
         {"name": "rightItem", "parent": "rightArm", "pivot": [-6, 15, 1]},
         {"name": "leftArm", "parent": "body", "pivot": [5, 22, 0], "cubes": [
             cube([4, 12, -2], [4, 12, 4], [32, 48]), cube([4, 12, -2], [4, 12, 4], [48, 48], 0.25)],
@@ -929,7 +965,7 @@ def rp_entity():
         "spawn_egg": {"base_color": "#f0f0f0", "overlay_color": "#5c1414"},
         "particle_effects": anims.PARTICLE_MAP,
         "animations": anims.short_names(sorted(SKILLS)),
-        "scripts": {"animate": ["main", "aura_ctrl", "attack_fx"]},
+        "scripts": dict(anims.ATK_SCRIPTS, animate=["main", "aura_ctrl", "attack_fx"]),
     }}}
 
 
@@ -1003,6 +1039,9 @@ def main():
     write(os.path.join(RP, "entity/shiraishi_byakuya.entity.json"), rp_entity())
     write(os.path.join(RP, "models/entity/shiraishi_byakuya.geo.json"), rp_geometry())
     ra = anims.all_animations()
+    add_arc_trails(ra["animations"], {"sword_trail"}, arc="arc")
+    add_arc_trails(ra["animations"], {"sword_trail_red"}, arc="arc_red")
+    bake_smooth(ra["animations"], step=SMOOTH_STEP)
     vectorize_animations(ra["animations"])
     write(os.path.join(RP, "animations/shiraishi_byakuya.animation.json"), ra)
     write(os.path.join(RP, "animation_controllers/shiraishi_byakuya.ac.json"), anims.controllers(sorted(SKILLS)))
@@ -1016,6 +1055,7 @@ def main():
     for name, data in summons.rp_clients(boss_anims).items():
         if name == "shadow":
             data["minecraft:client_entity"]["description"]["particle_effects"].update(anims.PARTICLE_MAP)
+            data["minecraft:client_entity"]["description"]["scripts"].update(anims.ATK_SCRIPTS)
         write(os.path.join(RP, "entity/%s.entity.json" % name), data)
     write(os.path.join(RP, "models/entity/byakuya_slash_wave.geo.json"), summons.geo_slash_wave())
     write(os.path.join(RP, "models/entity/byakuya_blade.geo.json"), summons.geo_blade())

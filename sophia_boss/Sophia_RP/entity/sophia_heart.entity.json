@@ -16,6 +16,8 @@
         "controller.render.sophia_heart"
       ],
       "particle_effects": {
+        "arc": "sophia:arc",
+        "step": "sophia:step_dust",
         "trail": "sophia:spark_burst",
         "spark": "sophia:spark_burst",
         "glow": "sophia:hand_glow",
@@ -35,6 +37,8 @@
         "aura_1": "animation.sophia.aura_1",
         "float": "animation.sophia.float",
         "move_legs": "animation.sophia.move_legs",
+        "idle_flavor": "animation.sophia.idle_flavor",
+        "step_fx": "animation.sophia.step_fx",
         "hurt": "animation.sophia.hurt",
         "aura_2": "animation.sophia.aura_2",
         "aura_3": "animation.sophia.aura_3",
@@ -83,6 +87,14 @@
           "main",
           "aura_ctrl",
           "attack_fx"
+        ],
+        "initialize": [
+          "v.atk_n = 0.0;",
+          "v.atk_was = 0.0;"
+        ],
+        "pre_animation": [
+          "v.atk_n = (v.attack_time > 0.0 && (v.atk_was <= 0.0 || v.attack_time < v.atk_was)) ? math.mod(v.atk_n + 1, 6) : v.atk_n;",
+          "v.atk_was = v.attack_time;"
         ]
       },
       "enable_attachables": true,

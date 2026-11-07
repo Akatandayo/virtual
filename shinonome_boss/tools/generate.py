@@ -16,7 +16,7 @@ import zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import xanims  # noqa: E402
 import xfx  # noqa: E402
-from cine import Cine, vectorize_animations  # noqa: E402
+from cine import Cine, add_arc_trails, bake_smooth, vectorize_animations  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BP = os.path.join(ROOT, "Shinonome_BP")
@@ -25,7 +25,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "shinonome:toa"
 NAME = "東雲 永々"
-VERSION = [1, 1, 0]
+VERSION = [1, 2, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "a694ca4a-12aa-4554-8bdb-12089cc1e7f6"
 UUID_BP_MODULE = "f1947c40-91af-45a7-8801-580cb386961f"
@@ -52,6 +52,8 @@ def write(path, data):
     with open(path, "w", encoding="utf-8") as f:
         if isinstance(data, str):
             f.write(data)
+        elif "/animations/" in path.replace(os.sep, "/"):
+            json.dump(data, f, ensure_ascii=False, separators=(",", ":"))   # キーが多いので詰めて書く
         else:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
@@ -487,8 +489,43 @@ add(DEATH, 2.6, [say("§f東雲§7「……おなかすいた。ハンバーガ�
 add(DEATH, 3.7, [CINE.cam("~ ~5 ~-3", "~ ~1 ~", 1.0, "in_out_sine"), pt("portal", "~ ~1 ~")])
 add(DEATH, 4.4, [pt("portal", "~ ~1 ~"), pt("smoke", "~ ~0.6 ~"), "/playsound mob.endermen.portal @a[r=32] ~ ~ ~ 1 1.2"])
 add(DEATH, 5.3, [CINE.fade(0, 0.1, 0.6, (60, 0, 90))] + CINE.end())
+add(DEATH, 5.35, ["/title @a[r=64] title §6§l討伐成功", "/title @a[r=64] subtitle §7東雲 永々を倒した",
+                   "/playsound random.levelup @a[r=64] ~ ~ ~ 1 0.8", "/playsound random.totem @a[r=64] ~ ~ ~ 0.5 1.6"])
 add(DEATH, 5.5, ["@s shinonome:despawn"])
 DEATH = {"%.2f" % k: v for k, v in sorted(DEATH.items())}
+
+
+# ---------------------------------------------------------------------------
+# v1.2: 大技のカットイン・着地や叩きつけの土煙
+# ---------------------------------------------------------------------------
+SMOOTH_STEP = 0.05
+
+
+def patch(v, t, cmds):
+    tl = SKILLS[v][2]
+    key = "%.2f" % t
+    tl[key] = tl.get(key, []) + list(cmds)
+
+
+def cutin_into(v, t, dur, pos, facing, title=None, sub=None):
+    tmp = {}
+    CINE.cutin(tmp, t, dur, pos, facing, title, sub)
+    for k, cmds in tmp.items():
+        patch(v, k, cmds)
+
+
+def impact(pos="~ ~ ~"):
+    return [pt("debris", pos), pt("dust_ring", pos)]
+
+
+cutin_into(17, 0.0, 0.8, "^ ^0.3 ^2", "^ ^12 ^6")
+cutin_into(16, 0.3, 0.6, "^0.9 ^1.3 ^1.2", "^-0.3 ^1.5 ^0.2")
+for v, t in ((30, 2.3), (6, 1.6), (4, 1.8), (31, 2.4), (12, 0.6), (32, 5.9)):
+    patch(v, t, impact())
+patch(4, 1.3, [at_fam("crush", "particle shinonome:debris ~ ~ ~"), at_fam("crush", "particle shinonome:dust_ring ~ ~ ~")])
+for k, t in enumerate((1.0, 1.8, 2.6)):
+    fam = "sword_%d" % (k % 2)
+    patch(17, t, [at_fam(fam, "particle shinonome:debris ~ ~ ~"), at_fam(fam, "particle shinonome:dust_ring ~ ~ ~")])
 
 
 # ---------------------------------------------------------------------------
@@ -924,7 +961,7 @@ def geo_boss(slim):
          "locators": {"eye": [2, 28, -4.6], "head_top": [0, 33, 0]}},
         {"name": "rightArm", "parent": "body", "pivot": [-5, piv, 0], "cubes": [
             cube([-ax, ay, -2], [aw, 12, 4], [40, 16]), cube([-ax, ay, -2], [aw, 12, 4], [40, 32], 0.25)],
-         "locators": {"right_hand": [-ax + aw / 2, ay - 0.5, 0]}},
+         "locators": {"right_hand": [-ax + aw / 2, ay - 0.5, 0], "reach": [-ax + aw / 2, ay - 7, -1.5]}},
         {"name": "rightItem", "parent": "rightArm", "pivot": [-ax + aw / 2, ay + 3, 1]},
         {"name": "leftArm", "parent": "body", "pivot": [5, piv, 0], "cubes": [
             cube([4, ay, -2], [aw, 12, 4], [32, 48]), cube([4, ay, -2], [aw, 12, 4], [48, 48], 0.25)],
@@ -1074,6 +1111,8 @@ def rp_clients():
         "director": client("shinonome:director", "toa", "geometry.toa", "entity_alphatest",
                            {"pose": "animation.toa.director_pose"}, ["pose"], {"burger": "shinonome:burger"}),
     }
+    for key in ('toa', 'clone'):   # 通常攻撃の切り替え用の変数
+        clients[key]["minecraft:client_entity"]["description"]["scripts"].update(xanims.ATK_SCRIPTS)
     return clients
 
 
@@ -1164,6 +1203,8 @@ def main():
         write(os.path.join(RP, "models/entity/%s.geo.json" % ident.split(".")[1]), data)
     # 本体のモーションと、召喚物・撃破演出のモーションは別のファイルに分ける
     ra = xanims.all_animations()
+    add_arc_trails(ra["animations"], {"trail"}, arc="arc")
+    bake_smooth(ra["animations"], step=SMOOTH_STEP)
     summ = rp_summon_anims()
     summ["animation.toa.director_pose"] = ra["animations"].pop("animation.toa.director_pose")
     summ["animation.toa.star_spin"] = {"loop": True, "bones": {

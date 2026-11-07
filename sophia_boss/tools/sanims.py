@@ -2,6 +2,14 @@
 """ソフィア・ハート: クライアント側アニメーション（細腕モデル・右手に紺碧刀）."""
 
 N = [0, 0, 0]
+# 通常攻撃の左右（技の順番）は「振り始めた瞬間」に切り替える（振っている途中で入れ替わらない）
+ATK_SCRIPTS = {
+    "initialize": ["v.atk_n = 0.0;", "v.atk_was = 0.0;"],
+    "pre_animation": [
+        "v.atk_n = (v.attack_time > 0.0 && (v.atk_was <= 0.0 || v.attack_time < v.atk_was)) ? "
+        "math.mod(v.atk_n + 1, 6) : v.atk_n;",
+        "v.atk_was = v.attack_time;"],
+}
 HOLD = [-20, -8, 0]          # 普段の右腕（刀を軽く前に）
 IAI_R, IAI_B = [-30, 70, 0], [12, 40, 0]   # 居合の構え
 SLASH_R, SLASH_B = [-95, -90, 0], [10, -45, 0]
@@ -283,6 +291,15 @@ def all_animations():
             "leftLeg": {"rotation": ["10 + 30 * %s + math.sin(q.life_time * 120 + 60) * 5" % spd, 0, -3]},
             "leftArm": {"rotation": ["15 * %s" % spd, 0, "-12"]},
         }},
+        # 待機中、時々刀をくるっと回して、首をかしげる（11 秒ごと）
+        "animation.sophia.idle_flavor": anim(11.0, {
+            "rightArm": {"rotation": {0: N, 7.5: N, 7.65: [-60, -40, 0], 7.8: [-95, 30, 0], 7.95: [-60, 85, 0],
+                                      8.1: [-30, 30, 0], 8.3: N, 11.0: N}},
+            "body": {"rotation": {0: N, 7.5: N, 7.8: [0, 12, 0], 8.1: [0, -8, 0], 8.3: N, 11.0: N}},
+            "head": {"rotation": {0: N, 9.3: N, 9.6: [0, 0, 16], 10.4: [0, 0, 16], 10.7: N, 11.0: N}},
+        }, {7.65: fx("arc"), 7.95: fx("spark")}, loop=True),
+        "animation.sophia.step_fx": {"loop": True, "animation_length": 0.5, "particle_effects": {
+            "0.00": [{"effect": "step", "locator": "right_foot"}], "0.25": [{"effect": "step", "locator": "left_foot"}]}},
         # 技を使いながら移動するとき: 足だけ動かす
         "animation.sophia.move_legs": {"loop": True, "bones": {
             "rightLeg": {"rotation": ["math.cos(%s) * 55 * %s" % (walk, spd), 0, 0]},
@@ -295,13 +312,13 @@ def all_animations():
         }},
         # 通常攻撃: 刀・左拳・回し蹴りが順番に出る
         "animation.sophia.attack": {"loop": True, "bones": {
-            "rightArm": {"rotation": ["math.mod(math.floor(q.life_time / 3), 3) == 0 ? "
+            "rightArm": {"rotation": ["math.mod(v.atk_n, 3) == 0 ? "
                                       "-math.sin(variable.attack_time * 180) * 120 : 0",
-                                      "math.mod(math.floor(q.life_time / 3), 3) == 0 ? "
+                                      "math.mod(v.atk_n, 3) == 0 ? "
                                       "60 - variable.attack_time * 120 : 0", 0]},
-            "leftArm": {"rotation": ["math.mod(math.floor(q.life_time / 3), 3) == 1 ? "
+            "leftArm": {"rotation": ["math.mod(v.atk_n, 3) == 1 ? "
                                      "-math.sin(variable.attack_time * 180) * 95 : 0", 0, 0]},
-            "rightLeg": {"rotation": ["math.mod(math.floor(q.life_time / 3), 3) == 2 ? "
+            "rightLeg": {"rotation": ["math.mod(v.atk_n, 3) == 2 ? "
                                       "-math.sin(variable.attack_time * 180) * 100 : 0", 0, 0]},
             "body": {"rotation": [0, "math.sin(variable.attack_time * 180) * -25", 0]},
         }},
@@ -337,6 +354,7 @@ def short_names(skill_ids):
     names = {"look_at": "animation.sophia.look_at", "idle": "animation.sophia.idle", "move": "animation.sophia.move",
              "attack": "animation.sophia.attack", "aura_1": "animation.sophia.aura_1",
              "float": "animation.sophia.float", "move_legs": "animation.sophia.move_legs",
+             "idle_flavor": "animation.sophia.idle_flavor", "step_fx": "animation.sophia.step_fx",
              "hurt": "animation.sophia.hurt",
              "aura_2": "animation.sophia.aura_2", "aura_3": "animation.sophia.aura_3",
              "death_pose": "animation.sophia.death", "main": "controller.animation.sophia.main",
@@ -349,7 +367,9 @@ def short_names(skill_ids):
 def controllers(skill_ids):
     dead = {"death": "!q.is_alive"}
     states = {"default": {"animations": ["look_at", "idle", {"move": "q.skin_id < 2"}, {"float": "q.skin_id >= 2"},
-                                         {"attack": "variable.attack_time > 0"}, "hurt"],
+                                         {"attack": "variable.attack_time > 0"}, "hurt",
+                                         {"idle_flavor": "q.modified_move_speed < 0.3"},
+                                         {"step_fx": "q.modified_move_speed > 0.4 && q.skin_id < 2"}],
                           "transitions": [dead] + [{"s%d" % v: "q.mark_variant == %d" % v} for v in skill_ids],
                           "blend_transition": 0.1},
               "death": {"animations": ["death_pose"]}}
@@ -365,12 +385,22 @@ def controllers(skill_ids):
             "a2": {"animations": ["aura_2"], "transitions": [{"a3": "q.skin_id >= 3"}, {"none": "!q.is_alive"}]},
             "a3": {"animations": ["aura_3"], "transitions": [{"none": "!q.is_alive"}]}}},
         "controller.animation.sophia.attack_fx": {"initial_state": "ready", "states": {
-            "ready": {"transitions": [{"swing": "variable.attack_time > 0.25"}]},
-            "swing": {"particle_effects": [{"effect": "trail", "locator": "right_hand"}],
-                      "transitions": [{"ready": "variable.attack_time < 0.2"}]}}},
+            "ready": {"transitions": [{"swing_0": "variable.attack_time > 0.25 && math.mod(v.atk_n, 3) == 0"},
+                                      {"swing_1": "variable.attack_time > 0.25 && math.mod(v.atk_n, 3) == 1"},
+                                      {"swing_2": "variable.attack_time > 0.25"}]},
+            "swing_0": {"particle_effects": [{"effect": "trail", "locator": "right_hand"},
+                                             {"effect": "arc", "locator": "reach"}],
+                        "transitions": [{"ready": "variable.attack_time < 0.2"}]},
+            "swing_1": {"particle_effects": [{"effect": "trail", "locator": "left_hand"},
+                                             {"effect": "arc", "locator": "left_hand"}],
+                        "transitions": [{"ready": "variable.attack_time < 0.2"}]},
+            "swing_2": {"particle_effects": [{"effect": "spark", "locator": "right_foot"},
+                                             {"effect": "arc", "locator": "right_foot"}],
+                        "transitions": [{"ready": "variable.attack_time < 0.2"}]}}},
     }}
 
 
-PARTICLE_MAP = {"trail": "sophia:spark_burst", "spark": "sophia:spark_burst", "glow": "sophia:hand_glow",
+PARTICLE_MAP = {"arc": "sophia:arc", "step": "sophia:step_dust",
+                "trail": "sophia:spark_burst", "spark": "sophia:spark_burst", "glow": "sophia:hand_glow",
                 "electric": "sophia:electric", "electric_aura": "sophia:aura_electric", "sparkle": "sophia:sparkle",
                 "flame": "sophia:aura_flame", "bread": "sophia:bread", "cat": "sophia:cat", "eye": "sophia:laplace_eye"}

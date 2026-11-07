@@ -12,7 +12,13 @@
             {
               "attack": "variable.attack_time > 0"
             },
-            "hurt"
+            "hurt",
+            {
+              "idle_flavor": "q.modified_move_speed < 0.3"
+            },
+            {
+              "step_fx": "q.modified_move_speed > 0.4"
+            }
           ],
           "transitions": [
             {
@@ -735,6 +741,14 @@
           "particle_effects": [
             {
               "effect": "sword_trail",
+              "locator": "right_hand"
+            },
+            {
+              "effect": "arc",
+              "locator": "reach"
+            },
+            {
+              "effect": "arc",
               "locator": "right_hand"
             }
           ],

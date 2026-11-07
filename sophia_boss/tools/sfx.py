@@ -226,6 +226,7 @@ def build_textures():
         "sophia_spike": spike(), "sophia_hex": _fn(32, 32, t_hex), "sophia_rift": rift(), "sophia_cat": cat_face(),
         "sophia_eye": eye(), "sophia_cross": cross(), "sophia_spear": spear(), "sophia_chain": chain(),
         "sophia_bread": baguette(), "sophia_letter": letter(), "sophia_clock": clock(),
+        "sophia_chip": Image.new("RGBA", (4, 4), (255, 255, 255, 255)),
     }
 
 
@@ -420,6 +421,18 @@ def build_particles():
         lifetime="0.1", size=["0.08", "0.35"], spin={"rotation": "math.random(0, 360)"}, color=rgba("blue", 1))
     add("aura_flame", tex="sophia_glow", rate=(35, 30), active=0.4, shape=disc(0.5), lifetime="math.random(0.4, 0.8)",
         speed="math.random(1, 2.5)", size="0.2 * (" + FADE + ")", color=grad("#FFFFD0FF", "#FFB040FF", "#00400070"))
+    # --- v1.2: 剣の軌跡（金）・足音の土煙・着地の破片と土煙 ---
+    add("arc", tex="sophia_glow", rate=(260, 120), active=0.16, lifetime="0.24", size="0.09 * (" + FADE + ") + 0.02",
+        color=grad("#FFFFFFFF", "#FFFFE080", "#00FFB020"))
+    add("step_dust", tex="sophia_glow", material="particles_blend", count=3, shape=disc(0.15, "outwards"), lifetime="0.5",
+        speed=0.7, drag=2, size="0.12 + v.particle_age * 0.3", color=[0.62, 0.57, 0.5, "0.45 * (" + FADE + ")"])
+    add("debris", tex="sophia_chip", material="particles_alpha", count=18, shape=sphere(0.3, (0, 1, 0)),
+        lifetime="math.random(0.6, 1.0)", speed="math.random(3, 7)", accel=(0, -16, 0), drag=0.5,
+        size="0.05 + v.particle_random_1 * 0.07",
+        spin={"rotation": "math.random(0, 360)", "rotation_rate": "math.random(-500, 500)"},
+        color=["0.35 + v.particle_random_2 * 0.2", "0.3 + v.particle_random_2 * 0.15", "0.25 + v.particle_random_2 * 0.1", 1.0])
+    add("dust_ring", tex="sophia_glow", material="particles_blend", count=26, shape=disc(0.6, "outwards", True),
+        lifetime="0.7", speed=5, drag=5, size="0.25 + v.particle_age * 0.8", color=[0.64, 0.58, 0.5, "0.55 * (" + FADE + ")"])
     add("laplace_eye", tex="sophia_star", count=1, lifetime="0.45", size="0.13 * (" + FADE + ") + 0.04",
         color=[0.45, 0.8, 1.0, 1.0])
     add("hand_glow", tex="sophia_glow", count=8, shape=sphere(0.4, "inwards"), lifetime="0.3", speed=2,

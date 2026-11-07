@@ -2,6 +2,15 @@
 """東雲 永々: クライアント側アニメーション（右手に黒胎刀、背中にクロノスピアの窓）."""
 
 N = [0, 0, 0]
+# 通常攻撃の左右（技の順番）は「振り始めた瞬間」に切り替える（振っている途中で入れ替わらない）
+ATK_SCRIPTS = {
+    "initialize": ["v.atk_n = 0.0;", "v.atk_was = 0.0;"],
+    "pre_animation": [
+        "v.atk_n = (v.attack_time > 0.0 && (v.atk_was <= 0.0 || v.attack_time < v.atk_was)) ? "
+        "math.mod(v.atk_n + 1, 6) : v.atk_n;",
+        "v.atk_was = v.attack_time;"],
+}
+ALT = "math.mod(v.atk_n, 2) == 0"   # 斬り / 蹴り
 HOLD = [-15, -6, 0]
 UP = [-175, 0, 0]
 CAST = [-90, 0, 0]
@@ -202,10 +211,25 @@ def all_animations():
             "body": {"rotation": ["-q.hurt_time * 1.4", 0, 0]},
             "head": {"rotation": ["-q.hurt_time * 1.0", 0, "q.hurt_time * 1.5"]},
         }},
+        # 通常攻撃: 黒胎刀の斬りと、回し蹴りを交互に
         "animation.toa.attack": {"loop": True, "bones": {
-            "rightArm": {"rotation": ["-math.sin(variable.attack_time * 180) * 120", "60 - variable.attack_time * 120", 0]},
-            "body": {"rotation": [0, "math.sin(variable.attack_time * 180) * -25", 0]},
+            "rightArm": {"rotation": ["(%s) ? -math.sin(variable.attack_time * 180) * 120 : 0" % ALT,
+                                      "(%s) ? 60 - variable.attack_time * 120 : 0" % ALT, 0]},
+            "rightLeg": {"rotation": ["(%s) ? 0 : -math.sin(variable.attack_time * 180) * 95" % ALT, 0,
+                                      "(%s) ? 0 : math.sin(variable.attack_time * 180) * 20" % ALT]},
+            "body": {"rotation": ["(%s) ? 0 : -math.sin(variable.attack_time * 180) * 12" % ALT,
+                                  "(%s ? -25 : 40) * math.sin(variable.attack_time * 180)" % ALT, 0]},
         }},
+        # 待機中、時々のびーっと伸びをして、ぴょんと跳ねる（12 秒ごと）
+        "animation.toa.idle_flavor": anim(12.0, {
+            "rightArm": {"rotation": {0: N, 7.0: N, 7.5: [-170, 0, 15], 8.4: [-175, 0, 10], 8.8: N, 12.0: N}},
+            "leftArm": {"rotation": {0: N, 7.0: N, 7.5: [-170, 0, -15], 8.4: [-175, 0, -10], 8.8: N, 12.0: N}},
+            "body": {"rotation": {0: N, 7.0: N, 7.5: [-10, 0, 0], 8.4: [-12, 0, 0], 8.8: N, 12.0: N}},
+            "head": {"rotation": {0: N, 7.0: N, 7.5: [-15, 0, 0], 8.4: [-15, 0, 0], 8.8: N, 12.0: N}},
+            "root": {"position": {0: N, 9.4: N, 9.5: [0, -1, 0], 9.7: [0, 4, 0], 9.9: N, 10.0: [0, -0.5, 0], 10.1: N, 12.0: N}},
+        }, {9.95: fx("smoke", "right_foot")}, loop=True),
+        "animation.toa.step_fx": {"loop": True, "animation_length": 0.5, "particle_effects": {
+            "0.00": [{"effect": "step", "locator": "right_foot"}], "0.25": [{"effect": "step", "locator": "left_foot"}]}},
         # 背中の窓（クロノスピア）はふわふわ浮く
         "animation.toa.window": {"loop": True, "bones": {
             "window": {"position": [0, "math.sin(q.life_time * 80) * 1.2", 0],
@@ -244,6 +268,7 @@ def short_names(skill_ids):
     n = {"look_at": "animation.toa.look_at", "idle": "animation.toa.idle", "move": "animation.toa.move",
          "attack": "animation.toa.attack", "window": "animation.toa.window", "gold_eye": "animation.toa.gold_eye",
          "move_legs": "animation.toa.move_legs", "hurt": "animation.toa.hurt",
+         "idle_flavor": "animation.toa.idle_flavor", "step_fx": "animation.toa.step_fx",
          "aura_1": "animation.toa.aura_1", "aura_2": "animation.toa.aura_2", "water": "animation.toa.water",
          "death_pose": "animation.toa.death", "main": "controller.animation.toa.main",
          "aura_ctrl": "controller.animation.toa.aura", "attack_fx": "controller.animation.toa.attack_fx"}
@@ -254,7 +279,9 @@ def short_names(skill_ids):
 
 def controllers(skill_ids):
     dead = {"death": "!q.is_alive"}
-    states = {"default": {"animations": ["look_at", "idle", "move", {"attack": "variable.attack_time > 0"}, "hurt"],
+    states = {"default": {"animations": ["look_at", "idle", "move", {"attack": "variable.attack_time > 0"}, "hurt",
+                                         {"idle_flavor": "q.modified_move_speed < 0.3"},
+                                         {"step_fx": "q.modified_move_speed > 0.4"}],
                           "transitions": [dead] + [{"s%d" % v: "q.mark_variant == %d" % v} for v in skill_ids],
                           "blend_transition": 0.1},
               "death": {"animations": ["death_pose"]}}
@@ -272,13 +299,19 @@ def controllers(skill_ids):
             "a1": {"animations": ["aura_1"], "transitions": [{"a2": "q.skin_id >= 2"}, {"none": "!q.is_alive"}]},
             "a2": {"animations": ["aura_2"], "transitions": [{"none": "!q.is_alive"}]}}},
         "controller.animation.toa.attack_fx": {"initial_state": "ready", "states": {
-            "ready": {"transitions": [{"swing": "variable.attack_time > 0.25"}]},
-            "swing": {"particle_effects": [{"effect": "trail", "locator": "right_hand"}],
-                      "transitions": [{"ready": "variable.attack_time < 0.2"}]}}},
+            "ready": {"transitions": [{"slash": "variable.attack_time > 0.25 && %s" % ALT},
+                                      {"kick": "variable.attack_time > 0.25"}]},
+            "slash": {"particle_effects": [{"effect": "trail", "locator": "right_hand"},
+                                           {"effect": "arc", "locator": "reach"}],
+                      "transitions": [{"ready": "variable.attack_time < 0.2"}]},
+            "kick": {"particle_effects": [{"effect": "trail", "locator": "right_foot"},
+                                          {"effect": "arc", "locator": "right_foot"}],
+                     "transitions": [{"ready": "variable.attack_time < 0.2"}]}}},
     }}
 
 
-PARTICLE_MAP = {"trail": "shinonome:trail", "hand": "shinonome:hand", "spark": "shinonome:spark",
+PARTICLE_MAP = {"arc": "shinonome:arc", "step": "shinonome:step_dust",
+                "trail": "shinonome:trail", "hand": "shinonome:hand", "spark": "shinonome:spark",
                 "smoke": "shinonome:smoke", "fire": "shinonome:fire_burst", "cyan": "shinonome:charge_cyan",
                 "dark": "shinonome:dark_aura", "rage": "shinonome:rage", "water": "shinonome:water_aura",
                 "gold_eye": "shinonome:gold_eye", "burger": "shinonome:burger"}
