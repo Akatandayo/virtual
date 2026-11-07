@@ -61,6 +61,18 @@
               "s14": "q.mark_variant == 14"
             },
             {
+              "s15": "q.mark_variant == 15"
+            },
+            {
+              "s16": "q.mark_variant == 16"
+            },
+            {
+              "s17": "q.mark_variant == 17"
+            },
+            {
+              "s18": "q.mark_variant == 18"
+            },
+            {
               "s20": "q.mark_variant == 20"
             },
             {
@@ -292,6 +304,69 @@
             },
             {
               "default": "q.mark_variant != 14"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s15": {
+          "animations": [
+            "look_at",
+            "s15",
+            "glitch"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 15"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s16": {
+          "animations": [
+            "look_at",
+            "s16",
+            "glitch"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 16"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s17": {
+          "animations": [
+            "look_at",
+            "s17",
+            "glitch"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 17"
+            }
+          ],
+          "blend_transition": 0.08
+        },
+        "s18": {
+          "animations": [
+            "s18",
+            "glitch"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 18"
             }
           ],
           "blend_transition": 0.08

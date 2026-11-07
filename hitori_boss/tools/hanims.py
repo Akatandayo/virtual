@@ -140,8 +140,7 @@ def skill_anims():
     l.update({3.6: [-100, 0, 0], 3.8: [40, 0, 0], 4.6: [40, 0, 0], 5.0: N})
     A[14] = anim(5.0, {"rightArm": {"rotation": r}, "leftArm": {"rotation": l},
                        "body": {"rotation": {0: N, 3.6: N, 3.8: [40, 0, 0], 4.6: [40, 0, 0], 5.0: N}}},
-                {0.6 + i * 0.35: fx("hand_noise" if True else "", "right_hand" if i % 2 == 0 else "left_hand")
-                 for i in range(8)})
+                {0.6 + i * 0.35: fx("hand_noise", "right_hand" if i % 2 == 0 else "left_hand") for i in range(8)})
     # 20 🤍Re: End of a Dream💙: 宙に浮き、T ポーズのまま回転
     A[20] = anim(8.0, {
         "root": {"position": {0: N, 1.0: [0, 10, 0], 7.0: [0, 10, 0], 7.4: N, 8.0: N},
@@ -160,6 +159,40 @@ def skill_anims():
         "rightArm": {"rotation": hold([5, 0, 10], 0.3, 4.6, end=5.0)},
         "leftArm": {"rotation": hold([5, 0, -10], 0.3, 4.6, end=5.0)},
     }, {0.3 + i * 0.6: fx("stun_spark", "body_center") for i in range(7)})
+    # 15 ↓Free Fall↓: 両腕で持ち上げ → 一気に振り下ろして落とす
+    A[15] = anim(3.4, {
+        "rightArm": {"rotation": {0: N, 0.3: [-170, 0, 20], 1.9: [-175, 0, 20], 2.05: [20, 0, 10], 3.1: [20, 0, 10], 3.4: N}},
+        "leftArm": {"rotation": {0: N, 0.3: [-170, 0, -20], 1.9: [-175, 0, -20], 2.05: [20, 0, -10], 3.1: [20, 0, -10],
+                                 3.4: N}},
+        "body": {"rotation": {0: N, 0.3: [-12, 0, 0], 1.9: [-12, 0, 0], 2.05: [30, 0, 0], 3.1: [30, 0, 0], 3.4: N}},
+        "head": {"rotation": {0: N, 0.3: [-40, 0, 0], 1.9: [-40, 0, 0], 2.05: [20, 0, 0], 3.4: N}},
+    }, {0.3: fx("hand_noise") + fx("hand_noise", "left_hand"), 2.05: fx("hand_noise") + fx("hand_noise", "left_hand")})
+    # 16 ↓Out of World↓: 地面を指差し、指を鳴らすたびに床が抜ける
+    A[16] = anim(2.6, {
+        "rightArm": {"rotation": {0: N, 0.15: [-45, 0, 0], 0.85: [-45, 0, 0], 0.9: [-60, 0, 0], 1.0: [-45, 0, 0],
+                                  1.65: [-45, 0, 0], 1.7: [-60, 0, 0], 1.8: [-45, 0, 0], 2.4: [-45, 0, 0], 2.6: N}},
+        "head": {"rotation": {0: N, 0.15: [30, 0, 0], 2.4: [30, 0, 0], 2.6: N}},
+    }, {0.9: fx("hand_noise"), 1.7: fx("hand_noise")})
+    # 17 ↓Gravity Cube↓: 両手を掲げ、手を離して落とす
+    A[17] = anim(2.8, {
+        "rightArm": {"rotation": {0: N, 0.15: TPOSE_R, 0.25: [-160, 0, 0], 0.5: [-160, 0, 0], 0.6: [-20, 0, 0],
+                                  1.15: TPOSE_R, 1.25: [-160, 0, 0], 1.5: [-160, 0, 0], 1.6: [-20, 0, 0], 2.8: N}},
+        "leftArm": {"rotation": {0: N, 0.15: TPOSE_L, 0.25: [-160, 0, 0], 0.5: [-160, 0, 0], 0.6: [-20, 0, 0],
+                                 1.15: TPOSE_L, 1.25: [-160, 0, 0], 1.5: [-160, 0, 0], 1.6: [-20, 0, 0], 2.8: N}},
+    }, {0.25: fx("hand_noise"), 1.25: fx("hand_noise")})
+    # 18 ↓Triple DiVE↓: 跳ぶ → 頭から急降下 → 着地、を 3 回
+    r, l, b, rt = {0: N}, {0: N}, {0: N}, {0: N}
+    for k in range(3):
+        t0 = 0.2 + 1.3 * k
+        r.update({t0: [-175, 0, 0], t0 + 0.25: [30, 0, 15], t0 + 1.0: [30, 0, 15], t0 + 1.05: [-60, 0, 30],
+                  t0 + 1.25: N})
+        l.update({t0: [-175, 0, 0], t0 + 0.25: [30, 0, -15], t0 + 1.0: [30, 0, -15], t0 + 1.05: [-60, 0, -30],
+                  t0 + 1.25: N})
+        b.update({t0: [-10, 0, 0], t0 + 0.25: [70, 0, 0], t0 + 1.0: [70, 0, 0], t0 + 1.05: [25, 0, 0], t0 + 1.25: N})
+        rt.update({t0 + 1.0: N, t0 + 1.05: [0, -4, 0], t0 + 1.25: N})
+    A[18] = anim(4.4, {"rightArm": {"rotation": r}, "leftArm": {"rotation": l}, "body": {"rotation": b},
+                       "root": {"position": rt}},
+                {0.2 + 1.3 * k + 1.05: fx("hand_noise", "body_center") for k in range(3)})
     return A
 
 
@@ -206,7 +239,7 @@ def all_animations():
     return {"format_version": "1.10.0", "animations": anims}
 
 
-NO_LOOK = {4, 6, 20, 99}
+NO_LOOK = {4, 6, 18, 20, 99}
 
 
 def short_names(skill_ids):

@@ -11,7 +11,8 @@
           "skills",
           "cooldown",
           "decay",
-          "death"
+          "death",
+          "bgm"
         ]
       },
       "animations": {
@@ -19,6 +20,7 @@
         "cooldown": "controller.animation.hitori.cooldown",
         "decay": "animation.hitori.decay",
         "death": "controller.animation.hitori.death",
+        "bgm": "controller.animation.hitori.bgm",
         "cd_timer": "animation.hitori.cd_timer",
         "skill_1": "animation.hitori.skill_1",
         "skill_2": "animation.hitori.skill_2",
@@ -34,6 +36,10 @@
         "skill_12": "animation.hitori.skill_12",
         "skill_13": "animation.hitori.skill_13",
         "skill_14": "animation.hitori.skill_14",
+        "skill_15": "animation.hitori.skill_15",
+        "skill_16": "animation.hitori.skill_16",
+        "skill_17": "animation.hitori.skill_17",
+        "skill_18": "animation.hitori.skill_18",
         "skill_20": "animation.hitori.skill_20",
         "skill_99": "animation.hitori.skill_99"
       }
@@ -297,6 +303,26 @@
           "value": 14
         }
       },
+      "v_15": {
+        "minecraft:mark_variant": {
+          "value": 15
+        }
+      },
+      "v_16": {
+        "minecraft:mark_variant": {
+          "value": 16
+        }
+      },
+      "v_17": {
+        "minecraft:mark_variant": {
+          "value": 17
+        }
+      },
+      "v_18": {
+        "minecraft:mark_variant": {
+          "value": 18
+        }
+      },
       "v_20": {
         "minecraft:mark_variant": {
           "value": 20
@@ -318,8 +344,8 @@
         ]
       },
       "minecraft:health": {
-        "value": 200,
-        "max": 200
+        "value": 400,
+        "max": 400
       },
       "minecraft:boss": {
         "hud_range": 64,
@@ -378,7 +404,7 @@
                 {
                   "test": "actor_health",
                   "operator": "<=",
-                  "value": 100
+                  "value": 200
                 },
                 {
                   "test": "is_skin_id",
@@ -394,7 +420,7 @@
                 {
                   "test": "actor_health",
                   "operator": "<=",
-                  "value": 50
+                  "value": 100
                 },
                 {
                   "test": "is_skin_id",
@@ -425,13 +451,14 @@
           "command": [
             "scoreboard objectives add hitori_glitch dummy",
             "scoreboard players set @s hitori_glitch 0",
+            "scoreboard objectives add hitori_players dummy",
             "title @a[r=64] title §b電子 独",
             "title @a[r=64] subtitle §7不具合・Glitch ―― 自我の使者",
             "playsound beacon.activate @a[r=64] ~ ~ ~ 1 0.5",
             "playsound random.glass @a[r=64] ~ ~ ~ 1 0.5",
             "particle hitori:noise_big ~ ~1 ~",
             "particle hitori:shockwave_big ~ ~0.1 ~",
-            "tellraw @a[r=64] {\"rawtext\":[{\"text\":\"§8[TIP] §7Glitch 展開中は攻撃が効かない。§b短い間隔で連続ヒット§7させて負荷をかけろ！\"}]}"
+            "tellraw @a[r=64] {\"rawtext\":[{\"text\":\"§8[TIP] §7Glitch 展開中は攻撃が効かない。§b短い間隔で連続ヒット§7させて負荷をかけろ！（人数が多いほど、強制解除中の防御が上がる）\"}]}"
           ]
         }
       },
@@ -562,6 +589,10 @@
             "v_12",
             "v_13",
             "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
             "v_20",
             "glitch_on",
             "glitch_cd",
@@ -577,7 +608,13 @@
         },
         "queue_command": {
           "command": [
-            "scoreboard players set @s hitori_glitch 0"
+            "scoreboard players set @s hitori_glitch 0",
+            "scoreboard players set @s hitori_players 0",
+            "execute as @a[r=40,m=!creative] run scoreboard players add @e[type=hitori:denshi_hitori,c=1] hitori_players 1",
+            "execute if score @s hitori_players matches 2 run effect @s resistance 5 0 true",
+            "execute if score @s hitori_players matches 3 run effect @s resistance 5 1 true",
+            "execute if score @s hitori_players matches 4.. run effect @s resistance 5 2 true",
+            "execute if score @s hitori_players matches 2.. run title @a[r=48] actionbar §7人数補正：強制解除中の被ダメージ軽減"
           ]
         }
       },
@@ -598,6 +635,10 @@
             "v_12",
             "v_13",
             "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
             "v_20",
             "v_99",
             "glitch_cd",
@@ -655,6 +696,10 @@
                 "v_12",
                 "v_13",
                 "v_14",
+                "v_15",
+                "v_16",
+                "v_17",
+                "v_18",
                 "v_20",
                 "v_99"
               ]
@@ -680,13 +725,15 @@
         },
         "queue_command": {
           "command": [
-            "title @a[r=64] title §5名前のない怪物",
-            "title @a[r=64] subtitle §7――ノイズが、止まらない",
+            "title @a[r=64] title §b§l↓FREEDOM DiVE↓",
+            "title @a[r=64] subtitle §7――『落下』の概念、解放",
+            "particle hitori:arrow_rain ~ ~ ~",
+            "particle hitori:fall_pixels ~ ~ ~",
             "playsound mob.wither.spawn @a[r=64] ~ ~ ~ 1 1.4",
             "particle hitori:noise_big ~ ~1 ~",
             "particle hitori:shockwave_big ~ ~0.1 ~",
             "camerashake add @a[r=32] 1.0 0.6 positional",
-            "tellraw @a[r=64] {\"rawtext\":[{\"text\":\"§8[TIP] §7Glitch がより強固になった（負荷上限 8）\"}]}"
+            "tellraw @a[r=64] {\"rawtext\":[{\"text\":\"§8[TIP] §7独が『落下』の能力を解放した。落下技が解禁、Glitch 負荷上限 8\"}]}"
           ]
         }
       },
@@ -708,6 +755,10 @@
             "v_12",
             "v_13",
             "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
             "v_99",
             "glitch_on",
             "glitch_cd",
@@ -741,6 +792,10 @@
             "v_12",
             "v_13",
             "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
             "v_20",
             "v_99",
             "final_guard",
@@ -776,6 +831,10 @@
             "v_12",
             "v_13",
             "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
             "v_20",
             "v_99"
           ]
@@ -803,6 +862,10 @@
             "v_12",
             "v_13",
             "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
             "v_20",
             "v_99"
           ]
@@ -830,6 +893,10 @@
             "v_12",
             "v_13",
             "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
             "v_20",
             "v_99"
           ]
@@ -857,6 +924,10 @@
             "v_12",
             "v_13",
             "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
             "v_20",
             "v_99"
           ]
@@ -884,6 +955,10 @@
             "v_12",
             "v_13",
             "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
             "v_20",
             "v_99"
           ]
@@ -911,6 +986,10 @@
             "v_12",
             "v_13",
             "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
             "v_20",
             "v_99"
           ]
@@ -938,6 +1017,10 @@
             "v_12",
             "v_13",
             "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
             "v_20",
             "v_99"
           ]
@@ -965,6 +1048,10 @@
             "v_12",
             "v_13",
             "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
             "v_20",
             "v_99"
           ]
@@ -992,6 +1079,10 @@
             "v_12",
             "v_13",
             "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
             "v_20",
             "v_99"
           ]
@@ -1019,6 +1110,10 @@
             "v_12",
             "v_13",
             "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
             "v_20",
             "v_99"
           ]
@@ -1046,6 +1141,10 @@
             "v_12",
             "v_13",
             "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
             "v_20",
             "v_99"
           ]
@@ -1073,6 +1172,10 @@
             "v_11",
             "v_13",
             "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
             "v_20",
             "v_99"
           ]
@@ -1100,6 +1203,10 @@
             "v_11",
             "v_12",
             "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
             "v_20",
             "v_99"
           ]
@@ -1127,6 +1234,10 @@
             "v_11",
             "v_12",
             "v_13",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
             "v_20",
             "v_99"
           ]
@@ -1134,6 +1245,130 @@
         "add": {
           "component_groups": [
             "v_14"
+          ]
+        }
+      },
+      "hitori:skill_15": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_20",
+            "v_99"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_15"
+          ]
+        }
+      },
+      "hitori:skill_16": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_17",
+            "v_18",
+            "v_20",
+            "v_99"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_16"
+          ]
+        }
+      },
+      "hitori:skill_17": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_18",
+            "v_20",
+            "v_99"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_17"
+          ]
+        }
+      },
+      "hitori:skill_18": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_20",
+            "v_99"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_18"
           ]
         }
       },
@@ -1346,6 +1581,22 @@
               },
               {
                 "weight": 10,
+                "trigger": "hitori:skill_15"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_18"
+              },
+              {
+                "weight": 10,
                 "trigger": "hitori:skill_5"
               },
               {
@@ -1431,11 +1682,31 @@
               },
               {
                 "weight": 10,
-                "trigger": "hitori:skill_14"
+                "trigger": "hitori:skill_15"
               },
               {
                 "weight": 10,
-                "trigger": "hitori:skill_10"
+                "trigger": "hitori:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_18"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_18"
               }
             ]
           },
@@ -1516,6 +1787,22 @@
               },
               {
                 "weight": 10,
+                "trigger": "hitori:skill_15"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_18"
+              },
+              {
+                "weight": 10,
                 "trigger": "hitori:skill_5"
               },
               {
@@ -1528,7 +1815,11 @@
               },
               {
                 "weight": 10,
-                "trigger": "hitori:skill_14"
+                "trigger": "hitori:skill_15"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_18"
               }
             ]
           },
@@ -1609,11 +1900,31 @@
               },
               {
                 "weight": 10,
-                "trigger": "hitori:skill_14"
+                "trigger": "hitori:skill_15"
               },
               {
                 "weight": 10,
-                "trigger": "hitori:skill_10"
+                "trigger": "hitori:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_18"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_18"
               },
               {
                 "weight": 10,
@@ -1622,6 +1933,10 @@
               {
                 "weight": 10,
                 "trigger": "hitori:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_18"
               }
             ]
           }

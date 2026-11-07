@@ -1,0 +1,41 @@
+{
+  "format_version": "1.14.0",
+  "sound_definitions": {
+    "hitori.bgm.kakuzetsu": {
+      "category": "music",
+      "sounds": [
+        {
+          "name": "sounds/hitori/kakuzetsu_bgm",
+          "stream": true,
+          "volume": 0.9,
+          "load_on_low_memory": true
+        }
+      ]
+    },
+    "hitori.bgm.freedom_dive": {
+      "category": "music",
+      "sounds": [
+        {
+          "name": "sounds/hitori/freedom_dive_bgm",
+          "stream": true,
+          "volume": 0.9,
+          "load_on_low_memory": true
+        }
+      ]
+    },
+    "record.11": {
+      "__use_legacy_max_distance": "true",
+      "category": "record",
+      "max_distance": null,
+      "min_distance": null,
+      "sounds": [
+        {
+          "name": "sounds/hitori/kakuzetsu_record",
+          "stream": true,
+          "volume": 0.6,
+          "load_on_low_memory": true
+        }
+      ]
+    }
+  }
+}

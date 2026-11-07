@@ -120,6 +120,46 @@ def digit(ch):
     return im
 
 
+def arrow_down():
+    """RGB がずれた「↓」"""
+    im = Image.new("RGBA", (16, 16))
+    shape = set()
+    for y in range(1, 9):
+        for x in range(6, 10):
+            shape.add((x, y))
+    for i, y in enumerate(range(8, 15)):
+        for x in range(1 + i, 15 - i):
+            shape.add((x, y))
+    for color, ox in (((0, 230, 255, 255), -1), ((255, 30, 200, 255), 1), ((255, 255, 255, 255), 0)):
+        for (x, y) in shape:
+            if 0 <= x + ox < 16:
+                im.putpixel((x + ox, y), color)
+    return im
+
+
+def disc_icon():
+    """レコード「隔絶された記憶」のアイコン"""
+    im = Image.new("RGBA", (16, 16))
+    for y in range(16):
+        for x in range(16):
+            d = math.hypot(x - 7.5, y - 7.5)
+            if d > 7.3:
+                continue
+            if d < 0.9:
+                continue  # 中心の穴
+            if d < 3.0:
+                im.putpixel((x, y), (40, 220, 255, 255) if x < 8 else (240, 40, 200, 255))
+            elif int(d * 1.6) % 2 == 0:
+                im.putpixel((x, y), (36, 36, 48, 255))
+            else:
+                im.putpixel((x, y), (18, 18, 26, 255))
+    # ノイズの走り
+    for x in range(3, 13):
+        if im.getpixel((x, 5))[3]:
+            im.putpixel((x, 5), (255, 255, 255, 255) if x % 3 else (40, 220, 255, 255))
+    return im
+
+
 def build_textures():
     return {
         "hitori_pixel": Image.new("RGBA", (4, 4), (255, 255, 255, 255)),
@@ -132,6 +172,7 @@ def build_textures():
         "hitori_note": _fn_img(32, 8, t_note),
         "hitori_error": error_window(),
         "hitori_num1": digit("1"), "hitori_num2": digit("2"), "hitori_num3": digit("3"),
+        "hitori_arrow": arrow_down(),
     }
 
 
@@ -300,4 +341,19 @@ def build_particles():
                                size=BAR, color=RGB)
     P["stun_spark"] = particle("stun_spark", "hitori_glow", count=10, shape=sphere(0.3), lifetime="0.4",
                                speed="math.random(1, 4)", accel=(0, -6, 0), size="0.1", color=tint("white"))
+    # --- ↓FREEDOM DiVE↓（落下） ---
+    P["arrow_rain"] = particle("arrow_rain", "hitori_arrow", "particles_alpha", rate=(70, 220), active=3.0,
+                               shape=box((12, 0.5, 12), (0, -1, 0), (0, 10, 0)), lifetime="0.8", speed=14,
+                               size="0.55")
+    P["arrow_down"] = particle("arrow_down", "hitori_arrow", "particles_alpha", count=5,
+                               shape=disc(0.7, (0, -1, 0), offset=(0, 3.5, 0)), lifetime="0.5", speed=7, size="0.4")
+    P["arrow_up"] = particle("arrow_up", "hitori_arrow", "particles_alpha", count=5,
+                             shape=disc(0.7, (0, 1, 0)), lifetime="0.5", speed=7, size="0.4",
+                             spin={"rotation": "180"})
+    P["void_hole"] = particle("void_hole", "hitori_glow", "particles_blend", count=1, lifetime="0.4",
+                              facing="emitter_transform_xz", size="4.2",
+                              color=[0.04, 0.0, 0.08, "0.6 + 0.3 * math.sin(v.particle_age * 900)"])
+    P["fall_pixels"] = particle("fall_pixels", "hitori_pixel", count=45, shape=disc(1.8, (0, -1, 0), offset=(0, 0.3, 0)),
+                                lifetime="math.random(0.3, 0.6)", speed="math.random(2, 6)", accel=(0, -25, 0),
+                                size=BAR, color=RGB)
     return P

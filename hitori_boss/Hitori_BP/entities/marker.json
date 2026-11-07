@@ -99,6 +99,42 @@
             "inanimate"
           ]
         }
+      },
+      "void_a": {
+        "minecraft:type_family": {
+          "family": [
+            "hitori_marker",
+            "void_a",
+            "inanimate"
+          ]
+        }
+      },
+      "void_b": {
+        "minecraft:type_family": {
+          "family": [
+            "hitori_marker",
+            "void_b",
+            "inanimate"
+          ]
+        }
+      },
+      "cube_a": {
+        "minecraft:type_family": {
+          "family": [
+            "hitori_marker",
+            "cube_a",
+            "inanimate"
+          ]
+        }
+      },
+      "cube_b": {
+        "minecraft:type_family": {
+          "family": [
+            "hitori_marker",
+            "cube_b",
+            "inanimate"
+          ]
+        }
       }
     },
     "components": {
@@ -213,6 +249,34 @@
         "add": {
           "component_groups": [
             "note_1"
+          ]
+        }
+      },
+      "hitori:as_void_a": {
+        "add": {
+          "component_groups": [
+            "void_a"
+          ]
+        }
+      },
+      "hitori:as_void_b": {
+        "add": {
+          "component_groups": [
+            "void_b"
+          ]
+        }
+      },
+      "hitori:as_cube_a": {
+        "add": {
+          "component_groups": [
+            "cube_a"
+          ]
+        }
+      },
+      "hitori:as_cube_b": {
+        "add": {
+          "component_groups": [
+            "cube_b"
           ]
         }
       }

@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+
+# 著作権のある音源（BGM・レコード）は公開リポジトリに含めない
+hitori_boss/Hitori_RP/sounds/hitori/
+# 電子独の .mcaddon は音源入りなので含めない（ビルドして直接渡す）
+hitori_boss/dist/

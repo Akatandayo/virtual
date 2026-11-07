@@ -49,6 +49,18 @@
               "skill_14": "q.mark_variant == 14"
             },
             {
+              "skill_15": "q.mark_variant == 15"
+            },
+            {
+              "skill_16": "q.mark_variant == 16"
+            },
+            {
+              "skill_17": "q.mark_variant == 17"
+            },
+            {
+              "skill_18": "q.mark_variant == 18"
+            },
+            {
               "skill_20": "q.mark_variant == 20"
             },
             {
@@ -238,6 +250,58 @@
             "@s hitori:skill_end"
           ]
         },
+        "skill_15": {
+          "animations": [
+            "skill_15"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 15"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:skill_end"
+          ]
+        },
+        "skill_16": {
+          "animations": [
+            "skill_16"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 16"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:skill_end"
+          ]
+        },
+        "skill_17": {
+          "animations": [
+            "skill_17"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 17"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:skill_end"
+          ]
+        },
+        "skill_18": {
+          "animations": [
+            "skill_18"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 18"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:skill_end"
+          ]
+        },
         "skill_20": {
           "animations": [
             "skill_20"
@@ -309,6 +373,76 @@
             "/particle hitori:shockwave_big ~ ~0.1 ~",
             "/playsound beacon.deactivate @a[r=64] ~ ~ ~ 1 0.5",
             "/scoreboard players reset @s hitori_glitch"
+          ]
+        }
+      }
+    },
+    "controller.animation.hitori.bgm": {
+      "initial_state": "start",
+      "states": {
+        "start": {
+          "transitions": [
+            {
+              "dive": "q.skin_id >= 1"
+            },
+            {
+              "memory": "q.skin_id == 0"
+            }
+          ]
+        },
+        "memory": {
+          "on_entry": [
+            "/music play hitori.bgm.kakuzetsu 0.9 2 loop"
+          ],
+          "transitions": [
+            {
+              "end": "!q.is_alive"
+            },
+            {
+              "dive": "q.skin_id >= 1"
+            }
+          ]
+        },
+        "dive": {
+          "on_entry": [
+            "/music play hitori.bgm.freedom_dive 1.0 1 loop"
+          ],
+          "transitions": [
+            {
+              "end": "!q.is_alive"
+            }
+          ]
+        },
+        "end": {
+          "on_entry": [
+            "/music stop 4"
+          ]
+        }
+      }
+    },
+    "controller.animation.hitori.gravity_cube": {
+      "initial_state": "fall",
+      "states": {
+        "fall": {
+          "animations": [
+            "life"
+          ],
+          "transitions": [
+            {
+              "boom": "q.is_on_ground"
+            }
+          ]
+        },
+        "boom": {
+          "on_entry": [
+            "/damage @a[r=2.8,m=!creative] 14 entity_explosion",
+            "/particle hitori:missing_burst ~ ~0.5 ~",
+            "/particle hitori:noise_big ~ ~0.5 ~",
+            "/particle hitori:shockwave ~ ~0.1 ~",
+            "/particle hitori:fall_pixels ~ ~ ~",
+            "/playsound random.explode @a[r=24] ~ ~ ~ 0.8 1.4",
+            "/camerashake add @a[r=10] 0.5 0.3 positional",
+            "@s hitori:despawn"
           ]
         }
       }
