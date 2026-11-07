@@ -43,7 +43,37 @@
               "skill_12": "q.mark_variant == 12"
             },
             {
+              "skill_13": "q.mark_variant == 13"
+            },
+            {
+              "skill_14": "q.mark_variant == 14"
+            },
+            {
+              "skill_15": "q.mark_variant == 15"
+            },
+            {
+              "skill_16": "q.mark_variant == 16"
+            },
+            {
+              "skill_17": "q.mark_variant == 17"
+            },
+            {
+              "skill_18": "q.mark_variant == 18"
+            },
+            {
+              "skill_19": "q.mark_variant == 19"
+            },
+            {
               "skill_20": "q.mark_variant == 20"
+            },
+            {
+              "skill_21": "q.mark_variant == 21"
+            },
+            {
+              "skill_22": "q.mark_variant == 22"
+            },
+            {
+              "skill_23": "q.mark_variant == 23"
             }
           ]
         },
@@ -203,6 +233,97 @@
             "@s byakuya:skill_end"
           ]
         },
+        "skill_13": {
+          "animations": [
+            "skill_13"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 13"
+            }
+          ],
+          "on_exit": [
+            "@s byakuya:skill_end"
+          ]
+        },
+        "skill_14": {
+          "animations": [
+            "skill_14"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 14"
+            }
+          ],
+          "on_exit": [
+            "@s byakuya:skill_end"
+          ]
+        },
+        "skill_15": {
+          "animations": [
+            "skill_15"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 15"
+            }
+          ],
+          "on_exit": [
+            "@s byakuya:skill_end"
+          ]
+        },
+        "skill_16": {
+          "animations": [
+            "skill_16"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 16"
+            }
+          ],
+          "on_exit": [
+            "@s byakuya:skill_end"
+          ]
+        },
+        "skill_17": {
+          "animations": [
+            "skill_17"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 17"
+            }
+          ],
+          "on_exit": [
+            "@s byakuya:skill_end"
+          ]
+        },
+        "skill_18": {
+          "animations": [
+            "skill_18"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 18"
+            }
+          ],
+          "on_exit": [
+            "@s byakuya:skill_end"
+          ]
+        },
+        "skill_19": {
+          "animations": [
+            "skill_19"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 19"
+            }
+          ],
+          "on_exit": [
+            "@s byakuya:skill_end"
+          ]
+        },
         "skill_20": {
           "animations": [
             "skill_20"
@@ -210,6 +331,45 @@
           "transitions": [
             {
               "default": "q.all_animations_finished || q.mark_variant != 20"
+            }
+          ],
+          "on_exit": [
+            "@s byakuya:skill_end"
+          ]
+        },
+        "skill_21": {
+          "animations": [
+            "skill_21"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 21"
+            }
+          ],
+          "on_exit": [
+            "@s byakuya:skill_end"
+          ]
+        },
+        "skill_22": {
+          "animations": [
+            "skill_22"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 22"
+            }
+          ],
+          "on_exit": [
+            "@s byakuya:skill_end"
+          ]
+        },
+        "skill_23": {
+          "animations": [
+            "skill_23"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 23"
             }
           ],
           "on_exit": [

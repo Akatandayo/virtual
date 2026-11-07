@@ -1,4 +1,8 @@
 entity.byakuya:shiraishi_byakuya.name=白石白夜
 item.spawn_egg.entity.byakuya:shiraishi_byakuya.name=白石白夜のスポーンエッグ
+entity.byakuya:shadow.name=白夜の影
+entity.byakuya:slash_wave.name=飛ぶ斬撃
+entity.byakuya:homing_blade.name=追刃
+entity.byakuya:marker.name=目印
 pack.name=白石白夜 ボス
 pack.description=刀鍛冶「白石白夜」ボスアドオン

@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "byakuya:marker",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/byakuya_empty"
+      },
+      "geometry": {
+        "default": "geometry.byakuya_empty"
+      },
+      "render_controllers": [
+        "controller.render.byakuya_simple"
+      ]
+    }
+  }
+}

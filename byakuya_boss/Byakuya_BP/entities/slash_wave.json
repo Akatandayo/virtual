@@ -1,0 +1,309 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "byakuya:slash_wave",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false,
+      "animations": {
+        "fly": "animation.byakuya.slash_wave.fly"
+      },
+      "scripts": {
+        "animate": [
+          "fly"
+        ]
+      }
+    },
+    "component_groups": {
+      "despawn": {
+        "minecraft:instant_despawn": {}
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "byakuya_fx",
+          "inanimate"
+        ]
+      },
+      "minecraft:health": {
+        "value": 1,
+        "max": 1
+      },
+      "minecraft:collision_box": {
+        "width": 0.2,
+        "height": 0.2
+      },
+      "minecraft:physics": {
+        "has_gravity": false,
+        "has_collision": false
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "all",
+            "deal_damage": false
+          }
+        ]
+      },
+      "minecraft:knockback_resistance": {
+        "value": 1.0
+      },
+      "minecraft:body_rotation_blocked": {},
+      "minecraft:fire_immune": {},
+      "minecraft:conditional_bandwidth_optimization": {
+        "default_values": {
+          "max_optimized_distance": 0,
+          "max_dropped_ticks": 0,
+          "use_motion_prediction_hints": true
+        }
+      }
+    },
+    "events": {
+      "byakuya:despawn": {
+        "add": {
+          "component_groups": [
+            "despawn"
+          ]
+        }
+      },
+      "byakuya:aim_m30": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~-30 ~"
+          ]
+        }
+      },
+      "byakuya:aim_m20": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~-20 ~"
+          ]
+        }
+      },
+      "byakuya:aim_m10": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~-10 ~"
+          ]
+        }
+      },
+      "byakuya:aim_0": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~0 ~"
+          ]
+        }
+      },
+      "byakuya:aim_10": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~10 ~"
+          ]
+        }
+      },
+      "byakuya:aim_15": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~15 ~"
+          ]
+        }
+      },
+      "byakuya:aim_20": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~20 ~"
+          ]
+        }
+      },
+      "byakuya:aim_30": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~30 ~"
+          ]
+        }
+      },
+      "byakuya:aim_45": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~45 ~"
+          ]
+        }
+      },
+      "byakuya:aim_60": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~60 ~"
+          ]
+        }
+      },
+      "byakuya:aim_75": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~75 ~"
+          ]
+        }
+      },
+      "byakuya:aim_90": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~90 ~"
+          ]
+        }
+      },
+      "byakuya:aim_105": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~105 ~"
+          ]
+        }
+      },
+      "byakuya:aim_120": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~120 ~"
+          ]
+        }
+      },
+      "byakuya:aim_135": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~135 ~"
+          ]
+        }
+      },
+      "byakuya:aim_150": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~150 ~"
+          ]
+        }
+      },
+      "byakuya:aim_165": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~165 ~"
+          ]
+        }
+      },
+      "byakuya:aim_180": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~180 ~"
+          ]
+        }
+      },
+      "byakuya:aim_195": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~195 ~"
+          ]
+        }
+      },
+      "byakuya:aim_210": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~210 ~"
+          ]
+        }
+      },
+      "byakuya:aim_225": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~225 ~"
+          ]
+        }
+      },
+      "byakuya:aim_240": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~240 ~"
+          ]
+        }
+      },
+      "byakuya:aim_255": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~255 ~"
+          ]
+        }
+      },
+      "byakuya:aim_270": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~270 ~"
+          ]
+        }
+      },
+      "byakuya:aim_285": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~285 ~"
+          ]
+        }
+      },
+      "byakuya:aim_300": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~300 ~"
+          ]
+        }
+      },
+      "byakuya:aim_315": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~315 ~"
+          ]
+        }
+      },
+      "byakuya:aim_330": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~330 ~"
+          ]
+        }
+      },
+      "byakuya:aim_345": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @p[m=!creative]",
+            "tp @s ~ ~ ~ ~345 ~"
+          ]
+        }
+      }
+    }
+  }
+}

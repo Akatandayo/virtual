@@ -15,6 +15,7 @@ import zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import anims  # noqa: E402
 import fx  # noqa: E402
+import summons  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BP = os.path.join(ROOT, "Byakuya_BP")
@@ -23,7 +24,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "byakuya:shiraishi_byakuya"
 NAME = "白石白夜"
-VERSION = [1, 1, 0]
+VERSION = [1, 2, 0]
 MIN_ENGINE = [1, 21, 0]
 
 UUID_BP_HEADER = "293c6dbc-978c-4439-aa05-c2fa6e63c99d"
@@ -31,9 +32,9 @@ UUID_BP_MODULE = "82d49302-2ab7-4291-a50c-143a1fe02427"
 UUID_RP_HEADER = "7a4ebd1f-167b-4145-a8ef-20e335975e29"
 UUID_RP_MODULE = "05d778a7-bb90-40f4-8dd9-6e63d1913bf0"
 
-HP = 800
-PHASE2_HP = 400   # 50% で終焉化
-FINAL_HP = 160    # 20% で最終演技
+HP = 2000
+PHASE2_HP = 1000  # 50% で終焉化
+FINAL_HP = 400    # 20% で最終演技
 
 random.seed(1201)  # 誕生日 12/1
 
@@ -262,6 +263,133 @@ add(tl, 1.5, [sound("mob.warden.sonic_boom", 0.6, 48), "/damage %s 16 entity_att
               shake(1.5, 0.6, 24)] + ["/particle minecraft:sonic_explosion %s" % q for q in ring_pts(4, 8, 1)])
 skill(12, "無刀 無残", 2.4, tl)
 
+# ---------------------------------------------------------------------------
+# 遠距離技・追加技
+# ---------------------------------------------------------------------------
+def waves(*angles, y=1.1):
+    return ["/summon byakuya:slash_wave ~ ~%.1f ~ %s" % (y, summons.aim_event(a)) for a in angles]
+
+
+AIM = "@e[family=aim_mark,c=1]"
+NEAREST = "@p[r=48,m=!creative]"
+
+# 13 飛燕斬月（斬撃を飛ばす）
+skill(13, "飛燕斬月", 1.2, {
+    0: [say("§c【飛燕斬月】§7「届かないと思ったかい？」"), pt("charge_red", "~ ~1 ~")],
+    0.3: waves(-20, 0, 20) + [sound("mob.wither.shoot", 1.4), sound("item.trident.riptide_1", 1.2),
+                              pt("slash_flat_red", "~ ~1.1 ~"), shake(0.3, 0.2, 12)],
+    0.8: waves(-30, -10, 10, 30) + [sound("mob.wither.shoot", 1.2), sound("item.trident.riptide_1", 1.0),
+                                    pt("slash_flat_red", "~ ~1.1 ~"), shake(0.3, 0.2, 12)],
+})
+
+# 14 追刃（宙に浮かぶ刀が追いかけてくる）
+tl = {}
+add(tl, 0, [say("§b【追刃・燕】§7「逃げても無駄さ。刃が覚えている」"), sound("mob.evocation_illager.prepare_summon", 1.2)])
+for i, (x, y, z) in enumerate([(-2, 2.5, 0), (2, 2.5, 0), (-1.2, 3.3, -0.5), (1.2, 3.3, -0.5), (0, 3.8, -1)]):
+    add(tl, 0.2 + i * 0.1, ["/summon byakuya:homing_blade ^%.1f ^%.1f ^%.1f" % (x, y, z),
+                            pt("spark_burst", "^%.1f ^%.1f ^%.1f" % (x, y, z)), sound("random.anvil_use", 1.6 + i * 0.1, 30, 0.5)])
+skill(14, "追刃", 1.2, tl)
+
+# 15 遠当て（狙いを定め、一直線に斬り抜くビーム）
+tl = {}
+add(tl, 0, [say("§c【遠当て・一閃】§7「……狙いは付けた」"),
+            "/execute at %s run summon byakuya:marker ~ ~1 ~ byakuya:as_aim_mark" % NEAREST,
+            "/effect @s slowness 2 255 true", sound("mob.warden.sonic_charge", 1.4, 48)])
+LINE = "/execute at @s anchored eyes facing entity %s feet positioned ^ ^ ^%s run " % (AIM, "%.1f")
+for t in (0.1, 0.35, 0.6, 0.85, 1.05):
+    add(tl, t, [LINE % k + "particle byakuya:beam_warn ~ ~ ~" for k in range(2, 42, 2)]
+        + ["/tp @s ~ ~ ~ facing %s" % AIM])
+add(tl, 1.2, [sound("mob.warden.sonic_boom", 1.3, 64), sound("game.player.attack.strong", 0.5, 48),
+              pt("slash_flat_red", "~ ~1.4 ~"), shake(0.8, 0.4, 32)]
+    + [LINE % (k * 1.5) + "particle byakuya:beam_seg ~ ~ ~" for k in range(1, 28)]
+    + [LINE % (k * 1.5) + "damage @a[r=1.7,m=!creative] 18 entity_attack entity @s" for k in range(1, 28)]
+    + [LINE % (k * 6.0) + "particle byakuya:spark_burst ~ ~ ~" for k in range(1, 7)])
+add(tl, 1.4, ["/event entity @e[family=aim_mark] byakuya:despawn"])
+skill(15, "遠当て", 2.1, tl)
+
+# 16 流星刀（予兆リングの位置に刀が降り注ぐ・3 波）
+tl = {}
+add(tl, 0, [say("§6【流星刀】§7「天から降る刃を、見切れるかな」"), pt("charge_red", "~ ~3 ~"),
+            sound("mob.evocation_illager.cast_spell", 0.5)])
+for wave, (t0, n) in zip("abc", ((0.3, 4), (0.9, 5), (1.5, 6))):
+    fam = "@e[family=meteor_%s]" % wave
+    cmds = ["/execute at %s run summon byakuya:marker ~ ~ ~ byakuya:as_meteor_%s" % (p(40), wave)]
+    for _ in range(n):
+        cmds.append("/execute at %s run summon byakuya:marker ~%.1f ~ ~%.1f byakuya:as_meteor_%s"
+                    % (p(40), random.uniform(-5, 5), random.uniform(-5, 5), wave))
+    add(tl, t0, cmds + [sound("random.orb", 0.5, 40)])
+    for dt in (0.05, 0.35, 0.65):
+        add(tl, t0 + dt, ["/execute at %s run particle byakuya:warn_red ~ ~0.1 ~" % fam])
+    add(tl, t0 + 0.7, ["/execute at %s run particle byakuya:blade_rain ~ ~9 ~" % fam])
+    add(tl, t0 + 1.0, ["/execute at %s run damage @a[r=2.5,m=!creative] 12 entity_explosion entity @s" % fam,
+                       "/execute at %s run particle byakuya:meteor_impact ~ ~0.2 ~" % fam,
+                       "/execute at %s run particle byakuya:shockwave_red ~ ~0.1 ~" % fam,
+                       "/execute at %s run particle byakuya:ground_blade ~ ~ ~" % fam,
+                       "/execute at %s run playsound random.explode @a[r=24] ~ ~ ~ 0.8 1.2" % fam,
+                       shake(0.5, 0.3, 40),
+                       "/event entity %s byakuya:despawn" % fam])
+skill(16, "流星刀", 2.8, tl)
+
+# 17 三段斬り（踏み込み三連撃 → 唐竹割り）
+tl = {0: [say("§f【三段斬り】§7「一つ、二つ、三つ――」")]}
+for i, t in enumerate((0.3, 0.65, 1.0)):
+    add(tl, t - 0.05, ["/execute at @s facing entity %s feet rotated ~ 0 positioned ^ ^ ^2.5 run tp @s ~ ~ ~ facing %s"
+                       % (NEAREST, NEAREST), pt("afterimage", "~ ~0.9 ~")])
+    add(tl, t, ["/damage %s 8 entity_attack entity @s" % p(3), sound("game.player.attack.strong", 0.8 + i * 0.2, 30),
+                pt("slash_white", "^ ^1.2 ^1.2"), pt("slash_flat_white", "~ ~1 ~"),
+                at_players(3, "spark_burst", "~ ~1 ~"), shake(0.3, 0.2, 8)])
+add(tl, 1.4, ["/damage %s 13 entity_attack entity @s" % p(4), sound("random.anvil_land", 0.5, 30),
+              pt("big_slash_red", "^ ^1.5 ^1"), pt("shockwave_red", "~ ~0.1 ~"), at_players(4, "spark_burst", "~ ~1 ~"),
+              shake(0.7, 0.3, 10)])
+skill(17, "三段斬り", 1.7, tl)
+
+# 18 兜割り（跳躍 → プレイヤーの頭上から叩き割る）
+tl = {0: [say("§c【兜割り】§7「上だよ、お前さん」"), sound("mob.ravager.roar", 1.4)]}
+add(tl, 0.3, ["/tp @s ~ ~6 ~", pt("afterimage", "~ ~-5 ~"), pt("shockwave_white", "~ ~-5.9 ~"), sound("mob.enderdragon.flap", 0.8)])
+add(tl, 0.55, ["/execute at %s run tp @s ~ ~7 ~" % NEAREST, pt("afterimage", "~ ~0.9 ~"),
+               at_players(40, "warn_red", "~ ~0.1 ~")])
+add(tl, 0.9, [at_players(40, "warn_red", "~ ~0.1 ~")])
+add(tl, 1.3, ["/damage %s 15 entity_attack entity @s" % p(5), "/effect %s slowness 3 2 true" % p(5),
+              sound("random.explode", 0.6), sound("random.anvil_land", 0.4),
+              pt("shockwave_big_red", "~ ~0.1 ~"), pt("ground_blade", "~ ~ ~"), pt("meteor_impact", "~ ~0.2 ~"),
+              "/particle minecraft:huge_explosion_emitter ~ ~0.5 ~", shake(1.2, 0.5, 20)]
+    + [pt("ground_blade", q) for q in ring_pts(3, 6, 0)])
+skill(18, "兜割り", 1.8, tl)
+
+# 19 見切り（カウンター構え）
+tl = {0: [say("§7【見切り】§f「……打ってきな」"), sound("random.anvil_use", 0.5), pt("shockwave_white", "~ ~0.1 ~")]}
+for i in range(5):
+    add(tl, 0.3 + i * 0.45, [pt("warn_white", "~ ~0.1 ~")])
+add(tl, 2.4, [say("§f白石白夜§7「来ないのかい。賢いねぇ」")])
+skill(19, "見切り", 2.5, tl)
+
+# 21 影分身（第二形態以降）
+tl = {0: [say("§8【影分身】§7「わしが何人いると思う？」"), sound("mob.evocation_illager.prepare_summon", 0.6)]}
+add(tl, 0.6, ["/summon byakuya:shadow ^2 ^ ^-1", "/summon byakuya:shadow ^-2 ^ ^-1",
+              pt("afterimage", "^2 ^0.9 ^-1"), pt("afterimage", "^-2 ^0.9 ^-1"), pt("shockwave_purple", "~ ~0.1 ~"),
+              sound("mob.endermen.portal", 0.5)])
+skill(21, "影分身", 1.2, tl)
+
+# 22 燕返し（打ち上げ → 返す刀で二連撃）
+tl = {0: [say("§f【燕返し】§7「飛んでる燕も落とせるよ」")]}
+add(tl, 0.32, ["/damage %s 7 entity_attack entity @s" % p(4), "/effect %s levitation 1 12 true" % p(4),
+               sound("game.player.attack.strong", 1.2, 30), pt("slash_white", "^ ^1.5 ^1"),
+               at_players(4, "spark_burst", "~ ~1 ~")])
+add(tl, 0.95, ["/damage %s 9 entity_attack entity @s" % p(7), sound("game.player.attack.strong", 0.8, 30),
+               at_players(7, "slash_white", "~ ~1 ~"), at_players(7, "spark_burst", "~ ~1 ~")])
+add(tl, 1.25, ["/damage %s 9 entity_attack entity @s" % p(7), sound("random.anvil_land", 0.6, 30),
+               at_players(7, "slash_red", "~ ~1 ~"), at_players(7, "spark_burst", "~ ~1 ~"), shake(0.6, 0.3, 10)])
+skill(22, "燕返し", 1.5, tl)
+
+# 23 森羅万象（最終形態のみ・全方位の斬撃波）
+tl = {0: [say("§4§l【森羅万象】§7「――全部、斬る」"), "/effect %s darkness 3 0 true" % p(32),
+          pt("charge_red", "~ ~1 ~"), sound("mob.wither.spawn", 1.5, 48)]}
+for k, t in enumerate((0.6, 1.2, 1.8, 2.4)):
+    off = 15 if k % 2 else 0
+    add(tl, t, waves(*[(a + off) % 360 for a in range(0, 360, 30)], y=0.6 if k % 2 else 1.4)
+        + [pt("shockwave_red", "~ ~0.1 ~"), sound("mob.wither.shoot", 0.8 + k * 0.1, 48), shake(0.4, 0.3, 24)])
+skill(23, "森羅万象", 3.0, tl)
+
 # 20 最終演技（HP20%で一度だけ）
 tl = {}
 add(tl, 0, ["/title @a[r=64] title §4§l最終演技", "/title @a[r=64] subtitle §7――彼の全てを賭けた技",
@@ -332,6 +460,8 @@ def bp_entity():
         "hopper_guard": {"minecraft:damage_sensor": {"triggers": [
             {"cause": "all", "deal_damage": False, "on_damage": {"event": "byakuya:counter", "target": "self"}}]}},
         "final_guard": {"minecraft:damage_sensor": {"triggers": [{"cause": "all", "deal_damage": False}]}},
+        "mikiri_guard": {"minecraft:damage_sensor": {"triggers": [
+            {"cause": "all", "deal_damage": False, "on_damage": {"event": "byakuya:mikiri_counter", "target": "self"}}]}},
     }
     variants = [0] + sorted(SKILLS)
     for v in variants:
@@ -355,7 +485,7 @@ def bp_entity():
             ]},
         },
         "byakuya:skill_end": {
-            "remove": {"component_groups": all_v + ["hopper_guard", "final_guard"]},
+            "remove": {"component_groups": all_v + ["hopper_guard", "final_guard", "mikiri_guard"]},
             "add": {"component_groups": ["v_0", "sensor_normal"]},
         },
         "byakuya:counter": {"queue_command": {"command": [
@@ -389,8 +519,23 @@ def bp_entity():
             continue
         if v == 8:
             events["byakuya:skill_8"] = set_variant(8, ["hopper_guard"], ["sensor_normal"])
+        elif v == 19:
+            events["byakuya:skill_19"] = set_variant(19, ["mikiri_guard"], ["sensor_normal"])
         else:
             events["byakuya:skill_%d" % v] = set_variant(v)
+
+    # 見切り成功 → 背後へ回り込んで反撃
+    events["byakuya:mikiri_counter"] = {"trigger": "byakuya:skill_end", "queue_command": {"command": [
+        'tellraw @a[r=48] {"rawtext":[{"text":"§f白石白夜§7「――見切った」"}]}',
+        "particle byakuya:afterimage ~ ~0.9 ~",
+        "execute as @p[r=16,m=!creative] at @s positioned ^ ^ ^-1.8 run tp %s ~ ~ ~ facing @s" % BOSS,
+        "particle byakuya:big_slash_white ~ ~1.2 ~",
+        "particle byakuya:slash_flat_red ~ ~1 ~",
+        "damage @a[r=4,m=!creative] 16 entity_attack entity @s",
+        "playsound game.player.attack.strong @a[r=30] ~ ~ ~ 1 0.5",
+        "playsound random.anvil_land @a[r=30] ~ ~ ~ 1 0.6",
+        "camerashake add @a[r=12] 0.8 0.4 positional",
+    ]}}
 
     # 武装解除はキャラシ通り成功率50%
     events["byakuya:try_disarm"] = {"randomize": [
@@ -400,18 +545,27 @@ def bp_entity():
             "particle byakuya:shatter ~ ~1.5 ~"]}},
     ]}
 
-    p1 = [1, 2, 3, 4, 5, 6, 7, 8, "disarm", 10]
-    p2 = p1 + [11, 11, 12, 12]
+    # 距離で技を選ぶ: 近い相手には近接技、離れた相手には遠距離技を多めに
+    near1 = [1, 2, 3, 4, 5, 6, 8, "disarm", 10, 17, 17, 19, 22, 22, 13]
+    far1 = [1, 2, 4, 5, 7, 13, 13, 14, 14, 15, 15, 16, 16, 18, 18]
+    near2 = near1 + [11, 11, 12, 12, 21, 17, 22]
+    far2 = far1 + [21, 13, 14, 15, 16, 18]
+    near3 = near2 + [23, 23]
+    far3 = far2 + [23, 23]
+    NEAR = {"test": "distance_to_nearest_player", "operator": "<=", "value": 7}
+    FAR = {"test": "distance_to_nearest_player", "operator": ">", "value": 7}
 
     def rnd(lst):
         return [{"weight": 10, "trigger": "byakuya:try_disarm" if s == "disarm" else "byakuya:skill_%d" % s}
                 for s in lst]
 
     base_f = [{"test": "is_mark_variant", "value": 0}, {"test": "has_target", "value": True}]
-    events["byakuya:choose_skill"] = {"sequence": [
-        {"filters": {"all_of": base_f + [{"test": "is_skin_id", "value": 0}]}, "randomize": rnd(p1)},
-        {"filters": {"all_of": base_f + [{"test": "is_skin_id", "operator": "!=", "value": 0}]}, "randomize": rnd(p2)},
-    ]}
+    seq = []
+    for skin, near, far in ((0, near1, far1), (1, near2, far2), (2, near3, far3)):
+        for cond, lst in ((NEAR, near), (FAR, far)):
+            seq.append({"filters": {"all_of": base_f + [{"test": "is_skin_id", "value": skin}, cond]},
+                        "randomize": rnd(lst)})
+    events["byakuya:choose_skill"] = {"sequence": seq}
 
     components = {
         "minecraft:type_family": {"family": ["byakuya", "boss", "monster", "mob"]},
@@ -617,6 +771,10 @@ def lang():
     return "\n".join([
         "entity.%s.name=%s" % (ID, NAME),
         "item.spawn_egg.entity.%s.name=%sのスポーンエッグ" % (ID, NAME),
+        "entity.byakuya:shadow.name=白夜の影",
+        "entity.byakuya:slash_wave.name=飛ぶ斬撃",
+        "entity.byakuya:homing_blade.name=追刃",
+        "entity.byakuya:marker.name=目印",
         "pack.name=白石白夜 ボス",
         "pack.description=刀鍛冶「白石白夜」ボスアドオン",
         "",
@@ -634,6 +792,17 @@ def main():
     write(os.path.join(BP, "entities/shiraishi_byakuya.json"), bp_entity())
     write(os.path.join(BP, "animations/shiraishi_byakuya.animation.json"), bp_animations())
     write(os.path.join(BP, "animation_controllers/shiraishi_byakuya.ac.json"), bp_controllers())
+    # 補助エンティティ（斬撃波・追尾刀・目印・影分身）
+    wave, wave_a = summons.bp_slash_wave()
+    blade, blade_a, blade_c = summons.bp_homing_blade()
+    marker, marker_a = summons.bp_marker()
+    for name, data in (("slash_wave", wave), ("homing_blade", blade), ("marker", marker),
+                       ("shadow", summons.bp_shadow())):
+        write(os.path.join(BP, "entities/%s.json" % name), data)
+    write(os.path.join(BP, "animations/summons.animation.json"),
+          {"format_version": "1.10.0", "animations": {**wave_a, **blade_a, **marker_a}})
+    write(os.path.join(BP, "animation_controllers/summons.ac.json"),
+          {"format_version": "1.10.0", "animation_controllers": blade_c})
     drop, equip = bp_loot()
     write(os.path.join(BP, "loot_tables/entities/shiraishi_byakuya.json"), drop)
     write(os.path.join(BP, "loot_tables/entities/shiraishi_byakuya_equipment.json"), equip)
@@ -655,6 +824,19 @@ def main():
     for name, im in fx.build_textures().items():
         os.makedirs(os.path.join(RP, "textures/particle"), exist_ok=True)
         im.save(os.path.join(RP, "textures/particle/%s.png" % name))
+    boss_anims = anims.short_names(sorted(SKILLS))
+    for name, data in summons.rp_clients(boss_anims).items():
+        if name == "shadow":
+            data["minecraft:client_entity"]["description"]["particle_effects"].update(anims.PARTICLE_MAP)
+        write(os.path.join(RP, "entity/%s.entity.json" % name), data)
+    write(os.path.join(RP, "models/entity/byakuya_slash_wave.geo.json"), summons.geo_slash_wave())
+    write(os.path.join(RP, "models/entity/byakuya_blade.geo.json"), summons.geo_blade())
+    write(os.path.join(RP, "models/entity/byakuya_empty.geo.json"), summons.geo_empty())
+    write(os.path.join(RP, "render_controllers/summons.rc.json"), summons.rc_simple())
+    write(os.path.join(RP, "animations/summons.animation.json"),
+          {"format_version": "1.10.0", "animations": summons.rp_animations()})
+    for name, im in fx.build_entity_textures().items():
+        im.save(os.path.join(RP, "textures/entity/%s.png" % name))
     for name, data in fx.build_fogs().items():
         write(os.path.join(RP, "fogs/%s.json" % name), data)
     for lc in ("ja_JP", "en_US"):

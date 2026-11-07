@@ -1,0 +1,73 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "byakuya:shadow",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/shiraishi_byakuya"
+      },
+      "geometry": {
+        "default": "geometry.shiraishi_byakuya"
+      },
+      "render_controllers": [
+        "controller.render.byakuya_shadow"
+      ],
+      "particle_effects": {
+        "wisp": "byakuya:shadow_wisp",
+        "sword_trail": "byakuya:sword_trail",
+        "sword_trail_red": "byakuya:sword_trail_red",
+        "hand_charge": "byakuya:hand_charge",
+        "aura_flame": "byakuya:aura_flame",
+        "aura_soul": "byakuya:aura_soul",
+        "blade_halo": "byakuya:blade_halo"
+      },
+      "animations": {
+        "look_at": "animation.byakuya.look_at",
+        "idle": "animation.byakuya.idle",
+        "move": "animation.byakuya.move",
+        "attack": "animation.byakuya.attack",
+        "aura": "animation.byakuya.aura",
+        "final_aura": "animation.byakuya.final_aura",
+        "death_pose": "animation.byakuya.death",
+        "main": "controller.animation.byakuya.main",
+        "aura_ctrl": "controller.animation.byakuya.aura",
+        "attack_fx": "controller.animation.byakuya.attack_fx",
+        "s1": "animation.byakuya.skill_1",
+        "s2": "animation.byakuya.skill_2",
+        "s3": "animation.byakuya.skill_3",
+        "s4": "animation.byakuya.skill_4",
+        "s5": "animation.byakuya.skill_5",
+        "s6": "animation.byakuya.skill_6",
+        "s7": "animation.byakuya.skill_7",
+        "s8": "animation.byakuya.skill_8",
+        "s9": "animation.byakuya.skill_9",
+        "s10": "animation.byakuya.skill_10",
+        "s11": "animation.byakuya.skill_11",
+        "s12": "animation.byakuya.skill_12",
+        "s13": "animation.byakuya.skill_13",
+        "s14": "animation.byakuya.skill_14",
+        "s15": "animation.byakuya.skill_15",
+        "s16": "animation.byakuya.skill_16",
+        "s17": "animation.byakuya.skill_17",
+        "s18": "animation.byakuya.skill_18",
+        "s19": "animation.byakuya.skill_19",
+        "s20": "animation.byakuya.skill_20",
+        "s21": "animation.byakuya.skill_21",
+        "s22": "animation.byakuya.skill_22",
+        "s23": "animation.byakuya.skill_23",
+        "shadow_fx": "animation.byakuya.shadow_fx"
+      },
+      "scripts": {
+        "animate": [
+          "main",
+          "attack_fx",
+          "shadow_fx"
+        ]
+      },
+      "enable_attachables": true
+    }
+  }
+}

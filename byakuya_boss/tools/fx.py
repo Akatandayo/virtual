@@ -323,7 +323,47 @@ def build_particles():
                                 lifetime="math.random(3, 5)", speed="math.random(0.5, 1.5)",
                                 accel=(0.4, -0.6, 0.2), drag=0.6, size="0.09",
                                 spin={"rotation": "math.random(0, 360)", "rotation_rate": "math.random(-200, 200)"})
+    # 遠当て（ビーム）
+    P["beam_seg"] = particle("beam_seg", "byakuya_glow", count=2, shape=sphere(0.15, surface=False),
+                             lifetime="0.4", size="0.9 * (" + FADE + ")",
+                             color=_gradient("#FFFFFFFF", "#FFFF3020", "#00600000"))
+    P["beam_warn"] = particle("beam_warn", "byakuya_glow", count=1, lifetime="0.3",
+                              size="0.22", color=[1.0, 0.15, 0.1, "0.5 + 0.5 * math.sin(v.particle_age * 1200)"])
+    # 飛ぶ斬撃・追尾刀の軌跡
+    P["wave_trail"] = particle("wave_trail", "byakuya_glow", count=6, shape=sphere(0.8, surface=False),
+                               lifetime="math.random(0.2, 0.4)", speed=0.3,
+                               size="0.2 * (" + FADE + ")",
+                               color=_gradient("#FFFFFFFF", "#FFFF4030", "#00600000"))
+    P["blade_trail"] = particle("blade_trail", "byakuya_glow", count=3, shape=sphere(0.15, surface=False),
+                                lifetime="0.25", size="0.12 * (" + FADE + ")", color=rgba("white"))
+    # 影分身のゆらめき
+    P["shadow_wisp"] = particle("shadow_wisp", "byakuya_glow", "particles_blend", count=6,
+                                shape=box((0.3, 0.9, 0.3), (0, 1, 0)), lifetime="0.7", speed=0.6,
+                                size="0.3 * (" + FADE + ")", color=[0.08, 0.02, 0.12, "0.7 * (" + FADE + ")"])
+    # 流星刀の着弾
+    P["meteor_impact"] = particle("meteor_impact", "byakuya_glow", count=40, shape=disc(0.5, "outwards"),
+                                  lifetime="math.random(0.4, 0.8)", speed="math.random(4, 10)",
+                                  accel=(0, -10, 0), drag=1.5, size="0.25 * (" + FADE + ")",
+                                  color=_gradient("#FFFFFFFF", "#FFFF5030", "#FF801010", "#00300000"))
     return P
+
+
+def _slash_wave_tex():
+    w = h = 128
+    im = Image.new("RGBA", (w, h))
+    px = im.load()
+    for y in range(h):
+        for x in range(w):
+            a = tex_slash((x + 0.5) / w, (y + 0.5) / h)[3] / 255
+            # 外側の縁は白、内側は紅
+            r, g, b = 255, _clamp(25 + 230 * a ** 4), _clamp(20 + 235 * a ** 4)
+            im.putpixel((x, y), (r, g, b, _clamp(min(1, a * 1.8) * 255)))
+    return im
+
+
+def build_entity_textures():
+    return {"byakuya_slash_wave": _slash_wave_tex(), "byakuya_blade": _img(16, 64, tex_blade),
+            "byakuya_empty": Image.new("RGBA", (16, 16))}
 
 
 def build_fogs():

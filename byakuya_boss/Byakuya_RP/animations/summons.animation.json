@@ -1,0 +1,55 @@
+{
+  "format_version": "1.10.0",
+  "animations": {
+    "animation.byakuya.wave_fx": {
+      "loop": true,
+      "animation_length": 0.1,
+      "bones": {
+        "wave": {
+          "scale": "1 + math.sin(q.life_time * 1440) * 0.08"
+        }
+      },
+      "particle_effects": {
+        "0.00": [
+          {
+            "effect": "trail",
+            "locator": "center"
+          }
+        ]
+      }
+    },
+    "animation.byakuya.blade_fx": {
+      "loop": true,
+      "animation_length": 0.1,
+      "bones": {
+        "roll": {
+          "rotation": [
+            0,
+            0,
+            "q.life_time * 720"
+          ]
+        }
+      },
+      "particle_effects": {
+        "0.00": [
+          {
+            "effect": "trail",
+            "locator": "center"
+          }
+        ]
+      }
+    },
+    "animation.byakuya.shadow_fx": {
+      "loop": true,
+      "animation_length": 0.5,
+      "particle_effects": {
+        "0.00": [
+          {
+            "effect": "wisp",
+            "locator": "body_center"
+          }
+        ]
+      }
+    }
+  }
+}

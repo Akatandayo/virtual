@@ -1,0 +1,38 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.byakuya.blade": {
+      "initial_state": "hover",
+      "states": {
+        "hover": {
+          "animations": [
+            "hover"
+          ],
+          "transitions": [
+            {
+              "home": "q.all_animations_finished"
+            }
+          ]
+        },
+        "home": {
+          "animations": [
+            "home"
+          ],
+          "transitions": [
+            {
+              "fly": "q.all_animations_finished"
+            }
+          ],
+          "on_entry": [
+            "/playsound item.trident.throw @a[r=30] ~ ~ ~ 0.6 1.4"
+          ]
+        },
+        "fly": {
+          "animations": [
+            "fly"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "byakuya:slash_wave",
+      "materials": {
+        "default": "entity_alphablend"
+      },
+      "textures": {
+        "default": "textures/entity/byakuya_slash_wave"
+      },
+      "geometry": {
+        "default": "geometry.byakuya_slash_wave"
+      },
+      "render_controllers": [
+        "controller.render.byakuya_simple"
+      ],
+      "particle_effects": {
+        "trail": "byakuya:wave_trail"
+      },
+      "animations": {
+        "fx": "animation.byakuya.wave_fx"
+      },
+      "scripts": {
+        "animate": [
+          "fx"
+        ]
+      }
+    }
+  }
+}

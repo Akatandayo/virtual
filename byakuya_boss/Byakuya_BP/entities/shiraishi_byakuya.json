@@ -27,6 +27,16 @@
         "skill_10": "animation.byakuya.skill_10",
         "skill_11": "animation.byakuya.skill_11",
         "skill_12": "animation.byakuya.skill_12",
+        "skill_13": "animation.byakuya.skill_13",
+        "skill_14": "animation.byakuya.skill_14",
+        "skill_15": "animation.byakuya.skill_15",
+        "skill_16": "animation.byakuya.skill_16",
+        "skill_17": "animation.byakuya.skill_17",
+        "skill_18": "animation.byakuya.skill_18",
+        "skill_19": "animation.byakuya.skill_19",
+        "skill_21": "animation.byakuya.skill_21",
+        "skill_22": "animation.byakuya.skill_22",
+        "skill_23": "animation.byakuya.skill_23",
         "skill_20": "animation.byakuya.skill_20"
       }
     },
@@ -180,6 +190,20 @@
           ]
         }
       },
+      "mikiri_guard": {
+        "minecraft:damage_sensor": {
+          "triggers": [
+            {
+              "cause": "all",
+              "deal_damage": false,
+              "on_damage": {
+                "event": "byakuya:mikiri_counter",
+                "target": "self"
+              }
+            }
+          ]
+        }
+      },
       "v_0": {
         "minecraft:mark_variant": {
           "value": 0
@@ -245,9 +269,59 @@
           "value": 12
         }
       },
+      "v_13": {
+        "minecraft:mark_variant": {
+          "value": 13
+        }
+      },
+      "v_14": {
+        "minecraft:mark_variant": {
+          "value": 14
+        }
+      },
+      "v_15": {
+        "minecraft:mark_variant": {
+          "value": 15
+        }
+      },
+      "v_16": {
+        "minecraft:mark_variant": {
+          "value": 16
+        }
+      },
+      "v_17": {
+        "minecraft:mark_variant": {
+          "value": 17
+        }
+      },
+      "v_18": {
+        "minecraft:mark_variant": {
+          "value": 18
+        }
+      },
+      "v_19": {
+        "minecraft:mark_variant": {
+          "value": 19
+        }
+      },
       "v_20": {
         "minecraft:mark_variant": {
           "value": 20
+        }
+      },
+      "v_21": {
+        "minecraft:mark_variant": {
+          "value": 21
+        }
+      },
+      "v_22": {
+        "minecraft:mark_variant": {
+          "value": 22
+        }
+      },
+      "v_23": {
+        "minecraft:mark_variant": {
+          "value": 23
         }
       }
     },
@@ -261,8 +335,8 @@
         ]
       },
       "minecraft:health": {
-        "value": 800,
-        "max": 800
+        "value": 2000,
+        "max": 2000
       },
       "minecraft:boss": {
         "hud_range": 64,
@@ -332,7 +406,7 @@
                 {
                   "test": "actor_health",
                   "operator": "<=",
-                  "value": 400
+                  "value": 1000
                 },
                 {
                   "test": "is_skin_id",
@@ -348,7 +422,7 @@
                 {
                   "test": "actor_health",
                   "operator": "<=",
-                  "value": 160
+                  "value": 400
                 },
                 {
                   "test": "is_skin_id",
@@ -448,9 +522,20 @@
             "v_10",
             "v_11",
             "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
             "v_20",
+            "v_21",
+            "v_22",
+            "v_23",
             "hopper_guard",
-            "final_guard"
+            "final_guard",
+            "mikiri_guard"
           ]
         },
         "add": {
@@ -513,6 +598,16 @@
             "v_10",
             "v_11",
             "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_21",
+            "v_22",
+            "v_23",
             "phase_1",
             "phase_2",
             "sensor_normal"
@@ -541,7 +636,17 @@
             "v_10",
             "v_11",
             "v_12",
-            "v_20"
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23"
           ]
         },
         "add": {
@@ -565,7 +670,17 @@
             "v_10",
             "v_11",
             "v_12",
-            "v_20"
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23"
           ]
         },
         "add": {
@@ -589,7 +704,17 @@
             "v_10",
             "v_11",
             "v_12",
-            "v_20"
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23"
           ]
         },
         "add": {
@@ -613,7 +738,17 @@
             "v_10",
             "v_11",
             "v_12",
-            "v_20"
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23"
           ]
         },
         "add": {
@@ -637,7 +772,17 @@
             "v_10",
             "v_11",
             "v_12",
-            "v_20"
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23"
           ]
         },
         "add": {
@@ -661,7 +806,17 @@
             "v_10",
             "v_11",
             "v_12",
-            "v_20"
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23"
           ]
         },
         "add": {
@@ -685,7 +840,17 @@
             "v_10",
             "v_11",
             "v_12",
-            "v_20"
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23"
           ]
         },
         "add": {
@@ -709,7 +874,17 @@
             "v_10",
             "v_11",
             "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
             "v_20",
+            "v_21",
+            "v_22",
+            "v_23",
             "sensor_normal"
           ]
         },
@@ -735,7 +910,17 @@
             "v_10",
             "v_11",
             "v_12",
-            "v_20"
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23"
           ]
         },
         "add": {
@@ -759,7 +944,17 @@
             "v_9",
             "v_11",
             "v_12",
-            "v_20"
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23"
           ]
         },
         "add": {
@@ -783,7 +978,17 @@
             "v_9",
             "v_10",
             "v_12",
-            "v_20"
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23"
           ]
         },
         "add": {
@@ -807,12 +1012,380 @@
             "v_9",
             "v_10",
             "v_11",
-            "v_20"
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23"
           ]
         },
         "add": {
           "component_groups": [
             "v_12"
+          ]
+        }
+      },
+      "byakuya:skill_13": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_13"
+          ]
+        }
+      },
+      "byakuya:skill_14": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_14"
+          ]
+        }
+      },
+      "byakuya:skill_15": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_15"
+          ]
+        }
+      },
+      "byakuya:skill_16": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_16"
+          ]
+        }
+      },
+      "byakuya:skill_17": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_18",
+            "v_19",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_17"
+          ]
+        }
+      },
+      "byakuya:skill_18": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_19",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_18"
+          ]
+        }
+      },
+      "byakuya:skill_19": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23",
+            "sensor_normal"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_19",
+            "mikiri_guard"
+          ]
+        }
+      },
+      "byakuya:skill_21": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_20",
+            "v_22",
+            "v_23"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_21"
+          ]
+        }
+      },
+      "byakuya:skill_22": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_20",
+            "v_21",
+            "v_23"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_22"
+          ]
+        }
+      },
+      "byakuya:skill_23": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_19",
+            "v_20",
+            "v_21",
+            "v_22"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_23"
+          ]
+        }
+      },
+      "byakuya:mikiri_counter": {
+        "trigger": "byakuya:skill_end",
+        "queue_command": {
+          "command": [
+            "tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§f白石白夜§7「――見切った」\"}]}",
+            "particle byakuya:afterimage ~ ~0.9 ~",
+            "execute as @p[r=16,m=!creative] at @s positioned ^ ^ ^-1.8 run tp @e[type=byakuya:shiraishi_byakuya,c=1] ~ ~ ~ facing @s",
+            "particle byakuya:big_slash_white ~ ~1.2 ~",
+            "particle byakuya:slash_flat_red ~ ~1 ~",
+            "damage @a[r=4,m=!creative] 16 entity_attack entity @s",
+            "playsound game.player.attack.strong @a[r=30] ~ ~ ~ 1 0.5",
+            "playsound random.anvil_land @a[r=30] ~ ~ ~ 1 0.6",
+            "camerashake add @a[r=12] 0.8 0.4 positional"
           ]
         }
       },
@@ -849,6 +1422,11 @@
                 {
                   "test": "is_skin_id",
                   "value": 0
+                },
+                {
+                  "test": "distance_to_nearest_player",
+                  "operator": "<=",
+                  "value": 7
                 }
               ]
             },
@@ -879,10 +1457,6 @@
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_7"
-              },
-              {
-                "weight": 10,
                 "trigger": "byakuya:skill_8"
               },
               {
@@ -892,6 +1466,30 @@
               {
                 "weight": 10,
                 "trigger": "byakuya:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_19"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_22"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_22"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_13"
               }
             ]
           },
@@ -908,8 +1506,97 @@
                 },
                 {
                   "test": "is_skin_id",
-                  "operator": "!=",
                   "value": 0
+                },
+                {
+                  "test": "distance_to_nearest_player",
+                  "operator": ">",
+                  "value": 7
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_4"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_7"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_15"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_15"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_18"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_18"
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 1
+                },
+                {
+                  "test": "distance_to_nearest_player",
+                  "operator": "<=",
+                  "value": 7
                 }
               ]
             },
@@ -940,7 +1627,225 @@
               },
               {
                 "weight": 10,
+                "trigger": "byakuya:skill_8"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:try_disarm"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_19"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_22"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_22"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_11"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_11"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_12"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_12"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_21"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_22"
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 1
+                },
+                {
+                  "test": "distance_to_nearest_player",
+                  "operator": ">",
+                  "value": 7
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_4"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_5"
+              },
+              {
+                "weight": 10,
                 "trigger": "byakuya:skill_7"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_15"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_15"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_18"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_18"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_21"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_15"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_18"
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 2
+                },
+                {
+                  "test": "distance_to_nearest_player",
+                  "operator": "<=",
+                  "value": 7
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_3"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_4"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_6"
               },
               {
                 "weight": 10,
@@ -956,6 +1861,30 @@
               },
               {
                 "weight": 10,
+                "trigger": "byakuya:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_19"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_22"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_22"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_13"
+              },
+              {
+                "weight": 10,
                 "trigger": "byakuya:skill_11"
               },
               {
@@ -969,6 +1898,143 @@
               {
                 "weight": 10,
                 "trigger": "byakuya:skill_12"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_21"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_22"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_23"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_23"
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 2
+                },
+                {
+                  "test": "distance_to_nearest_player",
+                  "operator": ">",
+                  "value": 7
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_4"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_7"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_15"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_15"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_18"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_18"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_21"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_15"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_18"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_23"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_23"
               }
             ]
           }

@@ -1,0 +1,456 @@
+{
+  "format_version": "1.10.0",
+  "animations": {
+    "animation.byakuya.slash_wave.fly": {
+      "animation_length": 1.65,
+      "loop": false,
+      "timeline": {
+        "0.00": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "0.05": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "0.10": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "0.15": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "0.20": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "0.25": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "0.30": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "0.35": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "0.40": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "0.45": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "0.50": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "0.55": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "0.60": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "0.65": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "0.70": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "0.75": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "0.80": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "0.85": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "0.90": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "0.95": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "1.00": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "1.05": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "1.10": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "1.15": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "1.20": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "1.25": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "1.30": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "1.35": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "1.40": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "1.45": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "1.50": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]"
+        ],
+        "1.55": [
+          "/tp @s ^ ^ ^0.9",
+          "/execute if entity @a[r=2.0,m=!creative] run damage @a[r=2.0,m=!creative] 9 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "@s byakuya:despawn"
+        ]
+      }
+    },
+    "animation.byakuya.blade.hover": {
+      "animation_length": 0.6,
+      "loop": false,
+      "timeline": {
+        "0.00": [
+          "/tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "0.05": [
+          "/tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "0.10": [
+          "/tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "0.15": [
+          "/tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "0.20": [
+          "/tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "0.25": [
+          "/tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "0.30": [
+          "/tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "0.35": [
+          "/tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "0.40": [
+          "/tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "0.45": [
+          "/tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "0.50": [
+          "/tp @s ~ ~ ~ facing @p[m=!creative]"
+        ],
+        "0.55": [
+          "/tp @s ~ ~ ~ facing @p[m=!creative]"
+        ]
+      }
+    },
+    "animation.byakuya.blade.home": {
+      "animation_length": 0.9,
+      "loop": false,
+      "timeline": {
+        "0.00": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.5 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.05": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.5 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.10": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.5 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.15": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.5 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.20": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.5 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.25": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.5 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.30": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.5 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.35": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.5 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.40": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.5 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.45": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.5 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.50": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.5 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.55": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.5 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.60": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.5 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.65": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.5 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.70": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.5 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.75": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.5 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.80": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.5 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.85": [
+          "/execute at @s facing entity @p[m=!creative] feet positioned ^ ^ ^0.5 run tp @s ~ ~ ~ facing @p[m=!creative]",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ]
+      }
+    },
+    "animation.byakuya.blade.fly": {
+      "animation_length": 1.25,
+      "loop": false,
+      "timeline": {
+        "0.00": [
+          "/tp @s ^ ^ ^0.6",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.05": [
+          "/tp @s ^ ^ ^0.6",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.10": [
+          "/tp @s ^ ^ ^0.6",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.15": [
+          "/tp @s ^ ^ ^0.6",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.20": [
+          "/tp @s ^ ^ ^0.6",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.25": [
+          "/tp @s ^ ^ ^0.6",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.30": [
+          "/tp @s ^ ^ ^0.6",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.35": [
+          "/tp @s ^ ^ ^0.6",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.40": [
+          "/tp @s ^ ^ ^0.6",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.45": [
+          "/tp @s ^ ^ ^0.6",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.50": [
+          "/tp @s ^ ^ ^0.6",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.55": [
+          "/tp @s ^ ^ ^0.6",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.60": [
+          "/tp @s ^ ^ ^0.6",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.65": [
+          "/tp @s ^ ^ ^0.6",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.70": [
+          "/tp @s ^ ^ ^0.6",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.75": [
+          "/tp @s ^ ^ ^0.6",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.80": [
+          "/tp @s ^ ^ ^0.6",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.85": [
+          "/tp @s ^ ^ ^0.6",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.90": [
+          "/tp @s ^ ^ ^0.6",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "0.95": [
+          "/tp @s ^ ^ ^0.6",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "1.00": [
+          "/tp @s ^ ^ ^0.6",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "1.05": [
+          "/tp @s ^ ^ ^0.6",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "1.10": [
+          "/tp @s ^ ^ ^0.6",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn"
+        ],
+        "1.15": [
+          "/tp @s ^ ^ ^0.6",
+          "/execute if entity @a[r=1.8,m=!creative] run damage @a[r=1.8,m=!creative] 7 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
+          "/execute if entity @a[r=1.8,m=!creative] run particle byakuya:spark_burst ~ ~ ~",
+          "/execute if entity @a[r=1.8,m=!creative] run event entity @s byakuya:despawn",
+          "@s byakuya:despawn"
+        ]
+      }
+    },
+    "animation.byakuya.marker.life": {
+      "animation_length": 4.05,
+      "loop": false,
+      "timeline": {
+        "4.00": [
+          "@s byakuya:despawn"
+        ]
+      }
+    }
+  }
+}

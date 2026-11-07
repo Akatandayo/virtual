@@ -1,0 +1,77 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:geometry": [
+    {
+      "description": {
+        "identifier": "geometry.byakuya_slash_wave",
+        "texture_width": 128,
+        "texture_height": 128,
+        "visible_bounds_width": 4,
+        "visible_bounds_height": 4,
+        "visible_bounds_offset": [
+          0,
+          1,
+          0
+        ]
+      },
+      "bones": [
+        {
+          "name": "wave",
+          "pivot": [
+            0,
+            16,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            20
+          ],
+          "locators": {
+            "center": [
+              0,
+              16,
+              0
+            ]
+          },
+          "cubes": [
+            {
+              "origin": [
+                -24,
+                16,
+                -24
+              ],
+              "size": [
+                48,
+                0,
+                48
+              ],
+              "uv": {
+                "up": {
+                  "uv": [
+                    0,
+                    0
+                  ],
+                  "uv_size": [
+                    128,
+                    128
+                  ]
+                },
+                "down": {
+                  "uv": [
+                    0,
+                    128
+                  ],
+                  "uv_size": [
+                    128,
+                    -128
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

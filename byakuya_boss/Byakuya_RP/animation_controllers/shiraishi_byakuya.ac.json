@@ -54,7 +54,37 @@
               "s12": "q.mark_variant == 12"
             },
             {
+              "s13": "q.mark_variant == 13"
+            },
+            {
+              "s14": "q.mark_variant == 14"
+            },
+            {
+              "s15": "q.mark_variant == 15"
+            },
+            {
+              "s16": "q.mark_variant == 16"
+            },
+            {
+              "s17": "q.mark_variant == 17"
+            },
+            {
+              "s18": "q.mark_variant == 18"
+            },
+            {
+              "s19": "q.mark_variant == 19"
+            },
+            {
               "s20": "q.mark_variant == 20"
+            },
+            {
+              "s21": "q.mark_variant == 21"
+            },
+            {
+              "s22": "q.mark_variant == 22"
+            },
+            {
+              "s23": "q.mark_variant == 23"
             }
           ],
           "blend_transition": 0.12
@@ -242,6 +272,111 @@
           ],
           "blend_transition": 0.1
         },
+        "s13": {
+          "animations": [
+            "look_at",
+            "s13"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 13"
+            }
+          ],
+          "blend_transition": 0.1
+        },
+        "s14": {
+          "animations": [
+            "look_at",
+            "s14"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 14"
+            }
+          ],
+          "blend_transition": 0.1
+        },
+        "s15": {
+          "animations": [
+            "look_at",
+            "s15"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 15"
+            }
+          ],
+          "blend_transition": 0.1
+        },
+        "s16": {
+          "animations": [
+            "look_at",
+            "s16"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 16"
+            }
+          ],
+          "blend_transition": 0.1
+        },
+        "s17": {
+          "animations": [
+            "look_at",
+            "s17"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 17"
+            }
+          ],
+          "blend_transition": 0.1
+        },
+        "s18": {
+          "animations": [
+            "look_at",
+            "s18"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 18"
+            }
+          ],
+          "blend_transition": 0.1
+        },
+        "s19": {
+          "animations": [
+            "look_at",
+            "s19"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 19"
+            }
+          ],
+          "blend_transition": 0.1
+        },
         "s20": {
           "animations": [
             "s20"
@@ -252,6 +387,50 @@
             },
             {
               "default": "q.mark_variant != 20"
+            }
+          ],
+          "blend_transition": 0.1
+        },
+        "s21": {
+          "animations": [
+            "look_at",
+            "s21"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 21"
+            }
+          ],
+          "blend_transition": 0.1
+        },
+        "s22": {
+          "animations": [
+            "look_at",
+            "s22"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 22"
+            }
+          ],
+          "blend_transition": 0.1
+        },
+        "s23": {
+          "animations": [
+            "s23"
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 23"
             }
           ],
           "blend_transition": 0.1

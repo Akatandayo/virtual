@@ -51,7 +51,17 @@
         "s10": "animation.byakuya.skill_10",
         "s11": "animation.byakuya.skill_11",
         "s12": "animation.byakuya.skill_12",
-        "s20": "animation.byakuya.skill_20"
+        "s13": "animation.byakuya.skill_13",
+        "s14": "animation.byakuya.skill_14",
+        "s15": "animation.byakuya.skill_15",
+        "s16": "animation.byakuya.skill_16",
+        "s17": "animation.byakuya.skill_17",
+        "s18": "animation.byakuya.skill_18",
+        "s19": "animation.byakuya.skill_19",
+        "s20": "animation.byakuya.skill_20",
+        "s21": "animation.byakuya.skill_21",
+        "s22": "animation.byakuya.skill_22",
+        "s23": "animation.byakuya.skill_23"
       },
       "scripts": {
         "animate": [
