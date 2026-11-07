@@ -1,0 +1,50 @@
+{
+  "format_version": "1.10.0",
+  "render_controllers": {
+    "controller.render.sophia_heart": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "overlay_color": {
+        "r": "0.7",
+        "g": "0.25",
+        "b": "1.0",
+        "a": "q.skin_id >= 3 ? 0.18 + math.sin(q.life_time * 300) * 0.07 : 0.0"
+      }
+    },
+    "controller.render.sophia_simple": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ]
+    },
+    "controller.render.sophia_clone": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "overlay_color": {
+        "r": "0.4",
+        "g": "0.6",
+        "b": "1.0",
+        "a": "0.45 + math.sin(q.life_time * 400) * 0.1"
+      }
+    }
+  }
+}

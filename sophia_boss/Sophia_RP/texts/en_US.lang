@@ -1,0 +1,14 @@
+entity.sophia:sophia_heart.name=ソフィア・ハート
+entity.sophia:orb.name=弾幕
+entity.sophia:funnel.name=抜刀隊の刀
+entity.sophia:letter.name=退勤届
+entity.sophia:tornado.name=竜巻
+entity.sophia:blackhole.name=entropy
+entity.sophia:drone.name=自動回復システム
+entity.sophia:clone.name=ソフィアの分身
+entity.sophia:marker.name=目印
+entity.sophia:blast.name=衝撃
+entity.sophia:director.name=ソフィア・ハート
+item.spawn_egg.entity.sophia:sophia_heart.name=ソフィア・ハートのスポーンエッグ
+pack.name=ソフィア・ハート ボス
+pack.description=多分神様「ソフィア・ハート」ボスアドオン

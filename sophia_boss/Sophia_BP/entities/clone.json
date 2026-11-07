@@ -1,0 +1,120 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "sophia:clone",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      "despawn": {
+        "minecraft:instant_despawn": {}
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "sophia_clone",
+          "monster",
+          "mob"
+        ]
+      },
+      "minecraft:health": {
+        "value": 20,
+        "max": 20
+      },
+      "minecraft:collision_box": {
+        "width": 0.6,
+        "height": 1.6
+      },
+      "minecraft:physics": {},
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:movement": {
+        "value": 0.38
+      },
+      "minecraft:movement.basic": {},
+      "minecraft:jump.static": {},
+      "minecraft:navigation.walk": {
+        "can_path_over_water": true
+      },
+      "minecraft:attack": {
+        "damage": 7
+      },
+      "minecraft:follow_range": {
+        "value": 40,
+        "max": 40
+      },
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "all",
+            "deal_damage": false,
+            "on_damage": {
+              "event": "sophia:vanish",
+              "target": "self"
+            }
+          }
+        ]
+      },
+      "minecraft:equipment": {
+        "table": "loot_tables/entities/sophia_equipment.json",
+        "slot_drop_chance": [
+          {
+            "slot": "slot.weapon.mainhand",
+            "drop_chance": 0
+          }
+        ]
+      },
+      "minecraft:behavior.melee_attack": {
+        "priority": 2,
+        "speed_multiplier": 1.4,
+        "track_target": true
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 1,
+        "must_see": false,
+        "within_radius": 40,
+        "entity_types": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "player"
+            },
+            "max_dist": 40
+          }
+        ]
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 6
+      },
+      "minecraft:timer": {
+        "looping": false,
+        "time": 15,
+        "time_down_event": {
+          "event": "sophia:vanish",
+          "target": "self"
+        }
+      }
+    },
+    "events": {
+      "sophia:vanish": {
+        "add": {
+          "component_groups": [
+            "despawn"
+          ]
+        },
+        "queue_command": {
+          "command": [
+            "particle sophia:afterimage ~ ~0.9 ~",
+            "playsound mob.endermen.portal @a[r=16] ~ ~ ~ 0.6 1.6"
+          ]
+        }
+      }
+    }
+  }
+}

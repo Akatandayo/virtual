@@ -1,0 +1,88 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "sophia:clone",
+      "materials": {
+        "default": "entity_alphablend"
+      },
+      "textures": {
+        "default": "textures/entity/sophia_heart"
+      },
+      "geometry": {
+        "default": "geometry.sophia_heart"
+      },
+      "render_controllers": [
+        "controller.render.sophia_clone"
+      ],
+      "particle_effects": {
+        "trail": "sophia:spark_burst",
+        "spark": "sophia:spark_burst",
+        "glow": "sophia:hand_glow",
+        "electric": "sophia:electric",
+        "electric_aura": "sophia:aura_electric",
+        "sparkle": "sophia:sparkle",
+        "flame": "sophia:aura_flame",
+        "bread": "sophia:bread",
+        "cat": "sophia:cat",
+        "afterimage": "sophia:afterimage"
+      },
+      "animations": {
+        "look_at": "animation.sophia.look_at",
+        "idle": "animation.sophia.idle",
+        "move": "animation.sophia.move",
+        "attack": "animation.sophia.attack",
+        "aura_1": "animation.sophia.aura_1",
+        "aura_2": "animation.sophia.aura_2",
+        "aura_3": "animation.sophia.aura_3",
+        "death_pose": "animation.sophia.death",
+        "main": "controller.animation.sophia.main",
+        "aura_ctrl": "controller.animation.sophia.aura",
+        "attack_fx": "controller.animation.sophia.attack_fx",
+        "s1": "animation.sophia.skill_1",
+        "s2": "animation.sophia.skill_2",
+        "s3": "animation.sophia.skill_3",
+        "s4": "animation.sophia.skill_4",
+        "s5": "animation.sophia.skill_5",
+        "s6": "animation.sophia.skill_6",
+        "s7": "animation.sophia.skill_7",
+        "s8": "animation.sophia.skill_8",
+        "s9": "animation.sophia.skill_9",
+        "s10": "animation.sophia.skill_10",
+        "s11": "animation.sophia.skill_11",
+        "s12": "animation.sophia.skill_12",
+        "s13": "animation.sophia.skill_13",
+        "s14": "animation.sophia.skill_14",
+        "s15": "animation.sophia.skill_15",
+        "s16": "animation.sophia.skill_16",
+        "s17": "animation.sophia.skill_17",
+        "s18": "animation.sophia.skill_18",
+        "s19": "animation.sophia.skill_19",
+        "s21": "animation.sophia.skill_21",
+        "s22": "animation.sophia.skill_22",
+        "s23": "animation.sophia.skill_23",
+        "s24": "animation.sophia.skill_24",
+        "s25": "animation.sophia.skill_25",
+        "s26": "animation.sophia.skill_26",
+        "s27": "animation.sophia.skill_27",
+        "s28": "animation.sophia.skill_28",
+        "s29": "animation.sophia.skill_29",
+        "s30": "animation.sophia.skill_30",
+        "s31": "animation.sophia.skill_31",
+        "s32": "animation.sophia.skill_32",
+        "s33": "animation.sophia.skill_33",
+        "s40": "animation.sophia.skill_40",
+        "s41": "animation.sophia.skill_41",
+        "fx": "animation.sophia.clone_fx"
+      },
+      "scripts": {
+        "animate": [
+          "main",
+          "attack_fx",
+          "fx"
+        ]
+      },
+      "enable_attachables": true
+    }
+  }
+}

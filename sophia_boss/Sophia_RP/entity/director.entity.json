@@ -1,0 +1,28 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "sophia:director",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/sophia_heart"
+      },
+      "geometry": {
+        "default": "geometry.sophia_heart"
+      },
+      "render_controllers": [
+        "controller.render.sophia_simple"
+      ],
+      "animations": {
+        "pose": "animation.sophia.director_pose"
+      },
+      "scripts": {
+        "animate": [
+          "pose"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "sophia:orb",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/sophia_empty"
+      },
+      "geometry": {
+        "default": "geometry.sophia_empty"
+      },
+      "render_controllers": [
+        "controller.render.sophia_simple"
+      ],
+      "particle_effects": {
+        "orb": "sophia:orb_pink",
+        "orb_n": "sophia:orb_gold",
+        "orb_f": "sophia:orb_blue"
+      },
+      "animations": {
+        "fx_slow": "animation.sophia.orb_fx",
+        "fx_normal": "animation.sophia.orb_fx_normal",
+        "fx_fast": "animation.sophia.orb_fx_fast"
+      },
+      "scripts": {
+        "animate": [
+          {
+            "fx_slow": "q.variant == 1"
+          },
+          {
+            "fx_normal": "q.variant == 2"
+          },
+          {
+            "fx_fast": "q.variant == 3"
+          }
+        ]
+      }
+    }
+  }
+}

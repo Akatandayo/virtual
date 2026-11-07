@@ -1,0 +1,301 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "sophia:marker",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false,
+      "animations": {
+        "life": "animation.sophia.marker.life"
+      },
+      "scripts": {
+        "animate": [
+          "life"
+        ]
+      }
+    },
+    "component_groups": {
+      "despawn": {
+        "minecraft:instant_despawn": {}
+      },
+      "volt_0": {
+        "minecraft:type_family": {
+          "family": [
+            "sophia_marker",
+            "volt_0",
+            "inanimate"
+          ]
+        }
+      },
+      "volt_1": {
+        "minecraft:type_family": {
+          "family": [
+            "sophia_marker",
+            "volt_1",
+            "inanimate"
+          ]
+        }
+      },
+      "volt_2": {
+        "minecraft:type_family": {
+          "family": [
+            "sophia_marker",
+            "volt_2",
+            "inanimate"
+          ]
+        }
+      },
+      "aim_0": {
+        "minecraft:type_family": {
+          "family": [
+            "sophia_marker",
+            "aim_0",
+            "inanimate"
+          ]
+        }
+      },
+      "aim_1": {
+        "minecraft:type_family": {
+          "family": [
+            "sophia_marker",
+            "aim_1",
+            "inanimate"
+          ]
+        }
+      },
+      "aim_2": {
+        "minecraft:type_family": {
+          "family": [
+            "sophia_marker",
+            "aim_2",
+            "inanimate"
+          ]
+        }
+      },
+      "rift": {
+        "minecraft:type_family": {
+          "family": [
+            "sophia_marker",
+            "rift",
+            "inanimate"
+          ]
+        }
+      },
+      "rift_red": {
+        "minecraft:type_family": {
+          "family": [
+            "sophia_marker",
+            "rift_red",
+            "inanimate"
+          ]
+        }
+      },
+      "black": {
+        "minecraft:type_family": {
+          "family": [
+            "sophia_marker",
+            "black",
+            "inanimate"
+          ]
+        }
+      },
+      "shell_0": {
+        "minecraft:type_family": {
+          "family": [
+            "sophia_marker",
+            "shell_0",
+            "inanimate"
+          ]
+        }
+      },
+      "shell_1": {
+        "minecraft:type_family": {
+          "family": [
+            "sophia_marker",
+            "shell_1",
+            "inanimate"
+          ]
+        }
+      },
+      "shell_2": {
+        "minecraft:type_family": {
+          "family": [
+            "sophia_marker",
+            "shell_2",
+            "inanimate"
+          ]
+        }
+      },
+      "pillar_0": {
+        "minecraft:type_family": {
+          "family": [
+            "sophia_marker",
+            "pillar_0",
+            "inanimate"
+          ]
+        }
+      },
+      "pillar_1": {
+        "minecraft:type_family": {
+          "family": [
+            "sophia_marker",
+            "pillar_1",
+            "inanimate"
+          ]
+        }
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "sophia_marker",
+          "inanimate"
+        ]
+      },
+      "minecraft:health": {
+        "value": 1,
+        "max": 1
+      },
+      "minecraft:collision_box": {
+        "width": 0.1,
+        "height": 0.1
+      },
+      "minecraft:physics": {
+        "has_gravity": false,
+        "has_collision": false
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:knockback_resistance": {
+        "value": 1.0
+      },
+      "minecraft:body_rotation_blocked": {},
+      "minecraft:fire_immune": {},
+      "minecraft:conditional_bandwidth_optimization": {
+        "default_values": {
+          "max_optimized_distance": 0,
+          "max_dropped_ticks": 0,
+          "use_motion_prediction_hints": true
+        }
+      },
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "all",
+            "deal_damage": false
+          }
+        ]
+      }
+    },
+    "events": {
+      "sophia:despawn": {
+        "add": {
+          "component_groups": [
+            "despawn"
+          ]
+        }
+      },
+      "sophia:as_volt_0": {
+        "add": {
+          "component_groups": [
+            "volt_0"
+          ]
+        }
+      },
+      "sophia:as_volt_1": {
+        "add": {
+          "component_groups": [
+            "volt_1"
+          ]
+        }
+      },
+      "sophia:as_volt_2": {
+        "add": {
+          "component_groups": [
+            "volt_2"
+          ]
+        }
+      },
+      "sophia:as_aim_0": {
+        "add": {
+          "component_groups": [
+            "aim_0"
+          ]
+        }
+      },
+      "sophia:as_aim_1": {
+        "add": {
+          "component_groups": [
+            "aim_1"
+          ]
+        }
+      },
+      "sophia:as_aim_2": {
+        "add": {
+          "component_groups": [
+            "aim_2"
+          ]
+        }
+      },
+      "sophia:as_rift": {
+        "add": {
+          "component_groups": [
+            "rift"
+          ]
+        }
+      },
+      "sophia:as_rift_red": {
+        "add": {
+          "component_groups": [
+            "rift_red"
+          ]
+        }
+      },
+      "sophia:as_black": {
+        "add": {
+          "component_groups": [
+            "black"
+          ]
+        }
+      },
+      "sophia:as_shell_0": {
+        "add": {
+          "component_groups": [
+            "shell_0"
+          ]
+        }
+      },
+      "sophia:as_shell_1": {
+        "add": {
+          "component_groups": [
+            "shell_1"
+          ]
+        }
+      },
+      "sophia:as_shell_2": {
+        "add": {
+          "component_groups": [
+            "shell_2"
+          ]
+        }
+      },
+      "sophia:as_pillar_0": {
+        "add": {
+          "component_groups": [
+            "pillar_0"
+          ]
+        }
+      },
+      "sophia:as_pillar_1": {
+        "add": {
+          "component_groups": [
+            "pillar_1"
+          ]
+        }
+      }
+    }
+  }
+}

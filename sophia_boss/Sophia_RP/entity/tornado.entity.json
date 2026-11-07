@@ -1,0 +1,31 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "sophia:tornado",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/sophia_empty"
+      },
+      "geometry": {
+        "default": "geometry.sophia_empty"
+      },
+      "render_controllers": [
+        "controller.render.sophia_simple"
+      ],
+      "particle_effects": {
+        "tornado": "sophia:tornado"
+      },
+      "animations": {
+        "fx": "animation.sophia.tornado_fx"
+      },
+      "scripts": {
+        "animate": [
+          "fx"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "sophia:funnel",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/sophia_funnel"
+      },
+      "geometry": {
+        "default": "geometry.sophia_funnel"
+      },
+      "render_controllers": [
+        "controller.render.sophia_simple"
+      ],
+      "particle_effects": {
+        "trail": "sophia:letter_trail"
+      },
+      "animations": {
+        "fx": "animation.sophia.funnel_fx"
+      },
+      "scripts": {
+        "animate": [
+          "fx"
+        ]
+      }
+    }
+  }
+}

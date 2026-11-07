@@ -1,0 +1,31 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "sophia:drone",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/sophia_drone"
+      },
+      "geometry": {
+        "default": "geometry.sophia_drone"
+      },
+      "render_controllers": [
+        "controller.render.sophia_simple"
+      ],
+      "particle_effects": {
+        "heal": "sophia:heal"
+      },
+      "animations": {
+        "fx": "animation.sophia.drone_fx"
+      },
+      "scripts": {
+        "animate": [
+          "fx"
+        ]
+      }
+    }
+  }
+}
