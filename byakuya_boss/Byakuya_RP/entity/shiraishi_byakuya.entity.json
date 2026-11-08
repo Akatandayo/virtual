@@ -89,7 +89,8 @@
         "s61": "animation.byakuya.skill_61",
         "s62": "animation.byakuya.skill_62",
         "react": "animation.byakuya.react",
-        "desperate": "animation.byakuya.desperate"
+        "desperate": "animation.byakuya.desperate",
+        "pant": "animation.byakuya.pant"
       },
       "scripts": {
         "animate": [

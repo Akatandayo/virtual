@@ -4,6 +4,7 @@
 - カットシーン中は、近くのプレイヤーにタグを付けて、カメラ・HUD・移動を制御する
 - 終わったら必ず元に戻す（ボスが待機状態に戻ったときにも、念のため戻す）
 """
+import json
 import math
 import re
 
@@ -301,7 +302,13 @@ CLIENT_SCRIPTS = {
 SPD = "v.spd"   # なめらかにした移動速度（0〜1）
 
 # 体の向きの補正（ルートを逆に回して、少しずつ戻す）
-TURN_ANIM = {"loop": True, "bones": {"root": {"rotation": [0, "v.yaw_off", 0]}}}
+TURN_ANIM = {"loop": True, "bones": {
+    "root": {"rotation": [0, "v.yaw_off", 0]},
+    # その場で向きを変えるとき、足を踏み替える（滑って回らない）
+    "rightLeg": {"rotation": ["math.sin(q.life_time * 900) * math.min(math.abs(v.yaw_off), 25) * (v.spd < 0.2 ? 0.9 : 0)",
+                              0, 0]},
+    "leftLeg": {"rotation": ["-math.sin(q.life_time * 900) * math.min(math.abs(v.yaw_off), 25) * (v.spd < 0.2 ? 0.9 : 0)",
+                             0, 0]}}}
 
 # 技の最中の「止まっているポーズ」にも、ごくわずかな呼吸と揺れを足す（固まって見えないように）
 ALIVE_ANIM = {"loop": True, "bones": {
@@ -828,17 +835,14 @@ def stance_filters(near_tag):
 
 # ================================================================ 声・足音 / 守りの反応 / 瀕死の演出
 def entity_sounds(entries):
-    """RP の sounds.json: 殴られたときの声・倒れたときの声・足音（バニラの音を、キャラごとに高さを変えて使う）.
+    """RP の sounds.json: 足音だけ.
 
-    entries: {識別子: (声の高さ, 足音の大きさ)}
+    ※ キャラの声（殴られたとき・倒れたときの声など）は付けない（ユーザーの希望）。今後も追加しないこと。
+    entries: {識別子: 足音の大きさ}
     """
-    ents = {}
-    for ident, (pitch, step_vol) in entries.items():
-        ents[ident] = {"volume": 1.0, "pitch": [round(pitch * 0.94, 2), round(pitch * 1.06, 2)], "events": {
-            "hurt": {"sound": "game.player.hurt", "volume": 0.9},
-            "death": {"sound": "game.player.die", "volume": 1.0},
-            "step": {"sound": "step.stone", "volume": step_vol, "pitch": 1.0}}}
-    return {"entity_sounds": {"entities": ents}}
+    return {"entity_sounds": {"entities": {
+        ident: {"volume": 1.0, "events": {"step": {"sound": "step.stone", "volume": vol, "pitch": 1.0}}}
+        for ident, vol in entries.items()}}}
 
 
 def react_scripts(prop):
@@ -876,6 +880,60 @@ def add_state_anim(ac, name, anim):
 
 
 DESPERATE = "q.is_alive && q.health < q.max_health * 0.15"   # 瀕死（HP 15% 未満）
+
+
+PANT_ANIM = {"loop": True, "bones": {   # 瀕死（待機中）: 肩で息をする
+    "body": {"rotation": ["5 + math.sin(q.life_time * 260) * 3", 0, 0]},
+    "head": {"rotation": ["9 + math.sin(q.life_time * 260 + 40) * 2.5", 0, 0]},
+    "rightArm": {"rotation": ["math.sin(q.life_time * 260) * 2", 0, "math.sin(q.life_time * 260) * 2"]},
+    "leftArm": {"rotation": ["math.sin(q.life_time * 260) * 2", 0, "-math.sin(q.life_time * 260) * 2"]}}}
+
+
+def anti_repeat(ent, ns):
+    """技選び: 同じ技を 2 回続けて使わない（直前の技はプロパティ ns:last に覚える。被ったら選び直し）"""
+    prop = ns + ":last"
+    d = ent["description"]
+    d.setdefault("properties", {})[prop] = {"type": "int", "range": [0, 99], "default": 0}
+    ev = ent["events"]
+    pat = re.compile(r"^%s:skill_(\d+)$" % re.escape(ns))
+    for name, e in ev.items():
+        m = pat.match(name)
+        if m:
+            e.setdefault("set_property", {})[prop] = int(m.group(1))
+    choose = ns + ":choose_skill"
+    ev[ns + ":choose_retry"] = json.loads(json.dumps(ev[choose]))
+
+    def fix(o):
+        if isinstance(o, dict):
+            for r in o.get("randomize", []):
+                m = pat.match(r.get("trigger", ""))
+                if m and "weight" in r:
+                    v = int(m.group(1))
+                    r.pop("trigger")
+                    r["sequence"] = [
+                        {"filters": {"test": "int_property", "subject": "self", "domain": prop, "operator": "!=", "value": v},
+                         "trigger": "%s:skill_%d" % (ns, v)},
+                        {"filters": {"test": "int_property", "subject": "self", "domain": prop, "operator": "==", "value": v},
+                         "trigger": ns + ":choose_retry"}]
+            for x in o.get("sequence", []):
+                fix(x)
+    fix(ev[choose])
+    return ent
+
+
+def add_evade(ent, ns, hit_events, skill, chance=5):
+    """殴られたとき（技を使っていなければ）1/chance の確率で、間合いを取る技 skill に切り替える"""
+    ev = ent["events"]
+    ev[ns + ":evade"] = {"sequence": [{"filters": {"all_of": [
+        {"test": "is_mark_variant", "value": 0}, {"test": "has_target", "value": True},
+        {"test": "random_chance", "value": chance}]}, "trigger": "%s:skill_%d" % (ns, skill)}]}
+    for name in hit_events:
+        e = ev[name]
+        if "sequence" in e and len(e) == 1:
+            e["sequence"].append({"trigger": ns + ":evade"})
+        else:
+            ev[name] = {"sequence": [e, {"trigger": ns + ":evade"}]}
+    return ent
 
 
 def desperate_anim():
@@ -922,13 +980,13 @@ def brushup_files(bp, rp, cfg):
         with open(p, "w", encoding="utf-8") as f:
             json.dump(d, f, ensure_ascii=False, indent=2)
     prop, ns, prefix = cfg.get("prop"), cfg["ns"], cfg["prefix"]
-    # 1. 本体: 反応の合図（プロパティ）を、守りのイベントで回す
-    if prop:
-        for p in glob.glob(os.path.join(bp, "entities", "*.json")):
-            d = load(p)
-            ent = d.get("minecraft:entity", {})
-            if ent.get("description", {}).get("identifier") != cfg["id"]:
-                continue
+    # 1. 本体: 反応の合図（プロパティ）を守りのイベントで回す / 同じ技を続けない / 被弾で間合いを取る
+    for p in glob.glob(os.path.join(bp, "entities", "*.json")):
+        d = load(p)
+        ent = d.get("minecraft:entity", {})
+        if ent.get("description", {}).get("identifier") != cfg["id"]:
+            continue
+        if prop:
             ent["description"].setdefault("properties", {}).update(react_property(prop))
             for name in cfg["react_events"]:
                 e = ent["events"][name]
@@ -936,7 +994,10 @@ def brushup_files(bp, rp, cfg):
                     e["sequence"].append({"set_property": react_bump(prop)})
                 else:
                     e.setdefault("set_property", {}).update(react_bump(prop))
-            save(p, d)
+        anti_repeat(ent, ns)
+        if cfg.get("evade_events"):
+            add_evade(ent, ns, cfg["evade_events"], cfg["evade_skill"])
+        save(p, d)
     # 2. クライアント: メインのコントローラーを使うもの（本体・分身）に、反応と瀕死のアニメーションを登録
     for p in glob.glob(os.path.join(rp, "entity", "*.json")):
         d = load(p)
@@ -946,6 +1007,7 @@ def brushup_files(bp, rp, cfg):
             continue
         desc["animations"]["react"] = prefix + ".react"
         desc["animations"]["desperate"] = prefix + ".desperate"
+        desc["animations"]["pant"] = prefix + ".pant"
         desc.setdefault("particle_effects", {})["desperate"] = ns + ":desperate"
         if prop and desc["identifier"] == cfg["id"]:
             add_react_to_client(desc, prop)
@@ -953,18 +1015,19 @@ def brushup_files(bp, rp, cfg):
     # 3. アニメーション（別ファイル）
     react = cfg.get("react_anim") or {"loop": True, "bones": {}}
     save(os.path.join(rp, "animations", ns + "_brushup.animation.json"), {"format_version": "1.10.0", "animations": {
-        prefix + ".react": react, prefix + ".desperate": desperate_anim()}})
+        prefix + ".react": react, prefix + ".desperate": desperate_anim(), prefix + ".pant": PANT_ANIM}})
     # 4. コントローラー: 撃破以外のすべての状態に重ねる
     for p in glob.glob(os.path.join(rp, "animation_controllers", "*.json")):
         d = load(p)
         if cfg["main_ctrl"] in d.get("animation_controllers", {}):
             add_state_anim(d, cfg["main_ctrl"], "react")
             add_state_anim(d, cfg["main_ctrl"], {"desperate": DESPERATE})
+            d["animation_controllers"][cfg["main_ctrl"]]["states"]["default"]["animations"].append({"pant": DESPERATE})
             save(p, d)
     # 5. 瀕死のパーティクル / 6. 声と足音
     save(os.path.join(rp, "particles", "desperate.json"), desperate_particle(ns, cfg["glow"]))
     sp = os.path.join(rp, "sounds.json")
     snd = load(sp) if os.path.exists(sp) else {}
     snd.setdefault("entity_sounds", {}).setdefault("entities", {}).update(
-        entity_sounds({cfg["id"]: (cfg["pitch"], 0.18)})["entity_sounds"]["entities"])
+        entity_sounds({cfg["id"]: 0.18})["entity_sounds"]["entities"])
     save(sp, snd)

@@ -32,6 +32,9 @@
             "react",
             {
               "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            },
+            {
+              "pant": "q.is_alive && q.health < q.max_health * 0.15"
             }
           ],
           "transitions": [

@@ -20,6 +20,14 @@
           "type": "bool",
           "default": false,
           "client_sync": true
+        },
+        "fuuka:last": {
+          "type": "int",
+          "range": [
+            0,
+            99
+          ],
+          "default": 0
         }
       },
       "scripts": {
@@ -937,14 +945,21 @@
         }
       },
       "fuuka:on_hit": {
-        "queue_command": {
-          "command": [
-            "particle fuuka:feather_red ~ ~1.2 ~",
-            "execute if entity @e[type=fuuka:spin] run title @a[r=32] actionbar §e§l風花に攻撃が当たった！ 回転が止まった",
-            "tag @e[tag=fuuka_spin] remove fuuka_spin",
-            "event entity @e[type=fuuka:spin] fuuka:despawn"
-          ]
-        }
+        "sequence": [
+          {
+            "queue_command": {
+              "command": [
+                "particle fuuka:feather_red ~ ~1.2 ~",
+                "execute if entity @e[type=fuuka:spin] run title @a[r=32] actionbar §e§l風花に攻撃が当たった！ 回転が止まった",
+                "tag @e[tag=fuuka_spin] remove fuuka_spin",
+                "event entity @e[type=fuuka:spin] fuuka:despawn"
+              ]
+            }
+          },
+          {
+            "trigger": "fuuka:evade"
+          }
+        ]
       },
       "fuuka:ate_apple": {
         "queue_command": {
@@ -1057,6 +1072,9 @@
           "component_groups": [
             "v_1"
           ]
+        },
+        "set_property": {
+          "fuuka:last": 1
         }
       },
       "fuuka:skill_2": {
@@ -1088,6 +1106,9 @@
           "component_groups": [
             "v_2"
           ]
+        },
+        "set_property": {
+          "fuuka:last": 2
         }
       },
       "fuuka:skill_3": {
@@ -1119,6 +1140,9 @@
           "component_groups": [
             "v_3"
           ]
+        },
+        "set_property": {
+          "fuuka:last": 3
         }
       },
       "fuuka:skill_4": {
@@ -1150,6 +1174,9 @@
           "component_groups": [
             "v_4"
           ]
+        },
+        "set_property": {
+          "fuuka:last": 4
         }
       },
       "fuuka:skill_5": {
@@ -1181,6 +1208,9 @@
           "component_groups": [
             "v_5"
           ]
+        },
+        "set_property": {
+          "fuuka:last": 5
         }
       },
       "fuuka:skill_6": {
@@ -1212,6 +1242,9 @@
           "component_groups": [
             "v_6"
           ]
+        },
+        "set_property": {
+          "fuuka:last": 6
         }
       },
       "fuuka:skill_7": {
@@ -1243,6 +1276,9 @@
           "component_groups": [
             "v_7"
           ]
+        },
+        "set_property": {
+          "fuuka:last": 7
         }
       },
       "fuuka:skill_8": {
@@ -1274,6 +1310,9 @@
           "component_groups": [
             "v_8"
           ]
+        },
+        "set_property": {
+          "fuuka:last": 8
         }
       },
       "fuuka:skill_9": {
@@ -1305,6 +1344,9 @@
           "component_groups": [
             "v_9"
           ]
+        },
+        "set_property": {
+          "fuuka:last": 9
         }
       },
       "fuuka:skill_10": {
@@ -1336,6 +1378,9 @@
           "component_groups": [
             "v_10"
           ]
+        },
+        "set_property": {
+          "fuuka:last": 10
         }
       },
       "fuuka:skill_11": {
@@ -1367,6 +1412,9 @@
           "component_groups": [
             "v_11"
           ]
+        },
+        "set_property": {
+          "fuuka:last": 11
         }
       },
       "fuuka:skill_12": {
@@ -1398,6 +1446,9 @@
           "component_groups": [
             "v_12"
           ]
+        },
+        "set_property": {
+          "fuuka:last": 12
         }
       },
       "fuuka:skill_13": {
@@ -1429,6 +1480,9 @@
           "component_groups": [
             "v_13"
           ]
+        },
+        "set_property": {
+          "fuuka:last": 13
         }
       },
       "fuuka:skill_14": {
@@ -1460,6 +1514,9 @@
           "component_groups": [
             "v_14"
           ]
+        },
+        "set_property": {
+          "fuuka:last": 14
         }
       },
       "fuuka:skill_60": {
@@ -1491,6 +1548,9 @@
           "component_groups": [
             "v_60"
           ]
+        },
+        "set_property": {
+          "fuuka:last": 60
         }
       },
       "fuuka:skill_61": {
@@ -1522,6 +1582,9 @@
           "component_groups": [
             "v_61"
           ]
+        },
+        "set_property": {
+          "fuuka:last": 61
         }
       },
       "fuuka:skill_62": {
@@ -1553,6 +1616,9 @@
           "component_groups": [
             "v_62"
           ]
+        },
+        "set_property": {
+          "fuuka:last": 62
         }
       },
       "fuuka:choose_skill": {
@@ -1582,51 +1648,303 @@
             "randomize": [
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_5"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 5
+                    },
+                    "trigger": "fuuka:skill_5"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 5
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_5"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 5
+                    },
+                    "trigger": "fuuka:skill_5"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 5
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_8"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 8
+                    },
+                    "trigger": "fuuka:skill_8"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 8
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_8"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 8
+                    },
+                    "trigger": "fuuka:skill_8"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 8
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_60"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 60
+                    },
+                    "trigger": "fuuka:skill_60"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 60
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_60"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 60
+                    },
+                    "trigger": "fuuka:skill_60"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 60
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_61"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 61
+                    },
+                    "trigger": "fuuka:skill_61"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 61
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_62"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 62
+                    },
+                    "trigger": "fuuka:skill_62"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 62
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_2"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 2
+                    },
+                    "trigger": "fuuka:skill_2"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 2
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_7"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 7
+                    },
+                    "trigger": "fuuka:skill_7"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 7
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_10"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 10
+                    },
+                    "trigger": "fuuka:skill_10"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 10
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_3"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 3
+                    },
+                    "trigger": "fuuka:skill_3"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 3
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               }
             ]
           },
@@ -1656,47 +1974,278 @@
             "randomize": [
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_1"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 1
+                    },
+                    "trigger": "fuuka:skill_1"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 1
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_1"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 1
+                    },
+                    "trigger": "fuuka:skill_1"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 1
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_1"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 1
+                    },
+                    "trigger": "fuuka:skill_1"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 1
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_2"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 2
+                    },
+                    "trigger": "fuuka:skill_2"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 2
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_2"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 2
+                    },
+                    "trigger": "fuuka:skill_2"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 2
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_3"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 3
+                    },
+                    "trigger": "fuuka:skill_3"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 3
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_4"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 4
+                    },
+                    "trigger": "fuuka:skill_4"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 4
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_6"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 6
+                    },
+                    "trigger": "fuuka:skill_6"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 6
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_9"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 9
+                    },
+                    "trigger": "fuuka:skill_9"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 9
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_10"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 10
+                    },
+                    "trigger": "fuuka:skill_10"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 10
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_7"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 7
+                    },
+                    "trigger": "fuuka:skill_7"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 7
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               }
             ]
           },
@@ -1725,67 +2274,403 @@
             "randomize": [
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_5"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 5
+                    },
+                    "trigger": "fuuka:skill_5"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 5
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_5"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 5
+                    },
+                    "trigger": "fuuka:skill_5"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 5
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_8"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 8
+                    },
+                    "trigger": "fuuka:skill_8"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 8
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_8"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 8
+                    },
+                    "trigger": "fuuka:skill_8"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 8
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_60"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 60
+                    },
+                    "trigger": "fuuka:skill_60"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 60
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_60"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 60
+                    },
+                    "trigger": "fuuka:skill_60"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 60
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_61"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 61
+                    },
+                    "trigger": "fuuka:skill_61"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 61
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_62"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 62
+                    },
+                    "trigger": "fuuka:skill_62"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 62
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_2"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 2
+                    },
+                    "trigger": "fuuka:skill_2"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 2
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_7"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 7
+                    },
+                    "trigger": "fuuka:skill_7"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 7
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_10"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 10
+                    },
+                    "trigger": "fuuka:skill_10"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 10
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_3"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 3
+                    },
+                    "trigger": "fuuka:skill_3"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 3
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_7"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 7
+                    },
+                    "trigger": "fuuka:skill_7"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 7
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_10"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 10
+                    },
+                    "trigger": "fuuka:skill_10"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 10
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_61"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 61
+                    },
+                    "trigger": "fuuka:skill_61"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 61
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_62"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 62
+                    },
+                    "trigger": "fuuka:skill_62"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 62
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               }
             ]
           },
@@ -1815,67 +2700,403 @@
             "randomize": [
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_1"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 1
+                    },
+                    "trigger": "fuuka:skill_1"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 1
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_1"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 1
+                    },
+                    "trigger": "fuuka:skill_1"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 1
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_1"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 1
+                    },
+                    "trigger": "fuuka:skill_1"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 1
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_2"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 2
+                    },
+                    "trigger": "fuuka:skill_2"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 2
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_2"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 2
+                    },
+                    "trigger": "fuuka:skill_2"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 2
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_3"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 3
+                    },
+                    "trigger": "fuuka:skill_3"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 3
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_4"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 4
+                    },
+                    "trigger": "fuuka:skill_4"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 4
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_6"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 6
+                    },
+                    "trigger": "fuuka:skill_6"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 6
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_9"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 9
+                    },
+                    "trigger": "fuuka:skill_9"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 9
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_10"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 10
+                    },
+                    "trigger": "fuuka:skill_10"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 10
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_7"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 7
+                    },
+                    "trigger": "fuuka:skill_7"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 7
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_11"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 11
+                    },
+                    "trigger": "fuuka:skill_11"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 11
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_11"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 11
+                    },
+                    "trigger": "fuuka:skill_11"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 11
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_4"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 4
+                    },
+                    "trigger": "fuuka:skill_4"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 4
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_6"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 6
+                    },
+                    "trigger": "fuuka:skill_6"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 6
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_14"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 14
+                    },
+                    "trigger": "fuuka:skill_14"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 14
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               }
             ]
           },
@@ -1904,79 +3125,478 @@
             "randomize": [
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_5"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 5
+                    },
+                    "trigger": "fuuka:skill_5"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 5
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_5"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 5
+                    },
+                    "trigger": "fuuka:skill_5"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 5
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_8"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 8
+                    },
+                    "trigger": "fuuka:skill_8"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 8
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_8"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 8
+                    },
+                    "trigger": "fuuka:skill_8"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 8
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_60"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 60
+                    },
+                    "trigger": "fuuka:skill_60"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 60
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_60"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 60
+                    },
+                    "trigger": "fuuka:skill_60"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 60
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_61"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 61
+                    },
+                    "trigger": "fuuka:skill_61"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 61
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_62"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 62
+                    },
+                    "trigger": "fuuka:skill_62"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 62
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_2"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 2
+                    },
+                    "trigger": "fuuka:skill_2"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 2
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_7"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 7
+                    },
+                    "trigger": "fuuka:skill_7"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 7
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_10"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 10
+                    },
+                    "trigger": "fuuka:skill_10"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 10
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_3"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 3
+                    },
+                    "trigger": "fuuka:skill_3"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 3
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_7"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 7
+                    },
+                    "trigger": "fuuka:skill_7"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 7
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_10"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 10
+                    },
+                    "trigger": "fuuka:skill_10"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 10
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_61"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 61
+                    },
+                    "trigger": "fuuka:skill_61"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 61
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_62"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 62
+                    },
+                    "trigger": "fuuka:skill_62"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 62
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_12"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 12
+                    },
+                    "trigger": "fuuka:skill_12"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 12
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_12"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 12
+                    },
+                    "trigger": "fuuka:skill_12"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 12
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_13"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 13
+                    },
+                    "trigger": "fuuka:skill_13"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 13
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               }
             ]
           },
@@ -2006,83 +3626,503 @@
             "randomize": [
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_1"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 1
+                    },
+                    "trigger": "fuuka:skill_1"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 1
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_1"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 1
+                    },
+                    "trigger": "fuuka:skill_1"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 1
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_1"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 1
+                    },
+                    "trigger": "fuuka:skill_1"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 1
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_2"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 2
+                    },
+                    "trigger": "fuuka:skill_2"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 2
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_2"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 2
+                    },
+                    "trigger": "fuuka:skill_2"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 2
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_3"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 3
+                    },
+                    "trigger": "fuuka:skill_3"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 3
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_4"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 4
+                    },
+                    "trigger": "fuuka:skill_4"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 4
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_6"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 6
+                    },
+                    "trigger": "fuuka:skill_6"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 6
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_9"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 9
+                    },
+                    "trigger": "fuuka:skill_9"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 9
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_10"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 10
+                    },
+                    "trigger": "fuuka:skill_10"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 10
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_7"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 7
+                    },
+                    "trigger": "fuuka:skill_7"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 7
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_11"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 11
+                    },
+                    "trigger": "fuuka:skill_11"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 11
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_11"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 11
+                    },
+                    "trigger": "fuuka:skill_11"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 11
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_4"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 4
+                    },
+                    "trigger": "fuuka:skill_4"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 4
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_6"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 6
+                    },
+                    "trigger": "fuuka:skill_6"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 6
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_14"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 14
+                    },
+                    "trigger": "fuuka:skill_14"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 14
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_13"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 13
+                    },
+                    "trigger": "fuuka:skill_13"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 13
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_14"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 14
+                    },
+                    "trigger": "fuuka:skill_14"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 14
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_14"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 14
+                    },
+                    "trigger": "fuuka:skill_14"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 14
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "fuuka:skill_12"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "!=",
+                      "value": 12
+                    },
+                    "trigger": "fuuka:skill_12"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "fuuka:last",
+                      "operator": "==",
+                      "value": 12
+                    },
+                    "trigger": "fuuka:choose_retry"
+                  }
+                ]
               }
             ]
           }
@@ -2158,6 +4198,562 @@
                 "tag @s remove vb_paused"
               ]
             }
+          }
+        ]
+      },
+      "fuuka:choose_retry": {
+        "sequence": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 0
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "fuuka_near"
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_8"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_8"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_61"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_62"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_7"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_3"
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 0
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "fuuka_near"
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_3"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_4"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_6"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_9"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_7"
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 1
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "fuuka_near"
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_8"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_8"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_61"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_62"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_7"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_3"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_7"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_61"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_62"
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 1
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "fuuka_near"
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_3"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_4"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_6"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_9"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_7"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_11"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_11"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_4"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_6"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_14"
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 2
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "fuuka_near"
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_8"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_8"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_61"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_62"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_7"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_3"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_7"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_61"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_62"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_12"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_12"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_13"
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 2
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "fuuka_near"
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_3"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_4"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_6"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_9"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_7"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_11"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_11"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_4"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_6"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "fuuka:skill_12"
+              }
+            ]
+          }
+        ]
+      },
+      "fuuka:evade": {
+        "sequence": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "random_chance",
+                  "value": 5
+                }
+              ]
+            },
+            "trigger": "fuuka:skill_5"
           }
         ]
       }

@@ -65,6 +65,14 @@
           ],
           "default": 0,
           "client_sync": true
+        },
+        "byakuya:last": {
+          "type": "int",
+          "range": [
+            0,
+            99
+          ],
+          "default": 0
         }
       }
     },
@@ -881,18 +889,25 @@
         }
       },
       "byakuya:on_hit": {
-        "randomize": [
+        "sequence": [
           {
-            "weight": 15,
-            "trigger": "byakuya:parry"
+            "randomize": [
+              {
+                "weight": 15,
+                "trigger": "byakuya:parry"
+              },
+              {
+                "weight": 85,
+                "queue_command": {
+                  "command": [
+                    "particle byakuya:spark_burst ~ ~1.2 ~"
+                  ]
+                }
+              }
+            ]
           },
           {
-            "weight": 85,
-            "queue_command": {
-              "command": [
-                "particle byakuya:spark_burst ~ ~1.2 ~"
-              ]
-            }
+            "trigger": "byakuya:evade"
           }
         ]
       },
@@ -1121,6 +1136,9 @@
           "component_groups": [
             "v_1"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 1
         }
       },
       "byakuya:skill_2": {
@@ -1165,6 +1183,9 @@
           "component_groups": [
             "v_2"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 2
         }
       },
       "byakuya:skill_3": {
@@ -1209,6 +1230,9 @@
           "component_groups": [
             "v_3"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 3
         }
       },
       "byakuya:skill_4": {
@@ -1253,6 +1277,9 @@
           "component_groups": [
             "v_4"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 4
         }
       },
       "byakuya:skill_5": {
@@ -1297,6 +1324,9 @@
           "component_groups": [
             "v_5"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 5
         }
       },
       "byakuya:skill_6": {
@@ -1341,6 +1371,9 @@
           "component_groups": [
             "v_6"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 6
         }
       },
       "byakuya:skill_7": {
@@ -1385,6 +1418,9 @@
           "component_groups": [
             "v_7"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 7
         }
       },
       "byakuya:skill_8": {
@@ -1431,6 +1467,9 @@
             "v_8",
             "hopper_guard"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 8
         }
       },
       "byakuya:skill_9": {
@@ -1475,6 +1514,9 @@
           "component_groups": [
             "v_9"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 9
         }
       },
       "byakuya:skill_10": {
@@ -1519,6 +1561,9 @@
           "component_groups": [
             "v_10"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 10
         }
       },
       "byakuya:skill_11": {
@@ -1563,6 +1608,9 @@
           "component_groups": [
             "v_11"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 11
         }
       },
       "byakuya:skill_12": {
@@ -1607,6 +1655,9 @@
           "component_groups": [
             "v_12"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 12
         }
       },
       "byakuya:skill_13": {
@@ -1651,6 +1702,9 @@
           "component_groups": [
             "v_13"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 13
         }
       },
       "byakuya:skill_14": {
@@ -1695,6 +1749,9 @@
           "component_groups": [
             "v_14"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 14
         }
       },
       "byakuya:skill_15": {
@@ -1739,6 +1796,9 @@
           "component_groups": [
             "v_15"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 15
         }
       },
       "byakuya:skill_16": {
@@ -1783,6 +1843,9 @@
           "component_groups": [
             "v_16"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 16
         }
       },
       "byakuya:skill_17": {
@@ -1827,6 +1890,9 @@
           "component_groups": [
             "v_17"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 17
         }
       },
       "byakuya:skill_18": {
@@ -1871,6 +1937,9 @@
           "component_groups": [
             "v_18"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 18
         }
       },
       "byakuya:skill_19": {
@@ -1917,6 +1986,9 @@
             "v_19",
             "mikiri_guard"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 19
         }
       },
       "byakuya:skill_21": {
@@ -1961,6 +2033,9 @@
           "component_groups": [
             "v_21"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 21
         }
       },
       "byakuya:skill_22": {
@@ -2005,6 +2080,9 @@
           "component_groups": [
             "v_22"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 22
         }
       },
       "byakuya:skill_23": {
@@ -2049,6 +2127,9 @@
           "component_groups": [
             "v_23"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 23
         }
       },
       "byakuya:skill_24": {
@@ -2093,6 +2174,9 @@
           "component_groups": [
             "v_24"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 24
         }
       },
       "byakuya:skill_25": {
@@ -2137,6 +2221,9 @@
           "component_groups": [
             "v_25"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 25
         }
       },
       "byakuya:skill_26": {
@@ -2181,6 +2268,9 @@
           "component_groups": [
             "v_26"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 26
         }
       },
       "byakuya:skill_27": {
@@ -2225,6 +2315,9 @@
           "component_groups": [
             "v_27"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 27
         }
       },
       "byakuya:skill_60": {
@@ -2269,6 +2362,9 @@
           "component_groups": [
             "v_60"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 60
         }
       },
       "byakuya:skill_61": {
@@ -2313,6 +2409,9 @@
           "component_groups": [
             "v_61"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 61
         }
       },
       "byakuya:skill_62": {
@@ -2357,6 +2456,9 @@
           "component_groups": [
             "v_62"
           ]
+        },
+        "set_property": {
+          "byakuya:last": 62
         }
       },
       "byakuya:mikiri_counter": {
@@ -2433,31 +2535,178 @@
             "randomize": [
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_1"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 1
+                    },
+                    "trigger": "byakuya:skill_1"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 1
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_2"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 2
+                    },
+                    "trigger": "byakuya:skill_2"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 2
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_3"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 3
+                    },
+                    "trigger": "byakuya:skill_3"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 3
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_4"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 4
+                    },
+                    "trigger": "byakuya:skill_4"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 4
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_5"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 5
+                    },
+                    "trigger": "byakuya:skill_5"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 5
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_6"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 6
+                    },
+                    "trigger": "byakuya:skill_6"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 6
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_8"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 8
+                    },
+                    "trigger": "byakuya:skill_8"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 8
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
@@ -2465,55 +2714,328 @@
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_10"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 10
+                    },
+                    "trigger": "byakuya:skill_10"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 10
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_17"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 17
+                    },
+                    "trigger": "byakuya:skill_17"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 17
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_17"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 17
+                    },
+                    "trigger": "byakuya:skill_17"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 17
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_19"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 19
+                    },
+                    "trigger": "byakuya:skill_19"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 19
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_22"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 22
+                    },
+                    "trigger": "byakuya:skill_22"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 22
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_22"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 22
+                    },
+                    "trigger": "byakuya:skill_22"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 22
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_13"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 13
+                    },
+                    "trigger": "byakuya:skill_13"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 13
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_24"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 24
+                    },
+                    "trigger": "byakuya:skill_24"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 24
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_27"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 27
+                    },
+                    "trigger": "byakuya:skill_27"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 27
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_60"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 60
+                    },
+                    "trigger": "byakuya:skill_60"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 60
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_60"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 60
+                    },
+                    "trigger": "byakuya:skill_60"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 60
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_61"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 61
+                    },
+                    "trigger": "byakuya:skill_61"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 61
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_62"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 62
+                    },
+                    "trigger": "byakuya:skill_62"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 62
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               }
             ]
           },
@@ -2552,71 +3074,428 @@
             "randomize": [
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_1"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 1
+                    },
+                    "trigger": "byakuya:skill_1"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 1
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_2"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 2
+                    },
+                    "trigger": "byakuya:skill_2"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 2
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_4"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 4
+                    },
+                    "trigger": "byakuya:skill_4"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 4
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_5"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 5
+                    },
+                    "trigger": "byakuya:skill_5"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 5
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_7"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 7
+                    },
+                    "trigger": "byakuya:skill_7"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 7
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_13"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 13
+                    },
+                    "trigger": "byakuya:skill_13"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 13
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_13"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 13
+                    },
+                    "trigger": "byakuya:skill_13"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 13
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_14"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 14
+                    },
+                    "trigger": "byakuya:skill_14"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 14
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_14"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 14
+                    },
+                    "trigger": "byakuya:skill_14"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 14
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_15"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 15
+                    },
+                    "trigger": "byakuya:skill_15"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 15
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_15"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 15
+                    },
+                    "trigger": "byakuya:skill_15"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 15
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_16"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 16
+                    },
+                    "trigger": "byakuya:skill_16"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 16
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_16"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 16
+                    },
+                    "trigger": "byakuya:skill_16"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 16
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_18"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 18
+                    },
+                    "trigger": "byakuya:skill_18"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 18
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_18"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 18
+                    },
+                    "trigger": "byakuya:skill_18"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 18
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_24"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 24
+                    },
+                    "trigger": "byakuya:skill_24"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 24
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_60"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 60
+                    },
+                    "trigger": "byakuya:skill_60"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 60
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               }
             ]
           },
@@ -2655,31 +3534,178 @@
             "randomize": [
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_1"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 1
+                    },
+                    "trigger": "byakuya:skill_1"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 1
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_2"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 2
+                    },
+                    "trigger": "byakuya:skill_2"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 2
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_3"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 3
+                    },
+                    "trigger": "byakuya:skill_3"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 3
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_4"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 4
+                    },
+                    "trigger": "byakuya:skill_4"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 4
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_5"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 5
+                    },
+                    "trigger": "byakuya:skill_5"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 5
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_6"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 6
+                    },
+                    "trigger": "byakuya:skill_6"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 6
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_8"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 8
+                    },
+                    "trigger": "byakuya:skill_8"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 8
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
@@ -2687,95 +3713,578 @@
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_10"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 10
+                    },
+                    "trigger": "byakuya:skill_10"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 10
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_17"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 17
+                    },
+                    "trigger": "byakuya:skill_17"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 17
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_17"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 17
+                    },
+                    "trigger": "byakuya:skill_17"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 17
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_19"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 19
+                    },
+                    "trigger": "byakuya:skill_19"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 19
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_22"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 22
+                    },
+                    "trigger": "byakuya:skill_22"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 22
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_22"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 22
+                    },
+                    "trigger": "byakuya:skill_22"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 22
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_13"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 13
+                    },
+                    "trigger": "byakuya:skill_13"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 13
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_24"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 24
+                    },
+                    "trigger": "byakuya:skill_24"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 24
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_27"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 27
+                    },
+                    "trigger": "byakuya:skill_27"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 27
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_60"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 60
+                    },
+                    "trigger": "byakuya:skill_60"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 60
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_60"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 60
+                    },
+                    "trigger": "byakuya:skill_60"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 60
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_61"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 61
+                    },
+                    "trigger": "byakuya:skill_61"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 61
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_62"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 62
+                    },
+                    "trigger": "byakuya:skill_62"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 62
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_11"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 11
+                    },
+                    "trigger": "byakuya:skill_11"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 11
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_11"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 11
+                    },
+                    "trigger": "byakuya:skill_11"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 11
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_12"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 12
+                    },
+                    "trigger": "byakuya:skill_12"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 12
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_12"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 12
+                    },
+                    "trigger": "byakuya:skill_12"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 12
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_21"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 21
+                    },
+                    "trigger": "byakuya:skill_21"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 21
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_17"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 17
+                    },
+                    "trigger": "byakuya:skill_17"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 17
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_22"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 22
+                    },
+                    "trigger": "byakuya:skill_22"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 22
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_25"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 25
+                    },
+                    "trigger": "byakuya:skill_25"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 25
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_26"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 26
+                    },
+                    "trigger": "byakuya:skill_26"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 26
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_27"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 27
+                    },
+                    "trigger": "byakuya:skill_27"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 27
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               }
             ]
           },
@@ -2814,103 +4323,628 @@
             "randomize": [
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_1"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 1
+                    },
+                    "trigger": "byakuya:skill_1"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 1
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_2"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 2
+                    },
+                    "trigger": "byakuya:skill_2"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 2
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_4"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 4
+                    },
+                    "trigger": "byakuya:skill_4"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 4
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_5"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 5
+                    },
+                    "trigger": "byakuya:skill_5"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 5
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_7"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 7
+                    },
+                    "trigger": "byakuya:skill_7"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 7
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_13"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 13
+                    },
+                    "trigger": "byakuya:skill_13"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 13
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_13"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 13
+                    },
+                    "trigger": "byakuya:skill_13"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 13
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_14"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 14
+                    },
+                    "trigger": "byakuya:skill_14"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 14
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_14"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 14
+                    },
+                    "trigger": "byakuya:skill_14"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 14
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_15"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 15
+                    },
+                    "trigger": "byakuya:skill_15"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 15
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_15"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 15
+                    },
+                    "trigger": "byakuya:skill_15"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 15
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_16"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 16
+                    },
+                    "trigger": "byakuya:skill_16"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 16
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_16"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 16
+                    },
+                    "trigger": "byakuya:skill_16"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 16
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_18"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 18
+                    },
+                    "trigger": "byakuya:skill_18"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 18
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_18"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 18
+                    },
+                    "trigger": "byakuya:skill_18"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 18
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_24"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 24
+                    },
+                    "trigger": "byakuya:skill_24"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 24
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_60"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 60
+                    },
+                    "trigger": "byakuya:skill_60"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 60
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_21"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 21
+                    },
+                    "trigger": "byakuya:skill_21"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 21
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_13"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 13
+                    },
+                    "trigger": "byakuya:skill_13"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 13
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_14"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 14
+                    },
+                    "trigger": "byakuya:skill_14"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 14
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_15"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 15
+                    },
+                    "trigger": "byakuya:skill_15"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 15
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_16"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 16
+                    },
+                    "trigger": "byakuya:skill_16"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 16
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_18"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 18
+                    },
+                    "trigger": "byakuya:skill_18"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 18
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_25"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 25
+                    },
+                    "trigger": "byakuya:skill_25"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 25
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_26"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 26
+                    },
+                    "trigger": "byakuya:skill_26"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 26
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               }
             ]
           },
@@ -2949,31 +4983,178 @@
             "randomize": [
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_1"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 1
+                    },
+                    "trigger": "byakuya:skill_1"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 1
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_2"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 2
+                    },
+                    "trigger": "byakuya:skill_2"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 2
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_3"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 3
+                    },
+                    "trigger": "byakuya:skill_3"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 3
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_4"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 4
+                    },
+                    "trigger": "byakuya:skill_4"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 4
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_5"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 5
+                    },
+                    "trigger": "byakuya:skill_5"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 5
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_6"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 6
+                    },
+                    "trigger": "byakuya:skill_6"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 6
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_8"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 8
+                    },
+                    "trigger": "byakuya:skill_8"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 8
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
@@ -2981,111 +5162,678 @@
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_10"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 10
+                    },
+                    "trigger": "byakuya:skill_10"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 10
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_17"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 17
+                    },
+                    "trigger": "byakuya:skill_17"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 17
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_17"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 17
+                    },
+                    "trigger": "byakuya:skill_17"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 17
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_19"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 19
+                    },
+                    "trigger": "byakuya:skill_19"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 19
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_22"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 22
+                    },
+                    "trigger": "byakuya:skill_22"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 22
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_22"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 22
+                    },
+                    "trigger": "byakuya:skill_22"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 22
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_13"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 13
+                    },
+                    "trigger": "byakuya:skill_13"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 13
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_24"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 24
+                    },
+                    "trigger": "byakuya:skill_24"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 24
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_27"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 27
+                    },
+                    "trigger": "byakuya:skill_27"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 27
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_60"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 60
+                    },
+                    "trigger": "byakuya:skill_60"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 60
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_60"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 60
+                    },
+                    "trigger": "byakuya:skill_60"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 60
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_61"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 61
+                    },
+                    "trigger": "byakuya:skill_61"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 61
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_62"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 62
+                    },
+                    "trigger": "byakuya:skill_62"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 62
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_11"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 11
+                    },
+                    "trigger": "byakuya:skill_11"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 11
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_11"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 11
+                    },
+                    "trigger": "byakuya:skill_11"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 11
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_12"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 12
+                    },
+                    "trigger": "byakuya:skill_12"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 12
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_12"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 12
+                    },
+                    "trigger": "byakuya:skill_12"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 12
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_21"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 21
+                    },
+                    "trigger": "byakuya:skill_21"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 21
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_17"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 17
+                    },
+                    "trigger": "byakuya:skill_17"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 17
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_22"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 22
+                    },
+                    "trigger": "byakuya:skill_22"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 22
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_25"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 25
+                    },
+                    "trigger": "byakuya:skill_25"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 25
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_26"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 26
+                    },
+                    "trigger": "byakuya:skill_26"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 26
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_27"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 27
+                    },
+                    "trigger": "byakuya:skill_27"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 27
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_23"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 23
+                    },
+                    "trigger": "byakuya:skill_23"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 23
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_23"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 23
+                    },
+                    "trigger": "byakuya:skill_23"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 23
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_25"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 25
+                    },
+                    "trigger": "byakuya:skill_25"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 25
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_26"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 26
+                    },
+                    "trigger": "byakuya:skill_26"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 26
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               }
             ]
           },
@@ -3124,115 +5872,703 @@
             "randomize": [
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_1"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 1
+                    },
+                    "trigger": "byakuya:skill_1"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 1
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_2"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 2
+                    },
+                    "trigger": "byakuya:skill_2"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 2
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_4"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 4
+                    },
+                    "trigger": "byakuya:skill_4"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 4
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_5"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 5
+                    },
+                    "trigger": "byakuya:skill_5"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 5
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_7"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 7
+                    },
+                    "trigger": "byakuya:skill_7"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 7
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_13"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 13
+                    },
+                    "trigger": "byakuya:skill_13"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 13
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_13"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 13
+                    },
+                    "trigger": "byakuya:skill_13"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 13
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_14"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 14
+                    },
+                    "trigger": "byakuya:skill_14"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 14
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_14"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 14
+                    },
+                    "trigger": "byakuya:skill_14"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 14
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_15"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 15
+                    },
+                    "trigger": "byakuya:skill_15"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 15
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_15"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 15
+                    },
+                    "trigger": "byakuya:skill_15"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 15
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_16"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 16
+                    },
+                    "trigger": "byakuya:skill_16"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 16
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_16"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 16
+                    },
+                    "trigger": "byakuya:skill_16"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 16
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_18"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 18
+                    },
+                    "trigger": "byakuya:skill_18"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 18
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_18"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 18
+                    },
+                    "trigger": "byakuya:skill_18"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 18
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_24"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 24
+                    },
+                    "trigger": "byakuya:skill_24"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 24
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_60"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 60
+                    },
+                    "trigger": "byakuya:skill_60"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 60
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_21"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 21
+                    },
+                    "trigger": "byakuya:skill_21"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 21
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_13"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 13
+                    },
+                    "trigger": "byakuya:skill_13"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 13
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_14"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 14
+                    },
+                    "trigger": "byakuya:skill_14"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 14
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_15"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 15
+                    },
+                    "trigger": "byakuya:skill_15"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 15
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_16"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 16
+                    },
+                    "trigger": "byakuya:skill_16"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 16
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_18"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 18
+                    },
+                    "trigger": "byakuya:skill_18"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 18
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_25"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 25
+                    },
+                    "trigger": "byakuya:skill_25"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 25
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_26"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 26
+                    },
+                    "trigger": "byakuya:skill_26"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 26
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_23"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 23
+                    },
+                    "trigger": "byakuya:skill_23"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 23
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_23"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 23
+                    },
+                    "trigger": "byakuya:skill_23"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 23
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "byakuya:skill_25"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "!=",
+                      "value": 25
+                    },
+                    "trigger": "byakuya:skill_25"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "byakuya:last",
+                      "operator": "==",
+                      "value": 25
+                    },
+                    "trigger": "byakuya:choose_retry"
+                  }
+                ]
               }
             ]
           }
@@ -3487,6 +6823,871 @@
                 }
               }
             ]
+          }
+        ]
+      },
+      "byakuya:choose_retry": {
+        "sequence": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 0
+                },
+                {
+                  "all_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "value": "byakuya_near"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "vb_range"
+                    }
+                  ]
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_3"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_4"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_6"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_8"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:try_disarm"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_19"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_22"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_22"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_24"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_27"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_61"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_62"
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 0
+                },
+                {
+                  "any_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "byakuya_near"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "value": "vb_range"
+                    }
+                  ]
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_4"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_7"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_15"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_15"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_18"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_18"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_24"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_60"
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 1
+                },
+                {
+                  "all_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "value": "byakuya_near"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "vb_range"
+                    }
+                  ]
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_3"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_4"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_6"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_8"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:try_disarm"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_19"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_22"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_22"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_24"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_27"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_61"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_62"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_11"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_11"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_12"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_12"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_21"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_22"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_25"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_26"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_27"
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 1
+                },
+                {
+                  "any_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "byakuya_near"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "value": "vb_range"
+                    }
+                  ]
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_4"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_7"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_15"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_15"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_18"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_18"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_24"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_21"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_15"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_18"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_25"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_26"
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 2
+                },
+                {
+                  "all_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "value": "byakuya_near"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "vb_range"
+                    }
+                  ]
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_3"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_4"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_6"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_8"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:try_disarm"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_19"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_22"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_22"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_24"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_27"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_61"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_62"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_11"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_11"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_12"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_12"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_21"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_22"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_25"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_26"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_27"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_23"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_23"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_25"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_26"
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 2
+                },
+                {
+                  "any_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "byakuya_near"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "value": "vb_range"
+                    }
+                  ]
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_4"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_7"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_15"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_15"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_18"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_18"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_24"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_21"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_15"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_18"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_25"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_26"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_23"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_23"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_25"
+              }
+            ]
+          }
+        ]
+      },
+      "byakuya:evade": {
+        "sequence": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "random_chance",
+                  "value": 5
+                }
+              ]
+            },
+            "trigger": "byakuya:skill_60"
           }
         ]
       }

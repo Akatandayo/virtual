@@ -33,7 +33,7 @@ PERSONAL = os.path.join(ROOT, "personal")
 
 ID = "fuuka:tsukishima_fuuka"
 NAME = "月島 風花"
-VERSION = [1, 2, 0]
+VERSION = [1, 3, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "760895b1-a50e-4fa9-9a8f-b0b6b578a3ef"
 UUID_BP_MODULE = "91dcd908-5ce6-462a-ac32-57279a769143"
@@ -1320,7 +1320,7 @@ def main():
         write(os.path.join(d, "texts/languages.json"), ["ja_JP", "en_US"])
         face.save(os.path.join(d, "pack_icon.png"))
     # 声・足音・守りの反応・瀕死の演出
-    brushup_files(BP, RP, dict(id=ID, ns="fuuka", prop=None, react_events=[], react_anim=None,
+    brushup_files(BP, RP, dict(id=ID, ns="fuuka", prop=None, react_events=[], evade_events=["fuuka:on_hit"], evade_skill=5, react_anim=None,
              prefix="animation.fuuka", main_ctrl="controller.animation.fuuka.main", glow="fuuka_glow", pitch=1.3))
     os.makedirs(DIST, exist_ok=True)
     out = os.path.join(DIST, "TsukishimaFuuka_Boss.mcaddon")

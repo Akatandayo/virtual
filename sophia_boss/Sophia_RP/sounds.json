@@ -3,19 +3,7 @@
     "entities": {
       "sophia:sophia_heart": {
         "volume": 1.0,
-        "pitch": [
-          1.27,
-          1.43
-        ],
         "events": {
-          "hurt": {
-            "sound": "game.player.hurt",
-            "volume": 0.9
-          },
-          "death": {
-            "sound": "game.player.die",
-            "volume": 1.0
-          },
           "step": {
             "sound": "step.stone",
             "volume": 0.18,

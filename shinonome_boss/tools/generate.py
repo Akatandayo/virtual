@@ -28,7 +28,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "shinonome:toa"
 NAME = "東雲 永々"
-VERSION = [1, 7, 0]
+VERSION = [1, 8, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "a694ca4a-12aa-4554-8bdb-12089cc1e7f6"
 UUID_BP_MODULE = "f1947c40-91af-45a7-8801-580cb386961f"
@@ -1278,7 +1278,7 @@ def main():
         face.save(os.path.join(d, "pack_icon.png"))
     os.remove(tmp)
     # 声・足音・守りの反応・瀕死の演出
-    brushup_files(BP, RP, dict(id=ID, ns="shinonome", prop="shinonome:react", react_events=["shinonome:splash"],
+    brushup_files(BP, RP, dict(id=ID, ns="shinonome", prop="shinonome:react", react_events=["shinonome:splash"], evade_events=["shinonome:on_hit"], evade_skill=60,
              react_anim={"loop": True, "bones": {   # 混沌の体（水）: ぷるんと揺れる
                  "root": {"scale": ["1 + v.react * 0.18", "1 - v.react * 0.22", "1 + v.react * 0.18"]}}},
              prefix="animation.toa", main_ctrl="controller.animation.toa.main", glow="toa_glow", pitch=1.5))

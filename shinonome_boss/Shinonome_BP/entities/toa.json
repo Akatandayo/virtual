@@ -68,6 +68,14 @@
           ],
           "default": 0,
           "client_sync": true
+        },
+        "shinonome:last": {
+          "type": "int",
+          "range": [
+            0,
+            99
+          ],
+          "default": 0
         }
       }
     },
@@ -1050,12 +1058,19 @@
         }
       },
       "shinonome:on_hit": {
-        "queue_command": {
-          "command": [
-            "particle shinonome:spark ~ ~1 ~",
-            "execute if entity @e[family=toa_clone,r=48] run event entity @s shinonome:found"
-          ]
-        }
+        "sequence": [
+          {
+            "queue_command": {
+              "command": [
+                "particle shinonome:spark ~ ~1 ~",
+                "execute if entity @e[family=toa_clone,r=48] run event entity @s shinonome:found"
+              ]
+            }
+          },
+          {
+            "trigger": "shinonome:evade"
+          }
+        ]
       },
       "shinonome:found": {
         "queue_command": {
@@ -1299,6 +1314,9 @@
           "component_groups": [
             "v_1"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 1
         }
       },
       "shinonome:skill_2": {
@@ -1346,6 +1364,9 @@
           "component_groups": [
             "v_2"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 2
         }
       },
       "shinonome:skill_3": {
@@ -1393,6 +1414,9 @@
           "component_groups": [
             "v_3"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 3
         }
       },
       "shinonome:skill_4": {
@@ -1440,6 +1464,9 @@
           "component_groups": [
             "v_4"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 4
         }
       },
       "shinonome:skill_5": {
@@ -1487,6 +1514,9 @@
           "component_groups": [
             "v_5"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 5
         }
       },
       "shinonome:skill_6": {
@@ -1534,6 +1564,9 @@
           "component_groups": [
             "v_6"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 6
         }
       },
       "shinonome:skill_7": {
@@ -1581,6 +1614,9 @@
           "component_groups": [
             "v_7"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 7
         }
       },
       "shinonome:skill_8": {
@@ -1628,6 +1664,9 @@
           "component_groups": [
             "v_8"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 8
         }
       },
       "shinonome:skill_9": {
@@ -1675,6 +1714,9 @@
           "component_groups": [
             "v_9"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 9
         }
       },
       "shinonome:skill_10": {
@@ -1722,6 +1764,9 @@
           "component_groups": [
             "v_10"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 10
         }
       },
       "shinonome:skill_11": {
@@ -1769,6 +1814,9 @@
           "component_groups": [
             "v_11"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 11
         }
       },
       "shinonome:skill_12": {
@@ -1816,6 +1864,9 @@
           "component_groups": [
             "v_12"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 12
         }
       },
       "shinonome:skill_13": {
@@ -1863,6 +1914,9 @@
           "component_groups": [
             "v_13"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 13
         }
       },
       "shinonome:skill_14": {
@@ -1910,6 +1964,9 @@
           "component_groups": [
             "v_14"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 14
         }
       },
       "shinonome:skill_15": {
@@ -1957,6 +2014,9 @@
           "component_groups": [
             "v_15"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 15
         }
       },
       "shinonome:skill_16": {
@@ -2004,6 +2064,9 @@
           "component_groups": [
             "v_16"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 16
         }
       },
       "shinonome:skill_17": {
@@ -2051,6 +2114,9 @@
           "component_groups": [
             "v_17"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 17
         }
       },
       "shinonome:skill_18": {
@@ -2098,6 +2164,9 @@
           "component_groups": [
             "v_18"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 18
         }
       },
       "shinonome:skill_19": {
@@ -2145,6 +2214,9 @@
           "component_groups": [
             "v_19"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 19
         }
       },
       "shinonome:skill_20": {
@@ -2195,6 +2267,9 @@
             "v_20",
             "water"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 20
         }
       },
       "shinonome:skill_21": {
@@ -2242,6 +2317,9 @@
           "component_groups": [
             "v_21"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 21
         }
       },
       "shinonome:skill_22": {
@@ -2289,6 +2367,9 @@
           "component_groups": [
             "v_22"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 22
         }
       },
       "shinonome:skill_23": {
@@ -2336,6 +2417,9 @@
           "component_groups": [
             "v_23"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 23
         }
       },
       "shinonome:skill_24": {
@@ -2383,6 +2467,9 @@
           "component_groups": [
             "v_24"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 24
         }
       },
       "shinonome:skill_51": {
@@ -2430,6 +2517,9 @@
           "component_groups": [
             "v_51"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 51
         }
       },
       "shinonome:skill_52": {
@@ -2477,6 +2567,9 @@
           "component_groups": [
             "v_52"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 52
         }
       },
       "shinonome:skill_53": {
@@ -2524,6 +2617,9 @@
           "component_groups": [
             "v_53"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 53
         }
       },
       "shinonome:skill_54": {
@@ -2571,6 +2667,9 @@
           "component_groups": [
             "v_54"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 54
         }
       },
       "shinonome:skill_55": {
@@ -2618,6 +2717,9 @@
           "component_groups": [
             "v_55"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 55
         }
       },
       "shinonome:skill_60": {
@@ -2665,6 +2767,9 @@
           "component_groups": [
             "v_60"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 60
         }
       },
       "shinonome:skill_61": {
@@ -2712,6 +2817,9 @@
           "component_groups": [
             "v_61"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 61
         }
       },
       "shinonome:skill_62": {
@@ -2759,6 +2867,9 @@
           "component_groups": [
             "v_62"
           ]
+        },
+        "set_property": {
+          "shinonome:last": 62
         }
       },
       "shinonome:choose_skill": {
@@ -2798,75 +2909,453 @@
             "randomize": [
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_1"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 1
+                    },
+                    "trigger": "shinonome:skill_1"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 1
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_51"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 51
+                    },
+                    "trigger": "shinonome:skill_51"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 51
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_52"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 52
+                    },
+                    "trigger": "shinonome:skill_52"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 52
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_2"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 2
+                    },
+                    "trigger": "shinonome:skill_2"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 2
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_3"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 3
+                    },
+                    "trigger": "shinonome:skill_3"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 3
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_4"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 4
+                    },
+                    "trigger": "shinonome:skill_4"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 4
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_6"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 6
+                    },
+                    "trigger": "shinonome:skill_6"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 6
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_8"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 8
+                    },
+                    "trigger": "shinonome:skill_8"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 8
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_11"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 11
+                    },
+                    "trigger": "shinonome:skill_11"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 11
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_12"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 12
+                    },
+                    "trigger": "shinonome:skill_12"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 12
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_13"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 13
+                    },
+                    "trigger": "shinonome:skill_13"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 13
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_14"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 14
+                    },
+                    "trigger": "shinonome:skill_14"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 14
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_14"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 14
+                    },
+                    "trigger": "shinonome:skill_14"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 14
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_9"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 9
+                    },
+                    "trigger": "shinonome:skill_9"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 9
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_60"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 60
+                    },
+                    "trigger": "shinonome:skill_60"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 60
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_60"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 60
+                    },
+                    "trigger": "shinonome:skill_60"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 60
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_61"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 61
+                    },
+                    "trigger": "shinonome:skill_61"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 61
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_62"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 62
+                    },
+                    "trigger": "shinonome:skill_62"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 62
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               }
             ]
           },
@@ -2905,63 +3394,378 @@
             "randomize": [
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_1"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 1
+                    },
+                    "trigger": "shinonome:skill_1"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 1
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_51"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 51
+                    },
+                    "trigger": "shinonome:skill_51"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 51
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_52"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 52
+                    },
+                    "trigger": "shinonome:skill_52"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 52
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_2"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 2
+                    },
+                    "trigger": "shinonome:skill_2"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 2
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_3"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 3
+                    },
+                    "trigger": "shinonome:skill_3"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 3
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_4"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 4
+                    },
+                    "trigger": "shinonome:skill_4"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 4
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_5"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 5
+                    },
+                    "trigger": "shinonome:skill_5"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 5
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_5"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 5
+                    },
+                    "trigger": "shinonome:skill_5"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 5
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_7"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 7
+                    },
+                    "trigger": "shinonome:skill_7"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 7
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_7"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 7
+                    },
+                    "trigger": "shinonome:skill_7"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 7
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_8"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 8
+                    },
+                    "trigger": "shinonome:skill_8"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 8
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_9"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 9
+                    },
+                    "trigger": "shinonome:skill_9"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 9
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_10"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 10
+                    },
+                    "trigger": "shinonome:skill_10"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 10
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_10"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 10
+                    },
+                    "trigger": "shinonome:skill_10"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 10
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_60"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 60
+                    },
+                    "trigger": "shinonome:skill_60"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 60
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               }
             ]
           },
@@ -3000,111 +3804,678 @@
             "randomize": [
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_2"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 2
+                    },
+                    "trigger": "shinonome:skill_2"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 2
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_3"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 3
+                    },
+                    "trigger": "shinonome:skill_3"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 3
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_4"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 4
+                    },
+                    "trigger": "shinonome:skill_4"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 4
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_6"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 6
+                    },
+                    "trigger": "shinonome:skill_6"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 6
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_8"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 8
+                    },
+                    "trigger": "shinonome:skill_8"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 8
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_11"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 11
+                    },
+                    "trigger": "shinonome:skill_11"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 11
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_12"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 12
+                    },
+                    "trigger": "shinonome:skill_12"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 12
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_13"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 13
+                    },
+                    "trigger": "shinonome:skill_13"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 13
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_14"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 14
+                    },
+                    "trigger": "shinonome:skill_14"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 14
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_14"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 14
+                    },
+                    "trigger": "shinonome:skill_14"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 14
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_9"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 9
+                    },
+                    "trigger": "shinonome:skill_9"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 9
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_60"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 60
+                    },
+                    "trigger": "shinonome:skill_60"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 60
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_60"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 60
+                    },
+                    "trigger": "shinonome:skill_60"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 60
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_61"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 61
+                    },
+                    "trigger": "shinonome:skill_61"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 61
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_62"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 62
+                    },
+                    "trigger": "shinonome:skill_62"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 62
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_53"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 53
+                    },
+                    "trigger": "shinonome:skill_53"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 53
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_54"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 54
+                    },
+                    "trigger": "shinonome:skill_54"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 54
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_55"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 55
+                    },
+                    "trigger": "shinonome:skill_55"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 55
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_15"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 15
+                    },
+                    "trigger": "shinonome:skill_15"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 15
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_16"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 16
+                    },
+                    "trigger": "shinonome:skill_16"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 16
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_17"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 17
+                    },
+                    "trigger": "shinonome:skill_17"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 17
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_18"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 18
+                    },
+                    "trigger": "shinonome:skill_18"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 18
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_19"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 19
+                    },
+                    "trigger": "shinonome:skill_19"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 19
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_20"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 20
+                    },
+                    "trigger": "shinonome:skill_20"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 20
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_21"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 21
+                    },
+                    "trigger": "shinonome:skill_21"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 21
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_22"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 22
+                    },
+                    "trigger": "shinonome:skill_22"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 22
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_23"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 23
+                    },
+                    "trigger": "shinonome:skill_23"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 23
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               }
             ]
           },
@@ -3143,95 +4514,578 @@
             "randomize": [
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_2"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 2
+                    },
+                    "trigger": "shinonome:skill_2"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 2
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_3"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 3
+                    },
+                    "trigger": "shinonome:skill_3"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 3
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_4"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 4
+                    },
+                    "trigger": "shinonome:skill_4"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 4
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_5"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 5
+                    },
+                    "trigger": "shinonome:skill_5"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 5
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_5"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 5
+                    },
+                    "trigger": "shinonome:skill_5"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 5
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_7"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 7
+                    },
+                    "trigger": "shinonome:skill_7"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 7
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_7"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 7
+                    },
+                    "trigger": "shinonome:skill_7"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 7
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_8"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 8
+                    },
+                    "trigger": "shinonome:skill_8"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 8
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_9"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 9
+                    },
+                    "trigger": "shinonome:skill_9"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 9
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_10"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 10
+                    },
+                    "trigger": "shinonome:skill_10"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 10
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_10"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 10
+                    },
+                    "trigger": "shinonome:skill_10"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 10
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_60"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 60
+                    },
+                    "trigger": "shinonome:skill_60"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 60
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_53"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 53
+                    },
+                    "trigger": "shinonome:skill_53"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 53
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_54"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 54
+                    },
+                    "trigger": "shinonome:skill_54"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 54
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_55"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 55
+                    },
+                    "trigger": "shinonome:skill_55"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 55
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_15"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 15
+                    },
+                    "trigger": "shinonome:skill_15"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 15
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_16"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 16
+                    },
+                    "trigger": "shinonome:skill_16"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 16
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_17"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 17
+                    },
+                    "trigger": "shinonome:skill_17"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 17
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_18"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 18
+                    },
+                    "trigger": "shinonome:skill_18"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 18
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_18"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 18
+                    },
+                    "trigger": "shinonome:skill_18"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 18
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_19"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 19
+                    },
+                    "trigger": "shinonome:skill_19"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 19
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_21"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 21
+                    },
+                    "trigger": "shinonome:skill_21"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 21
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_22"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 22
+                    },
+                    "trigger": "shinonome:skill_22"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 22
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               }
             ]
           },
@@ -3270,127 +5124,778 @@
             "randomize": [
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_2"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 2
+                    },
+                    "trigger": "shinonome:skill_2"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 2
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_3"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 3
+                    },
+                    "trigger": "shinonome:skill_3"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 3
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_4"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 4
+                    },
+                    "trigger": "shinonome:skill_4"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 4
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_6"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 6
+                    },
+                    "trigger": "shinonome:skill_6"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 6
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_8"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 8
+                    },
+                    "trigger": "shinonome:skill_8"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 8
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_11"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 11
+                    },
+                    "trigger": "shinonome:skill_11"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 11
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_12"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 12
+                    },
+                    "trigger": "shinonome:skill_12"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 12
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_13"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 13
+                    },
+                    "trigger": "shinonome:skill_13"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 13
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_14"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 14
+                    },
+                    "trigger": "shinonome:skill_14"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 14
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_14"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 14
+                    },
+                    "trigger": "shinonome:skill_14"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 14
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_9"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 9
+                    },
+                    "trigger": "shinonome:skill_9"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 9
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_60"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 60
+                    },
+                    "trigger": "shinonome:skill_60"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 60
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_60"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 60
+                    },
+                    "trigger": "shinonome:skill_60"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 60
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_61"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 61
+                    },
+                    "trigger": "shinonome:skill_61"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 61
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_62"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 62
+                    },
+                    "trigger": "shinonome:skill_62"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 62
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_53"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 53
+                    },
+                    "trigger": "shinonome:skill_53"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 53
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_54"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 54
+                    },
+                    "trigger": "shinonome:skill_54"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 54
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_55"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 55
+                    },
+                    "trigger": "shinonome:skill_55"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 55
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_15"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 15
+                    },
+                    "trigger": "shinonome:skill_15"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 15
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_16"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 16
+                    },
+                    "trigger": "shinonome:skill_16"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 16
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_17"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 17
+                    },
+                    "trigger": "shinonome:skill_17"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 17
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_18"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 18
+                    },
+                    "trigger": "shinonome:skill_18"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 18
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_19"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 19
+                    },
+                    "trigger": "shinonome:skill_19"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 19
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_20"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 20
+                    },
+                    "trigger": "shinonome:skill_20"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 20
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_21"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 21
+                    },
+                    "trigger": "shinonome:skill_21"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 21
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_22"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 22
+                    },
+                    "trigger": "shinonome:skill_22"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 22
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_23"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 23
+                    },
+                    "trigger": "shinonome:skill_23"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 23
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_24"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 24
+                    },
+                    "trigger": "shinonome:skill_24"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 24
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_24"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 24
+                    },
+                    "trigger": "shinonome:skill_24"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 24
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_16"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 16
+                    },
+                    "trigger": "shinonome:skill_16"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 16
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_22"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 22
+                    },
+                    "trigger": "shinonome:skill_22"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 22
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               }
             ]
           },
@@ -3429,111 +5934,678 @@
             "randomize": [
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_2"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 2
+                    },
+                    "trigger": "shinonome:skill_2"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 2
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_3"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 3
+                    },
+                    "trigger": "shinonome:skill_3"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 3
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_4"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 4
+                    },
+                    "trigger": "shinonome:skill_4"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 4
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_5"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 5
+                    },
+                    "trigger": "shinonome:skill_5"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 5
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_5"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 5
+                    },
+                    "trigger": "shinonome:skill_5"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 5
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_7"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 7
+                    },
+                    "trigger": "shinonome:skill_7"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 7
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_7"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 7
+                    },
+                    "trigger": "shinonome:skill_7"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 7
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_8"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 8
+                    },
+                    "trigger": "shinonome:skill_8"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 8
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_9"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 9
+                    },
+                    "trigger": "shinonome:skill_9"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 9
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_10"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 10
+                    },
+                    "trigger": "shinonome:skill_10"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 10
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_10"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 10
+                    },
+                    "trigger": "shinonome:skill_10"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 10
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_60"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 60
+                    },
+                    "trigger": "shinonome:skill_60"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 60
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_53"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 53
+                    },
+                    "trigger": "shinonome:skill_53"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 53
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_54"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 54
+                    },
+                    "trigger": "shinonome:skill_54"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 54
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_55"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 55
+                    },
+                    "trigger": "shinonome:skill_55"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 55
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_15"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 15
+                    },
+                    "trigger": "shinonome:skill_15"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 15
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_16"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 16
+                    },
+                    "trigger": "shinonome:skill_16"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 16
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_17"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 17
+                    },
+                    "trigger": "shinonome:skill_17"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 17
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_18"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 18
+                    },
+                    "trigger": "shinonome:skill_18"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 18
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_18"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 18
+                    },
+                    "trigger": "shinonome:skill_18"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 18
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_19"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 19
+                    },
+                    "trigger": "shinonome:skill_19"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 19
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_21"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 21
+                    },
+                    "trigger": "shinonome:skill_21"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 21
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_22"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 22
+                    },
+                    "trigger": "shinonome:skill_22"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 22
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_24"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 24
+                    },
+                    "trigger": "shinonome:skill_24"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 24
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_17"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 17
+                    },
+                    "trigger": "shinonome:skill_17"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 17
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_18"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 18
+                    },
+                    "trigger": "shinonome:skill_18"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 18
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               },
               {
                 "weight": 10,
-                "trigger": "shinonome:skill_22"
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "!=",
+                      "value": 22
+                    },
+                    "trigger": "shinonome:skill_22"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "shinonome:last",
+                      "operator": "==",
+                      "value": 22
+                    },
+                    "trigger": "shinonome:choose_retry"
+                  }
+                ]
               }
             ]
           }
@@ -3788,6 +6860,807 @@
                 }
               }
             ]
+          }
+        ]
+      },
+      "shinonome:choose_retry": {
+        "sequence": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 0
+                },
+                {
+                  "all_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "value": "shinonome_near"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "vb_range"
+                    }
+                  ]
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_51"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_52"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_3"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_4"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_6"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_8"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_11"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_12"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_9"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_61"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_62"
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 0
+                },
+                {
+                  "any_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "shinonome_near"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "value": "vb_range"
+                    }
+                  ]
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_1"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_51"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_52"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_3"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_4"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_7"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_7"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_8"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_9"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_60"
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 1
+                },
+                {
+                  "all_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "value": "shinonome_near"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "vb_range"
+                    }
+                  ]
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_3"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_4"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_6"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_8"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_11"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_12"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_9"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_61"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_62"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_53"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_54"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_55"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_15"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_18"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_19"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_20"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_21"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_22"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_23"
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 1
+                },
+                {
+                  "any_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "shinonome_near"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "value": "vb_range"
+                    }
+                  ]
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_3"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_4"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_7"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_7"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_8"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_9"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_53"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_54"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_55"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_15"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_18"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_18"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_19"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_21"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_22"
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 2
+                },
+                {
+                  "all_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "value": "shinonome_near"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "vb_range"
+                    }
+                  ]
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_3"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_4"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_6"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_8"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_11"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_12"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_13"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_14"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_9"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_61"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_62"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_53"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_54"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_55"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_15"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_18"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_19"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_20"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_21"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_22"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_23"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_24"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_24"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_22"
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 2
+                },
+                {
+                  "any_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "shinonome_near"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "value": "vb_range"
+                    }
+                  ]
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_2"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_3"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_4"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_5"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_7"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_7"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_8"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_9"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_60"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_53"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_54"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_55"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_15"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_16"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_18"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_18"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_19"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_21"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_22"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_24"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_17"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_18"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_22"
+              }
+            ]
+          }
+        ]
+      },
+      "shinonome:evade": {
+        "sequence": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "random_chance",
+                  "value": 5
+                }
+              ]
+            },
+            "trigger": "shinonome:skill_60"
           }
         ]
       }

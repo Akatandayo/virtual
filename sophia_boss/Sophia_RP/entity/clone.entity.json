@@ -94,7 +94,8 @@
         "s62": "animation.sophia.skill_62",
         "fx": "animation.sophia.clone_fx",
         "react": "animation.sophia.react",
-        "desperate": "animation.sophia.desperate"
+        "desperate": "animation.sophia.desperate",
+        "pant": "animation.sophia.pant"
       },
       "scripts": {
         "animate": [

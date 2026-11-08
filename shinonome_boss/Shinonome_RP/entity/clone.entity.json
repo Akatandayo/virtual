@@ -98,7 +98,8 @@
         "s61": "animation.toa.skill_61",
         "s62": "animation.toa.skill_62",
         "react": "animation.toa.react",
-        "desperate": "animation.toa.desperate"
+        "desperate": "animation.toa.desperate",
+        "pant": "animation.toa.pant"
       },
       "scripts": {
         "animate": [

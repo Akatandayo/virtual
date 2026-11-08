@@ -22,6 +22,39 @@
           }
         ]
       }
+    },
+    "animation.fuuka.pant": {
+      "loop": true,
+      "bones": {
+        "body": {
+          "rotation": [
+            "5 + math.sin(q.life_time * 260) * 3",
+            0,
+            0
+          ]
+        },
+        "head": {
+          "rotation": [
+            "9 + math.sin(q.life_time * 260 + 40) * 2.5",
+            0,
+            0
+          ]
+        },
+        "rightArm": {
+          "rotation": [
+            "math.sin(q.life_time * 260) * 2",
+            0,
+            "math.sin(q.life_time * 260) * 2"
+          ]
+        },
+        "leftArm": {
+          "rotation": [
+            "math.sin(q.life_time * 260) * 2",
+            0,
+            "-math.sin(q.life_time * 260) * 2"
+          ]
+        }
+      }
     }
   }
 }

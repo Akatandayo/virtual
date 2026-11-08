@@ -76,7 +76,8 @@
         "s61": "animation.fuuka.skill_61",
         "s62": "animation.fuuka.skill_62",
         "react": "animation.fuuka.react",
-        "desperate": "animation.fuuka.desperate"
+        "desperate": "animation.fuuka.desperate",
+        "pant": "animation.fuuka.pant"
       },
       "scripts": {
         "animate": [

@@ -28,7 +28,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "byakuya:shiraishi_byakuya"
 NAME = "白石白夜"
-VERSION = [1, 9, 0]
+VERSION = [1, 10, 0]
 MIN_ENGINE = [1, 21, 0]
 
 UUID_BP_HEADER = "293c6dbc-978c-4439-aa05-c2fa6e63c99d"
@@ -1115,7 +1115,7 @@ def main():
 
     # .mcaddon
     # 声・足音・守りの反応・瀕死の演出
-    brushup_files(BP, RP, dict(id=ID, ns="byakuya", prop="byakuya:react", react_events=["byakuya:parry", "byakuya:mikiri_counter"],
+    brushup_files(BP, RP, dict(id=ID, ns="byakuya", prop="byakuya:react", react_events=["byakuya:parry", "byakuya:mikiri_counter"], evade_events=["byakuya:on_hit"], evade_skill=60,
              react_anim={"loop": True, "bones": {   # 受け流し: 刀で受け止めて、少し押し下がる
                  "rightArm": {"rotation": ["-v.react * 70", "-v.react * 35", 0]},
                  "body": {"rotation": [0, "v.react * 15", 0]}, "root": {"position": [0, 0, "v.react * 1.2"]}}},

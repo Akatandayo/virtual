@@ -27,7 +27,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "sophia:sophia_heart"
 NAME = "ソフィア・ハート"
-VERSION = [1, 7, 0]
+VERSION = [1, 8, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "61396506-b3f5-4a1b-92f6-8e34dc87c6de"
 UUID_BP_MODULE = "c8d8c5f1-e6b7-46bb-8808-2e50aa8d0842"
@@ -1311,7 +1311,7 @@ def main():
         face.alpha_composite(hat)
         face.save(os.path.join(d, "pack_icon.png"))
     # 声・足音・守りの反応・瀕死の演出
-    brushup_files(BP, RP, dict(id=ID, ns="sophia", prop="sophia:react", react_events=["sophia:barrier_hit"],
+    brushup_files(BP, RP, dict(id=ID, ns="sophia", prop="sophia:react", react_events=["sophia:barrier_hit"], evade_events=["sophia:on_hit"], evade_skill=60,
              react_anim={"loop": True, "bones": {   # リフバリア: 左手をかざして受け止める
                  "leftArm": {"rotation": ["-v.react * 85", "v.react * 10", 0]},
                  "body": {"rotation": ["-v.react * 8", "-v.react * 15", 0]}}},

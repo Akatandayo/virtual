@@ -3,19 +3,7 @@
     "entities": {
       "shinonome:toa": {
         "volume": 1.0,
-        "pitch": [
-          1.41,
-          1.59
-        ],
         "events": {
-          "hurt": {
-            "sound": "game.player.hurt",
-            "volume": 0.9
-          },
-          "death": {
-            "sound": "game.player.die",
-            "volume": 1.0
-          },
           "step": {
             "sound": "step.stone",
             "volume": 0.18,

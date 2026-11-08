@@ -77,7 +77,8 @@
         "s62": "animation.hitori.skill_62",
         "s99": "animation.hitori.skill_99",
         "react": "animation.hitori.react",
-        "desperate": "animation.hitori.desperate"
+        "desperate": "animation.hitori.desperate",
+        "pant": "animation.hitori.pant"
       },
       "scripts": {
         "animate": [

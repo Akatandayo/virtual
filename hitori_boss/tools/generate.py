@@ -29,7 +29,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "hitori:denshi_hitori"
 NAME = "電子 独"
-VERSION = [1, 8, 0]
+VERSION = [1, 9, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "9b78d68f-ebde-4768-989c-96ab7fa09e02"
 UUID_BP_MODULE = "9263edb8-7005-4aa3-82a3-54ec6c07aaf0"
@@ -1297,7 +1297,7 @@ def main():
         write(os.path.join(d, "texts/languages.json"), ["ja_JP", "en_US"])
         open(os.path.join(d, "pack_icon.png"), "wb").write(skin_bytes)
     # 声・足音・守りの反応・瀕死の演出
-    brushup_files(BP, RP, dict(id=ID, ns="hitori", prop="hitori:react", react_events=["hitori:glitch_hit"],
+    brushup_files(BP, RP, dict(id=ID, ns="hitori", prop="hitori:react", react_events=["hitori:glitch_hit"], evade_events=["hitori:glitch_hit"], evade_skill=60,
              react_anim={"loop": True, "bones": {   # Glitch が攻撃を飲み込む: 体がブレて、一瞬 T ポーズ
                  "root": {"position": ["v.react * math.random(-1.5, 1.5)", 0, "v.react * math.random(-1.5, 1.5)"]},
                  "head": {"rotation": [0, 0, "v.react * 35"]}, "rightArm": {"rotation": [0, 0, "v.react * 70"]},
