@@ -10,6 +10,7 @@
             "idle",
             "move",
             "hurt",
+            "dodge",
             {
               "idle_flavor": "math.clamp((0.35 - v.spd) * 5.0, 0.0, 1.0)"
             },
@@ -98,6 +99,7 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
+            "dodge",
             "alive"
           ],
           "transitions": [
@@ -119,6 +121,7 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
+            "dodge",
             "alive"
           ],
           "transitions": [
@@ -140,6 +143,7 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
+            "dodge",
             "alive"
           ],
           "transitions": [
@@ -161,6 +165,7 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
+            "dodge",
             "alive"
           ],
           "transitions": [
@@ -182,6 +187,7 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
+            "dodge",
             "alive"
           ],
           "transitions": [
@@ -203,6 +209,7 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
+            "dodge",
             "alive"
           ],
           "transitions": [
@@ -224,6 +231,7 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
+            "dodge",
             "alive"
           ],
           "transitions": [
@@ -245,6 +253,7 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
+            "dodge",
             "alive"
           ],
           "transitions": [
@@ -266,6 +275,7 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
+            "dodge",
             "alive"
           ],
           "transitions": [
@@ -287,6 +297,7 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
+            "dodge",
             "alive"
           ],
           "transitions": [
@@ -308,6 +319,7 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
+            "dodge",
             "alive"
           ],
           "transitions": [
@@ -329,6 +341,7 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
+            "dodge",
             "alive"
           ],
           "transitions": [
@@ -350,6 +363,7 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
+            "dodge",
             "alive"
           ],
           "transitions": [
@@ -371,6 +385,7 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
+            "dodge",
             "alive"
           ],
           "transitions": [
@@ -391,6 +406,7 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
+            "dodge",
             "alive"
           ],
           "transitions": [
@@ -411,6 +427,7 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
+            "dodge",
             "alive"
           ],
           "transitions": [
@@ -431,6 +448,7 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
+            "dodge",
             "alive"
           ],
           "transitions": [
@@ -452,6 +470,7 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
+            "dodge",
             "alive"
           ],
           "transitions": [
@@ -473,6 +492,7 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
+            "dodge",
             "alive"
           ],
           "transitions": [
@@ -494,6 +514,7 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
+            "dodge",
             "alive"
           ],
           "transitions": [

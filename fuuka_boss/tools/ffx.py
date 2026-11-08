@@ -102,6 +102,16 @@ def crescent():
     return im
 
 
+def card():
+    """予告状: 白いカードに赤い鳥の紋"""
+    im = Image.new("RGBA", (16, 24), (250, 248, 240, 255))
+    d = ImageDraw.Draw(im)
+    d.rectangle([0, 0, 15, 23], outline=(200, 40, 45, 255))
+    d.polygon([(4, 14), (8, 8), (12, 14), (8, 12)], fill=(200, 40, 45, 255))
+    d.line([(3, 18), (12, 18)], fill=(40, 40, 46, 255))
+    return im
+
+
 def chip():
     return _fn(4, 4, lambda u, v: (255, 255, 255, 255))
 
@@ -110,7 +120,7 @@ def build_textures():
     return {"fuuka_glow": _fn(32, 32, t_glow), "fuuka_star": _fn(32, 32, t_star), "fuuka_ring": _fn(64, 64, t_ring),
             "fuuka_slash": _fn(64, 64, t_slash), "fuuka_reticle": _fn(64, 64, t_reticle),
             "fuuka_spiral": _fn(64, 64, t_spiral), "fuuka_feather": feather(), "fuuka_petal": petal(),
-            "fuuka_moon": crescent(), "fuuka_chip": chip()}
+            "fuuka_moon": crescent(), "fuuka_chip": chip(), "fuuka_card": card()}
 
 
 # ---------------------------------------------------------------------------
@@ -297,6 +307,14 @@ def build_particles():
     add("gunsmoke", tex="fuuka_glow", material="particles_blend", count=6, shape=sphere(0.1), lifetime="0.9",
         speed="math.random(0.3, 1.0)", accel=(0, 0.8, 0), drag=1.5, size="0.12 + v.particle_age * 0.5",
         color=[0.75, 0.75, 0.78, "0.55 * (" + FADE + ")"])
+    add("shell", tex="fuuka_chip", material="particles_alpha", count=1, lifetime="0.9",
+        shape={"minecraft:emitter_shape_point": {"offset": [0, 0, 0],
+                                                 "direction": ["math.random(-1, 1)", 1.4, "math.random(-1, 1)"]}},
+        speed=3, accel=(0, -18, 0), drag=0.5, size=["0.035", "0.07"],
+        spin={"rotation": "math.random(0, 360)", "rotation_rate": "math.random(-900, 900)"}, color=[0.95, 0.78, 0.32, 1])
+    add("card", tex="fuuka_card", material="particles_alpha", count=1, lifetime="1.8", speed=0.6,
+        accel=(0, -0.3, 0), drag=0.8, size=["0.32", "0.48"], spin={"rotation": "0", "rotation_rate": "260"},
+        color=[1, 1, 1, "1 - math.pow(v.particle_age / v.particle_lifetime, 4)"])
     add("hit_spark", tex="fuuka_star", count=12, shape=sphere(0.1), lifetime="math.random(0.2, 0.35)",
         speed="math.random(3, 7)", accel=(0, -10, 0), drag=2, size="0.1 * (" + FADE + ")", color=rgba("orange", 1))
     add("charge_red", tex="fuuka_glow", rate=(80, 100), active=0.5, shape=sphere(2.5, "inwards"), lifetime="0.45",
@@ -329,6 +347,8 @@ def build_particles():
     add("warn", tex="fuuka_ring", count=1, lifetime="0.45", facing="emitter_transform_xz",
         size="2.2 - v.particle_age / v.particle_lifetime * 1.5",
         color=rgba("red", "0.4 + 0.6 * math.abs(math.sin(v.particle_age * 900))"))
+    add("egg_warn", tex="fuuka_ring", count=1, lifetime="1.0", facing="emitter_transform_xz",
+        size="0.4 + v.particle_age / v.particle_lifetime * 1.6", color=rgba("red", "0.7 * (" + FADE + ")"))
     add("explosion", tex="fuuka_glow", count=28, shape=sphere(0.4), lifetime="math.random(0.4, 0.7)",
         speed="math.random(3, 8)", drag=4, size="0.35 + v.particle_age * 0.8", color=FIRE)
     add("shockwave", tex="fuuka_ring", count=1, lifetime="0.5", facing="emitter_transform_xz",

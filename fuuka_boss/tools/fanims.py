@@ -67,6 +67,13 @@ def mergefx(*ds):
     return out
 
 
+def bolt(t, al=AIM_L):
+    """t（撃った直後）からボルトを引いて戻す: 左手が機関部へ → 引く → 押し込む → 銃身の下へ"""
+    return {"leftArm": {"rotation": {t + 0.18: [-72, 52, 0], t + 0.3: [-62, 66, -8], t + 0.42: [-72, 52, 0],
+                                     t + 0.55: al}},
+            "head": {"rotation": {t + 0.3: [6, -14, 4], t + 0.55: AIM_HEAD}}}
+
+
 def shot_fx(times):
     return {t: fx("muzzle", "muzzle") + fx("gunsmoke", "muzzle") for t in times}
 
@@ -74,8 +81,9 @@ def shot_fx(times):
 def skill_anims():
     A = {}
     # 1 狙撃: 膝をついて構え、照準 → 発砲
-    A[1] = anim(2.4, merge(aim(0.25, 1.9, 2.4, [1.5]), kneel(0.3, 1.9, 2.3)),
-                mergefx(shot_fx([1.5]), {0.2: fx("glint", "scope"), 0.9: fx("glint", "scope")}))
+    A[1] = anim(2.4, merge(aim(0.25, 2.1, 2.4, [1.5]), kneel(0.3, 2.1, 2.35), bolt(1.5)),
+                mergefx(shot_fx([1.5]), {0.2: fx("glint", "scope"), 0.9: fx("glint", "scope"),
+                                         1.8: fx("shell", "right_hand")}))
     # 2 速射: 腰だめで 3 連射
     A[2] = anim(1.8, aim(0.2, 1.45, 1.8, [0.45, 0.9, 1.35], hip=True), shot_fx([0.45, 0.9, 1.35]))
     # 3 風符「鳥の気まぐれ」: スペルカードを掲げて放つ
@@ -139,10 +147,12 @@ def skill_anims():
         "head": {"rotation": {0: N, 0.2: [0, 10, 0], 1.2: [0, 10, 0], 1.6: N}},
     })
     # 11 DXL-5 特殊弾: 長い溜め → 強烈な反動
-    A[11] = anim(3.4, merge(aim(0.3, 3.0, 3.4, [2.6], recoil=[-125, 6, 0]), kneel(0.35, 3.0, 3.3), {
-        "body": {"rotation": {0: N, 0.3: AIM_BODY, 2.6: [-14, 12, 0], 2.8: AIM_BODY, 3.0: AIM_BODY, 3.4: N}},
-    }), mergefx(shot_fx([2.6]), {0.4: fx("charge", "muzzle"), 0.9: fx("charge", "muzzle"), 1.4: fx("charge", "muzzle"),
-                                1.9: fx("charge", "muzzle"), 2.3: fx("glint", "scope")}))
+    A[11] = anim(3.4, merge(aim(0.3, 3.2, 3.4, [2.6], recoil=[-125, 6, 0]), kneel(0.35, 3.2, 3.38), {
+        "body": {"rotation": {0: N, 0.3: AIM_BODY, 2.6: [-14, 12, 0], 2.8: AIM_BODY, 3.2: AIM_BODY, 3.4: N}},
+        "root": {"position": {2.6: [0, -6, 1.8], 2.75: [0, -6, 0]}},
+    }, bolt(2.6)), mergefx(shot_fx([2.6]), {0.4: fx("charge", "muzzle"), 0.9: fx("charge", "muzzle"),
+                                         1.4: fx("charge", "muzzle"), 1.9: fx("charge", "muzzle"),
+                                         2.3: fx("glint", "scope"), 2.9: fx("shell", "right_hand")}))
     # 12 戯「怪盗の手癖」: 相手の懐に飛び込んで盗み、掲げて見せる
     A[12] = anim(1.6, {
         "body": {"rotation": {0: N, 0.1: [25, 0, 0], 0.45: [20, 0, 0], 0.7: N}},
@@ -248,10 +258,23 @@ def all_animations():
         }},
         # 待機中のしぐさ（12 秒ごと）: ライフルを肩に担ぐ → きょろきょろ見回す
         "animation.fuuka.idle_flavor": anim(12.0, {
-            "rightArm": {"rotation": {0: N, 6.6: N, 7.2: [-122, -18, 30], 8.8: [-122, -18, 30], 9.3: N, 12.0: N}},
-            "head": {"rotation": {0: N, 9.6: N, 10.0: [0, 35, 0], 10.5: [0, 35, 0], 10.9: [0, -35, 0], 11.4: [0, -35, 0],
-                                  11.8: N, 12.0: N}},
-        }, {7.3: fx("feather", "head_top")}, loop=True),
+            "rightArm": {"rotation": {0: N, 1.6: N, 2.1: [-150, -18, 16], 3.0: [-150, -18, 16], 3.4: N, 6.6: N,
+                                      7.2: [-122, -18, 30], 8.8: [-122, -18, 30], 9.3: N, 12.0: N}},
+            "leftArm": {"rotation": {0: N, 4.0: N, 4.4: [-142, 26, -14], 5.2: [-142, 26, -14], 5.6: N, 12.0: N}},
+            "head": {"rotation": {0: N, 1.6: N, 2.1: [10, -16, 10], 3.0: [10, -16, 10], 3.4: N, 4.0: N,
+                                  4.4: [0, 8, -12], 5.2: [0, 8, -12], 5.6: N, 9.6: N, 10.0: [0, 35, 0], 10.5: [0, 35, 0],
+                                  10.9: [0, -35, 0], 11.4: [0, -35, 0], 11.8: N, 12.0: N}},
+            "body": {"rotation": {0: N, 4.0: N, 4.4: [0, -10, 4], 5.2: [0, -10, 4], 5.6: N, 12.0: N}},
+        }, {2.5: fx("gunsmoke", "muzzle"), 4.5: fx("glint_s", "left_hand"), 7.3: fx("feather", "head_top")}, loop=True),
+        # 回避した瞬間: ひらりと身をひねって跳ぶ（回避ゲージが減ったのを見て再生）
+        "animation.fuuka.dodge": {"loop": True, "bones": {
+            "root": {"rotation": [0, "v.dodge * v.dodge_dir * 45", 0], "position": [0, "v.dodge * 2.0", 0]},
+            "body": {"rotation": ["-v.dodge * 14", 0, "v.dodge * v.dodge_dir * 32"]},
+            "head": {"rotation": ["v.dodge * 10", "-v.dodge * v.dodge_dir * 25", 0]},
+            "rightArm": {"rotation": ["-v.dodge * 45", 0, "v.dodge * 28"]},
+            "leftArm": {"rotation": ["-v.dodge * 25", 0, "-v.dodge * 48"]},
+            "rightLeg": {"rotation": ["-v.dodge * 35", 0, "v.dodge * 14"]},
+            "leftLeg": {"rotation": ["v.dodge * 30", 0, "-v.dodge * 14"]}}},
         "animation.fuuka.step_fx": {"loop": True, "animation_length": 0.46, "particle_effects": {
             "0.00": [{"effect": "step", "locator": "right_foot"}], "0.23": [{"effect": "step", "locator": "left_foot"}]}},
         # 花鳥風月（HP60%）から: ときどき花びらと羽 / 鳥獣戯画（HP30%）から: 赤い羽と金の光
@@ -282,7 +305,7 @@ def short_names(skill_ids):
          "move_legs": "animation.fuuka.move_legs", "hurt": "animation.fuuka.hurt",
          "idle_flavor": "animation.fuuka.idle_flavor", "step_fx": "animation.fuuka.step_fx",
          "aura_1": "animation.fuuka.aura_1", "aura_2": "animation.fuuka.aura_2", "death_pose": "animation.fuuka.death",
-         "turn": "animation.fuuka.turn", "alive": "animation.fuuka.alive",
+         "turn": "animation.fuuka.turn", "alive": "animation.fuuka.alive", "dodge": "animation.fuuka.dodge",
          "main": "controller.animation.fuuka.main", "aura_ctrl": "controller.animation.fuuka.aura"}
     for v in skill_ids:
         n["s%d" % v] = "animation.fuuka.skill_%d" % v
@@ -291,7 +314,7 @@ def short_names(skill_ids):
 
 def controllers(skill_ids):
     dead = {"death": "!q.is_alive"}
-    states = {"default": {"animations": ["look_at", "idle", "move", "hurt",
+    states = {"default": {"animations": ["look_at", "idle", "move", "hurt", "dodge",
                                          {"idle_flavor": "q.modified_move_speed < 0.3"},
                                          {"step_fx": "q.modified_move_speed > 0.4"}],
                           "transitions": [dead] + [{"s%d" % v: "q.mark_variant == %d" % v} for v in skill_ids],
@@ -299,7 +322,7 @@ def controllers(skill_ids):
               "death": {"animations": ["death_pose"]}}
     for v in skill_ids:
         a = ["s%d" % v] if v in NO_LOOK else ["look_at", "s%d" % v]
-        a += [{"move_legs": "q.modified_move_speed > 0.1"}, "hurt"]
+        a += [{"move_legs": "q.modified_move_speed > 0.1"}, "hurt", "dodge"]
         states["s%d" % v] = {"animations": a, "transitions": [dead, {"default": "q.mark_variant != %d" % v}],
                              "blend_transition": 0.08}
     return mute_controller(smooth_controller({"format_version": "1.10.0", "animation_controllers": {
@@ -315,7 +338,7 @@ PARTICLE_MAP = {"arc": "fuuka:arc", "step": "fuuka:step_dust", "muzzle": "fuuka:
                 "glint": "fuuka:scope_glint", "glint_s": "fuuka:scope_glint", "feather": "fuuka:feather",
                 "feather_red": "fuuka:feather_red", "feather_burst": "fuuka:feather_burst", "rainbow": "fuuka:rainbow",
                 "water_jet": "fuuka:water_jet", "water_trail": "fuuka:water_trail", "stun": "fuuka:stun",
-                "charge": "fuuka:charge_red", "act4": "fuuka:act4_charge", "smoke_bomb": "fuuka:smoke_bomb",
+                "charge": "fuuka:charge_red", "act4": "fuuka:act4_charge", "shell": "fuuka:shell", "smoke_bomb": "fuuka:smoke_bomb",
                 "petal": "fuuka:petal", "wind": "fuuka:wind", "moon": "fuuka:moon", "stand_aura": "fuuka:stand_aura"}
 
 
@@ -336,12 +359,15 @@ def fang_animations():
     rush_l[2.0] = [-20, 0, -15]
     return {
         "animation.fuuka.fang.idle": {"loop": True, "bones": dict(rings, **{
-            "root": {"position": [0, "math.sin(q.life_time * 90) * 1.2", 0]},
+            "root": {"position": [0, "math.sin(q.life_time * 90) * 1.2", 0],
+                     "scale": ["math.min(q.life_time * 2.5, 1)"] * 3},
             "head": {"rotation": ["math.sin(q.life_time * 60) * 4", "math.sin(q.life_time * 40) * 6", 0]},
             "crest": {"rotation": ["math.sin(q.life_time * 220) * 6", 0, 0]},
             "rightArm": {"rotation": ["-20 + math.sin(q.life_time * 90) * 4", 0, 15]},
             "leftArm": {"rotation": ["-20 + math.sin(q.life_time * 90 + 60) * 4", 0, -15]},
             "tail": {"rotation": ["math.sin(q.life_time * 120) * 10", 0, "math.sin(q.life_time * 80) * 6"]}})},
+        "animation.fuuka.fang.spawn": {"loop": False, "animation_length": 0.6, "particle_effects": {
+            "0.00": [{"effect": "charge", "locator": "core"}], "0.30": [{"effect": "aura", "locator": "core"}]}},
         "animation.fuuka.fang.aura": {"loop": True, "animation_length": 0.5,
                                       "particle_effects": {"0.00": [{"effect": "aura", "locator": "core"}]}},
         "animation.fuuka.fang.shoot": anim(1.0, {
@@ -403,5 +429,5 @@ def summon_animations():
             "arm_r": {"rotation": ["-90 + math.sin(q.life_time * 300) * 10", 0, 0]}}),
         "animation.fuuka.missile_fx": emit("trail", 0.05),
         "animation.fuuka.bomb_fx": emit("warn", 0.5, bones={
-            "light": {"scale": ["1 + (math.mod(math.floor(q.life_time * 6), 2) == 0 ? 0.4 : 0)"] * 3}}),
+            "light": {"scale": ["1 + (math.mod(math.floor(q.life_time * (4 + q.life_time * 5)), 2) == 0 ? 0.6 : 0)"] * 3}}),
     }

@@ -31,6 +31,7 @@
         "stun": "fuuka:stun",
         "charge": "fuuka:charge_red",
         "act4": "fuuka:act4_charge",
+        "shell": "fuuka:shell",
         "smoke_bomb": "fuuka:smoke_bomb",
         "petal": "fuuka:petal",
         "wind": "fuuka:wind",
@@ -50,6 +51,7 @@
         "death_pose": "animation.fuuka.death",
         "turn": "animation.fuuka.turn",
         "alive": "animation.fuuka.alive",
+        "dodge": "animation.fuuka.dodge",
         "main": "controller.animation.fuuka.main",
         "aura_ctrl": "controller.animation.fuuka.aura",
         "s1": "animation.fuuka.skill_1",
@@ -91,7 +93,11 @@
           "v.yaw_prev = 0.0;",
           "v.yaw_ready = 0.0;",
           "v.yaw_off = 0.0;",
-          "v.dt = 0.016;"
+          "v.dt = 0.016;",
+          "v.bird_prev = 4.0;",
+          "v.dodge_t = -10.0;",
+          "v.dodge = 0.0;",
+          "v.dodge_dir = 1.0;"
         ],
         "pre_animation": [
           "v.dt = math.clamp(q.delta_time, 0.004, 0.25);",
@@ -107,7 +113,12 @@
           "v.atk_was = v.attack_time;",
           "v.hurt_t = (q.hurt_time > v.hurt_was) ? q.life_time : v.hurt_t;",
           "v.hurt_was = q.hurt_time;",
-          "v.flinch = (q.life_time - v.hurt_t < 0.08) ? math.sin((q.life_time - v.hurt_t) * 1125.0) : ((q.life_time - v.hurt_t < 0.6) ? 0.5 + 0.5 * math.cos((q.life_time - v.hurt_t - 0.08) * 346.15) : 0.0);"
+          "v.flinch = (q.life_time - v.hurt_t < 0.08) ? math.sin((q.life_time - v.hurt_t) * 1125.0) : ((q.life_time - v.hurt_t < 0.6) ? 0.5 + 0.5 * math.cos((q.life_time - v.hurt_t - 0.08) * 346.15) : 0.0);",
+          "v.bird_now = q.property('fuuka:bird');",
+          "v.dodge_dir = (v.bird_now < v.bird_prev) ? (math.mod(math.floor(q.life_time * 7), 2) * 2 - 1) : v.dodge_dir;",
+          "v.dodge_t = (v.bird_now < v.bird_prev) ? q.life_time : v.dodge_t;",
+          "v.bird_prev = v.bird_now;",
+          "v.dodge = (q.life_time - v.dodge_t < 0.45) ? math.sin((q.life_time - v.dodge_t) * 400) : 0.0;"
         ]
       },
       "spawn_egg": {

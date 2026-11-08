@@ -27,12 +27,14 @@
         "s_rush": "animation.fuuka.fang.rush",
         "s_act4": "animation.fuuka.fang.act4",
         "ctrl": "controller.animation.fuuka.fang",
-        "aura": "animation.fuuka.fang.aura"
+        "aura": "animation.fuuka.fang.aura",
+        "spawn": "animation.fuuka.fang.spawn"
       },
       "scripts": {
         "animate": [
           "ctrl",
-          "aura"
+          "aura",
+          "spawn"
         ]
       }
     }

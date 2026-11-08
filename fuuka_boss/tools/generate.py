@@ -33,7 +33,7 @@ PERSONAL = os.path.join(ROOT, "personal")
 
 ID = "fuuka:tsukishima_fuuka"
 NAME = "月島 風花"
-VERSION = [1, 0, 0]
+VERSION = [1, 1, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "760895b1-a50e-4fa9-9a8f-b0b6b578a3ef"
 UUID_BP_MODULE = "91dcd908-5ce6-462a-ac32-57279a769143"
@@ -101,7 +101,7 @@ def track():
     return "/execute at @s facing entity %s eyes run tp @s ~ ~ ~ ~ ~" % NEAREST
 
 
-def laser(kind="laser", rng=28, step=1.5):
+def laser(kind="laser", rng=28, step=1.0):
     """目の高さから、向いている方向へ赤い照準線"""
     out, d = [], 1.0
     while d <= rng:
@@ -114,29 +114,43 @@ def reticle():
     return "/execute at %s run particle fuuka:reticle ~ ~1 ~" % NEAREST
 
 
-def shot(dmg, rng=36):
-    """撃つ: 向いている方向へ一直線（貫通）"""
+def shot(dmg, rng=36, shell=True):
+    """撃つ: 向いている方向へ一直線（貫通）。当たった相手には火花と赤いフラッシュ"""
     out = []
     for d in range(1, rng + 1):
         out.append("/execute at @s anchored eyes positioned ^ ^ ^%d run damage @a[r=1.3,m=!creative] %d entity_attack "
                    "entity @s" % (d, dmg))
         if d % 2:
             out.append("/execute at @s anchored eyes positioned ^ ^ ^%d run particle fuuka:tracer ~ ~ ~" % d)
-    return out + [sound("firework.blast", 0.5, 64), sound("random.explode", 1.8, 48, 0.4),
-                  sound("crossbow.shoot", 0.6, 48), shake(0.25, 0.12, 16)]
+        else:
+            out += ["/execute at @s anchored eyes positioned ^ ^ ^%d as @a[r=1.6,m=!creative] at @s run particle "
+                    "fuuka:hit_spark ~ ~1.2 ~" % d,
+                    "/execute at @s anchored eyes positioned ^ ^ ^%d run camera @a[r=1.6,m=!creative] fade time 0 0.04 "
+                    "0.22 color 150 0 0" % d]
+    out += [sound("firework.blast", 0.5, 64), sound("random.explode", 1.8, 48, 0.4), sound("crossbow.shoot", 0.6, 48),
+            shake(0.25, 0.12, 16)]
+    if shell:
+        out.append(pt("shell", "^-0.35 ^1.2 ^0.3"))
+    return out
 
 
-def aim_window(tl, t0, t1, lock, fire, dmg, rng=36, lock_kind="laser_lock"):
-    """t0〜lock: 照準を合わせ続ける / lock〜fire: 照準を固定（ここで避ける）/ fire: 撃つ"""
-    t = t0
+def aim_window(tl, t0, t1, lock, fire, dmg, rng=36, lock_kind="laser_lock", bolt=True):
+    """t0〜lock: 照準を合わせ続ける / lock〜fire: 照準を固定（ここで避ける）/ fire: 撃つ → ボルトを引く"""
+    t, k = t0, 0
     while t < lock - 1e-6:
-        add(tl, t, [track()] + laser() + ([reticle()] if int(round(t * 10)) % 2 == 0 else []))
-        t += 0.1
+        cmds = [track()] + laser() + ([reticle()] if k % 2 == 0 else [])
+        if k % 3 == 0:   # 遠くからでも分かる、スコープのきらめき
+            cmds.append("/execute at @s anchored eyes positioned ^-0.2 ^ ^0.5 run particle fuuka:scope_glint ~ ~ ~")
+        add(tl, t, cmds)
+        t, k = t + 0.1, k + 1
     t = lock
     while t < fire - 1e-6:
         add(tl, t, laser(lock_kind))
         t += 0.1
-    add(tl, fire, shot(dmg, rng))
+    add(tl, fire, shot(dmg, rng, shell=not bolt))
+    if bolt:
+        add(tl, fire + 0.3, [sound("random.click", 1.5, 16)])
+        add(tl, fire + 0.42, [sound("random.click", 1.9, 16), pt("shell", "^-0.35 ^1.0 ^0.3")])
 
 
 AIM_ON = "/event entity @s fuuka:aim_on"
@@ -180,8 +194,7 @@ skill(2, "速射", 1.8, tl)
 
 # 3 風符「鳥の気まぐれ」: 鳥の弾幕が飛んでいき、卵（爆弾）を落とす
 BIRD_ANGLES = (-24, -12, 0, 12, 24)
-tl = {0: [say("§c風花§7「風符――『鳥の気まぐれ』！」"), "/title @a[r=40] title §c§l風符「鳥の気まぐれ」",
-          sound("mob.parrot.fly", 1.0, 40), pt("feather_burst", "~ ~2 ~")]}
+tl = {0: [say("§c風花§7「風符――『鳥の気まぐれ』！」"), sound("mob.parrot.fly", 1.0, 40), pt("feather_burst", "~ ~2 ~")]}
 add(tl, 0.85, ["/summon fuuka:bird ^%d ^5.5 ^-1 %s" % (k * 2 - 4, aim_name("b", a)) for k, a in enumerate(BIRD_ANGLES)]
     + [sound("mob.enderdragon.flap", 1.6, 40), pt("feather_burst", "~ ~5 ~")])
 skill(3, "風符「鳥の気まぐれ」", 3.0, tl)
@@ -207,8 +220,8 @@ tl = {0: [act("§b◆ オルカブースター・ハイジャンプ"), sound("ra
 for k in range(6):
     add(tl, 0.15 + k * 0.05, ["/tp @s ~ ~1.4 ~ true", pt("water_jet", "~ ~ ~"), pt("splash", "~ ~ ~")])
 add(tl, 0.5, ["/effect @s slow_falling 4 0 true", AIM_ON])
-aim_window(tl, 0.6, 1.5, 1.5, 1.7, 14, 42)
-aim_window(tl, 1.8, 2.1, 2.1, 2.3, 14, 42)
+aim_window(tl, 0.6, 1.5, 1.5, 1.7, 14, 42, bolt=False)
+aim_window(tl, 1.8, 2.1, 2.1, 2.3, 14, 42, bolt=False)
 add(tl, 2.5, [AIM_OFF])
 skill(6, "オルカブースター・ハイジャンプ", 3.2, tl)
 
@@ -289,9 +302,9 @@ for t in (0.0, 1.0, 2.0, 3.0, 4.0):
     add(tl, t, ["/execute at @a[r=40,m=!creative] run particle fuuka:fog_cloud ~ ~1 ~"])
 add(tl, 0.8, ["/execute as %s at @s rotated ~150 0 positioned ^ ^ ^12 run tp %s ~ ~ ~ facing @s true" % (NEAREST, BOSS)])
 add(tl, 1.8, [AIM_ON])
-aim_window(tl, 1.9, 2.1, 2.1, 2.4, 14)
+aim_window(tl, 1.9, 2.1, 2.1, 2.4, 14, bolt=False)
 add(tl, 3.2, ["/execute as %s at @s rotated ~-120 0 positioned ^ ^ ^12 run tp %s ~ ~ ~ facing @s true" % (NEAREST, BOSS)])
-aim_window(tl, 3.9, 4.1, 4.1, 4.4, 14)
+aim_window(tl, 3.9, 4.1, 4.1, 4.4, 14, bolt=False)
 add(tl, 4.6, [AIM_OFF])
 add(tl, 5.6, ["/fog @a[r=64] remove fuuka_mist"])
 skill(13, "雲散霧消", 6.0, tl)
@@ -319,6 +332,8 @@ add(tl, 0, CINE.begin(8) + [CINE.cam("^3 ^2.5 ^7", "^ ^1 ^"), CINE.fade(0, 0.4, 
 add(tl, 0.95, [pt("smoke_bomb", "~ ~1 ~"), sound("random.explode", 1.6, 48, 0.6)])
 add(tl, 1.1, [CINE.cam("^0.9 ^0.9 ^2.6", FACE), CINE.cam("^0.6 ^1.3 ^1.9", FACE, 1.4)])
 add(tl, 1.5, [say("§c風花§7「秘密結社『花鳥風月』社長――月島 風花、参上！」")])
+add(tl, 2.4, [pt("card", "^0.3 ^1.5 ^1.2"), pt("card", "^-0.4 ^1.7 ^1.4"), pt("card", "^0.1 ^1.9 ^1.0"),
+              say("§c風花§7「予告状、ちゃんと届いてたでしょ？」"), sound("item.book.page_turn", 1.4, 40)])
 add(tl, 3.0, [CINE.cam("^-2.2 ^1.6 ^2.6", "^ ^1.2 ^", 1.4)])
 add(tl, 4.6, [CINE.cam("^-0.7 ^1.65 ^-1.6", "^ ^1.4 ^8", 0.6), pt("scope_glint", "~ ~1.4 ~")])
 add(tl, 5.0, [say("§c風花§7「お宝は――あなたの負け、ってことで。いくよ！」")])
@@ -334,15 +349,17 @@ tl = {}
 add(tl, 0, CINE.begin(7.5) + [CINE.cam("^0 ^1.6 ^4", FACE), CINE.cam("^0 ^1.4 ^2.6", FACE, 1.2),
                               say("§c風花§7「……ちょっと、本気出そっか。――花鳥風月！」")])
 add(tl, 1.3, ["/title @a[r=40] title §d§l花", "/title @a[r=40] subtitle §7花のように周りを和ませ ― 攻撃力アップ",
-              "/effect @s strength 9999 1 true", pt("petal", "~ ~1.5 ~"), sound("random.orb", 1.4, 40)])
+              "/effect @s strength 9999 1 true", pt("petal", "~ ~1.5 ~"), sound("random.orb", 1.4, 40),
+              CINE.fade(0, 0.05, 0.35, (255, 150, 190))])
 add(tl, 2.8, ["/title @a[r=40] title §f§l鳥", "/title @a[r=40] subtitle §7鳥のように軽やかに動き ― 回避ゲージの上限が 6 に",
               "@s fuuka:bird_full", pt("feather_burst", "~ ~1.5 ~"), CINE.cam("^-3 ^2 ^2", "^ ^1.6 ^", 1.2),
-              sound("mob.parrot.fly", 1.2, 40)])
+              sound("mob.parrot.fly", 1.2, 40), CINE.fade(0, 0.05, 0.35, (255, 255, 255))])
 add(tl, 4.3, ["/title @a[r=40] title §b§l風", "/title @a[r=40] subtitle §7風のように爽やかに吹き荒び ― 素早さアップ",
-              pt("wind", "~ ~1 ~"), CINE.cam("^ ^7 ^0.01", "^ ^ ^", 1.0), sound("elytra.loop", 1.2, 40, 0.6)])
+              pt("wind", "~ ~1 ~"), CINE.cam("^ ^7 ^0.01", "^ ^ ^", 1.0), sound("elytra.loop", 1.2, 40, 0.6),
+              CINE.fade(0, 0.05, 0.35, (150, 230, 255))])
 add(tl, 5.8, ["/title @a[r=40] title §e§l月", "/title @a[r=40] subtitle §7月のように静かに佇む ― 近くの全員の強化を打ち消す",
               "/effect @a[r=32,m=!creative] clear", pt("moon", "~ ~3 ~"), CINE.cam("^0.5 ^0.6 ^2.4", "^ ^2.4 ^", 1.0),
-              sound("beacon.deactivate", 0.8, 40)])
+              sound("beacon.deactivate", 0.8, 40), CINE.fade(0, 0.05, 0.4, (255, 230, 140))])
 add(tl, 7.2, CINE.end())
 skill(31, "花鳥風月", 7.5, tl)
 
@@ -351,13 +368,16 @@ tl = {}
 add(tl, 0, CINE.begin(7.0) + [CINE.cam("^2 ^1.4 ^3", FACE), say("§c風花§7「まだまだ！ ――鳥獣戯画！」"),
                               CINE.fade(0, 0.1, 0.4, (255, 255, 255))])
 add(tl, 1.2, ["/title @a[r=40] title §f§l鳥", "/title @a[r=40] subtitle §7鳥のように軽やかに遊び ― 回避ゲージの回復が速くなる",
-              pt("feather_burst", "~ ~1.5 ~"), sound("mob.parrot.fly", 1.4, 40)])
+              pt("feather_burst", "~ ~1.5 ~"), sound("mob.parrot.fly", 1.4, 40), CINE.fade(0, 0.05, 0.35, (255, 255, 255))])
 add(tl, 2.6, ["/title @a[r=40] title §6§l獣", "/title @a[r=40] subtitle §7獣のように速く疾く ― 2 回行動",
-              CINE.cam("^0 ^0.5 ^2.2", "^ ^0.8 ^", 0.6), sound("mob.wolf.growl", 1.2, 40)])
+              CINE.cam("^0 ^0.5 ^2.2", "^ ^0.8 ^", 0.6), sound("mob.wolf.growl", 1.2, 40),
+              CINE.fade(0, 0.05, 0.35, (255, 150, 60))])
 add(tl, 4.0, ["/title @a[r=40] title §d§l戯", "/title @a[r=40] subtitle §7怪盗にとっては戯れ ― アイテムを盗む技が解禁",
-              pt("rainbow", "~ ~2 ~"), CINE.cam("^-2 ^1.6 ^2", FACE, 0.8), sound("random.pop", 1.4, 40)])
+              pt("rainbow", "~ ~2 ~"), CINE.cam("^-2 ^1.6 ^2", FACE, 0.8), sound("random.pop", 1.4, 40),
+              CINE.fade(0, 0.05, 0.35, (220, 120, 255))])
 add(tl, 5.4, ["/title @a[r=40] title §c§l画", "/title @a[r=40] subtitle §7速く動くほど画になる ― 演出が終わった瞬間に動く",
-              CINE.cam("^0 ^1.5 ^1.6", FACE, 0.5), sound("random.levelup", 1.6, 40, 0.6)])
+              CINE.cam("^0 ^1.5 ^1.6", FACE, 0.5), sound("random.levelup", 1.6, 40, 0.6),
+              CINE.fade(0, 0.05, 0.35, (255, 80, 80))])
 add(tl, 6.8, CINE.end())
 skill(32, "鳥獣戯画", 7.0, tl)
 
@@ -371,7 +391,8 @@ add(DEATH, 0.1, [CINE.cam("~-2.4 ~1.3 ~2.4", "~ ~0.6 ~", 1.8, "linear")])
 add(DEATH, 0.9, [say("§c風花§7「あちゃー……負けちゃった」")])
 add(DEATH, 1.9, [CINE.cam("~-2.4 ~1.6 ~-2.4", "~ ~0.6 ~", 1.8, "linear")])
 add(DEATH, 2.6, [say("§c風花§7「今日のところは、お宝はあきらめてあげる。――花鳥風月、撤収！」")])
-add(DEATH, 4.3, [pt("smoke_bomb", "~ ~1 ~"), "/playsound random.explode @a[r=32] ~ ~ ~ 0.6 1.6"])
+add(DEATH, 4.3, [pt("smoke_bomb", "~ ~1 ~"), pt("feather_burst", "~ ~1.5 ~"), pt("petal", "~ ~1.5 ~"),
+                 pt("card", "~ ~1.2 ~"), "/playsound random.explode @a[r=32] ~ ~ ~ 0.6 1.6"])
 add(DEATH, 5.3, [CINE.fade(0, 0.1, 0.6, (120, 0, 20))] + CINE.end())
 add(DEATH, 5.35, ["/title @a[r=64] title §6§l討伐成功", "/title @a[r=64] subtitle §7月島 風花を倒した",
                    "/playsound random.levelup @a[r=64] ~ ~ ~ 1 0.8", "/playsound random.totem @a[r=64] ~ ~ ~ 0.5 1.6"])
@@ -416,6 +437,8 @@ for v, side in ((61, 1), (62, -1)):
     skill(v, "回り込み", 1.3, tl)
 
 cutin_into(14, 0.0, 0.9, "^1.2 ^2.0 ^1.6", "^-0.6 ^1.8 ^-0.6", "§6§l牙 ACT4")
+cutin_into(3, 0.0, 0.8, "^0.6 ^1.3 ^1.6", "^-0.2 ^1.5 ^0.2", "§c§l風符「鳥の気まぐれ」")
+cutin_into(13, 0.0, 0.7, "^-1.2 ^1.6 ^-2.2", "^ ^1.3 ^", "§7§l雲散霧消")
 # DXL-5: 溜めの途中でスコープ越しの一瞬（照準を固定する前なので、避ける邪魔はしない）
 cutin_into(11, 1.0, 0.45, "^-0.35 ^1.0 ^0.3", "^ ^1.0 ^6", "§c§lDXL-5")
 
@@ -835,7 +858,8 @@ def summons_bp():
     C["controller.animation.fuuka.egg"] = {"initial_state": "fall", "states": {
         "fall": {"animations": ["life"], "transitions": [{"boom": "q.is_on_ground"}]},
         "boom": {"on_entry": boom}}}
-    A["animation.fuuka.egg.life"] = {"animation_length": 4.05, "loop": False, "timeline": {"4.00": boom}}
+    A["animation.fuuka.egg.life"] = {"animation_length": 4.05, "loop": False, "timeline": {
+        "0.00": ["/execute at @s positioned ~ ~-5 ~ run particle fuuka:egg_warn ~ ~ ~"], "4.00": boom}}
     out["egg"] = entity("fuuka:egg", fx_base(["fuuka_fx", "inanimate"], 0.3, gravity=True), g, e,
                         {"life": "animation.fuuka.egg.life", "ctrl": "controller.animation.fuuka.egg"}, ["ctrl"])
     # 人形 × 7: 風花の周りを回り、ミサイルを撃つ。どんな攻撃も 1 ダメージ（3 回で壊れる）
@@ -886,7 +910,10 @@ def summons_bp():
         "damage @a[r=3.2,m=!creative] 12 entity_attack entity %s" % BOSS, "summon fuuka:blast ~ ~0.5 ~",
         "particle fuuka:explosion ~ ~0.5 ~", "particle fuuka:shockwave ~ ~0.1 ~", "particle fuuka:debris ~ ~ ~",
         "playsound random.explode @a[r=32] ~ ~ ~ 1 1.1", "camerashake add @a[r=10] 0.5 0.3 positional"]}}
-    A["animation.fuuka.bomb.life"] = {"animation_length": 5.05, "loop": False, "timeline": {"5.00": ["@s fuuka:detonate"]}}
+    beeps = {"%.2f" % t: ["/playsound note.pling @a[r=14] ~ ~ ~ 0.7 %.2f" % (1.0 + k * 0.12)]
+             for k, t in enumerate((0.5, 1.0, 1.4, 1.7, 1.95, 2.15, 2.3, 2.45, 3.0, 3.5, 4.0, 4.4, 4.7))}
+    beeps["5.00"] = ["@s fuuka:detonate"]
+    A["animation.fuuka.bomb.life"] = {"animation_length": 5.05, "loop": False, "timeline": beeps}
     out["bomb"] = entity("fuuka:bomb", fx_base(["fuuka_fx", "inanimate"], 0.4, gravity=True), g, e,
                          {"life": "animation.fuuka.bomb.life"}, ["life"])
     # 爆風（ノックバック用）
@@ -1100,8 +1127,9 @@ def fang_client(tusk=None):
                       ["ctrl", "aura"], fanims.FANG_PARTICLES)
     anims = {"s_idle": "animation.fuuka.fang.idle", "s_shoot": "animation.fuuka.fang.shoot",
              "s_rush": "animation.fuuka.fang.rush", "s_act4": "animation.fuuka.fang.act4",
-             "ctrl": "controller.animation.fuuka.fang", "aura": "animation.fuuka.fang.aura"}
-    return client("fuuka:fang", "fuuka_fang", "geometry.fuuka_fang", "entity_alphatest", anims, ["ctrl", "aura"],
+             "ctrl": "controller.animation.fuuka.fang", "aura": "animation.fuuka.fang.aura",
+             "spawn": "animation.fuuka.fang.spawn"}
+    return client("fuuka:fang", "fuuka_fang", "geometry.fuuka_fang", "entity_alphatest", anims, ["ctrl", "aura", "spawn"],
                   fanims.FANG_PARTICLES)
 
 
@@ -1134,7 +1162,15 @@ def rp_clients(tusk=None):
         "director": client("fuuka:director", "fuuka", "geometry.fuuka", "entity_alphatest",
                            {"pose": "animation.fuuka.director_pose"}, ["pose"]),
     }
-    smooth_client(clients["fuuka"]["minecraft:client_entity"]["description"])
+    desc = clients["fuuka"]["minecraft:client_entity"]["description"]
+    smooth_client(desc)
+    desc["scripts"]["initialize"] += ["v.bird_prev = 4.0;", "v.dodge_t = -10.0;", "v.dodge = 0.0;", "v.dodge_dir = 1.0;"]
+    desc["scripts"]["pre_animation"] += [
+        "v.bird_now = q.property('fuuka:bird');",
+        "v.dodge_dir = (v.bird_now < v.bird_prev) ? (math.mod(math.floor(q.life_time * 7), 2) * 2 - 1) : v.dodge_dir;",
+        "v.dodge_t = (v.bird_now < v.bird_prev) ? q.life_time : v.dodge_t;",
+        "v.bird_prev = v.bird_now;",
+        "v.dodge = (q.life_time - v.dodge_t < 0.45) ? math.sin((q.life_time - v.dodge_t) * 400) : 0.0;"]
     clients["fuuka"]["minecraft:client_entity"]["description"]["animations"]["turn"] = "animation.fuuka.turn"
     return clients
 
