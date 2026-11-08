@@ -348,6 +348,7 @@
             "/summon fuuka:director ~ ~ ~",
             "/fog @a[r=64] remove fuuka_mist",
             "/tag @e[tag=fuuka_spin] remove fuuka_spin",
+            "/tag @e[tag=fuuka_mark] remove fuuka_mark",
             "/event entity @e[family=fuuka_fx] fuuka:despawn",
             "/event entity @e[family=fuuka_stand] fuuka:despawn",
             "/camera @a[tag=fuuka_cine] clear",

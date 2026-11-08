@@ -727,7 +727,8 @@
             },
             "queue_command": {
               "command": [
-                "event entity @s fuuka:combo_roll"
+                "event entity @s fuuka:combo_roll",
+                "tag @e[tag=fuuka_mark] remove fuuka_mark"
               ]
             }
           }

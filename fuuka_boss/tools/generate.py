@@ -33,7 +33,7 @@ PERSONAL = os.path.join(ROOT, "personal")
 
 ID = "fuuka:tsukishima_fuuka"
 NAME = "月島 風花"
-VERSION = [1, 3, 0]
+VERSION = [1, 4, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "760895b1-a50e-4fa9-9a8f-b0b6b578a3ef"
 UUID_BP_MODULE = "91dcd908-5ce6-462a-ac32-57279a769143"
@@ -96,61 +96,140 @@ def flash(r, g, b, rad=32, t=(0.05, 0.1, 0.2)):
     return "/camera @a[r=%d] fade time %.2f %.2f %.2f color %d %d %d" % (rad, t[0], t[1], t[2], r, g, b)
 
 
-def track():
-    """相手の目を狙う（照準を合わせ続ける）"""
-    return "/execute at @s facing entity %s eyes run tp @s ~ ~ ~ ~ ~" % NEAREST
+# ---------------------------------------------------------------------------
+# 狙撃の仕組み
+#   1. 狙い始めに相手を 1 人に決める（狙っている間は変えない。狙われた人には知らせる）
+#   2. 風花の「目の高さ」から相手の目へ向き直り続ける（膝立ち・腰だめで高さが変わる）
+#   3. 弾と照準線は、1 マスずつ進む見えない「弾道」で飛ばす。ブロックか敵に当たったらそこで止まる
+#      （物陰に隠れれば防げる。DXL-5 だけは壁も敵も貫通する）
+# ---------------------------------------------------------------------------
+EYE_STAND, EYE_KNEEL, EYE_HIP = 1.35, 1.05, 1.2
+MARK = "fuuka_mark"
+TARGET = "@e[tag=%s,c=1]" % MARK
+RAY_TAG = "fuuka_ray_on"
+RAY = "@e[type=fuuka:ray,tag=%s,c=1]" % RAY_TAG
+STOP_P = "@a[r=1.25,m=!creative]"
+STOP_R = "@e[family=%s,type=!%s,tag=!vb_cine,tag=!vb_paused,r=1.25]" % (RIVAL_FAMILY, ID)
 
 
-def laser(kind="laser", rng=28, step=1.0):
-    """目の高さから、向いている方向へ赤い照準線"""
-    out, d = [], 1.0
-    while d <= rng:
-        out.append("/execute at @s anchored eyes positioned ^-0.2 ^-0.1 ^%.1f run particle fuuka:%s ~ ~ ~" % (d, kind))
-        d += step
+def mark_target(notify=True):
+    out = ["/tag @e[tag=%s] remove %s" % (MARK, MARK), "/execute as %s run tag @s add %s" % (NEAREST, MARK)]
+    if notify:
+        out.append("/title @a[tag=%s] actionbar §c§l◎ 狙われている！ §r§7照準線が点滅したら、横へ動くか物陰へ" % MARK)
+    return out
+
+
+def track(h):
+    """決めた相手の目へ、風花の目の高さから向き直る（相手がいなくなったら一番近い敵へ）"""
+    return ["/execute unless entity @e[tag=%s,r=64] as %s run tag @s add %s" % (MARK, NEAREST, MARK),
+            "/execute at @s positioned ~ ~%.2f ~ facing entity %s eyes run tp @s ~ ~-%.2f ~ ~ ~" % (h, TARGET, h)]
+
+
+def ray_start(h):
+    """弾道を、風花の目の高さ・向きで出す"""
+    return ["/tag @e[type=fuuka:ray] remove %s" % RAY_TAG, "/summon fuuka:ray ~ ~%.2f ~" % h,
+            "/execute at @s positioned ~ ~%.2f ~ run tag @e[type=fuuka:ray,c=1] add %s" % (h, RAY_TAG),
+            "/execute at @s positioned ~ ~%.2f ~ run tp %s ~ ~ ~ ~ ~" % (h, RAY)]
+
+
+def ray_step(foe=True, blocks=True):
+    """弾道を 1 マス進める（敵のすぐそば・ブロックの手前で止まる）"""
+    c = "/execute as %s at @s" % RAY
+    if foe:
+        c += " positioned ~ ~-1 ~ unless entity %s unless entity %s positioned ~ ~1 ~" % (STOP_P, STOP_R)
+    c += " positioned ^ ^ ^1"
+    if blocks:
+        c += " if block ~ ~ ~ air"
+    return c + " run tp @s ~ ~ ~"
+
+
+def laser(kind="laser", rng=28, h=EYE_STAND):
+    out = ray_start(h)
+    for _ in range(rng):
+        out += [ray_step(), "/execute at %s run particle fuuka:%s ~ ~ ~" % (RAY, kind)]
     return out
 
 
 def reticle():
-    return "/execute at %s run particle fuuka:reticle ~ ~1 ~" % NEAREST
+    return "/execute at %s run particle fuuka:reticle ~ ~1 ~" % TARGET
 
 
-def shot(dmg, rng=36, shell=True):
-    """撃つ: 向いている方向へ一直線（貫通）。当たった相手には火花と赤いフラッシュ"""
-    out = []
-    for d in range(1, rng + 1):
-        out.append("/execute at @s anchored eyes positioned ^ ^ ^%d run damage @a[r=1.3,m=!creative] %d entity_attack "
-                   "entity @s" % (d, dmg))
-        if d % 2:
-            out.append("/execute at @s anchored eyes positioned ^ ^ ^%d run particle fuuka:tracer ~ ~ ~" % d)
-        else:
-            out += ["/execute at @s anchored eyes positioned ^ ^ ^%d as @a[r=1.6,m=!creative] at @s run particle "
-                    "fuuka:hit_spark ~ ~1.2 ~" % d,
-                    "/execute at @s anchored eyes positioned ^ ^ ^%d run camera @a[r=1.6,m=!creative] fade time 0 0.04 "
-                    "0.22 color 150 0 0" % d]
-    out += [sound("firework.blast", 0.5, 64), sound("random.explode", 1.8, 48, 0.4), sound("crossbow.shoot", 0.6, 48),
-            shake(0.25, 0.12, 16)]
+def impact():
+    """着弾: 当たった所に火花と破片、当たった人は画面が赤く"""
+    return ["/execute at %s run particle fuuka:hit_spark ~ ~ ~" % RAY, "/execute at %s run particle fuuka:debris ~ ~ ~" % RAY,
+            "/execute at %s positioned ~ ~-1 ~ run camera @a[r=1.6,m=!creative] fade time 0 0.04 0.22 color 150 0 0" % RAY,
+            "/execute at %s run playsound random.anvil_land @a[r=16] ~ ~ ~ 0.35 1.9" % RAY]
+
+
+def gunshot_fx(h, shell):
+    out = ["/execute at @s positioned ~ ~%.2f ~ run particle fuuka:muzzle ^-0.25 ^-0.1 ^1.1" % h,
+           sound("firework.blast", 0.5, 64), sound("random.explode", 1.8, 48, 0.4), sound("crossbow.shoot", 0.6, 48),
+           shake(0.25, 0.12, 16)]
     if shell:
         out.append(pt("shell", "^-0.35 ^1.2 ^0.3"))
     return out
 
 
-def aim_window(tl, t0, t1, lock, fire, dmg, rng=36, lock_kind="laser_lock", bolt=True):
-    """t0〜lock: 照準を合わせ続ける / lock〜fire: 照準を固定（ここで避ける）/ fire: 撃つ → ボルトを引く"""
+def shot(dmg, rng=40, h=EYE_STAND, shell=True):
+    """普通の弾: 最初に当たった敵（かブロック）で止まり、そこでダメージ"""
+    out = ray_start(h)
+    for k in range(rng):
+        out.append(ray_step())
+        if k % 2 == 0:
+            out.append("/execute at %s run particle fuuka:tracer ~ ~ ~" % RAY)
+    out.append("/execute at %s positioned ~ ~-1 ~ run damage @a[r=1.3,m=!creative] %d entity_attack entity @s" % (RAY, dmg))
+    return out + impact() + gunshot_fx(h, shell)
+
+
+def pierce_shot(dmg, rng=44, h=EYE_STAND):
+    """DXL-5: 壁も敵も貫通する"""
+    out = ray_start(h)
+    for k in range(rng):
+        out += [ray_step(foe=False, blocks=False),
+                "/execute at %s positioned ~ ~-1 ~ run damage @a[r=1.3,m=!creative] %d entity_attack entity @s" % (RAY, dmg)]
+        if k % 2 == 0:
+            out.append("/execute at %s run particle fuuka:tracer ~ ~ ~" % RAY)
+    return out + gunshot_fx(h, False)
+
+
+def aim_window(tl, t0, lock, fire, dmg, rng=40, h=EYE_STAND, bolt=True, pierce=False):
+    """t0: 相手を決める / t0〜lock: 照準を合わせ続ける / lock〜fire: 照準を固定（ここで避ける）/ fire: 撃つ"""
+    add(tl, t0, mark_target())
     t, k = t0, 0
     while t < lock - 1e-6:
-        cmds = [track()] + laser() + ([reticle()] if k % 2 == 0 else [])
-        if k % 3 == 0:   # 遠くからでも分かる、スコープのきらめき
-            cmds.append("/execute at @s anchored eyes positioned ^-0.2 ^ ^0.5 run particle fuuka:scope_glint ~ ~ ~")
+        cmds = track(h)
+        if k % 2 == 0:
+            cmds += laser("laser", 28, h)
+        if k % 4 == 0:
+            cmds.append(reticle())
+        if k % 6 == 0:   # 遠くからでも分かる、スコープのきらめき
+            cmds.append("/execute at @s positioned ~ ~%.2f ~ run particle fuuka:scope_glint ^-0.2 ^ ^0.5" % h)
+        if k == 6 and lock - t0 >= 0.6:   # 照準線が壁で届いていなければ、横へずれて射線を取り直す
+            cmds.append("/execute at %s unless entity @e[tag=%s,r=3] run event entity @s fuuka:sidestep" % (RAY, MARK))
         add(tl, t, cmds)
-        t, k = t + 0.1, k + 1
+        t, k = t + 0.05, k + 1
+    add(tl, lock, ["/title @a[tag=%s] actionbar §c§l◎ 撃たれる――！" % MARK])
     t = lock
     while t < fire - 1e-6:
-        add(tl, t, laser(lock_kind))
+        add(tl, t, laser("laser_lock", 28, h))
         t += 0.1
-    add(tl, fire, shot(dmg, rng, shell=not bolt))
+    add(tl, fire, pierce_shot(dmg, rng, h) if pierce else shot(dmg, rng, h, shell=not bolt))
+    add(tl, fire + 0.05, ["/tag @e[tag=%s] remove %s" % (MARK, MARK)])
     if bolt:
         add(tl, fire + 0.3, [sound("random.click", 1.5, 16)])
         add(tl, fire + 0.42, [sound("random.click", 1.9, 16), pt("shell", "^-0.35 ^1.0 ^0.3")])
+
+
+def quick_window(tl, fire, dmg, h=EYE_HIP, pre=0.3, lock=0.1, rng=32):
+    """腰だめの早撃ち: 短く狙って、少しだけ固定して撃つ"""
+    add(tl, fire - pre, mark_target(False))
+    t = fire - pre
+    while t < fire - lock - 1e-6:
+        add(tl, t, track(h) + laser("laser", 24, h))
+        t += 0.05
+    add(tl, fire - lock, laser("laser_lock", 24, h))
+    add(tl, fire, shot(dmg, rng, h))
+    add(tl, fire + 0.05, ["/tag @e[tag=%s] remove %s" % (MARK, MARK)])
 
 
 AIM_ON = "/event entity @s fuuka:aim_on"
@@ -178,7 +257,7 @@ def aim_name(prefix, deg):
 # 1 狙撃「アウトロー・レッドノート」: 膝をつき、赤い照準線で狙う → 固定 → 撃つ（狙っている間は回避できない）
 tl = {0: [act("§c◆ 狙撃「アウトロー・レッドノート」"), AIM_ON, sound("item.spyglass.use", 1.0, 32),
           pt("scope_glint", "~ ~1.4 ~")]}
-aim_window(tl, 0.1, 1.2, 1.2, 1.5, 18)
+aim_window(tl, 0.1, 1.2, 1.5, 18, h=EYE_KNEEL)
 add(tl, 1.2, [say("§c風花§7「――そこ」")])
 add(tl, 1.7, [AIM_OFF])
 skill(1, "狙撃", 2.4, tl)
@@ -186,10 +265,7 @@ skill(1, "狙撃", 2.4, tl)
 # 2 速射: 腰だめで 3 連射
 tl = {0: [act("§c◆ 速射")]}
 for t in (0.45, 0.9, 1.35):
-    add(tl, t - 0.3, [track()] + laser(rng=24, step=2))
-    add(tl, t - 0.2, [track()] + laser(rng=24, step=2))
-    add(tl, t - 0.1, laser("laser_lock", 24, 2))
-    add(tl, t, shot(7, 28))
+    quick_window(tl, t, 7)
 skill(2, "速射", 1.8, tl)
 
 # 3 風符「鳥の気まぐれ」: 鳥の弾幕が飛んでいき、卵（爆弾）を落とす
@@ -210,9 +286,7 @@ tl = {0: [act("§b◆ オルカブースター"), sound("random.splash", 1.6, 24
 for k in range(4):
     add(tl, 0.05 + k * 0.05, ["/tp @s ^ ^0.15 ^-2.4 facing %s true" % NEAREST, pt("water_jet", "~ ~0.2 ~"),
                               pt("splash", "~ ~ ~")])
-add(tl, 0.45, [track()] + laser(rng=22, step=2))
-add(tl, 0.55, [track()] + laser("laser_lock", 22, 2))
-add(tl, 0.7, shot(8, 28))
+quick_window(tl, 0.7, 8, pre=0.25, lock=0.12)
 skill(5, "オルカブースター", 1.2, tl)
 
 # 6 オルカブースター（跳躍）: 空高く跳び、宙に浮いたまま 2 発（狙っている間は回避できない）
@@ -220,8 +294,8 @@ tl = {0: [act("§b◆ オルカブースター・ハイジャンプ"), sound("ra
 for k in range(6):
     add(tl, 0.15 + k * 0.05, ["/tp @s ~ ~1.4 ~ true", pt("water_jet", "~ ~ ~"), pt("splash", "~ ~ ~")])
 add(tl, 0.5, ["/effect @s slow_falling 4 0 true", AIM_ON])
-aim_window(tl, 0.6, 1.5, 1.5, 1.7, 14, 42, bolt=False)
-aim_window(tl, 1.8, 2.1, 2.1, 2.3, 14, 42, bolt=False)
+aim_window(tl, 0.6, 1.5, 1.7, 14, 44, bolt=False)
+aim_window(tl, 1.8, 2.1, 2.3, 14, 44, bolt=False)
 add(tl, 2.5, [AIM_OFF])
 skill(6, "オルカブースター・ハイジャンプ", 3.2, tl)
 
@@ -272,11 +346,11 @@ skill(10, "牙・爪弾", 1.6, tl)
 
 # 11 DXL-5 特殊弾: 長い溜めのあと、貫通して爆発する弾（狙っている間は回避できない）
 tl = {0: [say("§c風花§7「特殊弾、装填――」"), AIM_ON, sound("block.beacon.activate", 1.6, 40)]}
-aim_window(tl, 0.3, 2.2, 2.2, 2.6, 24, 44)
+aim_window(tl, 0.3, 2.2, 2.6, 24, 44, h=EYE_KNEEL, pierce=True)
 add(tl, 2.6, [say("§c風花§7「DXL-5――発射！」")]
-    + ["/execute at @s anchored eyes positioned ^ ^ ^%d run summon fuuka:blast ~ ~ ~" % d for d in (12, 24, 36)]
-    + ["/execute at @s anchored eyes positioned ^ ^ ^%d run particle fuuka:explosion ~ ~ ~" % d for d in (12, 24, 36)]
-    + ["/execute at @s anchored eyes positioned ^ ^ ^%d run damage @a[r=3,m=!creative] 10 entity_attack entity @s" % d
+    + ["/execute at @s positioned ~ ~1.05 ~ positioned ^ ^ ^%d run summon fuuka:blast ~ ~ ~" % d for d in (12, 24, 36)]
+    + ["/execute at @s positioned ~ ~1.05 ~ positioned ^ ^ ^%d run particle fuuka:explosion ~ ~ ~" % d for d in (12, 24, 36)]
+    + ["/execute at @s positioned ~ ~1.05 ~ positioned ^ ^ ^%d run damage @a[r=3,m=!creative] 10 entity_attack entity @s" % d
        for d in (12, 24, 36)] + [shake(1.2, 0.5, 48), flash(255, 200, 160, 48, (0, 0.05, 0.25))])
 add(tl, 2.8, [AIM_OFF])
 skill(11, "DXL-5 特殊弾", 3.4, tl)
@@ -302,9 +376,9 @@ for t in (0.0, 1.0, 2.0, 3.0, 4.0):
     add(tl, t, ["/execute at @a[r=40,m=!creative] run particle fuuka:fog_cloud ~ ~1 ~"])
 add(tl, 0.8, ["/execute as %s at @s rotated ~150 0 positioned ^ ^ ^12 run tp %s ~ ~ ~ facing @s true" % (NEAREST, BOSS)])
 add(tl, 1.8, [AIM_ON])
-aim_window(tl, 1.9, 2.1, 2.1, 2.4, 14, bolt=False)
+aim_window(tl, 1.9, 2.1, 2.4, 14, bolt=False)
 add(tl, 3.2, ["/execute as %s at @s rotated ~-120 0 positioned ^ ^ ^12 run tp %s ~ ~ ~ facing @s true" % (NEAREST, BOSS)])
-aim_window(tl, 3.9, 4.1, 4.1, 4.4, 14, bolt=False)
+aim_window(tl, 3.9, 4.1, 4.4, 14, bolt=False)
 add(tl, 4.6, [AIM_OFF])
 add(tl, 5.6, ["/fog @a[r=64] remove fuuka_mist"])
 skill(13, "雲散霧消", 6.0, tl)
@@ -425,16 +499,13 @@ def cutin_into(v, t, dur, pos, facing, title=None, sub=None):
 # 60 オルカブースター・ステップ: 水流で後ろへ跳び、腰だめで 1 発 / 61・62 横へ回り込みながら撃つ
 tl = {0: [act("§b◆ ステップ"), sound("random.splash", 1.8, 24, 0.6)]}
 footwork_steps(lambda t, c: add(tl, t, c), 0.05, 3, "^ ^0.2 ^-1.8", NEAREST, [pt("water_jet", "~ ~0.2 ~")])
-add(tl, 0.3, [track()] + laser(rng=20, step=2))
-add(tl, 0.4, laser("laser_lock", 20, 2))
-add(tl, 0.52, shot(7, 26))
+quick_window(tl, 0.52, 7, pre=0.22)
 skill(60, "ステップ・ショット", 1.1, tl)
 for v, side in ((61, 1), (62, -1)):
     tl = {0: [act("§b◆ 回り込み"), sound("random.splash", 1.9, 24, 0.5)]}
     footwork_steps(lambda t, c: add(tl, t, c), 0.08, 7, "^%g ^ ^0.2" % (-1.4 * side), NEAREST,
                    [pt("water_trail", "~ ~0.2 ~")])
-    add(tl, 0.45, [track()] + laser("laser_lock", 20, 2))
-    add(tl, 0.58, shot(7, 26))
+    quick_window(tl, 0.58, 7, pre=0.18)
     skill(v, "回り込み", 1.3, tl)
 
 cutin_into(14, 0.0, 0.9, "^1.2 ^2.0 ^1.6", "^-0.6 ^1.8 ^-0.6", "§6§l牙 ACT4")
@@ -528,7 +599,8 @@ def bp_entity():
         "minecraft:entity_spawned": {"add": {"component_groups": ["phase_1", "v_30", "cine_guard"]}},
         "fuuka:skill_end": {"sequence": [{"filters": not_busy, **set_variant(0, ["sensor_normal"], ["cine_guard"]),
                                           "set_property": aim_off,
-                                          "queue_command": {"command": ["event entity @s fuuka:combo_roll"]}}]},
+                                          "queue_command": {"command": ["event entity @s fuuka:combo_roll",
+                                                                        "tag @e[tag=fuuka_mark] remove fuuka_mark"]}}]},
         # 獣（HP30%〜）: 一定確率でそのまま次の行動へ（2 回行動）
         "fuuka:combo_roll": {"sequence": [{"filters": {"test": "is_skin_id", "value": 2}, "randomize": [
             {"weight": 45, "trigger": "fuuka:choose_skill",
@@ -685,7 +757,7 @@ def bp_controllers():
         "controller.animation.fuuka.death": {"initial_state": "alive", "states": {
             "alive": {"transitions": [{"dead": "!q.is_alive"}]},
             "dead": {"on_entry": ["/summon fuuka:director ~ ~ ~", "/fog @a[r=64] remove fuuka_mist",
-                                  "/tag @e[tag=%s] remove %s" % (SPIN, SPIN),
+                                  "/tag @e[tag=%s] remove %s" % (SPIN, SPIN), "/tag @e[tag=fuuka_mark] remove fuuka_mark",
                                   "/event entity @e[family=fuuka_fx] fuuka:despawn",
                                   "/event entity @e[family=fuuka_stand] fuuka:despawn"] + CINE.end()}}},
     }}
@@ -917,6 +989,10 @@ def summons_bp():
     A["animation.fuuka.bomb.life"] = {"animation_length": 5.05, "loop": False, "timeline": beeps}
     out["bomb"] = entity("fuuka:bomb", fx_base(["fuuka_fx", "inanimate"], 0.4, gravity=True), g, e,
                          {"life": "animation.fuuka.bomb.life"}, ["life"])
+    # 弾道（見えない）: 弾と照準線を 1 マスずつ進める目印。使い終わったらすぐ消える
+    A["animation.fuuka.ray.life"] = {"animation_length": 0.35, "loop": False, "timeline": {"0.30": ["@s fuuka:despawn"]}}
+    out["ray"] = entity("fuuka:ray", fx_base(["fuuka_fx", "fuuka_ray", "inanimate"], 0.1), dict(DESPAWN_G), dict(DESPAWN_E),
+                        {"life": "animation.fuuka.ray.life"}, ["life"])
     # 爆風（ノックバック用）
     ex = {"fuse_length": 0, "fuse_lit": True, "causes_fire": False, "breaks_blocks": False,
           "destroy_affected_by_griefing": False}
@@ -1160,6 +1236,7 @@ def rp_clients(tusk=None):
         "bomb": client("fuuka:bomb", "fuuka_bomb", "geometry.fuuka_bomb", "entity_alphatest",
                        {"fx": "animation.fuuka.bomb_fx"}, ["fx"], {"warn": "fuuka:warn"}),
         "blast": client("fuuka:blast", "fuuka_empty", "geometry.fuuka_empty", "entity_alphatest"),
+        "ray": client("fuuka:ray", "fuuka_empty", "geometry.fuuka_empty", "entity_alphatest"),
         "director": client("fuuka:director", "fuuka", "geometry.fuuka", "entity_alphatest",
                            {"pose": "animation.fuuka.director_pose"}, ["pose"]),
     }
@@ -1179,7 +1256,7 @@ def rp_clients(tusk=None):
 def lang():
     names = {ID: NAME, "fuuka:fang": "スタンド「牙」", "fuuka:nail": "爪弾", "fuuka:nail4": "ACT4 の爪弾",
              "fuuka:spin": "無限の回転", "fuuka:bird": "鳥の弾幕", "fuuka:egg": "卵爆弾", "fuuka:doll": "月島人形",
-             "fuuka:missile": "ミサイル", "fuuka:bomb": "自爆スイッチの爆弾", "fuuka:blast": "爆風", "fuuka:director": NAME}
+             "fuuka:missile": "ミサイル", "fuuka:bomb": "自爆スイッチの爆弾", "fuuka:blast": "爆風", "fuuka:ray": "弾道", "fuuka:director": NAME}
     lines = ["entity.%s.name=%s" % kv for kv in names.items()]
     lines += ["item.spawn_egg.entity.%s.name=%sのスポーンエッグ" % (ID, NAME), "pack.name=月島 風花 ボス",
               "pack.description=秘密結社「花鳥風月」の社長・怪盗「月島 風花」ボスアドオン", ""]
