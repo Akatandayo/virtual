@@ -1,0 +1,31 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "fuuka:missile",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/fuuka_missile"
+      },
+      "geometry": {
+        "default": "geometry.fuuka_missile"
+      },
+      "render_controllers": [
+        "controller.render.fuuka_simple"
+      ],
+      "particle_effects": {
+        "trail": "fuuka:missile_trail"
+      },
+      "animations": {
+        "fx": "animation.fuuka.missile_fx"
+      },
+      "scripts": {
+        "animate": [
+          "fx"
+        ]
+      }
+    }
+  }
+}

@@ -11,11 +11,13 @@
           "skills",
           "upkeep",
           "death",
-          "foe_tags"
+          "foe_tags",
+          "stance"
         ]
       },
       "animations": {
         "foe_tags": "animation.byakuya.foe_tags",
+        "stance": "animation.byakuya.stance_loop",
         "skills": "controller.animation.byakuya.skills",
         "death": "controller.animation.byakuya.death",
         "upkeep": "animation.byakuya.upkeep",
@@ -248,12 +250,6 @@
         "minecraft:behavior.float": {
           "priority": 0
         },
-        "minecraft:behavior.melee_attack": {
-          "priority": 2,
-          "speed_multiplier": 1.3,
-          "track_target": true,
-          "reach_multiplier": 1.6
-        },
         "minecraft:behavior.hurt_by_target": {
           "priority": 1
         },
@@ -321,6 +317,80 @@
         },
         "minecraft:behavior.random_look_around": {
           "priority": 8
+        }
+      },
+      "ai_melee": {
+        "minecraft:behavior.melee_attack": {
+          "priority": 2,
+          "speed_multiplier": 1.3,
+          "track_target": true,
+          "reach_multiplier": 1.6
+        }
+      },
+      "stance_range": {
+        "minecraft:behavior.avoid_mob_type": {
+          "priority": 1,
+          "remove_target": false,
+          "ignore_visibility": true,
+          "entity_types": [
+            {
+              "filters": {
+                "any_of": [
+                  {
+                    "all_of": [
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "value": "player"
+                      },
+                      {
+                        "test": "has_ability",
+                        "subject": "other",
+                        "operator": "!=",
+                        "value": "instabuild"
+                      }
+                    ]
+                  },
+                  {
+                    "all_of": [
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "value": "rival_boss"
+                      },
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "operator": "!=",
+                        "value": "byakuya"
+                      },
+                      {
+                        "test": "has_tag",
+                        "subject": "other",
+                        "operator": "!=",
+                        "value": "vb_cine"
+                      },
+                      {
+                        "test": "has_tag",
+                        "subject": "other",
+                        "operator": "!=",
+                        "value": "vb_paused"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "max_dist": 8,
+              "max_flee": 16,
+              "walk_speed_multiplier": 1.15,
+              "sprint_speed_multiplier": 1.35
+            }
+          ]
+        },
+        "minecraft:behavior.move_towards_target": {
+          "priority": 3,
+          "speed_multiplier": 1.0,
+          "within_radius": 13
         }
       },
       "v_0": {
@@ -769,14 +839,21 @@
             "v_62",
             "hopper_guard",
             "mikiri_guard",
-            "cine_guard"
+            "cine_guard",
+            "stance_range"
           ]
         },
         "add": {
           "component_groups": [
             "v_0",
             "sensor_normal",
-            "ai"
+            "ai",
+            "ai_melee"
+          ]
+        },
+        "queue_command": {
+          "command": [
+            "tag @s remove vb_range"
           ]
         }
       },
@@ -862,7 +939,9 @@
             "hopper_guard",
             "mikiri_guard",
             "ai",
-            "phase_1"
+            "phase_1",
+            "ai_melee",
+            "stance_range"
           ]
         },
         "add": {
@@ -914,7 +993,9 @@
             "mikiri_guard",
             "ai",
             "phase_1",
-            "phase_2"
+            "phase_2",
+            "ai_melee",
+            "stance_range"
           ]
         },
         "add": {
@@ -970,7 +1051,9 @@
                 "sensor_normal",
                 "hopper_guard",
                 "mikiri_guard",
-                "ai"
+                "ai",
+                "ai_melee",
+                "stance_range"
               ]
             },
             "add": {
@@ -2314,9 +2397,19 @@
                   "value": 0
                 },
                 {
-                  "test": "has_tag",
-                  "subject": "self",
-                  "value": "byakuya_near"
+                  "all_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "value": "byakuya_near"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "vb_range"
+                    }
+                  ]
                 }
               ]
             },
@@ -2423,10 +2516,19 @@
                   "value": 0
                 },
                 {
-                  "test": "has_tag",
-                  "subject": "self",
-                  "operator": "!=",
-                  "value": "byakuya_near"
+                  "any_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "byakuya_near"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "value": "vb_range"
+                    }
+                  ]
                 }
               ]
             },
@@ -2494,6 +2596,10 @@
               {
                 "weight": 10,
                 "trigger": "byakuya:skill_24"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_60"
               }
             ]
           },
@@ -2513,9 +2619,19 @@
                   "value": 1
                 },
                 {
-                  "test": "has_tag",
-                  "subject": "self",
-                  "value": "byakuya_near"
+                  "all_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "value": "byakuya_near"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "vb_range"
+                    }
+                  ]
                 }
               ]
             },
@@ -2662,10 +2778,19 @@
                   "value": 1
                 },
                 {
-                  "test": "has_tag",
-                  "subject": "self",
-                  "operator": "!=",
-                  "value": "byakuya_near"
+                  "any_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "byakuya_near"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "value": "vb_range"
+                    }
+                  ]
                 }
               ]
             },
@@ -2733,6 +2858,10 @@
               {
                 "weight": 10,
                 "trigger": "byakuya:skill_24"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_60"
               },
               {
                 "weight": 10,
@@ -2784,9 +2913,19 @@
                   "value": 2
                 },
                 {
-                  "test": "has_tag",
-                  "subject": "self",
-                  "value": "byakuya_near"
+                  "all_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "value": "byakuya_near"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "vb_range"
+                    }
+                  ]
                 }
               ]
             },
@@ -2949,10 +3088,19 @@
                   "value": 2
                 },
                 {
-                  "test": "has_tag",
-                  "subject": "self",
-                  "operator": "!=",
-                  "value": "byakuya_near"
+                  "any_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "byakuya_near"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "value": "vb_range"
+                    }
+                  ]
                 }
               ]
             },
@@ -3020,6 +3168,10 @@
               {
                 "weight": 10,
                 "trigger": "byakuya:skill_24"
+              },
+              {
+                "weight": 10,
+                "trigger": "byakuya:skill_60"
               },
               {
                 "weight": 10,
@@ -3098,7 +3250,9 @@
             },
             "remove": {
               "component_groups": [
-                "ai"
+                "ai",
+                "ai_melee",
+                "stance_range"
               ]
             },
             "queue_command": {
@@ -3139,7 +3293,18 @@
             },
             "add": {
               "component_groups": [
-                "ai"
+                "ai",
+                "ai_melee"
+              ]
+            },
+            "remove": {
+              "component_groups": [
+                "stance_range"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "tag @s remove vb_range"
               ]
             }
           },
@@ -3149,6 +3314,162 @@
                 "tag @s remove vb_paused"
               ]
             }
+          }
+        ]
+      },
+      "vb:stance": {
+        "sequence": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 20
+                },
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 30
+                },
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 31
+                },
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 32
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "vb_paused"
+                },
+                {
+                  "test": "actor_health",
+                  "subject": "self",
+                  "operator": ">",
+                  "value": 1400
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 70,
+                "add": {
+                  "component_groups": [
+                    "ai_melee"
+                  ]
+                },
+                "remove": {
+                  "component_groups": [
+                    "stance_range"
+                  ]
+                },
+                "queue_command": {
+                  "command": [
+                    "tag @s remove vb_range"
+                  ]
+                }
+              },
+              {
+                "weight": 30,
+                "add": {
+                  "component_groups": [
+                    "stance_range"
+                  ]
+                },
+                "remove": {
+                  "component_groups": [
+                    "ai_melee"
+                  ]
+                },
+                "queue_command": {
+                  "command": [
+                    "tag @s add vb_range"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 20
+                },
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 30
+                },
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 31
+                },
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 32
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "vb_paused"
+                },
+                {
+                  "test": "actor_health",
+                  "subject": "self",
+                  "operator": "<=",
+                  "value": 1400
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 43,
+                "add": {
+                  "component_groups": [
+                    "ai_melee"
+                  ]
+                },
+                "remove": {
+                  "component_groups": [
+                    "stance_range"
+                  ]
+                },
+                "queue_command": {
+                  "command": [
+                    "tag @s remove vb_range"
+                  ]
+                }
+              },
+              {
+                "weight": 48,
+                "add": {
+                  "component_groups": [
+                    "stance_range"
+                  ]
+                },
+                "remove": {
+                  "component_groups": [
+                    "ai_melee"
+                  ]
+                },
+                "queue_command": {
+                  "command": [
+                    "tag @s add vb_range"
+                  ]
+                }
+              }
+            ]
           }
         ]
       }

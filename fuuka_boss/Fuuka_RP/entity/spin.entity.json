@@ -1,0 +1,34 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "fuuka:spin",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/fuuka_empty"
+      },
+      "geometry": {
+        "default": "geometry.fuuka_empty"
+      },
+      "render_controllers": [
+        "controller.render.fuuka_simple"
+      ],
+      "particle_effects": {
+        "spin": "fuuka:spin",
+        "hole": "fuuka:spin_hole"
+      },
+      "animations": {
+        "fx": "animation.fuuka.spin_fx",
+        "hole": "animation.fuuka.spin_hole"
+      },
+      "scripts": {
+        "animate": [
+          "fx",
+          "hole"
+        ]
+      }
+    }
+  }
+}

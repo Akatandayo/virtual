@@ -1,0 +1,119 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "fuuka:tsukishima_fuuka",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/fuuka"
+      },
+      "geometry": {
+        "default": "geometry.fuuka"
+      },
+      "render_controllers": [
+        "controller.render.fuuka"
+      ],
+      "particle_effects": {
+        "arc": "fuuka:arc",
+        "step": "fuuka:step_dust",
+        "muzzle": "fuuka:muzzle",
+        "gunsmoke": "fuuka:gunsmoke",
+        "glint": "fuuka:scope_glint",
+        "glint_s": "fuuka:scope_glint",
+        "feather": "fuuka:feather",
+        "feather_red": "fuuka:feather_red",
+        "feather_burst": "fuuka:feather_burst",
+        "rainbow": "fuuka:rainbow",
+        "water_jet": "fuuka:water_jet",
+        "water_trail": "fuuka:water_trail",
+        "stun": "fuuka:stun",
+        "charge": "fuuka:charge_red",
+        "act4": "fuuka:act4_charge",
+        "smoke_bomb": "fuuka:smoke_bomb",
+        "petal": "fuuka:petal",
+        "wind": "fuuka:wind",
+        "moon": "fuuka:moon",
+        "stand_aura": "fuuka:stand_aura"
+      },
+      "animations": {
+        "look_at": "animation.fuuka.look_at",
+        "idle": "animation.fuuka.idle",
+        "move": "animation.fuuka.move",
+        "move_legs": "animation.fuuka.move_legs",
+        "hurt": "animation.fuuka.hurt",
+        "idle_flavor": "animation.fuuka.idle_flavor",
+        "step_fx": "animation.fuuka.step_fx",
+        "aura_1": "animation.fuuka.aura_1",
+        "aura_2": "animation.fuuka.aura_2",
+        "death_pose": "animation.fuuka.death",
+        "turn": "animation.fuuka.turn",
+        "alive": "animation.fuuka.alive",
+        "main": "controller.animation.fuuka.main",
+        "aura_ctrl": "controller.animation.fuuka.aura",
+        "s1": "animation.fuuka.skill_1",
+        "s2": "animation.fuuka.skill_2",
+        "s3": "animation.fuuka.skill_3",
+        "s4": "animation.fuuka.skill_4",
+        "s5": "animation.fuuka.skill_5",
+        "s6": "animation.fuuka.skill_6",
+        "s7": "animation.fuuka.skill_7",
+        "s8": "animation.fuuka.skill_8",
+        "s9": "animation.fuuka.skill_9",
+        "s10": "animation.fuuka.skill_10",
+        "s11": "animation.fuuka.skill_11",
+        "s12": "animation.fuuka.skill_12",
+        "s13": "animation.fuuka.skill_13",
+        "s14": "animation.fuuka.skill_14",
+        "s30": "animation.fuuka.skill_30",
+        "s31": "animation.fuuka.skill_31",
+        "s32": "animation.fuuka.skill_32",
+        "s60": "animation.fuuka.skill_60",
+        "s61": "animation.fuuka.skill_61",
+        "s62": "animation.fuuka.skill_62"
+      },
+      "scripts": {
+        "animate": [
+          "main",
+          "aura_ctrl",
+          "turn"
+        ],
+        "initialize": [
+          "v.atk_n = 0.0;",
+          "v.atk_was = 0.0;",
+          "v.melee_start = -10.0;",
+          "v.melee_t = 10.0;",
+          "v.hurt_t = -10.0;",
+          "v.hurt_was = 0.0;",
+          "v.flinch = 0.0;",
+          "v.spd = 0.0;",
+          "v.yaw_prev = 0.0;",
+          "v.yaw_ready = 0.0;",
+          "v.yaw_off = 0.0;",
+          "v.dt = 0.016;"
+        ],
+        "pre_animation": [
+          "v.dt = math.clamp(q.delta_time, 0.004, 0.25);",
+          "v.spd = v.spd + (math.clamp(q.modified_move_speed, 0.0, 1.0) - v.spd) * (1.0 - math.exp(-v.dt / 0.12));",
+          "v.yaw_d = (v.yaw_ready > 0.5) ? q.body_y_rotation - v.yaw_prev : 0.0;",
+          "v.yaw_d = v.yaw_d - 360.0 * math.round(v.yaw_d / 360.0);",
+          "v.yaw_prev = q.body_y_rotation;",
+          "v.yaw_ready = 1.0;",
+          "v.yaw_off = math.clamp((v.yaw_off - v.yaw_d) * math.exp(-v.dt / 0.07), -160.0, 160.0);",
+          "v.atk_n = (v.attack_time > 0.0 && (v.atk_was <= 0.0 || v.attack_time < v.atk_was)) ? math.mod(v.atk_n + 1, 12) : v.atk_n;",
+          "v.melee_start = (v.attack_time > 0.0 && (v.atk_was <= 0.0 || v.attack_time < v.atk_was)) ? q.life_time : v.melee_start;",
+          "v.melee_t = q.life_time - v.melee_start;",
+          "v.atk_was = v.attack_time;",
+          "v.hurt_t = (q.hurt_time > v.hurt_was) ? q.life_time : v.hurt_t;",
+          "v.hurt_was = q.hurt_time;",
+          "v.flinch = (q.life_time - v.hurt_t < 0.08) ? math.sin((q.life_time - v.hurt_t) * 1125.0) : ((q.life_time - v.hurt_t < 0.6) ? 0.5 + 0.5 * math.cos((q.life_time - v.hurt_t - 0.08) * 346.15) : 0.0);"
+        ]
+      },
+      "spawn_egg": {
+        "base_color": "#d93a3a",
+        "overlay_color": "#222222"
+      }
+    }
+  }
+}

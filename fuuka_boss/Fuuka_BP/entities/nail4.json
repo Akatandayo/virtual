@@ -1,0 +1,102 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "fuuka:nail4",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false,
+      "animations": {
+        "fly": "animation.fuuka.nail4.fly"
+      },
+      "scripts": {
+        "animate": [
+          "fly"
+        ]
+      }
+    },
+    "component_groups": {
+      "despawn": {
+        "minecraft:instant_despawn": {}
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "fuuka_fx",
+          "inanimate"
+        ]
+      },
+      "minecraft:health": {
+        "value": 1,
+        "max": 1
+      },
+      "minecraft:collision_box": {
+        "width": 0.4,
+        "height": 0.4
+      },
+      "minecraft:physics": {
+        "has_gravity": false,
+        "has_collision": false
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:knockback_resistance": {
+        "value": 1.0
+      },
+      "minecraft:body_rotation_blocked": {},
+      "minecraft:fire_immune": {},
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "all",
+            "deal_damage": false
+          }
+        ]
+      },
+      "minecraft:conditional_bandwidth_optimization": {
+        "default_values": {
+          "max_optimized_distance": 0,
+          "max_dropped_ticks": 0,
+          "use_motion_prediction_hints": true
+        }
+      }
+    },
+    "events": {
+      "fuuka:despawn": {
+        "add": {
+          "component_groups": [
+            "despawn"
+          ]
+        }
+      },
+      "fuuka:act4_aim": {
+        "queue_command": {
+          "command": [
+            "tp @s ~ ~ ~ facing @e[tag=vb_foe,tag=!vb_cine,tag=!vb_paused,type=!fuuka:tsukishima_fuuka,r=48,c=1]"
+          ]
+        }
+      },
+      "fuuka:act4_hit": {
+        "add": {
+          "component_groups": [
+            "despawn"
+          ]
+        },
+        "queue_command": {
+          "command": [
+            "tag @a[r=1.4,tag=!fuuka_spin,m=!creative] add fuuka_spin",
+            "tag @e[family=rival_boss,type=!fuuka:tsukishima_fuuka,tag=!vb_cine,tag=!vb_paused,r=1.4,tag=!fuuka_spin] add fuuka_spin",
+            "execute at @e[tag=fuuka_spin,r=1.6] run summon fuuka:spin ~ ~ ~",
+            "title @a[tag=fuuka_spin,r=1.6] title §6§l無限の回転",
+            "title @a[tag=fuuka_spin,r=1.6] subtitle §e月島に近づけば回転を返せる！ 攻撃を当てても止まる",
+            "particle fuuka:nail4_trail ~ ~ ~",
+            "playsound random.anvil_land @a[r=24] ~ ~ ~ 1 1.8"
+          ]
+        }
+      }
+    }
+  }
+}

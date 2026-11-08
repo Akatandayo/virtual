@@ -16,7 +16,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sanims  # noqa: E402
 import sfx  # noqa: E402
 from cine import (FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, aim_at_foes, bake_smooth,  # noqa: E402
-                  pause_events,
+                  pause_events, split_melee, apply_stance_groups, stance_events, stance_filters, STANCE_ANIM,
                   encounter_cmds, foe_tag_anim, footwork_steps, near_filters, rival_target, smooth_client,
                   split_dashes, vectorize_animations)
 
@@ -27,7 +27,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "sophia:sophia_heart"
 NAME = "ソフィア・ハート"
-VERSION = [1, 5, 0]
+VERSION = [1, 6, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "61396506-b3f5-4a1b-92f6-8e34dc87c6de"
 UUID_BP_MODULE = "c8d8c5f1-e6b7-46bb-8808-2e50aa8d0842"
@@ -657,6 +657,7 @@ def bp_entity():
             "minecraft:behavior.look_at_player": {"priority": 7, "look_distance": 16},
         },
     }
+    split_melee(groups, "sophia")   # 近接の構え / 遠距離の構え
     variants = [0] + sorted(SKILLS)
     for v in variants:
         groups["v_%d" % v] = {"minecraft:mark_variant": {"value": v}}
@@ -739,14 +740,14 @@ def bp_entity():
             events["sophia:skill_%d" % v] = set_variant(v)
 
     near1 = [1, 1, 2, 2, 3, 4, 6, 13, 14, 15, 16, 17, 18, 12, 60, 60, 61, 62]   # 60〜62: 立ち回り
-    far1 = [1, 5, 5, 7, 8, 9, 10, 11, 11, 12, 15, 17, 18]
+    far1 = [1, 5, 5, 7, 8, 9, 10, 11, 11, 12, 15, 17, 18, 60]   # 60: 間合いを取って遠距離で返す
     near2 = near1 + [19, 21, 23, 24, 25, 26, 28, 29]
     far2 = far1 + [19, 21, 22, 23, 24, 25, 27, 28, 29]
     near3 = near2 + [22, 27, 28]
     far3 = far2 + [22, 27, 29]
     near4 = near3 + [40, 40, 41, 41]
     far4 = far3 + [40, 40, 41, 41]
-    NEAR, FAR = near_filters("sophia_near")   # 7 マス以内に敵（プレイヤー・ほかのボス）がいるか
+    NEAR, FAR = stance_filters("sophia_near")   # 近接の構えで敵が近い → 近距離の技 / それ以外 → 遠距離の技
     base = [{"test": "is_mark_variant", "value": 0}, {"test": "has_target", "value": True}]
     seq = []
     for skin, near, far in ((0, near1, far1), (1, near2, far2), (2, near3, far3), (3, near4, far4)):
@@ -757,6 +758,9 @@ def bp_entity():
 
     # ほかのボスの演出（登場など）のあいだは一時停止して、お互いに手出ししない
     events.update(pause_events(not_cine))
+    # 間合いの判断: 4 秒ごとに「近接の構え / 遠距離の構え」を選び直す（HP が減ると遠距離寄り）
+    events.update(stance_events(not_cine, 55, 45, int(HP * 0.4)))
+    apply_stance_groups(events)
 
     components = {
         "minecraft:type_family": {"family": ["sophia", "boss", RIVAL_FAMILY, "monster", "mob"]},
@@ -792,18 +796,18 @@ def bp_entity():
     anims = {"skills": "controller.animation.sophia.skills", "barrier_cd": "controller.animation.sophia.barrier_cd",
              "barrier_time": "controller.animation.sophia.barrier_time", "death": "controller.animation.sophia.death",
              "upkeep": "animation.sophia.upkeep", "idle_loop": "animation.sophia.idle_loop",
-             "foe_tags": "animation.sophia.foe_tags",
+             "foe_tags": "animation.sophia.foe_tags", "stance": "animation.sophia.stance_loop",
              "cd_timer": "animation.sophia.cd_timer", "barrier_timer": "animation.sophia.barrier_timer",
              **{"skill_%d" % v: "animation.sophia.skill_%d" % v for v in SKILLS}}
     return {"format_version": "1.21.0", "minecraft:entity": {
         "description": {"identifier": ID, "is_spawnable": True, "is_summonable": True, "is_experimental": False,
-                        "scripts": {"animate": ["skills", "barrier_cd", "barrier_time", "upkeep", "death", "foe_tags"]},
+                        "scripts": {"animate": ["skills", "barrier_cd", "barrier_time", "upkeep", "death", "foe_tags", "stance"]},
                         "animations": anims},
         "component_groups": groups, "components": components, "events": events}}
 
 
 # ほかのボスと初めて会ったときのひとこと
-ENCOUNTER = {'byakuya': '§eソフィア§7「……ふふ。いい刀だね。でも、神様には届くかな？」', 'hitori': '§eソフィア§7「世界のバグ……ふふ。直すのも、神様のお仕事だよね」', 'shinonome': '§eソフィア§7「……東雲。今日は、手加減しないからね」'}
+ENCOUNTER = {'byakuya': '§eソフィア§7「……ふふ。いい刀だね。でも、神様には届くかな？」', 'hitori': '§eソフィア§7「世界のバグ……ふふ。直すのも、神様のお仕事だよね」', 'shinonome': '§eソフィア§7「……東雲。今日は、手加減しないからね」', 'fuuka': '§eソフィア§7「……ふふ。怪盗さん、今日は何を盗みに来たの？」'}
 
 
 def bp_animations():
@@ -822,6 +826,7 @@ def bp_animations():
     a["animation.sophia.idle_loop"] = {"animation_length": 2.0, "loop": True, "timeline": {
         "1.00": CINE.end(), "1.50": encounter_cmds("sophia", say, ENCOUNTER)}}   # ほかのボスの発見
     # 常に動く: 敵の目印と「近くに敵がいる」タグ
+    a["animation.sophia.stance_loop"] = STANCE_ANIM   # 間合いの判断（4 秒ごと）
     a["animation.sophia.foe_tags"] = foe_tag_anim(ID, "sophia_near")
     return {"format_version": "1.10.0", "animations": a}
 

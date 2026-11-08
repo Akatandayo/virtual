@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import xanims  # noqa: E402
 import xfx  # noqa: E402
 from cine import (FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, aim_at_foes, bake_smooth,  # noqa: E402
-                  pause_events,
+                  pause_events, split_melee, apply_stance_groups, stance_events, stance_filters, STANCE_ANIM,
                   encounter_cmds, foe_tag_anim, footwork_steps, near_filters, rival_target, smooth_client,
                   split_dashes, vectorize_animations)
 
@@ -28,7 +28,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "shinonome:toa"
 NAME = "東雲 永々"
-VERSION = [1, 5, 0]
+VERSION = [1, 6, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "a694ca4a-12aa-4554-8bdb-12089cc1e7f6"
 UUID_BP_MODULE = "f1947c40-91af-45a7-8801-580cb386961f"
@@ -615,6 +615,7 @@ def bp_entity():
             "minecraft:behavior.look_at_player": {"priority": 7, "look_distance": 16},
         },
     }
+    split_melee(groups, "shinonome")   # 近接の構え / 遠距離の構え
     variants = [0] + sorted(SKILLS)
     for v in variants:
         groups["v_%d" % v] = {"minecraft:mark_variant": {"value": v}}
@@ -677,13 +678,13 @@ def bp_entity():
             events["shinonome:skill_%d" % v] = set_variant(v)
 
     near1 = [1, 51, 52, 2, 3, 4, 6, 8, 11, 12, 13, 14, 14, 9, 60, 60, 61, 62]   # 60〜62: 立ち回り
-    far1 = [1, 51, 52, 2, 3, 4, 5, 5, 7, 7, 8, 9, 10, 10]
+    far1 = [1, 51, 52, 2, 3, 4, 5, 5, 7, 7, 8, 9, 10, 10, 60]   # 60: 間合いを取って遠距離で返す
     late_clone = [53, 54, 55]
     near2 = [s for s in near1 if s not in (1, 51, 52)] + late_clone + [15, 16, 17, 18, 19, 20, 21, 22, 23]
     far2 = [s for s in far1 if s not in (1, 51, 52)] + late_clone + [15, 16, 17, 18, 18, 19, 21, 22]
     near3 = near2 + [24, 24, 16, 22]
     far3 = far2 + [24, 17, 18, 22]
-    NEAR, FAR = near_filters("shinonome_near")   # 7 マス以内に敵（プレイヤー・ほかのボス）がいるか
+    NEAR, FAR = stance_filters("shinonome_near")   # 近接の構えで敵が近い → 近距離の技 / それ以外 → 遠距離の技
     base = [{"test": "is_mark_variant", "value": 0}, {"test": "has_target", "value": True}]
     seq = []
     for skin, near, far in ((0, near1, far1), (1, near2, far2), (2, near3, far3)):
@@ -694,6 +695,9 @@ def bp_entity():
 
     # ほかのボスの演出（登場など）のあいだは一時停止して、お互いに手出ししない
     events.update(pause_events(not_busy))
+    # 間合いの判断: 4 秒ごとに「近接の構え / 遠距離の構え」を選び直す（HP が減ると遠距離寄り）
+    events.update(stance_events(not_busy, 60, 40, int(HP * 0.4)))
+    apply_stance_groups(events)
 
     components = {
         "minecraft:type_family": {"family": ["shinonome", "boss", RIVAL_FAMILY, "monster", "mob"]},
@@ -727,16 +731,16 @@ def bp_entity():
     }
     anims = {"skills": "controller.animation.toa.skills", "death": "controller.animation.toa.death",
              "upkeep": "animation.toa.upkeep", "idle_loop": "animation.toa.idle_loop",
-             "foe_tags": "animation.toa.foe_tags",
+             "foe_tags": "animation.toa.foe_tags", "stance": "animation.toa.stance_loop",
              **{"skill_%d" % v: "animation.toa.skill_%d" % v for v in SKILLS}}
     return {"format_version": "1.21.0", "minecraft:entity": {
         "description": {"identifier": ID, "is_spawnable": True, "is_summonable": True, "is_experimental": False,
-                        "scripts": {"animate": ["skills", "upkeep", "death", "foe_tags"]}, "animations": anims},
+                        "scripts": {"animate": ["skills", "upkeep", "death", "foe_tags", "stance"]}, "animations": anims},
         "component_groups": groups, "components": components, "events": events}}
 
 
 # ほかのボスと初めて会ったときのひとこと（ソフィアには「おすわり」も）
-ENCOUNTER = {'byakuya': '§f東雲§7「ねえねえ、キセルのひと！\u3000その刀かっこいいね！\u3000遊ぼ！」', 'hitori': '§f東雲§7「あっ、カクカクしてる！\u3000バグってるの？\u3000えへへ、遊ぼ遊ぼ！」', 'sophia': '§f東雲§7「あ、ソフィアだ！\u3000えへへ……今日は本気で遊んじゃおっかな！」'}
+ENCOUNTER = {'byakuya': '§f東雲§7「ねえねえ、キセルのひと！\u3000その刀かっこいいね！\u3000遊ぼ！」', 'hitori': '§f東雲§7「あっ、カクカクしてる！\u3000バグってるの？\u3000えへへ、遊ぼ遊ぼ！」', 'sophia': '§f東雲§7「あ、ソフィアだ！\u3000えへへ……今日は本気で遊んじゃおっかな！」', 'fuuka': '§f東雲§7「あっ、風花ちゃんだ！ 今日は敵だね、えへへ……遊ぼ！」'}
 
 
 def bp_animations():
@@ -755,6 +759,7 @@ def bp_animations():
         "/execute if entity @s[tag=!toa_osuwari] if entity @e[family=sophia,r=16] run event entity @s shinonome:osuwari"],
         "1.50": encounter_cmds("shinonome", say, ENCOUNTER)}}   # ほかのボスの発見
     # 常に動く: 敵の目印と「近くに敵がいる」タグ
+    a["animation.toa.stance_loop"] = STANCE_ANIM   # 間合いの判断（4 秒ごと）
     a["animation.toa.foe_tags"] = foe_tag_anim(ID, "shinonome_near")
     return {"format_version": "1.10.0", "animations": a}
 

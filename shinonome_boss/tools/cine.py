@@ -67,7 +67,8 @@ class Cine:
 
 # ================================================================ ボス同士の敵対
 RIVAL_FAMILY = "rival_boss"   # 4 体のボス全員が持つ family（自分以外の「ボス」を見分ける）
-BOSS_NAMES = {"byakuya": "白石白夜", "hitori": "電子 独", "sophia": "ソフィア・ハート", "shinonome": "東雲 永々"}
+BOSS_NAMES = {"byakuya": "白石白夜", "hitori": "電子 独", "sophia": "ソフィア・ハート", "shinonome": "東雲 永々",
+              "fuuka": "月島 風花"}
 FOE_ANY = {"any_of": [{"test": "is_family", "subject": "other", "value": "player"},
                       {"test": "is_family", "subject": "other", "value": RIVAL_FAMILY}]}
 
@@ -735,3 +736,91 @@ def mute_controller(ac, name):
     for st in ac["animation_controllers"][name]["states"].values():
         st.pop("particle_effects", None)
     return ac
+
+
+# ================================================================ 間合いの判断（近接の構え / 遠距離の構え）
+# 近接の構え: 相手に近づいて殴る（近距離の技）。遠距離の構え: 近づかれたら離れ、13 マスくらいを保って遠距離の技。
+STANCE_TAG = "vb_range"   # 遠距離の構えのあいだ付く目印
+
+
+def stance_group(own_family, keep=13, flee=8):
+    """遠距離の構え: 近すぎる敵からは離れ、遠すぎる相手には keep マスまで近づく"""
+    foe = {"any_of": [
+        {"all_of": [{"test": "is_family", "subject": "other", "value": "player"},
+                    {"test": "has_ability", "subject": "other", "operator": "!=", "value": "instabuild"}]},
+        rival_target(own_family)["filters"]]}
+    return {
+        "minecraft:behavior.avoid_mob_type": {
+            "priority": 1, "remove_target": False, "ignore_visibility": True,
+            "entity_types": [{"filters": foe, "max_dist": flee, "max_flee": flee + 8,
+                              "walk_speed_multiplier": 1.15, "sprint_speed_multiplier": 1.35}]},
+        "minecraft:behavior.move_towards_target": {"priority": 3, "speed_multiplier": 1.0, "within_radius": keep},
+    }
+
+
+def split_melee(groups, own_family, keep=13, flee=8):
+    """「ai」から近接（melee_attack）を分けて、構えで出し入れできるようにする"""
+    groups["ai_melee"] = {"minecraft:behavior.melee_attack": groups["ai"].pop("minecraft:behavior.melee_attack")}
+    groups["stance_range"] = stance_group(own_family, keep, flee)
+    return groups
+
+
+def apply_stance_groups(events):
+    """AI を止めるイベントでは構えのグループも止め、AI を戻すイベントでは近接の構えで戻す"""
+    def fix(o):
+        if isinstance(o, dict):
+            rm = o.get("remove", {}).get("component_groups")
+            ad = o.get("add", {}).get("component_groups")
+            if rm is not None and "ai" in rm:
+                rm += [g for g in ("ai_melee", "stance_range") if g not in rm]
+            if ad is not None and "ai" in ad:
+                if "ai_melee" not in ad:
+                    ad.append("ai_melee")
+                rml = o.setdefault("remove", {}).setdefault("component_groups", [])
+                if "stance_range" not in rml:
+                    rml.append("stance_range")
+                qc = o.setdefault("queue_command", {})
+                cmds = qc.get("command", [])
+                cmds = [cmds] if isinstance(cmds, str) else list(cmds)
+                qc["command"] = cmds + ["tag @s remove %s" % STANCE_TAG]
+            for v in list(o.values()):
+                fix(v)
+        elif isinstance(o, list):
+            for x in o:
+                fix(x)
+    fix(events)
+    return events
+
+
+def stance_events(not_busy, melee_w, range_w, low_hp, low_bias=1.6):
+    """vb:stance: 構えを選び直す（HP が減ると遠距離寄りに）。演出中・一時停止中は何もしない"""
+    ok = list(not_busy["all_of"]) + [{"test": "has_tag", "subject": "self", "operator": "!=", "value": PAUSE_TAG}]
+
+    def pick(wm, wr):
+        out = []
+        if wm > 0:
+            out.append({"weight": wm, "add": {"component_groups": ["ai_melee"]},
+                        "remove": {"component_groups": ["stance_range"]},
+                        "queue_command": {"command": ["tag @s remove %s" % STANCE_TAG]}})
+        if wr > 0:
+            out.append({"weight": wr, "add": {"component_groups": ["stance_range"]},
+                        "remove": {"component_groups": ["ai_melee"]},
+                        "queue_command": {"command": ["tag @s add %s" % STANCE_TAG]}})
+        return out
+    hi = {"test": "actor_health", "subject": "self", "operator": ">", "value": low_hp}
+    lo = {"test": "actor_health", "subject": "self", "operator": "<=", "value": low_hp}
+    return {"vb:stance": {"sequence": [
+        {"filters": {"all_of": ok + [hi]}, "randomize": pick(melee_w, range_w)},
+        {"filters": {"all_of": ok + [lo]}, "randomize": pick(int(melee_w / low_bias), int(range_w * low_bias))}]}}
+
+
+STANCE_ANIM = {"animation_length": 4.0, "loop": True, "timeline": {"2.00": ["/event entity @s vb:stance"]}}
+
+
+def stance_filters(near_tag):
+    """技選び: 近接の構えで敵が近い → 近距離の技 / それ以外（遠距離の構え・敵が遠い）→ 遠距離の技"""
+    near = {"all_of": [{"test": "has_tag", "subject": "self", "value": near_tag},
+                       {"test": "has_tag", "subject": "self", "operator": "!=", "value": STANCE_TAG}]}
+    other = {"any_of": [{"test": "has_tag", "subject": "self", "operator": "!=", "value": near_tag},
+                        {"test": "has_tag", "subject": "self", "value": STANCE_TAG}]}
+    return near, other

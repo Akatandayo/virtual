@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "fuuka:blast",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/fuuka_empty"
+      },
+      "geometry": {
+        "default": "geometry.fuuka_empty"
+      },
+      "render_controllers": [
+        "controller.render.fuuka_simple"
+      ]
+    }
+  }
+}

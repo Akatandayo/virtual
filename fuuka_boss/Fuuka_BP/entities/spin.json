@@ -1,0 +1,94 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "fuuka:spin",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false,
+      "animations": {
+        "life": "animation.fuuka.spin.life"
+      },
+      "scripts": {
+        "animate": [
+          "life"
+        ]
+      }
+    },
+    "component_groups": {
+      "despawn": {
+        "minecraft:instant_despawn": {}
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "fuuka_fx",
+          "inanimate"
+        ]
+      },
+      "minecraft:health": {
+        "value": 1,
+        "max": 1
+      },
+      "minecraft:collision_box": {
+        "width": 0.1,
+        "height": 0.1
+      },
+      "minecraft:physics": {
+        "has_gravity": false,
+        "has_collision": false
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:knockback_resistance": {
+        "value": 1.0
+      },
+      "minecraft:body_rotation_blocked": {},
+      "minecraft:fire_immune": {},
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "all",
+            "deal_damage": false
+          }
+        ]
+      },
+      "minecraft:conditional_bandwidth_optimization": {
+        "default_values": {
+          "max_optimized_distance": 0,
+          "max_dropped_ticks": 0,
+          "use_motion_prediction_hints": true
+        }
+      }
+    },
+    "events": {
+      "fuuka:despawn": {
+        "add": {
+          "component_groups": [
+            "despawn"
+          ]
+        }
+      },
+      "fuuka:spin_return": {
+        "add": {
+          "component_groups": [
+            "despawn"
+          ]
+        },
+        "queue_command": {
+          "command": [
+            "tag @e[tag=fuuka_spin,r=2] remove fuuka_spin",
+            "title @a[r=24] actionbar §e§l回転を返した！ §r§7風花に大ダメージ",
+            "damage @e[type=fuuka:tsukishima_fuuka,c=1] 30 override",
+            "execute at @e[type=fuuka:tsukishima_fuuka,c=1] run particle fuuka:spin_hole ~ ~1 ~",
+            "execute at @e[type=fuuka:tsukishima_fuuka,c=1] run particle fuuka:hit_spark ~ ~1 ~",
+            "playsound random.anvil_land @a[r=24] ~ ~ ~ 1 0.6"
+          ]
+        }
+      }
+    }
+  }
+}

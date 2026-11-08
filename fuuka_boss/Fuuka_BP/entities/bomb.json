@@ -1,0 +1,96 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "fuuka:bomb",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false,
+      "animations": {
+        "life": "animation.fuuka.bomb.life"
+      },
+      "scripts": {
+        "animate": [
+          "life"
+        ]
+      }
+    },
+    "component_groups": {
+      "despawn": {
+        "minecraft:instant_despawn": {}
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "fuuka_fx",
+          "inanimate"
+        ]
+      },
+      "minecraft:health": {
+        "value": 1,
+        "max": 1
+      },
+      "minecraft:collision_box": {
+        "width": 0.4,
+        "height": 0.4
+      },
+      "minecraft:physics": {
+        "has_gravity": true,
+        "has_collision": true
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:knockback_resistance": {
+        "value": 1.0
+      },
+      "minecraft:body_rotation_blocked": {},
+      "minecraft:fire_immune": {},
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "all",
+            "deal_damage": false
+          }
+        ]
+      },
+      "minecraft:conditional_bandwidth_optimization": {
+        "default_values": {
+          "max_optimized_distance": 0,
+          "max_dropped_ticks": 0,
+          "use_motion_prediction_hints": true
+        }
+      }
+    },
+    "events": {
+      "fuuka:despawn": {
+        "add": {
+          "component_groups": [
+            "despawn"
+          ]
+        }
+      },
+      "fuuka:detonate": {
+        "add": {
+          "component_groups": [
+            "despawn"
+          ]
+        },
+        "queue_command": {
+          "command": [
+            "damage @a[r=3.2,m=!creative] 12 entity_attack entity @e[type=fuuka:tsukishima_fuuka,c=1]",
+            "damage @e[family=rival_boss,type=!fuuka:tsukishima_fuuka,tag=!vb_cine,tag=!vb_paused,r=3.2] 12 entity_attack entity @e[type=fuuka:tsukishima_fuuka,c=1]",
+            "summon fuuka:blast ~ ~0.5 ~",
+            "particle fuuka:explosion ~ ~0.5 ~",
+            "particle fuuka:shockwave ~ ~0.1 ~",
+            "particle fuuka:debris ~ ~ ~",
+            "playsound random.explode @a[r=32] ~ ~ ~ 1 1.1",
+            "camerashake add @a[r=10] 0.5 0.3 positional"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "format_version": "1.10.0",
+  "render_controllers": {
+    "controller.render.fuuka": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "overlay_color": {
+        "r": "1.0",
+        "g": "0.2",
+        "b": "0.2",
+        "a": "q.property('fuuka:aim') ? 0.18 + math.sin(q.life_time * 900) * 0.08 : 0.0"
+      }
+    },
+    "controller.render.fuuka_doll": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "overlay_color": {
+        "r": "(math.clamp(q.variant - 1, 0, 6) == 0 ? 1.00 : (math.clamp(q.variant - 1, 0, 6) == 1 ? 1.00 : (math.clamp(q.variant - 1, 0, 6) == 2 ? 1.00 : (math.clamp(q.variant - 1, 0, 6) == 3 ? 0.30 : (math.clamp(q.variant - 1, 0, 6) == 4 ? 0.30 : (math.clamp(q.variant - 1, 0, 6) == 5 ? 0.35 : 0.75))))))",
+        "g": "(math.clamp(q.variant - 1, 0, 6) == 0 ? 0.25 : (math.clamp(q.variant - 1, 0, 6) == 1 ? 0.60 : (math.clamp(q.variant - 1, 0, 6) == 2 ? 0.90 : (math.clamp(q.variant - 1, 0, 6) == 3 ? 0.90 : (math.clamp(q.variant - 1, 0, 6) == 4 ? 0.70 : (math.clamp(q.variant - 1, 0, 6) == 5 ? 0.35 : 0.35))))))",
+        "b": "(math.clamp(q.variant - 1, 0, 6) == 0 ? 0.25 : (math.clamp(q.variant - 1, 0, 6) == 1 ? 0.15 : (math.clamp(q.variant - 1, 0, 6) == 2 ? 0.20 : (math.clamp(q.variant - 1, 0, 6) == 3 ? 0.35 : (math.clamp(q.variant - 1, 0, 6) == 4 ? 1.00 : (math.clamp(q.variant - 1, 0, 6) == 5 ? 1.00 : 1.00))))))",
+        "a": "0.55"
+      }
+    },
+    "controller.render.fuuka_simple": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ]
+    }
+  }
+}

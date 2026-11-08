@@ -1,0 +1,31 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "fuuka:nail",
+      "materials": {
+        "default": "entity_emissive_alpha"
+      },
+      "textures": {
+        "default": "textures/entity/fuuka_nail"
+      },
+      "geometry": {
+        "default": "geometry.fuuka_nail"
+      },
+      "render_controllers": [
+        "controller.render.fuuka_simple"
+      ],
+      "particle_effects": {
+        "trail": "fuuka:nail_trail"
+      },
+      "animations": {
+        "fx": "animation.fuuka.nail_fx"
+      },
+      "scripts": {
+        "animate": [
+          "fx"
+        ]
+      }
+    }
+  }
+}

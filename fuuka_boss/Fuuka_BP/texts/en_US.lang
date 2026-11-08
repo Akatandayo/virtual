@@ -1,0 +1,15 @@
+entity.fuuka:tsukishima_fuuka.name=月島 風花
+entity.fuuka:fang.name=スタンド「牙」
+entity.fuuka:nail.name=爪弾
+entity.fuuka:nail4.name=ACT4 の爪弾
+entity.fuuka:spin.name=無限の回転
+entity.fuuka:bird.name=鳥の弾幕
+entity.fuuka:egg.name=卵爆弾
+entity.fuuka:doll.name=月島人形
+entity.fuuka:missile.name=ミサイル
+entity.fuuka:bomb.name=自爆スイッチの爆弾
+entity.fuuka:blast.name=爆風
+entity.fuuka:director.name=月島 風花
+item.spawn_egg.entity.fuuka:tsukishima_fuuka.name=月島 風花のスポーンエッグ
+pack.name=月島 風花 ボス
+pack.description=秘密結社「花鳥風月」の社長・怪盗「月島 風花」ボスアドオン

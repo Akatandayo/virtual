@@ -1,0 +1,40 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "fuuka:fang",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/fuuka_fang"
+      },
+      "geometry": {
+        "default": "geometry.fuuka_fang"
+      },
+      "render_controllers": [
+        "controller.render.fuuka_simple"
+      ],
+      "particle_effects": {
+        "aura": "fuuka:stand_aura",
+        "nail": "fuuka:nail_trail",
+        "nail4": "fuuka:nail4_trail",
+        "charge": "fuuka:act4_charge"
+      },
+      "animations": {
+        "s_idle": "animation.fuuka.fang.idle",
+        "s_shoot": "animation.fuuka.fang.shoot",
+        "s_rush": "animation.fuuka.fang.rush",
+        "s_act4": "animation.fuuka.fang.act4",
+        "ctrl": "controller.animation.fuuka.fang",
+        "aura": "animation.fuuka.fang.aura"
+      },
+      "scripts": {
+        "animate": [
+          "ctrl",
+          "aura"
+        ]
+      }
+    }
+  }
+}

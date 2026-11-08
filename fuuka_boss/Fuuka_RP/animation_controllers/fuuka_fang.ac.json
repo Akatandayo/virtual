@@ -1,0 +1,63 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.fuuka.fang": {
+      "initial_state": "idle",
+      "states": {
+        "idle": {
+          "animations": [
+            "s_idle"
+          ],
+          "transitions": [
+            {
+              "shoot": "q.mark_variant == 1"
+            },
+            {
+              "rush": "q.mark_variant == 2"
+            },
+            {
+              "act4": "q.mark_variant == 3"
+            }
+          ],
+          "blend_transition": 0.15
+        },
+        "shoot": {
+          "animations": [
+            "s_idle",
+            "s_shoot"
+          ],
+          "transitions": [
+            {
+              "idle": "q.mark_variant != 1"
+            }
+          ],
+          "blend_transition": 0.2
+        },
+        "rush": {
+          "animations": [
+            "s_idle",
+            "s_rush"
+          ],
+          "transitions": [
+            {
+              "idle": "q.mark_variant != 2"
+            }
+          ],
+          "blend_transition": 0.2
+        },
+        "act4": {
+          "animations": [
+            "s_idle",
+            "s_act4"
+          ],
+          "transitions": [
+            {
+              "idle": "q.mark_variant != 3"
+            }
+          ],
+          "blend_transition": 0.2
+        }
+      }
+    }
+  }
+}

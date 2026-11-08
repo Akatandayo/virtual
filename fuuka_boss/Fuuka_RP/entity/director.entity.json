@@ -1,0 +1,28 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "fuuka:director",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/fuuka"
+      },
+      "geometry": {
+        "default": "geometry.fuuka"
+      },
+      "render_controllers": [
+        "controller.render.fuuka_simple"
+      ],
+      "animations": {
+        "pose": "animation.fuuka.director_pose"
+      },
+      "scripts": {
+        "animate": [
+          "pose"
+        ]
+      }
+    }
+  }
+}

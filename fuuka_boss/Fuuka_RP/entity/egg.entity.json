@@ -1,0 +1,28 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "fuuka:egg",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/fuuka_egg"
+      },
+      "geometry": {
+        "default": "geometry.fuuka_egg"
+      },
+      "render_controllers": [
+        "controller.render.fuuka_simple"
+      ],
+      "animations": {
+        "fx": "animation.fuuka.egg_fx"
+      },
+      "scripts": {
+        "animate": [
+          "fx"
+        ]
+      }
+    }
+  }
+}

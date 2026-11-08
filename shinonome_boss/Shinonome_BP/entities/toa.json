@@ -11,7 +11,8 @@
           "skills",
           "upkeep",
           "death",
-          "foe_tags"
+          "foe_tags",
+          "stance"
         ]
       },
       "animations": {
@@ -20,6 +21,7 @@
         "upkeep": "animation.toa.upkeep",
         "idle_loop": "animation.toa.idle_loop",
         "foe_tags": "animation.toa.foe_tags",
+        "stance": "animation.toa.stance_loop",
         "skill_1": "animation.toa.skill_1",
         "skill_51": "animation.toa.skill_51",
         "skill_52": "animation.toa.skill_52",
@@ -335,11 +337,6 @@
         "minecraft:behavior.float": {
           "priority": 0
         },
-        "minecraft:behavior.melee_attack": {
-          "priority": 2,
-          "speed_multiplier": 1.4,
-          "track_target": true
-        },
         "minecraft:behavior.hurt_by_target": {
           "priority": 1
         },
@@ -396,6 +393,79 @@
         "minecraft:behavior.look_at_player": {
           "priority": 7,
           "look_distance": 16
+        }
+      },
+      "ai_melee": {
+        "minecraft:behavior.melee_attack": {
+          "priority": 2,
+          "speed_multiplier": 1.4,
+          "track_target": true
+        }
+      },
+      "stance_range": {
+        "minecraft:behavior.avoid_mob_type": {
+          "priority": 1,
+          "remove_target": false,
+          "ignore_visibility": true,
+          "entity_types": [
+            {
+              "filters": {
+                "any_of": [
+                  {
+                    "all_of": [
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "value": "player"
+                      },
+                      {
+                        "test": "has_ability",
+                        "subject": "other",
+                        "operator": "!=",
+                        "value": "instabuild"
+                      }
+                    ]
+                  },
+                  {
+                    "all_of": [
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "value": "rival_boss"
+                      },
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "operator": "!=",
+                        "value": "shinonome"
+                      },
+                      {
+                        "test": "has_tag",
+                        "subject": "other",
+                        "operator": "!=",
+                        "value": "vb_cine"
+                      },
+                      {
+                        "test": "has_tag",
+                        "subject": "other",
+                        "operator": "!=",
+                        "value": "vb_paused"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "max_dist": 8,
+              "max_flee": 16,
+              "walk_speed_multiplier": 1.15,
+              "sprint_speed_multiplier": 1.35
+            }
+          ]
+        },
+        "minecraft:behavior.move_towards_target": {
+          "priority": 3,
+          "speed_multiplier": 1.0,
+          "within_radius": 13
         }
       },
       "v_0": {
@@ -950,14 +1020,21 @@
             "v_62",
             "water",
             "fainted",
-            "cine_guard"
+            "cine_guard",
+            "stance_range"
           ]
         },
         "add": {
           "component_groups": [
             "v_0",
             "sensor_normal",
-            "ai"
+            "ai",
+            "ai_melee"
+          ]
+        },
+        "queue_command": {
+          "command": [
+            "tag @s remove vb_range"
           ]
         }
       },
@@ -1083,7 +1160,9 @@
             "water",
             "fainted",
             "ai",
-            "phase_1"
+            "phase_1",
+            "ai_melee",
+            "stance_range"
           ]
         },
         "add": {
@@ -1138,7 +1217,9 @@
             "fainted",
             "ai",
             "phase_1",
-            "phase_2"
+            "phase_2",
+            "ai_melee",
+            "stance_range"
           ]
         },
         "add": {
@@ -2684,9 +2765,19 @@
                   "value": 0
                 },
                 {
-                  "test": "has_tag",
-                  "subject": "self",
-                  "value": "shinonome_near"
+                  "all_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "value": "shinonome_near"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "vb_range"
+                    }
+                  ]
                 }
               ]
             },
@@ -2781,10 +2872,19 @@
                   "value": 0
                 },
                 {
-                  "test": "has_tag",
-                  "subject": "self",
-                  "operator": "!=",
-                  "value": "shinonome_near"
+                  "any_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "shinonome_near"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "value": "vb_range"
+                    }
+                  ]
                 }
               ]
             },
@@ -2844,6 +2944,10 @@
               {
                 "weight": 10,
                 "trigger": "shinonome:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_60"
               }
             ]
           },
@@ -2863,9 +2967,19 @@
                   "value": 1
                 },
                 {
-                  "test": "has_tag",
-                  "subject": "self",
-                  "value": "shinonome_near"
+                  "all_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "value": "shinonome_near"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "vb_range"
+                    }
+                  ]
                 }
               ]
             },
@@ -2996,10 +3110,19 @@
                   "value": 1
                 },
                 {
-                  "test": "has_tag",
-                  "subject": "self",
-                  "operator": "!=",
-                  "value": "shinonome_near"
+                  "any_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "shinonome_near"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "value": "vb_range"
+                    }
+                  ]
                 }
               ]
             },
@@ -3047,6 +3170,10 @@
               {
                 "weight": 10,
                 "trigger": "shinonome:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_60"
               },
               {
                 "weight": 10,
@@ -3110,9 +3237,19 @@
                   "value": 2
                 },
                 {
-                  "test": "has_tag",
-                  "subject": "self",
-                  "value": "shinonome_near"
+                  "all_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "value": "shinonome_near"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "vb_range"
+                    }
+                  ]
                 }
               ]
             },
@@ -3259,10 +3396,19 @@
                   "value": 2
                 },
                 {
-                  "test": "has_tag",
-                  "subject": "self",
-                  "operator": "!=",
-                  "value": "shinonome_near"
+                  "any_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "shinonome_near"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "self",
+                      "value": "vb_range"
+                    }
+                  ]
                 }
               ]
             },
@@ -3310,6 +3456,10 @@
               {
                 "weight": 10,
                 "trigger": "shinonome:skill_10"
+              },
+              {
+                "weight": 10,
+                "trigger": "shinonome:skill_60"
               },
               {
                 "weight": 10,
@@ -3404,7 +3554,9 @@
             },
             "remove": {
               "component_groups": [
-                "ai"
+                "ai",
+                "ai_melee",
+                "stance_range"
               ]
             },
             "queue_command": {
@@ -3445,7 +3597,18 @@
             },
             "add": {
               "component_groups": [
-                "ai"
+                "ai",
+                "ai_melee"
+              ]
+            },
+            "remove": {
+              "component_groups": [
+                "stance_range"
+              ]
+            },
+            "queue_command": {
+              "command": [
+                "tag @s remove vb_range"
               ]
             }
           },
@@ -3455,6 +3618,162 @@
                 "tag @s remove vb_paused"
               ]
             }
+          }
+        ]
+      },
+      "vb:stance": {
+        "sequence": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 30
+                },
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 31
+                },
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 32
+                },
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 25
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "vb_paused"
+                },
+                {
+                  "test": "actor_health",
+                  "subject": "self",
+                  "operator": ">",
+                  "value": 800
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 60,
+                "add": {
+                  "component_groups": [
+                    "ai_melee"
+                  ]
+                },
+                "remove": {
+                  "component_groups": [
+                    "stance_range"
+                  ]
+                },
+                "queue_command": {
+                  "command": [
+                    "tag @s remove vb_range"
+                  ]
+                }
+              },
+              {
+                "weight": 40,
+                "add": {
+                  "component_groups": [
+                    "stance_range"
+                  ]
+                },
+                "remove": {
+                  "component_groups": [
+                    "ai_melee"
+                  ]
+                },
+                "queue_command": {
+                  "command": [
+                    "tag @s add vb_range"
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 30
+                },
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 31
+                },
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 32
+                },
+                {
+                  "test": "is_mark_variant",
+                  "operator": "!=",
+                  "value": 25
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "vb_paused"
+                },
+                {
+                  "test": "actor_health",
+                  "subject": "self",
+                  "operator": "<=",
+                  "value": 800
+                }
+              ]
+            },
+            "randomize": [
+              {
+                "weight": 37,
+                "add": {
+                  "component_groups": [
+                    "ai_melee"
+                  ]
+                },
+                "remove": {
+                  "component_groups": [
+                    "stance_range"
+                  ]
+                },
+                "queue_command": {
+                  "command": [
+                    "tag @s remove vb_range"
+                  ]
+                }
+              },
+              {
+                "weight": 64,
+                "add": {
+                  "component_groups": [
+                    "stance_range"
+                  ]
+                },
+                "remove": {
+                  "component_groups": [
+                    "ai_melee"
+                  ]
+                },
+                "queue_command": {
+                  "command": [
+                    "tag @s add vb_range"
+                  ]
+                }
+              }
+            ]
           }
         ]
       }

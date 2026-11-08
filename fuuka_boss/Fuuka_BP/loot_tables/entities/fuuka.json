@@ -1,0 +1,117 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:crossbow",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_name",
+              "name": "§c§lアウトロー・レッドノート"
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§7赤く塗られた特別な狙撃銃",
+                "§8秘密結社「花鳥風月」の宝物"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "piercing",
+                  "level": 4
+                },
+                {
+                  "id": "quick_charge",
+                  "level": 3
+                },
+                {
+                  "id": "unbreaking",
+                  "level": 3
+                },
+                {
+                  "id": "mending",
+                  "level": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:feather",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 16
+            },
+            {
+              "function": "set_name",
+              "name": "§f鳥の羽（花鳥風月）"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:golden_apple",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 4
+            },
+            {
+              "function": "set_name",
+              "name": "§6盗まれていた金のリンゴ"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:totem_of_undying",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:diamond",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 6,
+                "max": 12
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

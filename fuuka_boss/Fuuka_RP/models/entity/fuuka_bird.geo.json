@@ -1,0 +1,356 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:geometry": [
+    {
+      "description": {
+        "identifier": "geometry.fuuka_bird",
+        "texture_width": 32,
+        "texture_height": 16,
+        "visible_bounds_width": 3,
+        "visible_bounds_height": 3,
+        "visible_bounds_offset": [
+          0,
+          0.5,
+          0
+        ]
+      },
+      "bones": [
+        {
+          "name": "bird",
+          "pivot": [
+            0,
+            0,
+            0
+          ],
+          "locators": {
+            "center": [
+              0,
+              0,
+              0
+            ]
+          },
+          "cubes": [
+            {
+              "origin": [
+                -1.5,
+                -1.5,
+                -3
+              ],
+              "size": [
+                3,
+                3,
+                6
+              ],
+              "uv": {
+                "north": {
+                  "uv": [
+                    0,
+                    0
+                  ],
+                  "uv_size": [
+                    16,
+                    8
+                  ]
+                },
+                "south": {
+                  "uv": [
+                    0,
+                    0
+                  ],
+                  "uv_size": [
+                    16,
+                    8
+                  ]
+                },
+                "east": {
+                  "uv": [
+                    0,
+                    0
+                  ],
+                  "uv_size": [
+                    16,
+                    8
+                  ]
+                },
+                "west": {
+                  "uv": [
+                    0,
+                    0
+                  ],
+                  "uv_size": [
+                    16,
+                    8
+                  ]
+                },
+                "up": {
+                  "uv": [
+                    0,
+                    0
+                  ],
+                  "uv_size": [
+                    16,
+                    8
+                  ]
+                },
+                "down": {
+                  "uv": [
+                    0,
+                    0
+                  ],
+                  "uv_size": [
+                    16,
+                    8
+                  ]
+                }
+              }
+            },
+            {
+              "origin": [
+                -0.5,
+                -0.5,
+                -4
+              ],
+              "size": [
+                1,
+                1,
+                1
+              ],
+              "uv": {
+                "north": {
+                  "uv": [
+                    0,
+                    8
+                  ],
+                  "uv_size": [
+                    8,
+                    8
+                  ]
+                },
+                "south": {
+                  "uv": [
+                    0,
+                    8
+                  ],
+                  "uv_size": [
+                    8,
+                    8
+                  ]
+                },
+                "east": {
+                  "uv": [
+                    0,
+                    8
+                  ],
+                  "uv_size": [
+                    8,
+                    8
+                  ]
+                },
+                "west": {
+                  "uv": [
+                    0,
+                    8
+                  ],
+                  "uv_size": [
+                    8,
+                    8
+                  ]
+                },
+                "up": {
+                  "uv": [
+                    0,
+                    8
+                  ],
+                  "uv_size": [
+                    8,
+                    8
+                  ]
+                },
+                "down": {
+                  "uv": [
+                    0,
+                    8
+                  ],
+                  "uv_size": [
+                    8,
+                    8
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "wing_r",
+          "parent": "bird",
+          "pivot": [
+            -1.5,
+            0.5,
+            0
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -7.5,
+                0.5,
+                -2
+              ],
+              "size": [
+                6,
+                0.5,
+                4
+              ],
+              "uv": {
+                "north": {
+                  "uv": [
+                    16,
+                    0
+                  ],
+                  "uv_size": [
+                    16,
+                    8
+                  ]
+                },
+                "south": {
+                  "uv": [
+                    16,
+                    0
+                  ],
+                  "uv_size": [
+                    16,
+                    8
+                  ]
+                },
+                "east": {
+                  "uv": [
+                    16,
+                    0
+                  ],
+                  "uv_size": [
+                    16,
+                    8
+                  ]
+                },
+                "west": {
+                  "uv": [
+                    16,
+                    0
+                  ],
+                  "uv_size": [
+                    16,
+                    8
+                  ]
+                },
+                "up": {
+                  "uv": [
+                    16,
+                    0
+                  ],
+                  "uv_size": [
+                    16,
+                    8
+                  ]
+                },
+                "down": {
+                  "uv": [
+                    16,
+                    0
+                  ],
+                  "uv_size": [
+                    16,
+                    8
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "wing_l",
+          "parent": "bird",
+          "pivot": [
+            1.5,
+            0.5,
+            0
+          ],
+          "cubes": [
+            {
+              "origin": [
+                1.5,
+                0.5,
+                -2
+              ],
+              "size": [
+                6,
+                0.5,
+                4
+              ],
+              "uv": {
+                "north": {
+                  "uv": [
+                    16,
+                    0
+                  ],
+                  "uv_size": [
+                    16,
+                    8
+                  ]
+                },
+                "south": {
+                  "uv": [
+                    16,
+                    0
+                  ],
+                  "uv_size": [
+                    16,
+                    8
+                  ]
+                },
+                "east": {
+                  "uv": [
+                    16,
+                    0
+                  ],
+                  "uv_size": [
+                    16,
+                    8
+                  ]
+                },
+                "west": {
+                  "uv": [
+                    16,
+                    0
+                  ],
+                  "uv_size": [
+                    16,
+                    8
+                  ]
+                },
+                "up": {
+                  "uv": [
+                    16,
+                    0
+                  ],
+                  "uv_size": [
+                    16,
+                    8
+                  ]
+                },
+                "down": {
+                  "uv": [
+                    16,
+                    0
+                  ],
+                  "uv_size": [
+                    16,
+                    8
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

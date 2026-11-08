@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import hanims  # noqa: E402
 import hfx  # noqa: E402
 from cine import (FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, aim_at_foes, bake_smooth,  # noqa: E402
-                  pause_events,
+                  pause_events, split_melee, apply_stance_groups, stance_events, stance_filters, STANCE_ANIM,
                   encounter_cmds, foe_tag_anim, near_filters, rival_target, smooth_client, split_dashes,
                   vectorize_animations)
 
@@ -29,7 +29,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "hitori:denshi_hitori"
 NAME = "電子 独"
-VERSION = [1, 6, 0]
+VERSION = [1, 7, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "9b78d68f-ebde-4768-989c-96ab7fa09e02"
 UUID_BP_MODULE = "9263edb8-7005-4aa3-82a3-54ec6c07aaf0"
@@ -656,6 +656,7 @@ def bp_entity():
             "minecraft:behavior.look_at_player": {"priority": 7, "look_distance": 16},
         },
     }
+    split_melee(groups, "hitori")   # 近接の構え / 遠距離の構え
     variants = [0] + sorted(SKILLS)
     for v in variants:
         groups["v_%d" % v] = {"minecraft:mark_variant": {"value": v}}
@@ -741,10 +742,10 @@ def bp_entity():
             events["hitori:skill_%d" % v] = set_variant(v)
 
     near1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 21, 60, 60, 61, 62]   # 60〜62: 立ち回り
-    far1 = [1, 2, 3, 3, 7, 8, 10, 10, 11, 11, 21]
+    far1 = [1, 2, 3, 3, 7, 8, 10, 10, 11, 11, 21, 60]   # 60: 間合いを取って遠距離で返す
     near2 = near1 + [12, 13, 14, 15, 16, 17, 18, 5, 6, 22, 23]
     far2 = far1 + [12, 13, 14, 15, 16, 16, 17, 17, 18, 18, 22, 23]
-    near_f, far_f = near_filters("hitori_near")   # 7 マス以内に敵（プレイヤー・ほかのボス）がいるか
+    near_f, far_f = stance_filters("hitori_near")   # 近接の構えで敵が近い → 近距離の技 / それ以外 → 遠距離の技
     base = [{"test": "is_mark_variant", "value": 0}, {"test": "has_target", "value": True}]
     seq = []
     for skin, near, far in ((0, near1, far1), (1, near2, far2),
@@ -756,6 +757,9 @@ def bp_entity():
 
     # ほかのボスの演出（登場など）のあいだは一時停止して、お互いに手出ししない
     events.update(pause_events(not_busy))
+    # 間合いの判断: 4 秒ごとに「近接の構え / 遠距離の構え」を選び直す（HP が減ると遠距離寄り）
+    events.update(stance_events(not_busy, 50, 50, int(HP * 0.4)))
+    apply_stance_groups(events)
 
     components = {
         "minecraft:type_family": {"family": ["hitori", "boss", RIVAL_FAMILY, "monster", "mob"]},
@@ -788,8 +792,8 @@ def bp_entity():
     }
     return {"format_version": "1.21.0", "minecraft:entity": {
         "description": {"identifier": ID, "is_spawnable": True, "is_summonable": True, "is_experimental": False,
-                        "scripts": {"animate": ["skills", "cooldown", "reboot", "decay", "death", "bgm", "foe_tags"]},
-                        "animations": {"foe_tags": "animation.hitori.foe_tags",
+                        "scripts": {"animate": ["skills", "cooldown", "reboot", "decay", "death", "bgm", "foe_tags", "stance"]},
+                        "animations": {"foe_tags": "animation.hitori.foe_tags", "stance": "animation.hitori.stance_loop",
                                        "skills": "controller.animation.hitori.skills",
                                        "cooldown": "controller.animation.hitori.cooldown",
                                        "reboot": "controller.animation.hitori.reboot",
@@ -804,7 +808,7 @@ def bp_entity():
 
 
 # ほかのボスと初めて会ったときのひとこと（白夜とは専用のカットシーン）
-ENCOUNTER = {'sophia': '§b独§7「……神様、か。バグを直しに来たの？\u3000……させないよ」', 'shinonome': '§b独§7「……ワープホール？\u3000そんなの、仕様にないよ。……面白いね、遊ぼっか」'}
+ENCOUNTER = {'sophia': '§b独§7「……神様、か。バグを直しに来たの？\u3000……させないよ」', 'shinonome': '§b独§7「……ワープホール？\u3000そんなの、仕様にないよ。……面白いね、遊ぼっか」', 'fuuka': '§b独§7「……風花さん。……ごめんね。今日は、本気でいくよ」'}
 
 
 def bp_animations():
@@ -818,6 +822,7 @@ def bp_animations():
     a["animation.hitori.idle_loop"] = {"animation_length": 2.0, "loop": True, "timeline": {
         "1.00": CINE.end(), "1.50": encounter_cmds("hitori", say, ENCOUNTER)}}
     # 常に動く: 敵の目印と「近くに敵がいる」タグ
+    a["animation.hitori.stance_loop"] = STANCE_ANIM   # 間合いの判断（4 秒ごと）
     a["animation.hitori.foe_tags"] = foe_tag_anim(ID, "hitori_near")
     return {"format_version": "1.10.0", "animations": a}
 
