@@ -34,7 +34,8 @@
         "rage": "shinonome:rage",
         "water": "shinonome:water_aura",
         "gold_eye": "shinonome:gold_eye",
-        "burger": "shinonome:burger"
+        "burger": "shinonome:burger",
+        "desperate": "shinonome:desperate"
       },
       "animations": {
         "look_at": "animation.toa.look_at",
@@ -95,7 +96,9 @@
         "s55": "animation.toa.skill_55",
         "s60": "animation.toa.skill_60",
         "s61": "animation.toa.skill_61",
-        "s62": "animation.toa.skill_62"
+        "s62": "animation.toa.skill_62",
+        "react": "animation.toa.react",
+        "desperate": "animation.toa.desperate"
       },
       "scripts": {
         "animate": [

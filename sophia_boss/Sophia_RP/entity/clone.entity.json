@@ -28,7 +28,8 @@
         "bread": "sophia:bread",
         "cat": "sophia:cat",
         "eye": "sophia:laplace_eye",
-        "afterimage": "sophia:afterimage"
+        "afterimage": "sophia:afterimage",
+        "desperate": "sophia:desperate"
       },
       "animations": {
         "look_at": "animation.sophia.look_at",
@@ -91,7 +92,9 @@
         "s60": "animation.sophia.skill_60",
         "s61": "animation.sophia.skill_61",
         "s62": "animation.sophia.skill_62",
-        "fx": "animation.sophia.clone_fx"
+        "fx": "animation.sophia.clone_fx",
+        "react": "animation.sophia.react",
+        "desperate": "animation.sophia.desperate"
       },
       "scripts": {
         "animate": [

@@ -31,7 +31,8 @@
         "hand_charge": "byakuya:hand_charge",
         "aura_flame": "byakuya:aura_flame",
         "aura_soul": "byakuya:aura_soul",
-        "blade_halo": "byakuya:blade_halo"
+        "blade_halo": "byakuya:blade_halo",
+        "desperate": "byakuya:desperate"
       },
       "animations": {
         "look_at": "animation.byakuya.look_at",
@@ -86,7 +87,9 @@
         "s32": "animation.byakuya.skill_32",
         "s60": "animation.byakuya.skill_60",
         "s61": "animation.byakuya.skill_61",
-        "s62": "animation.byakuya.skill_62"
+        "s62": "animation.byakuya.skill_62",
+        "react": "animation.byakuya.react",
+        "desperate": "animation.byakuya.desperate"
       },
       "scripts": {
         "animate": [
@@ -107,7 +110,10 @@
           "v.yaw_prev = 0.0;",
           "v.yaw_ready = 0.0;",
           "v.yaw_off = 0.0;",
-          "v.dt = 0.016;"
+          "v.dt = 0.016;",
+          "v.react_prev = 0.0;",
+          "v.react_t = -10.0;",
+          "v.react = 0.0;"
         ],
         "pre_animation": [
           "v.dt = math.clamp(q.delta_time, 0.004, 0.25);",
@@ -123,7 +129,11 @@
           "v.atk_was = v.attack_time;",
           "v.hurt_t = (q.hurt_time > v.hurt_was) ? q.life_time : v.hurt_t;",
           "v.hurt_was = q.hurt_time;",
-          "v.flinch = (q.life_time - v.hurt_t < 0.08) ? math.sin((q.life_time - v.hurt_t) * 1125.0) : ((q.life_time - v.hurt_t < 0.6) ? 0.5 + 0.5 * math.cos((q.life_time - v.hurt_t - 0.08) * 346.15) : 0.0);"
+          "v.flinch = (q.life_time - v.hurt_t < 0.08) ? math.sin((q.life_time - v.hurt_t) * 1125.0) : ((q.life_time - v.hurt_t < 0.6) ? 0.5 + 0.5 * math.cos((q.life_time - v.hurt_t - 0.08) * 346.15) : 0.0);",
+          "v.react_now = q.property('byakuya:react');",
+          "v.react_t = (v.react_now != v.react_prev) ? q.life_time : v.react_t;",
+          "v.react_prev = v.react_now;",
+          "v.react = (q.life_time - v.react_t < 0.4) ? math.sin((q.life_time - v.react_t) * 450) : 0.0;"
         ]
       }
     }

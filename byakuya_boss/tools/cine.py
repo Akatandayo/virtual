@@ -824,3 +824,147 @@ def stance_filters(near_tag):
     other = {"any_of": [{"test": "has_tag", "subject": "self", "operator": "!=", "value": near_tag},
                         {"test": "has_tag", "subject": "self", "value": STANCE_TAG}]}
     return near, other
+
+
+# ================================================================ 声・足音 / 守りの反応 / 瀕死の演出
+def entity_sounds(entries):
+    """RP の sounds.json: 殴られたときの声・倒れたときの声・足音（バニラの音を、キャラごとに高さを変えて使う）.
+
+    entries: {識別子: (声の高さ, 足音の大きさ)}
+    """
+    ents = {}
+    for ident, (pitch, step_vol) in entries.items():
+        ents[ident] = {"volume": 1.0, "pitch": [round(pitch * 0.94, 2), round(pitch * 1.06, 2)], "events": {
+            "hurt": {"sound": "game.player.hurt", "volume": 0.9},
+            "death": {"sound": "game.player.die", "volume": 1.0},
+            "step": {"sound": "step.stone", "volume": step_vol, "pitch": 1.0}}}
+    return {"entity_sounds": {"entities": ents}}
+
+
+def react_scripts(prop):
+    """守りの反応: プロパティ prop が変わった瞬間から 0.4 秒、v.react が 0 → 1 → 0"""
+    return (["v.react_prev = 0.0;", "v.react_t = -10.0;", "v.react = 0.0;"],
+            ["v.react_now = q.property('%s');" % prop,
+             "v.react_t = (v.react_now != v.react_prev) ? q.life_time : v.react_t;",
+             "v.react_prev = v.react_now;",
+             "v.react = (q.life_time - v.react_t < 0.4) ? math.sin((q.life_time - v.react_t) * 450) : 0.0;"])
+
+
+def react_property(prop):
+    return {prop: {"type": "int", "range": [0, 7], "default": 0, "client_sync": True}}
+
+
+def react_bump(prop):
+    """イベントに足す set_property（反応の合図。0〜7 を回る）"""
+    return {prop: "math.mod(q.property('%s') + 1, 8)" % prop}
+
+
+def add_react_to_client(desc, prop):
+    ini, pre = react_scripts(prop)
+    sc = desc.setdefault("scripts", {})
+    sc["initialize"] = sc.get("initialize", []) + ini
+    sc["pre_animation"] = sc.get("pre_animation", []) + pre
+    return desc
+
+
+def add_state_anim(ac, name, anim):
+    """コントローラーの（撃破以外の）すべての状態に、アニメーションを重ねる"""
+    for sname, st in ac["animation_controllers"][name]["states"].items():
+        if sname != "death" and "animations" in st and anim not in st["animations"]:
+            st["animations"].append(anim)
+    return ac
+
+
+DESPERATE = "q.is_alive && q.health < q.max_health * 0.15"   # 瀕死（HP 15% 未満）
+
+
+def desperate_anim():
+    return {"loop": True, "animation_length": 0.3, "particle_effects": {
+        "0.00": [{"effect": "desperate", "locator": "right_foot"}], "0.15": [{"effect": "desperate", "locator": "left_foot"}]}}
+
+
+def desperate_particle(ns, glow_tex):
+    """瀕死: 足元から赤い火の粉が立ちのぼる"""
+    return {"format_version": "1.10.0", "particle_effect": {
+        "description": {"identifier": ns + ":desperate", "basic_render_parameters": {
+            "material": "particles_add", "texture": "textures/particle/" + glow_tex}},
+        "components": {
+            "minecraft:emitter_rate_instant": {"num_particles": 6},
+            "minecraft:emitter_lifetime_once": {"active_time": 0.1},
+            "minecraft:emitter_shape_disc": {"radius": 0.7, "plane_normal": "y", "surface_only": False,
+                                             "direction": [0, 1, 0], "offset": [0, 0.1, 0]},
+            "minecraft:particle_lifetime_expression": {"max_lifetime": "math.random(0.6, 1.1)"},
+            "minecraft:particle_initial_speed": "math.random(0.8, 2.0)",
+            "minecraft:particle_motion_dynamic": {"linear_acceleration": [0, 1.2, 0], "linear_drag_coefficient": 1.2},
+            "minecraft:particle_appearance_billboard": {
+                "size": ["0.08 + v.particle_random_1 * 0.06", "0.08 + v.particle_random_1 * 0.06"],
+                "facing_camera_mode": "lookat_xyz",
+                "uv": {"texture_width": 1, "texture_height": 1, "uv": [0, 0], "uv_size": [1, 1]}},
+            "minecraft:particle_appearance_tinting": {"color": {
+                "interpolant": "v.particle_age / v.particle_lifetime",
+                "gradient": {"0.00": "#FFFF6030", "0.50": "#FFD01818", "1.00": "#00300000"}}}}}}
+
+
+def brushup_files(bp, rp, cfg):
+    """ビルドしたパックに、声・足音・守りの反応・瀕死の演出を足す（zip にする直前に呼ぶ）.
+
+    cfg: id, ns, prop（反応用のプロパティ。無ければ None）, react_events, react_anim, prefix, main_ctrl, glow, pitch
+    """
+    import glob
+    import json
+    import os
+
+    def load(p):
+        with open(p, encoding="utf-8") as f:
+            return json.load(f)
+
+    def save(p, d):
+        with open(p, "w", encoding="utf-8") as f:
+            json.dump(d, f, ensure_ascii=False, indent=2)
+    prop, ns, prefix = cfg.get("prop"), cfg["ns"], cfg["prefix"]
+    # 1. 本体: 反応の合図（プロパティ）を、守りのイベントで回す
+    if prop:
+        for p in glob.glob(os.path.join(bp, "entities", "*.json")):
+            d = load(p)
+            ent = d.get("minecraft:entity", {})
+            if ent.get("description", {}).get("identifier") != cfg["id"]:
+                continue
+            ent["description"].setdefault("properties", {}).update(react_property(prop))
+            for name in cfg["react_events"]:
+                e = ent["events"][name]
+                if "sequence" in e:
+                    e["sequence"].append({"set_property": react_bump(prop)})
+                else:
+                    e.setdefault("set_property", {}).update(react_bump(prop))
+            save(p, d)
+    # 2. クライアント: メインのコントローラーを使うもの（本体・分身）に、反応と瀕死のアニメーションを登録
+    for p in glob.glob(os.path.join(rp, "entity", "*.json")):
+        d = load(p)
+        desc = d["minecraft:client_entity"]["description"]
+        animate = [a if isinstance(a, str) else list(a)[0] for a in desc.get("scripts", {}).get("animate", [])]
+        if "main" not in animate:
+            continue
+        desc["animations"]["react"] = prefix + ".react"
+        desc["animations"]["desperate"] = prefix + ".desperate"
+        desc.setdefault("particle_effects", {})["desperate"] = ns + ":desperate"
+        if prop and desc["identifier"] == cfg["id"]:
+            add_react_to_client(desc, prop)
+        save(p, d)
+    # 3. アニメーション（別ファイル）
+    react = cfg.get("react_anim") or {"loop": True, "bones": {}}
+    save(os.path.join(rp, "animations", ns + "_brushup.animation.json"), {"format_version": "1.10.0", "animations": {
+        prefix + ".react": react, prefix + ".desperate": desperate_anim()}})
+    # 4. コントローラー: 撃破以外のすべての状態に重ねる
+    for p in glob.glob(os.path.join(rp, "animation_controllers", "*.json")):
+        d = load(p)
+        if cfg["main_ctrl"] in d.get("animation_controllers", {}):
+            add_state_anim(d, cfg["main_ctrl"], "react")
+            add_state_anim(d, cfg["main_ctrl"], {"desperate": DESPERATE})
+            save(p, d)
+    # 5. 瀕死のパーティクル / 6. 声と足音
+    save(os.path.join(rp, "particles", "desperate.json"), desperate_particle(ns, cfg["glow"]))
+    sp = os.path.join(rp, "sounds.json")
+    snd = load(sp) if os.path.exists(sp) else {}
+    snd.setdefault("entity_sounds", {}).setdefault("entities", {}).update(
+        entity_sounds({cfg["id"]: (cfg["pitch"], 0.18)})["entity_sounds"]["entities"])
+    save(sp, snd)

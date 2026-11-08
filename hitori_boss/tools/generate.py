@@ -17,7 +17,7 @@ import zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import hanims  # noqa: E402
 import hfx  # noqa: E402
-from cine import (FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, aim_at_foes, bake_smooth,  # noqa: E402
+from cine import (brushup_files, FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, aim_at_foes, bake_smooth,  # noqa: E402
                   pause_events, split_melee, apply_stance_groups, stance_events, stance_filters, STANCE_ANIM,
                   encounter_cmds, foe_tag_anim, near_filters, rival_target, smooth_client, split_dashes,
                   vectorize_animations)
@@ -29,7 +29,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "hitori:denshi_hitori"
 NAME = "電子 独"
-VERSION = [1, 7, 0]
+VERSION = [1, 8, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "9b78d68f-ebde-4768-989c-96ab7fa09e02"
 UUID_BP_MODULE = "9263edb8-7005-4aa3-82a3-54ec6c07aaf0"
@@ -1296,6 +1296,13 @@ def main():
             write(os.path.join(d, "texts/%s.lang" % lc), lang())
         write(os.path.join(d, "texts/languages.json"), ["ja_JP", "en_US"])
         open(os.path.join(d, "pack_icon.png"), "wb").write(skin_bytes)
+    # 声・足音・守りの反応・瀕死の演出
+    brushup_files(BP, RP, dict(id=ID, ns="hitori", prop="hitori:react", react_events=["hitori:glitch_hit"],
+             react_anim={"loop": True, "bones": {   # Glitch が攻撃を飲み込む: 体がブレて、一瞬 T ポーズ
+                 "root": {"position": ["v.react * math.random(-1.5, 1.5)", 0, "v.react * math.random(-1.5, 1.5)"]},
+                 "head": {"rotation": [0, 0, "v.react * 35"]}, "rightArm": {"rotation": [0, 0, "v.react * 70"]},
+                 "leftArm": {"rotation": [0, 0, "-v.react * 70"]}}},
+             prefix="animation.hitori", main_ctrl="controller.animation.hitori.main", glow="hitori_glow", pitch=1.05))
     os.makedirs(DIST, exist_ok=True)
     out = os.path.join(DIST, "DenshiHitori_Boss.mcaddon")
     with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:

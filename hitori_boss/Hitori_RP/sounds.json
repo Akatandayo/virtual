@@ -1,0 +1,28 @@
+{
+  "entity_sounds": {
+    "entities": {
+      "hitori:denshi_hitori": {
+        "volume": 1.0,
+        "pitch": [
+          0.99,
+          1.11
+        ],
+        "events": {
+          "hurt": {
+            "sound": "game.player.hurt",
+            "volume": 0.9
+          },
+          "death": {
+            "sound": "game.player.die",
+            "volume": 1.0
+          },
+          "step": {
+            "sound": "step.stone",
+            "volume": 0.18,
+            "pitch": 1.0
+          }
+        }
+      }
+    }
+  }
+}

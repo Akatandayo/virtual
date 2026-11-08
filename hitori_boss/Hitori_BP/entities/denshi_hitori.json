@@ -59,6 +59,17 @@
         "skill_60": "animation.hitori.skill_60",
         "skill_61": "animation.hitori.skill_61",
         "skill_62": "animation.hitori.skill_62"
+      },
+      "properties": {
+        "hitori:react": {
+          "type": "int",
+          "range": [
+            0,
+            7
+          ],
+          "default": 0,
+          "client_sync": true
+        }
       }
     },
     "component_groups": {
@@ -781,6 +792,11 @@
                 "execute if score @s hitori_glitch matches 15.. run event entity @s hitori:glitch_break",
                 "execute if score @s hitori_glitch matches 12..14 run event entity @s hitori:purge_roll"
               ]
+            }
+          },
+          {
+            "set_property": {
+              "hitori:react": "math.mod(q.property('hitori:react') + 1, 8)"
             }
           }
         ]

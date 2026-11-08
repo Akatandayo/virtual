@@ -22,7 +22,8 @@
         "hand": "hitori:noise_burst",
         "glitch": "hitori:glitch_aura",
         "glitch_heavy": "hitori:glitch_aura_heavy",
-        "stun_spark": "hitori:stun_spark"
+        "stun_spark": "hitori:stun_spark",
+        "desperate": "hitori:desperate"
       },
       "animations": {
         "look_at": "animation.hitori.look_at",
@@ -74,7 +75,9 @@
         "s60": "animation.hitori.skill_60",
         "s61": "animation.hitori.skill_61",
         "s62": "animation.hitori.skill_62",
-        "s99": "animation.hitori.skill_99"
+        "s99": "animation.hitori.skill_99",
+        "react": "animation.hitori.react",
+        "desperate": "animation.hitori.desperate"
       },
       "scripts": {
         "animate": [
@@ -95,7 +98,10 @@
           "v.yaw_prev = 0.0;",
           "v.yaw_ready = 0.0;",
           "v.yaw_off = 0.0;",
-          "v.dt = 0.016;"
+          "v.dt = 0.016;",
+          "v.react_prev = 0.0;",
+          "v.react_t = -10.0;",
+          "v.react = 0.0;"
         ],
         "pre_animation": [
           "v.dt = math.clamp(q.delta_time, 0.004, 0.25);",
@@ -111,7 +117,11 @@
           "v.atk_was = v.attack_time;",
           "v.hurt_t = (q.hurt_time > v.hurt_was) ? q.life_time : v.hurt_t;",
           "v.hurt_was = q.hurt_time;",
-          "v.flinch = (q.life_time - v.hurt_t < 0.08) ? math.sin((q.life_time - v.hurt_t) * 1125.0) : ((q.life_time - v.hurt_t < 0.6) ? 0.5 + 0.5 * math.cos((q.life_time - v.hurt_t - 0.08) * 346.15) : 0.0);"
+          "v.flinch = (q.life_time - v.hurt_t < 0.08) ? math.sin((q.life_time - v.hurt_t) * 1125.0) : ((q.life_time - v.hurt_t < 0.6) ? 0.5 + 0.5 * math.cos((q.life_time - v.hurt_t - 0.08) * 346.15) : 0.0);",
+          "v.react_now = q.property('hitori:react');",
+          "v.react_t = (v.react_now != v.react_prev) ? q.life_time : v.react_t;",
+          "v.react_prev = v.react_now;",
+          "v.react = (q.life_time - v.react_t < 0.4) ? math.sin((q.life_time - v.react_t) * 450) : 0.0;"
         ]
       },
       "spawn_egg": {

@@ -27,7 +27,8 @@
         "flame": "sophia:aura_flame",
         "bread": "sophia:bread",
         "cat": "sophia:cat",
-        "eye": "sophia:laplace_eye"
+        "eye": "sophia:laplace_eye",
+        "desperate": "sophia:desperate"
       },
       "animations": {
         "look_at": "animation.sophia.look_at",
@@ -89,7 +90,9 @@
         "s41": "animation.sophia.skill_41",
         "s60": "animation.sophia.skill_60",
         "s61": "animation.sophia.skill_61",
-        "s62": "animation.sophia.skill_62"
+        "s62": "animation.sophia.skill_62",
+        "react": "animation.sophia.react",
+        "desperate": "animation.sophia.desperate"
       },
       "scripts": {
         "animate": [
@@ -110,7 +113,10 @@
           "v.yaw_prev = 0.0;",
           "v.yaw_ready = 0.0;",
           "v.yaw_off = 0.0;",
-          "v.dt = 0.016;"
+          "v.dt = 0.016;",
+          "v.react_prev = 0.0;",
+          "v.react_t = -10.0;",
+          "v.react = 0.0;"
         ],
         "pre_animation": [
           "v.dt = math.clamp(q.delta_time, 0.004, 0.25);",
@@ -126,7 +132,11 @@
           "v.atk_was = v.attack_time;",
           "v.hurt_t = (q.hurt_time > v.hurt_was) ? q.life_time : v.hurt_t;",
           "v.hurt_was = q.hurt_time;",
-          "v.flinch = (q.life_time - v.hurt_t < 0.08) ? math.sin((q.life_time - v.hurt_t) * 1125.0) : ((q.life_time - v.hurt_t < 0.6) ? 0.5 + 0.5 * math.cos((q.life_time - v.hurt_t - 0.08) * 346.15) : 0.0);"
+          "v.flinch = (q.life_time - v.hurt_t < 0.08) ? math.sin((q.life_time - v.hurt_t) * 1125.0) : ((q.life_time - v.hurt_t < 0.6) ? 0.5 + 0.5 * math.cos((q.life_time - v.hurt_t - 0.08) * 346.15) : 0.0);",
+          "v.react_now = q.property('sophia:react');",
+          "v.react_t = (v.react_now != v.react_prev) ? q.life_time : v.react_t;",
+          "v.react_prev = v.react_now;",
+          "v.react = (q.life_time - v.react_t < 0.4) ? math.sin((q.life_time - v.react_t) * 450) : 0.0;"
         ]
       },
       "enable_attachables": true,

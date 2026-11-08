@@ -32,6 +32,10 @@
             },
             {
               "step_fx": "v.spd > 0.4 && q.skin_id < 2"
+            },
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
             }
           ],
           "transitions": [
@@ -169,7 +173,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -189,7 +197,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -210,7 +222,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -231,7 +247,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -252,7 +272,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -273,7 +297,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -293,7 +321,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -314,7 +346,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -335,7 +371,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -356,7 +396,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -377,7 +421,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -398,7 +446,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -419,7 +471,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -440,7 +496,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -461,7 +521,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -482,7 +546,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -503,7 +571,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -524,7 +596,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -545,7 +621,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -566,7 +646,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -587,7 +671,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -608,7 +696,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -629,7 +721,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -650,7 +746,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -671,7 +771,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -692,7 +796,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -713,7 +821,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -734,7 +846,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -754,7 +870,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -775,7 +895,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -795,7 +919,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -815,7 +943,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -835,7 +967,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -856,7 +992,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -877,7 +1017,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -898,7 +1042,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -919,7 +1067,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -940,7 +1092,11 @@
               "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
             },
             "hurt",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {

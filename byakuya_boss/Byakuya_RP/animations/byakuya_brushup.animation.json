@@ -1,0 +1,49 @@
+{
+  "format_version": "1.10.0",
+  "animations": {
+    "animation.byakuya.react": {
+      "loop": true,
+      "bones": {
+        "rightArm": {
+          "rotation": [
+            "-v.react * 70",
+            "-v.react * 35",
+            0
+          ]
+        },
+        "body": {
+          "rotation": [
+            0,
+            "v.react * 15",
+            0
+          ]
+        },
+        "root": {
+          "position": [
+            0,
+            0,
+            "v.react * 1.2"
+          ]
+        }
+      }
+    },
+    "animation.byakuya.desperate": {
+      "loop": true,
+      "animation_length": 0.3,
+      "particle_effects": {
+        "0.00": [
+          {
+            "effect": "desperate",
+            "locator": "right_foot"
+          }
+        ],
+        "0.15": [
+          {
+            "effect": "desperate",
+            "locator": "left_foot"
+          }
+        ]
+      }
+    }
+  }
+}

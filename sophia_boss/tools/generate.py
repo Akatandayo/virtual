@@ -15,7 +15,7 @@ import zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import sanims  # noqa: E402
 import sfx  # noqa: E402
-from cine import (FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, aim_at_foes, bake_smooth,  # noqa: E402
+from cine import (brushup_files, FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, aim_at_foes, bake_smooth,  # noqa: E402
                   pause_events, split_melee, apply_stance_groups, stance_events, stance_filters, STANCE_ANIM,
                   encounter_cmds, foe_tag_anim, footwork_steps, near_filters, rival_target, smooth_client,
                   split_dashes, vectorize_animations)
@@ -27,7 +27,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "sophia:sophia_heart"
 NAME = "ソフィア・ハート"
-VERSION = [1, 6, 0]
+VERSION = [1, 7, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "61396506-b3f5-4a1b-92f6-8e34dc87c6de"
 UUID_BP_MODULE = "c8d8c5f1-e6b7-46bb-8808-2e50aa8d0842"
@@ -1310,6 +1310,12 @@ def main():
         hat = im.crop((40 * s, 8 * s, 48 * s, 16 * s)).resize((128, 128), sfx.Image.NEAREST)
         face.alpha_composite(hat)
         face.save(os.path.join(d, "pack_icon.png"))
+    # 声・足音・守りの反応・瀕死の演出
+    brushup_files(BP, RP, dict(id=ID, ns="sophia", prop="sophia:react", react_events=["sophia:barrier_hit"],
+             react_anim={"loop": True, "bones": {   # リフバリア: 左手をかざして受け止める
+                 "leftArm": {"rotation": ["-v.react * 85", "v.react * 10", 0]},
+                 "body": {"rotation": ["-v.react * 8", "-v.react * 15", 0]}}},
+             prefix="animation.sophia", main_ctrl="controller.animation.sophia.main", glow="sophia_glow", pitch=1.35))
     os.makedirs(DIST, exist_ok=True)
     out = os.path.join(DIST, "SophiaHeart_Boss.mcaddon")
     with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:

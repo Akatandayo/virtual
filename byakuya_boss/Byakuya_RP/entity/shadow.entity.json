@@ -27,7 +27,8 @@
         "hand_charge": "byakuya:hand_charge",
         "aura_flame": "byakuya:aura_flame",
         "aura_soul": "byakuya:aura_soul",
-        "blade_halo": "byakuya:blade_halo"
+        "blade_halo": "byakuya:blade_halo",
+        "desperate": "byakuya:desperate"
       },
       "animations": {
         "look_at": "animation.byakuya.look_at",
@@ -83,7 +84,9 @@
         "s60": "animation.byakuya.skill_60",
         "s61": "animation.byakuya.skill_61",
         "s62": "animation.byakuya.skill_62",
-        "shadow_fx": "animation.byakuya.shadow_fx"
+        "shadow_fx": "animation.byakuya.shadow_fx",
+        "react": "animation.byakuya.react",
+        "desperate": "animation.byakuya.desperate"
       },
       "scripts": {
         "animate": [

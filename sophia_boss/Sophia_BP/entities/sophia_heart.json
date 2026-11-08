@@ -66,6 +66,17 @@
         "skill_60": "animation.sophia.skill_60",
         "skill_61": "animation.sophia.skill_61",
         "skill_62": "animation.sophia.skill_62"
+      },
+      "properties": {
+        "sophia:react": {
+          "type": "int",
+          "range": [
+            0,
+            7
+          ],
+          "default": 0,
+          "client_sync": true
+        }
       }
     },
     "component_groups": {
@@ -1127,6 +1138,11 @@
                 "execute if score @s sophia_barrier matches 5 run title @a[r=24] actionbar §e◆ リフバリアΩ §6◆§8◇◇◇◇◇",
                 "execute if score @s sophia_barrier matches 6.. run event entity @s sophia:barrier_break"
               ]
+            }
+          },
+          {
+            "set_property": {
+              "sophia:react": "math.mod(q.property('sophia:react') + 1, 8)"
             }
           }
         ]

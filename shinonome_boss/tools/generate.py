@@ -16,7 +16,7 @@ import zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import xanims  # noqa: E402
 import xfx  # noqa: E402
-from cine import (FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, aim_at_foes, bake_smooth,  # noqa: E402
+from cine import (brushup_files, FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, aim_at_foes, bake_smooth,  # noqa: E402
                   pause_events, split_melee, apply_stance_groups, stance_events, stance_filters, STANCE_ANIM,
                   encounter_cmds, foe_tag_anim, footwork_steps, near_filters, rival_target, smooth_client,
                   split_dashes, vectorize_animations)
@@ -28,7 +28,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "shinonome:toa"
 NAME = "東雲 永々"
-VERSION = [1, 6, 0]
+VERSION = [1, 7, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "a694ca4a-12aa-4554-8bdb-12089cc1e7f6"
 UUID_BP_MODULE = "f1947c40-91af-45a7-8801-580cb386961f"
@@ -1277,6 +1277,11 @@ def main():
         write(os.path.join(d, "texts/languages.json"), ["ja_JP", "en_US"])
         face.save(os.path.join(d, "pack_icon.png"))
     os.remove(tmp)
+    # 声・足音・守りの反応・瀕死の演出
+    brushup_files(BP, RP, dict(id=ID, ns="shinonome", prop="shinonome:react", react_events=["shinonome:splash"],
+             react_anim={"loop": True, "bones": {   # 混沌の体（水）: ぷるんと揺れる
+                 "root": {"scale": ["1 + v.react * 0.18", "1 - v.react * 0.22", "1 + v.react * 0.18"]}}},
+             prefix="animation.toa", main_ctrl="controller.animation.toa.main", glow="toa_glow", pitch=1.5))
     os.makedirs(DIST, exist_ok=True)
     out = os.path.join(DIST, "ShinonomeToa_Boss.mcaddon")
     with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:

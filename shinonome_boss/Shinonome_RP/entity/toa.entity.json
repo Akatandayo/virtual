@@ -34,7 +34,8 @@
         "rage": "shinonome:rage",
         "water": "shinonome:water_aura",
         "gold_eye": "shinonome:gold_eye",
-        "burger": "shinonome:burger"
+        "burger": "shinonome:burger",
+        "desperate": "shinonome:desperate"
       },
       "animations": {
         "look_at": "animation.toa.look_at",
@@ -95,7 +96,9 @@
         "s55": "animation.toa.skill_55",
         "s60": "animation.toa.skill_60",
         "s61": "animation.toa.skill_61",
-        "s62": "animation.toa.skill_62"
+        "s62": "animation.toa.skill_62",
+        "react": "animation.toa.react",
+        "desperate": "animation.toa.desperate"
       },
       "scripts": {
         "animate": [
@@ -118,7 +121,10 @@
           "v.yaw_prev = 0.0;",
           "v.yaw_ready = 0.0;",
           "v.yaw_off = 0.0;",
-          "v.dt = 0.016;"
+          "v.dt = 0.016;",
+          "v.react_prev = 0.0;",
+          "v.react_t = -10.0;",
+          "v.react = 0.0;"
         ],
         "pre_animation": [
           "v.dt = math.clamp(q.delta_time, 0.004, 0.25);",
@@ -134,7 +140,11 @@
           "v.atk_was = v.attack_time;",
           "v.hurt_t = (q.hurt_time > v.hurt_was) ? q.life_time : v.hurt_t;",
           "v.hurt_was = q.hurt_time;",
-          "v.flinch = (q.life_time - v.hurt_t < 0.08) ? math.sin((q.life_time - v.hurt_t) * 1125.0) : ((q.life_time - v.hurt_t < 0.6) ? 0.5 + 0.5 * math.cos((q.life_time - v.hurt_t - 0.08) * 346.15) : 0.0);"
+          "v.flinch = (q.life_time - v.hurt_t < 0.08) ? math.sin((q.life_time - v.hurt_t) * 1125.0) : ((q.life_time - v.hurt_t < 0.6) ? 0.5 + 0.5 * math.cos((q.life_time - v.hurt_t - 0.08) * 346.15) : 0.0);",
+          "v.react_now = q.property('shinonome:react');",
+          "v.react_t = (v.react_now != v.react_prev) ? q.life_time : v.react_t;",
+          "v.react_prev = v.react_now;",
+          "v.react = (q.life_time - v.react_t < 0.4) ? math.sin((q.life_time - v.react_t) * 450) : 0.0;"
         ]
       },
       "enable_attachables": true,

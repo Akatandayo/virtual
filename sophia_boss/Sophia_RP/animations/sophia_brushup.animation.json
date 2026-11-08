@@ -1,0 +1,42 @@
+{
+  "format_version": "1.10.0",
+  "animations": {
+    "animation.sophia.react": {
+      "loop": true,
+      "bones": {
+        "leftArm": {
+          "rotation": [
+            "-v.react * 85",
+            "v.react * 10",
+            0
+          ]
+        },
+        "body": {
+          "rotation": [
+            "-v.react * 8",
+            "-v.react * 15",
+            0
+          ]
+        }
+      }
+    },
+    "animation.sophia.desperate": {
+      "loop": true,
+      "animation_length": 0.3,
+      "particle_effects": {
+        "0.00": [
+          {
+            "effect": "desperate",
+            "locator": "right_foot"
+          }
+        ],
+        "0.15": [
+          {
+            "effect": "desperate",
+            "locator": "left_foot"
+          }
+        ]
+      }
+    }
+  }
+}

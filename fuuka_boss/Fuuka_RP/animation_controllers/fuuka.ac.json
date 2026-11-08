@@ -16,6 +16,10 @@
             },
             {
               "step_fx": "v.spd > 0.4"
+            },
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
             }
           ],
           "transitions": [
@@ -100,7 +104,11 @@
             },
             "hurt",
             "dodge",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -122,7 +130,11 @@
             },
             "hurt",
             "dodge",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -144,7 +156,11 @@
             },
             "hurt",
             "dodge",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -166,7 +182,11 @@
             },
             "hurt",
             "dodge",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -188,7 +208,11 @@
             },
             "hurt",
             "dodge",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -210,7 +234,11 @@
             },
             "hurt",
             "dodge",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -232,7 +260,11 @@
             },
             "hurt",
             "dodge",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -254,7 +286,11 @@
             },
             "hurt",
             "dodge",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -276,7 +312,11 @@
             },
             "hurt",
             "dodge",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -298,7 +338,11 @@
             },
             "hurt",
             "dodge",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -320,7 +364,11 @@
             },
             "hurt",
             "dodge",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -342,7 +390,11 @@
             },
             "hurt",
             "dodge",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -364,7 +416,11 @@
             },
             "hurt",
             "dodge",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -386,7 +442,11 @@
             },
             "hurt",
             "dodge",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -407,7 +467,11 @@
             },
             "hurt",
             "dodge",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -428,7 +492,11 @@
             },
             "hurt",
             "dodge",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -449,7 +517,11 @@
             },
             "hurt",
             "dodge",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -471,7 +543,11 @@
             },
             "hurt",
             "dodge",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -493,7 +569,11 @@
             },
             "hurt",
             "dodge",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {
@@ -515,7 +595,11 @@
             },
             "hurt",
             "dodge",
-            "alive"
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
           ],
           "transitions": [
             {

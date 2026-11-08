@@ -21,7 +21,7 @@ import zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import fanims  # noqa: E402
 import ffx  # noqa: E402
-from cine import (FOE_ANY, RIVAL_FAMILY, Cine, add_rival, aim_at_foes, bake_smooth,  # noqa: E402
+from cine import (brushup_files, FOE_ANY, RIVAL_FAMILY, Cine, add_rival, aim_at_foes, bake_smooth,  # noqa: E402
                   encounter_cmds, foe_tag_anim, footwork_steps, near_filters, pause_events, rival_target,
                   smooth_client, split_dashes, stance_group, vectorize_animations)
 
@@ -33,7 +33,7 @@ PERSONAL = os.path.join(ROOT, "personal")
 
 ID = "fuuka:tsukishima_fuuka"
 NAME = "月島 風花"
-VERSION = [1, 1, 0]
+VERSION = [1, 2, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "760895b1-a50e-4fa9-9a8f-b0b6b578a3ef"
 UUID_BP_MODULE = "91dcd908-5ce6-462a-ac32-57279a769143"
@@ -331,7 +331,8 @@ add(tl, 0, CINE.begin(8) + [CINE.cam("^3 ^2.5 ^7", "^ ^1 ^"), CINE.fade(0, 0.4, 
                             "/scoreboard players set @s %s 4" % OBJ_BIRD, sound("random.fuse", 1.2, 48)])
 add(tl, 0.95, [pt("smoke_bomb", "~ ~1 ~"), sound("random.explode", 1.6, 48, 0.6)])
 add(tl, 1.1, [CINE.cam("^0.9 ^0.9 ^2.6", FACE), CINE.cam("^0.6 ^1.3 ^1.9", FACE, 1.4)])
-add(tl, 1.5, [say("§c風花§7「秘密結社『花鳥風月』社長――月島 風花、参上！」")])
+add(tl, 1.5, [say("§c風花§7「秘密結社『花鳥風月』社長――月島 風花、参上！」"), "/title @a[r=64] title §c月島 風花",
+              "/title @a[r=64] subtitle §7秘密結社「花鳥風月」社長 ―― 怪盗", sound("random.levelup", 1.4, 48, 0.5)])
 add(tl, 2.4, [pt("card", "^0.3 ^1.5 ^1.2"), pt("card", "^-0.4 ^1.7 ^1.4"), pt("card", "^0.1 ^1.9 ^1.0"),
               say("§c風花§7「予告状、ちゃんと届いてたでしょ？」"), sound("item.book.page_turn", 1.4, 40)])
 add(tl, 3.0, [CINE.cam("^-2.2 ^1.6 ^2.6", "^ ^1.2 ^", 1.4)])
@@ -1318,6 +1319,9 @@ def main():
             write(os.path.join(d, "texts/%s.lang" % lc), lang())
         write(os.path.join(d, "texts/languages.json"), ["ja_JP", "en_US"])
         face.save(os.path.join(d, "pack_icon.png"))
+    # 声・足音・守りの反応・瀕死の演出
+    brushup_files(BP, RP, dict(id=ID, ns="fuuka", prop=None, react_events=[], react_anim=None,
+             prefix="animation.fuuka", main_ctrl="controller.animation.fuuka.main", glow="fuuka_glow", pitch=1.3))
     os.makedirs(DIST, exist_ok=True)
     out = os.path.join(DIST, "TsukishimaFuuka_Boss.mcaddon")
     zip_packs(out, ((BP, "Fuuka_BP"), (RP, "Fuuka_RP")))

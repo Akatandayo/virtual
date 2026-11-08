@@ -58,6 +58,17 @@
         "skill_60": "animation.toa.skill_60",
         "skill_61": "animation.toa.skill_61",
         "skill_62": "animation.toa.skill_62"
+      },
+      "properties": {
+        "shinonome:react": {
+          "type": "int",
+          "range": [
+            0,
+            7
+          ],
+          "default": 0,
+          "client_sync": true
+        }
       }
     },
     "component_groups": {
@@ -1065,6 +1076,9 @@
             "playsound random.splash @a[r=16] ~ ~ ~ 0.5 1.6",
             "title @a[r=12] actionbar §b水の体には近接攻撃が効かない！ 飛び道具で撃て！"
           ]
+        },
+        "set_property": {
+          "shinonome:react": "math.mod(q.property('shinonome:react') + 1, 8)"
         }
       },
       "shinonome:faint": {

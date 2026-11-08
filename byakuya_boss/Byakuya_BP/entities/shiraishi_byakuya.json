@@ -55,6 +55,17 @@
         "skill_60": "animation.byakuya.skill_60",
         "skill_61": "animation.byakuya.skill_61",
         "skill_62": "animation.byakuya.skill_62"
+      },
+      "properties": {
+        "byakuya:react": {
+          "type": "int",
+          "range": [
+            0,
+            7
+          ],
+          "default": 0,
+          "client_sync": true
+        }
       }
     },
     "component_groups": {
@@ -897,6 +908,9 @@
             "damage @e[family=rival_boss,type=!byakuya:shiraishi_byakuya,tag=!vb_cine,tag=!vb_paused,r=4] 6 entity_attack entity @e[type=byakuya:shiraishi_byakuya,c=1]",
             "summon byakuya:blast ~ ~0.8 ~"
           ]
+        },
+        "set_property": {
+          "byakuya:react": "math.mod(q.property('byakuya:react') + 1, 8)"
         }
       },
       "byakuya:phase2": {
@@ -2360,6 +2374,9 @@
             "playsound random.anvil_land @a[r=30] ~ ~ ~ 1 0.6",
             "camerashake add @a[r=12] 0.8 0.4 positional"
           ]
+        },
+        "set_property": {
+          "byakuya:react": "math.mod(q.property('byakuya:react') + 1, 8)"
         }
       },
       "byakuya:try_disarm": {

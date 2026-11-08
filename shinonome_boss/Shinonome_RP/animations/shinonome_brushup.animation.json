@@ -1,0 +1,35 @@
+{
+  "format_version": "1.10.0",
+  "animations": {
+    "animation.toa.react": {
+      "loop": true,
+      "bones": {
+        "root": {
+          "scale": [
+            "1 + v.react * 0.18",
+            "1 - v.react * 0.22",
+            "1 + v.react * 0.18"
+          ]
+        }
+      }
+    },
+    "animation.toa.desperate": {
+      "loop": true,
+      "animation_length": 0.3,
+      "particle_effects": {
+        "0.00": [
+          {
+            "effect": "desperate",
+            "locator": "right_foot"
+          }
+        ],
+        "0.15": [
+          {
+            "effect": "desperate",
+            "locator": "left_foot"
+          }
+        ]
+      }
+    }
+  }
+}

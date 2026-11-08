@@ -36,7 +36,8 @@
         "petal": "fuuka:petal",
         "wind": "fuuka:wind",
         "moon": "fuuka:moon",
-        "stand_aura": "fuuka:stand_aura"
+        "stand_aura": "fuuka:stand_aura",
+        "desperate": "fuuka:desperate"
       },
       "animations": {
         "look_at": "animation.fuuka.look_at",
@@ -73,7 +74,9 @@
         "s32": "animation.fuuka.skill_32",
         "s60": "animation.fuuka.skill_60",
         "s61": "animation.fuuka.skill_61",
-        "s62": "animation.fuuka.skill_62"
+        "s62": "animation.fuuka.skill_62",
+        "react": "animation.fuuka.react",
+        "desperate": "animation.fuuka.desperate"
       },
       "scripts": {
         "animate": [

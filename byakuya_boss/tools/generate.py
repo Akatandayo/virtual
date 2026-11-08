@@ -16,7 +16,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import anims  # noqa: E402
 import fx  # noqa: E402
 import summons  # noqa: E402
-from cine import (FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, aim_at_foes, bake_smooth,  # noqa: E402
+from cine import (brushup_files, FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, aim_at_foes, bake_smooth,  # noqa: E402
                   pause_events, split_melee, apply_stance_groups, stance_events, stance_filters, STANCE_ANIM,
                   encounter_cmds, foe_tag_anim, footwork_steps, near_filters, rival_target, smooth_client,
                   split_dashes, vectorize_animations)
@@ -28,7 +28,7 @@ DIST = os.path.join(ROOT, "dist")
 
 ID = "byakuya:shiraishi_byakuya"
 NAME = "白石白夜"
-VERSION = [1, 8, 0]
+VERSION = [1, 9, 0]
 MIN_ENGINE = [1, 21, 0]
 
 UUID_BP_HEADER = "293c6dbc-978c-4439-aa05-c2fa6e63c99d"
@@ -1114,6 +1114,12 @@ def main():
         open(os.path.join(d, "pack_icon.png"), "wb").write(skin_bytes)
 
     # .mcaddon
+    # 声・足音・守りの反応・瀕死の演出
+    brushup_files(BP, RP, dict(id=ID, ns="byakuya", prop="byakuya:react", react_events=["byakuya:parry", "byakuya:mikiri_counter"],
+             react_anim={"loop": True, "bones": {   # 受け流し: 刀で受け止めて、少し押し下がる
+                 "rightArm": {"rotation": ["-v.react * 70", "-v.react * 35", 0]},
+                 "body": {"rotation": [0, "v.react * 15", 0]}, "root": {"position": [0, 0, "v.react * 1.2"]}}},
+             prefix="animation.byakuya", main_ctrl="controller.animation.byakuya.main", glow="byakuya_glow", pitch=0.85))
     os.makedirs(DIST, exist_ok=True)
     out = os.path.join(DIST, "ShiraishiByakuya_Boss.mcaddon")
     with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:

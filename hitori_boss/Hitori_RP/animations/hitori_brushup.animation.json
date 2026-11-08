@@ -1,0 +1,56 @@
+{
+  "format_version": "1.10.0",
+  "animations": {
+    "animation.hitori.react": {
+      "loop": true,
+      "bones": {
+        "root": {
+          "position": [
+            "v.react * math.random(-1.5, 1.5)",
+            0,
+            "v.react * math.random(-1.5, 1.5)"
+          ]
+        },
+        "head": {
+          "rotation": [
+            0,
+            0,
+            "v.react * 35"
+          ]
+        },
+        "rightArm": {
+          "rotation": [
+            0,
+            0,
+            "v.react * 70"
+          ]
+        },
+        "leftArm": {
+          "rotation": [
+            0,
+            0,
+            "-v.react * 70"
+          ]
+        }
+      }
+    },
+    "animation.hitori.desperate": {
+      "loop": true,
+      "animation_length": 0.3,
+      "particle_effects": {
+        "0.00": [
+          {
+            "effect": "desperate",
+            "locator": "right_foot"
+          }
+        ],
+        "0.15": [
+          {
+            "effect": "desperate",
+            "locator": "left_foot"
+          }
+        ]
+      }
+    }
+  }
+}
