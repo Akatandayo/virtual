@@ -1,0 +1,8 @@
+pack.name=スキンチェンジャー RP
+pack.description=アイテムでスキンを切り替えるアドオン
+item.skin_changer:skin_1=スキンチェンジャー: スキン1
+item.skin_changer:skin_2=スキンチェンジャー: スキン2
+item.skin_changer:skin_3=スキンチェンジャー: スキン3
+item.skin_changer:skin_4=スキンチェンジャー: スキン4
+item.skin_changer:skin_5=スキンチェンジャー: スキン5
+item.skin_changer:reset=スキンチェンジャー: 元のスキンに戻す

@@ -1,0 +1,8 @@
+pack.name=Skin Changer RP
+pack.description=Change your skin with items
+item.skin_changer:skin_1=Skin Changer: Skin 1
+item.skin_changer:skin_2=Skin Changer: Skin 2
+item.skin_changer:skin_3=Skin Changer: Skin 3
+item.skin_changer:skin_4=Skin Changer: Skin 4
+item.skin_changer:skin_5=Skin Changer: Skin 5
+item.skin_changer:reset=Skin Changer: Reset to Original
