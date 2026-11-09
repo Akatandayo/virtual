@@ -1,0 +1,8 @@
+pack.name=大陸横断ホースレース (RP)
+pack.description=ホースレース用のリソース。デモ版 v1.0.0
+item.hrace:race_config.name=レース設定の書
+item.hrace:spur.name=拍車（加速アップ）
+item.hrace:reins.name=手綱（加速ダウン）
+entity.hrace:merchant.name=街道の商人
+item.spawn_egg.entity.hrace:merchant.name=街道の商人をスポーン
+action.interact.hrace_trade=取引

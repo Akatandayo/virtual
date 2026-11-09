@@ -1,0 +1,17 @@
+{
+  "name": "horse-race-addon",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Trans-Continental Horse Race - Minecraft Bedrock add-on (dev tooling only)",
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "preview": "node tools/terrain_preview.mjs preview.png 4096 12345 4",
+    "build": "python3 tools/build.py"
+  },
+  "devDependencies": {
+    "@minecraft/server": "2.1.0",
+    "@minecraft/server-ui": "2.0.0",
+    "typescript": "^5.6.0"
+  }
+}

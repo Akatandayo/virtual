@@ -1,0 +1,35 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.hrace.merchant.look_at_target": {
+      "loop": true,
+      "bones": {
+        "head": {
+          "rotation": ["query.target_x_rotation", "query.target_y_rotation", 0.0]
+        }
+      }
+    },
+    "animation.hrace.merchant.idle": {
+      "loop": true,
+      "bones": {
+        "rightArm": {
+          "rotation": [
+            "math.sin(query.life_time * 76.0) * 2.5",
+            0.0,
+            "math.cos(query.life_time * 103.0) * 2.5 + 2.5"
+          ]
+        },
+        "leftArm": {
+          "rotation": [
+            "-math.sin(query.life_time * 76.0) * 2.5",
+            0.0,
+            "-math.cos(query.life_time * 103.0) * 2.5 - 2.5"
+          ]
+        },
+        "body": {
+          "position": [0.0, "math.sin(query.life_time * 45.0) * 0.12", 0.0]
+        }
+      }
+    }
+  }
+}

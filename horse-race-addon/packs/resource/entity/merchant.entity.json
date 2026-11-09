@@ -1,0 +1,29 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "hrace:merchant",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/hrace_merchant"
+      },
+      "geometry": {
+        "default": "geometry.hrace.merchant"
+      },
+      "animations": {
+        "look_at_target": "animation.hrace.merchant.look_at_target",
+        "idle": "animation.hrace.merchant.idle"
+      },
+      "scripts": {
+        "animate": ["look_at_target", "idle"]
+      },
+      "render_controllers": ["controller.render.hrace.merchant"],
+      "spawn_egg": {
+        "base_color": "#f0821e",
+        "overlay_color": "#1c1824"
+      }
+    }
+  }
+}

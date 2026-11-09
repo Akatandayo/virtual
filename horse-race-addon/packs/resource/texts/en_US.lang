@@ -1,0 +1,8 @@
+pack.name=Trans-Continental Horse Race (RP)
+pack.description=Resources for the horse race add-on. Demo v1.0.0
+item.hrace:race_config.name=Race Organizer's Ledger
+item.hrace:spur.name=Spur (Speed Up)
+item.hrace:reins.name=Reins (Slow Down)
+entity.hrace:merchant.name=Trail Merchant
+item.spawn_egg.entity.hrace:merchant.name=Spawn Trail Merchant
+action.interact.hrace_trade=Trade

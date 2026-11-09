@@ -1,0 +1,5 @@
+node_modules/
+__pycache__/
+*.log
+/terrain_preview.png
+/preview.png

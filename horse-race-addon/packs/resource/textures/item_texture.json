@@ -1,0 +1,15 @@
+{
+  "resource_pack_name": "hrace",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "hrace_race_config": {
+      "textures": "textures/items/hrace_race_config"
+    },
+    "hrace_spur": {
+      "textures": "textures/items/hrace_spur"
+    },
+    "hrace_reins": {
+      "textures": "textures/items/hrace_reins"
+    }
+  }
+}
