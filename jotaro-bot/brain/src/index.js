@@ -7,11 +7,15 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import Anthropic from "@anthropic-ai/sdk";
 import { TOOLS, LOCAL_TOOLS } from "./tools.js";
+import { askClaudeCode, describeTools, planSchema, UsageLimitError } from "./claude-code.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 try { process.loadEnvFile(path.join(root, ".env")); } catch { /* .env が無ければ環境変数だけを使う */ }
 
-const MODEL = process.env.MODEL || "claude-opus-5-5";
+// 考える方式。api = APIキーで呼ぶ(従量課金)、claude-code = Claude Code のログイン(Pro / Max プランの枠)で呼ぶ
+const BACKEND = process.env.BACKEND || "api";
+const USE_CLI = BACKEND === "claude-code";
+const MODEL = USE_CLI ? process.env.CLAUDE_CODE_MODEL || "" : process.env.MODEL || "claude-opus-5-5";
 const EFFORT = process.env.EFFORT || "low";
 const PORT = Number(process.env.PORT || 3920);
 const IDLE_MS = Number(process.env.IDLE_SECONDS || 60) * 1000;
@@ -19,7 +23,7 @@ const MAX_CALLS_PER_HOUR = Number(process.env.MAX_CALLS_PER_HOUR || 300);
 const MAX_STEPS = 12; // 1回の思考で道具を使える回数の上限
 const MEMORY_FILE = path.join(root, "memory.json");
 
-const client = new Anthropic();
+const client = USE_CLI ? null : new Anthropic();
 const persona = fs.readFileSync(path.join(root, "persona.md"), "utf8");
 
 const SYSTEM = `${persona}
@@ -134,7 +138,8 @@ http.createServer((req, res) => {
     }
   });
 }).listen(PORT, "127.0.0.1", () => {
-  console.log(`頭脳を起動しました。127.0.0.1:${PORT} で体からの接続を待っています(モデル: ${MODEL}、effort: ${EFFORT})`);
+  const how = USE_CLI ? `Claude Code のログインを使用、モデル: ${MODEL || "既定"}` : `APIキーを使用、モデル: ${MODEL}`;
+  console.log(`頭脳を起動しました。127.0.0.1:${PORT} で体からの接続を待っています(${how}、effort: ${EFFORT})`);
 });
 
 // ───────── Claude ─────────
@@ -189,25 +194,29 @@ async function runTool(name, input) {
     saveMemory();
     return { ok: true };
   }
-  if (name === "say") note(`承太郎: 「${input.message}」`);
+  if (name === "say") {
+    input = { message: String(input.message ?? input.text ?? "") };
+    note(`承太郎: 「${input.message}」`);
+  }
   const result = await act(name, input);
   if (name !== "say") note(`行動 ${name} ${JSON.stringify(input)} → ${result.result ?? result.error ?? (result.ok ? "完了" : "失敗")}`);
   const { id, ...rest } = result;
   return rest;
 }
 
-async function think(reason) {
+function situation(reason) {
+  return [
+    `【きっかけ】${reason}`,
+    `【現在の目標】${memory.goal}`,
+    `【メモ】${memory.notes.length ? memory.notes.map((n) => `\n- ${n}`).join("") : "なし"}`,
+    `【直近の出来事と自分の行動】\n${journal.slice(-25).join("\n") || "なし"}`,
+    `【現在の状況】\n${JSON.stringify(state)}`,
+  ].join("\n\n");
+}
+
+async function thinkWithApi(reason) {
   fresh = [];
-  const messages = [{
-    role: "user",
-    content: [
-      `【きっかけ】${reason}`,
-      `【現在の目標】${memory.goal}`,
-      `【メモ】${memory.notes.length ? memory.notes.map((n) => `\n- ${n}`).join("") : "なし"}`,
-      `【直近の出来事と自分の行動】\n${journal.slice(-25).join("\n") || "なし"}`,
-      `【現在の状況】\n${JSON.stringify(state)}`,
-    ].join("\n\n"),
-  }];
+  const messages = [{ role: "user", content: situation(reason) }];
 
   for (let step = 0; step < MAX_STEPS; step++) {
     const response = await ask(messages);
@@ -242,6 +251,50 @@ async function think(reason) {
     messages.push({ role: "user", content });
   }
 }
+
+// Claude Code 方式。1回の呼び出しで行動の一覧を受け取り、実行結果を見て続きが要るときだけ呼び直す。
+const CLI_SYSTEM = `${SYSTEM}
+
+## 使える道具
+${describeTools(TOOLS)}
+
+## 返答の形式
+返答は JSON で、次の2つを入れる。
+- actions: 実行する行動を順番に並べた配列。各要素は { "tool": 道具の名前, "input": その道具に渡す値 }。何もしないなら空の配列。
+- continue: 行動の結果を見てから続きを決めたいときだけ true。それ以外は false。`;
+const CLI_SCHEMA = planSchema(TOOLS);
+
+async function thinkWithCli(reason) {
+  fresh = [];
+  const start = situation(reason);
+  const done = [];
+  for (let step = 0; step < 6; step++) {
+    const prompt = done.length === 0 ? start
+      : `${start}\n\n【今回ここまでに実行した行動と結果】\n${done.join("\n")}\n\n続きがあれば actions に入れる。もう無ければ actions を空にする。`;
+    const plan = await askClaudeCode({ system: CLI_SYSTEM, prompt, schema: CLI_SCHEMA, model: MODEL, effort: EFFORT });
+    calls.push(Date.now());
+    const actions = Array.isArray(plan.actions) ? plan.actions : [];
+    if (actions.length === 0) return;
+    for (const action of actions) {
+      let result;
+      try {
+        if (!TOOLS.some((t) => t.name === action.tool)) result = { ok: false, error: "その道具は無い" };
+        else result = await runTool(action.tool, action.input ?? {});
+      } catch (e) {
+        result = { ok: false, error: String(e) };
+      }
+      done.push(`- ${action.tool} ${JSON.stringify(action.input ?? {})} → ${JSON.stringify(result)}`);
+    }
+    if (!plan.continue) return;
+    if (fresh.length) {
+      done.push(`- (この間に起きたこと) ${fresh.join(" / ")}`);
+      fresh = [];
+      triggers = [];
+    }
+  }
+}
+
+const think = USE_CLI ? thinkWithCli : thinkWithApi;
 
 // ───────── 主ループ ─────────
 
@@ -284,9 +337,13 @@ async function main() {
     triggers = [];
     try {
       await think(reason);
-      console.log(`  (累計トークン: 入力 ${usage.input} / うちキャッシュ ${usage.cached} / 出力 ${usage.output})`);
+      if (USE_CLI) console.log(`  (この1時間の呼び出し: ${calls.length} 回)`);
+      else console.log(`  (累計トークン: 入力 ${usage.input} / うちキャッシュ ${usage.cached} / 出力 ${usage.output})`);
     } catch (e) {
-      if (e instanceof Anthropic.AuthenticationError) {
+      if (e instanceof UsageLimitError) {
+        console.warn(`プランの利用上限に達したようです。10分休みます。(${e.message.slice(0, 120)})`);
+        await sleep(600_000);
+      } else if (e instanceof Anthropic.AuthenticationError) {
         console.error("APIキーが正しくありません。brain/.env の ANTHROPIC_API_KEY を確認してください。");
         await sleep(30_000);
       } else if (e instanceof Anthropic.RateLimitError) {

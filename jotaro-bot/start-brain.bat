@@ -10,7 +10,8 @@ if errorlevel 1 (
 if not exist node_modules call npm install --no-audit --no-fund
 if not exist .env (
   copy .env.example .env >nul
-  echo brain\.env was created. Write your API key in it, save, and close Notepad.
+  echo brain\.env was created. By default it uses your Claude Code login ^(Pro/Max plan^).
+  echo To use an API key instead, set BACKEND=api and ANTHROPIC_API_KEY, then save and close Notepad.
   notepad .env
 )
 node src/index.js
