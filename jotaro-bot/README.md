@@ -67,7 +67,10 @@ AI（Claude）が空条承太郎としてサーバーに参加し、自分で考
 ### 4. 承太郎ボットを置く
 
 1. このフォルダ（`jotaro-bot`）を、たとえば `C:\jotaro-bot` に置く。
-2. `C:\bedrock-server\server.properties` をメモ帳で開き、`texturepack-required=false` を `texturepack-required=true` に書き換えて保存する（承太郎の見た目を全員に表示するため）。
+2. `C:\bedrock-server\server.properties` をメモ帳で開き、次の3か所を書き換えて保存する。
+   - `texturepack-required=false` → `texturepack-required=true`（承太郎の見た目を全員に表示するため）
+   - `content-log-console-output-enabled=false` → `content-log-console-output-enabled=true`（承太郎の状態をサーバーの画面に表示するため）
+   - `allow-list=true` → `allow-list=false`（そのままだと誰も参加できない。知らない人を入れたくなければ `true` のままにして、サーバー起動後に `allowlist add 自分のゲーマータグ` で自分を登録する）
 
 ### 5. インストールする
 
@@ -173,7 +176,8 @@ install.bat "C:\bedrock-server" "C:\Users\あなたの名前\Downloads\jojo_stan
 
 ## うまくいかないとき
 
-- **承太郎が現れない** — サーバーの画面に `[jobot] 準備完了` と出ているか確認する。出ていなければ手順3をやり直す。
+- **承太郎が現れない** — サーバーの画面に `[jobot] 準備完了` と出ているか確認する。何も出ないときは、手順4の `content-log-console-output-enabled=true` を確認する。それでも出なければ手順5をやり直す。allow list を使っている場合は、`allow-list=false` でも試す。
+- **自分がサーバーに入れない** — 手順4の `allow-list` を確認する。
 - **現れるが何もしない** — サーバーの画面に「頭脳プログラムに接続できません」と出ていたら、`start-brain.bat` を起動する。
 - **頭脳の画面に「claude コマンドが見つかりません」** — 手順2をやり直す。それでも出る場合は、`brain\.env` の `CLAUDE_PATH=` の後ろに `claude.exe` の場所を書く（PowerShell で `(Get-Command claude).Source` と入力すると場所が分かる）。
 - **頭脳の画面に「プランの利用上限に達したようです」** — 枠が戻るまで待つ。頻繁に起きるなら `IDLE_SECONDS` を大きくする。
