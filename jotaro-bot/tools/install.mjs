@@ -37,6 +37,17 @@ if (!fs.existsSync(path.join(worldDir, "level.dat"))) {
   fail(`ワールド「${levelName}」がまだありません。サーバーを一度起動してワールドを作り、止めてからやり直してください。`);
 }
 
+// フォルダを丸ごとコピーする。Windows では fs.cpSync が無言で落ちることがあるため、1ファイルずつ写す
+function copyDir(from, to) {
+  fs.mkdirSync(to, { recursive: true });
+  for (const entry of fs.readdirSync(from, { withFileTypes: true })) {
+    const src = path.join(from, entry.name);
+    const dst = path.join(to, entry.name);
+    if (entry.isDirectory()) copyDir(src, dst);
+    else if (entry.isFile()) fs.copyFileSync(src, dst);
+  }
+}
+
 const readManifest = (dir) => JSON.parse(fs.readFileSync(path.join(dir, "manifest.json"), "utf8").replace(/^\uFEFF/, ""));
 
 // パックをサーバーへコピーし、ワールドに登録する
@@ -44,7 +55,8 @@ function installPack(source, folderName) {
   const manifest = readManifest(source);
   const isResource = manifest.modules.some((m) => m.type === "resources");
   const target = path.join(serverDir, isResource ? "resource_packs" : "behavior_packs", folderName);
-  fs.cpSync(source, target, { recursive: true, force: true });
+  console.log(`  コピー中: ${folderName} ...`);
+  copyDir(source, target);
 
   const listFile = path.join(worldDir, isResource ? "world_resource_packs.json" : "world_behavior_packs.json");
   let list = [];
