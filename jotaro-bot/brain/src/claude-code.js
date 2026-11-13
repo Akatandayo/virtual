@@ -13,6 +13,21 @@ export class UsageLimitError extends Error {}
 const workDir = path.join(os.tmpdir(), "jotaro-bot-claude-code");
 fs.mkdirSync(workDir, { recursive: true });
 
+// claude コマンドの場所。CLAUDE_PATH で指定でき、無ければ標準の場所を探す。
+// Windows では npm で入れた claude.cmd を直接起動できないので、本体の claude.exe を探す。
+function claudeCommand() {
+  if (process.env.CLAUDE_PATH) return process.env.CLAUDE_PATH;
+  if (process.platform === "win32") {
+    const candidates = [
+      path.join(os.homedir(), ".local", "bin", "claude.exe"),
+      path.join(process.env.APPDATA ?? "", "npm", "node_modules", "@anthropic-ai", "claude-code", "bin", "claude.exe"),
+    ];
+    const found = candidates.find((c) => fs.existsSync(c));
+    if (found) return found;
+  }
+  return "claude";
+}
+
 export function describeTools(tools) {
   return tools.map((t) => {
     const props = Object.entries(t.input_schema.properties ?? {}).map(([name, p]) => {
@@ -66,7 +81,7 @@ export function askClaudeCode({ system, prompt, schema, model, effort }) {
   delete env.ANTHROPIC_AUTH_TOKEN;
 
   return new Promise((resolve, reject) => {
-    const child = spawn("claude", args, { cwd: workDir, env, stdio: ["pipe", "pipe", "pipe"] });
+    const child = spawn(claudeCommand(), args, { cwd: workDir, env, stdio: ["pipe", "pipe", "pipe"], windowsHide: true });
     let out = "";
     let err = "";
     const timer = setTimeout(() => child.kill(), 120_000);
@@ -75,7 +90,7 @@ export function askClaudeCode({ system, prompt, schema, model, effort }) {
     child.on("error", (e) => {
       clearTimeout(timer);
       reject(e.code === "ENOENT"
-        ? new Error("claude コマンドが見つかりません。Claude Code をインストールして、一度 claude を起動してログインしてください。")
+        ? new Error("claude コマンドが見つかりません。Claude Code をインストールして、一度 claude を起動してログインしてください。インストール済みなら brain/.env の CLAUDE_PATH に claude.exe の場所を書いてください。")
         : e);
     });
     child.on("close", () => {
