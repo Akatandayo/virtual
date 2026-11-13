@@ -1,0 +1,30 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Jotaro Bot (behavior)",
+    "description": "AI-controlled player: body side. Requires Beta APIs and Bedrock Dedicated Server.",
+    "uuid": "5b0f7c1e-3a54-4c0e-9d7a-6b1f0a2c9e01",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 21, 90]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "5b0f7c1e-3a54-4c0e-9d7a-6b1f0a2c9e02",
+      "version": [1, 0, 0]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "5b0f7c1e-3a54-4c0e-9d7a-6b1f0a2c9e03",
+      "version": [1, 0, 0],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    { "module_name": "@minecraft/server", "version": "beta" },
+    { "module_name": "@minecraft/server-gametest", "version": "beta" },
+    { "module_name": "@minecraft/server-net", "version": "beta" },
+    { "uuid": "5b0f7c1e-3a54-4c0e-9d7a-6b1f0a2c9e11", "version": [1, 0, 0] }
+  ]
+}

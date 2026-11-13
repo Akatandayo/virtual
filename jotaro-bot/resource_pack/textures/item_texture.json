@@ -1,0 +1,9 @@
+{
+  "resource_pack_name": "jobot",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "jobot_hat": {
+      "textures": "textures/items/jobot_hat"
+    }
+  }
+}

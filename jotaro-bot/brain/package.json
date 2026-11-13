@@ -1,0 +1,16 @@
+{
+  "name": "jotaro-bot-brain",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "承太郎ボットの頭脳。ゲーム内の状況を受け取り、Claude に次の行動を決めさせる。",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "engines": {
+    "node": ">=20.12"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.8.0"
+  }
+}

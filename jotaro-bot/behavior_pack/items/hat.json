@@ -1,0 +1,15 @@
+{
+  "format_version": "1.21.40",
+  "minecraft:item": {
+    "description": {
+      "identifier": "jobot:hat",
+      "menu_category": { "category": "equipment" }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": "jobot_hat",
+      "minecraft:display_name": { "value": "承太郎の帽子" },
+      "minecraft:wearable": { "slot": "slot.armor.head", "protection": 0 }
+    }
+  }
+}
