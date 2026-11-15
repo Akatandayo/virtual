@@ -36,6 +36,15 @@ CONTROLLERS = {
 
 errors = []
 
+# parameters MUGEN requires for each controller (missing ones abort loading)
+REQUIRED = {
+    'changestate': ['value'], 'selfstate': ['value'], 'targetstate': ['value'], 'playsnd': ['value'],
+    'changeanim': ['value'], 'changeanim2': ['value'], 'explod': ['anim'], 'hitdef': ['attr'],
+    'projectile': ['attr'], 'varset': [], 'varadd': [], 'lifeadd': ['value'], 'poweradd': ['value'],
+    'targetlifeadd': ['value'], 'nothitby': ['value'], 'attackmulset': ['value'], 'ctrlset': ['value'],
+    'assertspecial': ['flag'], 'envshake': ['time'],
+}
+
 
 def err(msg):
     errors.append(msg)
@@ -100,9 +109,11 @@ def main():
 
     files = ['DenshiDoku.cns', 'attacks.st', 'specials.st', 'DenshiDoku.cmd']
     statedefs = {}
+    ctrl_count = {}
     refs = []  # (kind, value, where)
     for fn in files:
         path = os.path.join(CHAR, fn)
+        last_statedef = None
         for header, kv, n in parse_blocks(path):
             where = f'{fn}:{n}'
             h = header.lower()
@@ -111,14 +122,24 @@ def main():
                 if num in statedefs:
                     err(f'{where}: duplicate Statedef {num}')
                 statedefs[num] = where
+                last_statedef = (num, where)
+                ctrl_count[num] = 0
                 for k, v, ln in kv:
                     if k == 'anim':
                         refs.append(('anim', v, where))
             elif h.startswith('state '):
+                if last_statedef:
+                    ctrl_count[last_statedef[0]] += 1
                 d = {k: v for k, v, _ in kv}
                 typ = d.get('type', '').lower()
                 if typ not in CONTROLLERS:
                     err(f'{where}: unknown/missing controller type "{d.get("type")}"')
+                for req in REQUIRED.get(typ, []):
+                    if req not in d:
+                        err(f'{where}: {typ} is missing required parameter "{req}"')
+                if typ in ('varset', 'varadd') and not ('v' in d or 'fv' in d or
+                                                       any(re.match(r'f?var\(\d+\)$', k) for k in d)):
+                    err(f'{where}: {typ} needs v/fv or var(n) = ...')
                 if not any(k.startswith('trigger') for k, _, _ in kv):
                     err(f'{where}: no triggers')
                 for k, v, ln in kv:
@@ -154,6 +175,9 @@ def main():
                 for k, v, ln in kv:
                     if k in ('sparkno', 'guard.sparkno') and v.upper().startswith('S'):
                         refs.append(('anim', v[1:], fn))
+    for num, c in ctrl_count.items():
+        if c == 0:
+            err(f'{statedefs[num]}: Statedef {num} has no state controllers (MUGEN refuses to load)')
     # resolve refs
     for kind, v, where in refs:
         v = v.strip()
