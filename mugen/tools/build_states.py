@@ -131,6 +131,7 @@ type = ChangeState
 trigger1 = AnimTime = 0
 value = 50
 ctrl = 0
+anim = 44
 '''
     else:
         s += f'''

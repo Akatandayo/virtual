@@ -1087,14 +1087,14 @@ Clsn2: 1
   Clsn2[0] = -40, -185, 48, -20
 11,0, 0,0, 4
 
-; air get hit
+; air get hit (must end: common 5030 -> 5035)
 [Begin Action 5030]
 Clsn2: 1
   Clsn2[0] = -82, -210, 80, -43
 5030,0, 0,0, 3
 Clsn2: 1
   Clsn2[0] = -92, -200, 86, -54
-5030,1, 0,0, -1
+5030,1, 0,0, 5
 
 ; air get hit transition
 [Begin Action 5035]
@@ -1138,17 +1138,20 @@ Clsn2: 1
   Clsn2[0] = -107, -205, 86, -101
 5080,0, 0,0, -1
 
-; bounce off floor
+; hit ground (must end: common 5100 waits for AnimTime = 0)
 [Begin Action 5100]
 Clsn2: 1
   Clsn2[0] = -108, -210, 86, -115
-5100,0, 0,0, -1
+5100,0, 0,0, 3
+Clsn2: 1
+  Clsn2[0] = -107, -205, 86, -101
+5110,1, 0,0, 3
 
 ; bounce into air
 [Begin Action 5101]
 Clsn2: 1
-  Clsn2[0] = -109, -169, 87, -79
-5050,2, 0,0, -1
+  Clsn2[0] = -108, -210, 86, -115
+5100,0, 0,0, -1
 
 ; lying down
 [Begin Action 5110]
@@ -1193,13 +1196,13 @@ Clsn2: 1
   Clsn2[0] = -107, -205, 86, -101
 5110,0, 0,0, -1
 
-; lie dead
+; bounce into air (used by newer common1)
 [Begin Action 5160]
 Clsn2: 1
-  Clsn2[0] = -107, -205, 86, -101
-5110,0, 0,0, -1
+  Clsn2[0] = -108, -210, 86, -115
+5100,0, 0,0, -1
 
-; lie dead
+; lie down after bounce
 [Begin Action 5170]
 Clsn2: 1
   Clsn2[0] = -107, -205, 86, -101

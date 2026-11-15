@@ -89,6 +89,24 @@ def main():
     air = open(os.path.join(CHAR, 'DenshiDoku.air'), encoding='utf-8').read()
     for m in re.finditer(r'\[Begin Action (\d+)\]', air):
         actions.add(int(m.group(1)))
+    finite = {}
+    cur = None
+    for line in air.splitlines():
+        m = re.match(r'\[Begin Action (\d+)\]', line)
+        if m:
+            cur = int(m.group(1))
+            finite[cur] = True
+        elif cur is not None and line.strip().lower() == 'loopstart':
+            finite[cur] = False
+        elif cur is not None:
+            m = re.match(r'^\d+,\d+,\s*-?\d+,\s*-?\d+,\s*(-?\d+)', line)
+            if m and int(m.group(1)) < 0:
+                finite[cur] = False
+    # common1.cns states that only move on when their animation ends (AnimTime = 0).
+    # An endless animation here freezes the character for the rest of the round.
+    for a in (5, 6, 10, 12, 40, 47, 120, 121, 122, 140, 141, 142, 5030, 5035, 5100, 5120):
+        if a in finite and not finite[a]:
+            err(f'air: anim {a} must end (no -1 time, no Loopstart): common1 waits for AnimTime = 0')
     for m in re.finditer(r'^(\d+),(\d+), ', air, re.M):
         if (int(m.group(1)), int(m.group(2))) not in sprites:
             err(f'air: missing sprite {m.group(1)},{m.group(2)}')
@@ -110,6 +128,7 @@ def main():
     files = ['DenshiDoku.cns', 'attacks.st', 'specials.st', 'DenshiDoku.cmd']
     statedefs = {}
     ctrl_count = {}
+    anim_exits = []
     refs = []  # (kind, value, where)
     for fn in files:
         path = os.path.join(CHAR, fn)
@@ -122,7 +141,8 @@ def main():
                 if num in statedefs:
                     err(f'{where}: duplicate Statedef {num}')
                 statedefs[num] = where
-                last_statedef = (num, where)
+                sd_anim = {k: v for k, v, _ in kv}.get('anim')
+                last_statedef = (num, where, sd_anim)
                 ctrl_count[num] = 0
                 for k, v, ln in kv:
                     if k == 'anim':
@@ -151,6 +171,10 @@ def main():
                         err(f'{fn}:{ln}: bad trigger key {k}')
                 if typ in ('changestate', 'selfstate') and 'value' in d:
                     refs.append(('state', d['value'], where))
+                    trig = ' '.join(v for k, v, _ in kv if k.startswith('trigger')).replace(' ', '').lower()
+                    if 'animtime=0' in trig and last_statedef and last_statedef[2] and \
+                            last_statedef[2].strip().isdigit():
+                        anim_exits.append((int(last_statedef[2]), where))
                 if typ == 'targetstate':
                     refs.append(('state', d['value'], where))
                 if typ in ('changeanim', 'changeanim2'):
@@ -175,6 +199,9 @@ def main():
                 for k, v, ln in kv:
                     if k in ('sparkno', 'guard.sparkno') and v.upper().startswith('S'):
                         refs.append(('anim', v[1:], fn))
+    for a, where in anim_exits:
+        if a in finite and not finite[a]:
+            err(f'{where}: state exits on AnimTime = 0 but anim {a} never ends')
     for num, c in ctrl_count.items():
         if c == 0:
             err(f'{statedefs[num]}: Statedef {num} has no state controllers (MUGEN refuses to load)')
