@@ -128,7 +128,7 @@ class Source:
         big = (scarf | (dark & near)) & (xx >= 343)
         small = (scarf | (dark & near)) & (xx <= 152) & (yy <= 395)
         # include antialiased fringe pixels around tails
-        anyalpha = alpha > 0
+        anyalpha = alpha > 40          # ignore the near-invisible noise in the source background
         sweater_zone = (np.abs(rgb - 56) < 14) & (xx < 362)
         fringe = anyalpha & ~scarf & dilate(big | small, 3) & ~sweater_zone
         big |= fringe & (xx >= 343)
@@ -368,14 +368,15 @@ class Poser:
 
     def pose(self, phase=0.0, amp=1.0, stretch=0.0, angle=0.0, sx=1.0, sy=1.0, dx=0, dy=0,
              ribbons=(), ribbons_back=(), glitch=0, glitch_seed=0, invert_bands=0, chroma_off=0,
-             keep=1.0, noise=None, hurt=True, extra_hit=None, pivot=None):
+             keep=1.0, noise=None, hurt=True, extra_hit=None, pivot=None, tails=True):
         """Compose a frame. ribbons: list of (ctrl_points, w0, w1) in *unrotated* canvas coords,
         attached relative to NECK. Returns Frame with final-scale image, hurt/hit boxes (axis-relative)."""
         layer = Image.new('RGBA', (CW, CH), (0, 0, 0, 0))
         hitlayer = Image.new('RGBA', (CW, CH), (0, 0, 0, 0))
         for i, (ctrl, w0, w1) in enumerate(ribbons_back):
             draw_ribbon(layer, [(NECK[0] + x, NECK[1] + y) for x, y in ctrl], w0, w1, seed=i + 7)
-        layer.alpha_composite(self.tails(phase, 14 * amp, 8 * amp, stretch))
+        if tails:
+            layer.alpha_composite(self.tails(phase, 14 * amp, 8 * amp, stretch))
         layer.alpha_composite(self._body)
         bodyonly = self._core
         for i, (ctrl, w0, w1) in enumerate(ribbons):

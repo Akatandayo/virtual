@@ -1135,47 +1135,47 @@ Clsn2: 1
 ; lying hit
 [Begin Action 5080]
 Clsn2: 1
-  Clsn2[0] = -107, -205, 86, -101
+  Clsn2[0] = -107, -108, 86, -4
 5080,0, 0,0, -1
 
 ; hit ground (must end: common 5100 waits for AnimTime = 0)
 [Begin Action 5100]
 Clsn2: 1
-  Clsn2[0] = -108, -210, 86, -115
+  Clsn2[0] = -108, -118, 86, -23
 5100,0, 0,0, 3
 Clsn2: 1
-  Clsn2[0] = -107, -205, 86, -101
+  Clsn2[0] = -107, -108, 86, -4
 5110,1, 0,0, 3
 
 ; bounce into air
 [Begin Action 5101]
 Clsn2: 1
-  Clsn2[0] = -108, -210, 86, -115
+  Clsn2[0] = -108, -118, 86, -23
 5100,0, 0,0, -1
 
 ; lying down
 [Begin Action 5110]
 Loopstart
 Clsn2: 1
-  Clsn2[0] = -107, -205, 86, -101
+  Clsn2[0] = -107, -108, 86, -4
 5110,0, 0,0, 40
 Clsn2: 1
-  Clsn2[0] = -107, -205, 86, -101
+  Clsn2[0] = -107, -108, 86, -4
 5110,1, 0,0, 3
 Clsn2: 1
-  Clsn2[0] = -107, -205, 86, -101
+  Clsn2[0] = -107, -108, 86, -4
 5110,0, 0,0, 30
 Clsn2: 1
-  Clsn2[0] = -107, -205, 86, -101
+  Clsn2[0] = -107, -108, 86, -4
 5110,1, 0,0, 3
 
 ; get up
 [Begin Action 5120]
 Clsn2: 1
-  Clsn2[0] = -107, -209, 90, -115
+  Clsn2[0] = -107, -206, 90, -112
 5120,0, 0,0, 6
 Clsn2: 1
-  Clsn2[0] = -92, -228, 86, -82
+  Clsn2[0] = -92, -226, 86, -80
 5120,1, 0,0, 6
 Clsn2: 1
   Clsn2[0] = -67, -221, 71, -33
@@ -1187,25 +1187,25 @@ Clsn2: 1
 ; lie dead
 [Begin Action 5140]
 Clsn2: 1
-  Clsn2[0] = -107, -205, 86, -101
+  Clsn2[0] = -107, -108, 86, -4
 5110,0, 0,0, -1
 
 ; lie dead
 [Begin Action 5150]
 Clsn2: 1
-  Clsn2[0] = -107, -205, 86, -101
+  Clsn2[0] = -107, -108, 86, -4
 5110,0, 0,0, -1
 
 ; bounce into air (used by newer common1)
 [Begin Action 5160]
 Clsn2: 1
-  Clsn2[0] = -108, -210, 86, -115
+  Clsn2[0] = -108, -118, 86, -23
 5100,0, 0,0, -1
 
 ; lie down after bounce
 [Begin Action 5170]
 Clsn2: 1
-  Clsn2[0] = -107, -205, 86, -101
+  Clsn2[0] = -107, -108, 86, -4
 5110,0, 0,0, -1
 
 ; air fall recovery

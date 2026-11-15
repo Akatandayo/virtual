@@ -24,10 +24,11 @@ frames = {}           # (group, idx) -> Frame (for clsn)
 
 def add_img(group, idx, img, axis):
     """img: RGBA at final scale; axis: (x, y) inside img. Crops to content."""
-    bb = img.getbbox()
+    bb = art._bbox(img)
     if bb is None:
-        bb = (0, 0, 1, 1)
-    x0, y0, x1, y1 = bb
+        x0, y0, x1, y1 = 0, 0, 1, 1
+    else:
+        x0, y0, x1, y1 = (int(bb[0]), int(bb[1]), int(bb[2]) + 1, int(bb[3]) + 1)
     crop = img.crop((x0, y0, x1, y1))
     px, w, h = art.quantize(crop)
     sprites.append(Sprite(group, idx, w, h, int(round(axis[0] - x0)), int(round(axis[1] - y0)), px))
@@ -97,21 +98,25 @@ for i, ang in enumerate((55, 70, 82)):                         # falling (going 
 def lie(angle, **kw):
     """Rotate then drop to the ground so the lowest pixel touches the floor line."""
     f = poser.pose(angle=angle, **kw)
-    bb = f.img.getbbox()
-    drop = (f.axis[1] + 2) - bb[3]
+    bb = art._bbox(f.img)              # visible pixels only
+    drop = (f.axis[1] + 1) - bb[3]
     kw2 = dict(kw)
     kw2['dy'] = kw.get('dy', 0) + drop / art.SCALE
     return kw2
 
 
-LIE = lie(90)
+# Lying down: the drawn scarf tails would stick straight up/down when the body is
+# rotated, so they are replaced by one ribbon that trails along the floor behind the head.
+FLOOR_SCARF = dict(tails=False, ribbons_back=[([(0, 0), (-30, -140), (10, -300)], 40, 24)])
+LIE = lie(90, **FLOOR_SCARF)
 add_pose(5040, 0, angle=40, stretch=-1.0)                       # air recover
 add_pose(5060, 0, angle=82, stretch=-1.6)
 add_pose(5070, 0, angle=50, glitch=20, glitch_seed=80, chroma_off=3)  # trip
-add_pose(5080, 0, angle=90, glitch=24, glitch_seed=81, invert_bands=1, chroma_off=3, dy=LIE['dy'])
-add_pose(5110, 0, angle=90, dy=LIE['dy'], hurt=True)            # lie down
-add_pose(5110, 1, angle=90, dy=LIE['dy'], glitch=16, glitch_seed=82, chroma_off=2)
-add_pose(5100, 0, angle=86, dy=LIE['dy'] - 20, glitch=20, glitch_seed=83, chroma_off=3)  # bounce
+add_pose(5080, 0, angle=90, glitch=24, glitch_seed=81, invert_bands=1, chroma_off=3, dy=LIE['dy'],
+         **FLOOR_SCARF)
+add_pose(5110, 0, angle=90, dy=LIE['dy'], hurt=True, **FLOOR_SCARF)   # lie down
+add_pose(5110, 1, angle=90, dy=LIE['dy'], glitch=16, glitch_seed=82, chroma_off=2, **FLOOR_SCARF)
+add_pose(5100, 0, angle=86, dy=LIE['dy'] - 30, glitch=20, glitch_seed=83, chroma_off=3, **FLOOR_SCARF)
 for i, ang in enumerate((65, 40, 18)):                          # get up
     L = lie(ang)
     add_pose(5120, i, angle=ang, dy=min(0, L['dy']), keep=0.55 + 0.15 * i, glitch_seed=84 + i)
