@@ -174,7 +174,7 @@ triggerall = AILevel > 0
 triggerall = power >= 3000 && statetype != A
 triggerall = P2BodyDist X < 220 && P2StateType != L
 trigger1 = ctrl && Random < AILevel * 8
-trigger2 = (stateno = [200, 499]) && MoveHit
+trigger2 = ((stateno >= 200 && stateno <= 499)) && MoveHit
 
 [State -1, AI: FATAL ERROR]
 type = ChangeState
@@ -183,7 +183,7 @@ triggerall = AILevel > 0
 triggerall = power >= 1000 && statetype != A
 triggerall = P2StateType != L
 trigger1 = ctrl && Random < AILevel * 4
-trigger2 = (stateno = [200, 499]) && MoveHit && Random < 500
+trigger2 = ((stateno >= 200 && stateno <= 499)) && MoveHit && Random < 500
 
 [State -1, AI: self corrupt]
 type = ChangeState
@@ -208,7 +208,7 @@ type = ChangeState
 value = ifelse(Random < 600, 1000, 1200)
 triggerall = AILevel > 0
 triggerall = statetype != A
-trigger1 = (stateno = [210, 249]) || (stateno = [410, 449])
+trigger1 = ((stateno >= 210 && stateno <= 249)) || ((stateno >= 410 && stateno <= 449))
 trigger1 = MoveHit && Random < AILevel * 90
 
 [State -1, AI: chain medium]
@@ -231,7 +231,7 @@ type = ChangeState
 value = 1100
 triggerall = AILevel > 0
 triggerall = ctrl && statetype != A
-trigger1 = P2BodyDist X = [120, 400]
+trigger1 = (P2BodyDist X >= 120 && P2BodyDist X <= 400)
 trigger1 = Random < AILevel * 2
 
 [State -1, AI: dash in]
@@ -262,7 +262,7 @@ type = ChangeState
 value = ifelse(Random < 500, 220, 450)
 triggerall = AILevel > 0
 triggerall = ctrl && statetype != A
-trigger1 = P2BodyDist X = [90, 170] && P2StateType != L
+trigger1 = (P2BodyDist X >= 90 && P2BodyDist X <= 170) && P2StateType != L
 trigger1 = Random < AILevel * 10
 
 [State -1, AI: air attack]
@@ -286,8 +286,8 @@ triggerall = command = "crash"
 triggerall = power >= 3000
 triggerall = statetype != A
 trigger1 = ctrl
-trigger2 = (stateno = [200, 499]) && MoveContact
-trigger3 = (stateno = [1000, 1299]) && MoveContact
+trigger2 = ((stateno >= 200 && stateno <= 499)) && MoveContact
+trigger3 = ((stateno >= 1000 && stateno <= 1299)) && MoveContact
 
 [State -1, FATAL ERROR]
 type = ChangeState
@@ -297,8 +297,8 @@ triggerall = command = "fatal"
 triggerall = power >= 1000
 triggerall = statetype != A
 trigger1 = ctrl
-trigger2 = (stateno = [200, 499]) && MoveContact
-trigger3 = (stateno = [1000, 1299]) && MoveContact
+trigger2 = ((stateno >= 200 && stateno <= 499)) && MoveContact
+trigger3 = ((stateno >= 1000 && stateno <= 1299)) && MoveContact
 trigger4 = stateno = 1000 && AnimElemNo(0) >= 2
 
 ;---------------------------------------------------------------------------
@@ -310,7 +310,7 @@ triggerall = !AILevel
 triggerall = command = "corrupt"
 triggerall = statetype != A
 trigger1 = ctrl
-trigger2 = (stateno = [200, 499]) && MoveContact
+trigger2 = ((stateno >= 200 && stateno <= 499)) && MoveContact
 
 [State -1, Data Lash]
 type = ChangeState
@@ -319,7 +319,7 @@ triggerall = !AILevel
 triggerall = command = "lash_x" || command = "lash_y" || command = "lash_z"
 triggerall = statetype != A
 trigger1 = ctrl
-trigger2 = (stateno = [200, 499]) && MoveContact
+trigger2 = ((stateno >= 200 && stateno <= 499)) && MoveContact
 
 [State -1, Bug Shot]
 type = ChangeState
@@ -329,7 +329,7 @@ triggerall = command = "shot_x" || command = "shot_y" || command = "shot_z"
 triggerall = statetype != A
 triggerall = NumProjID(1000) = 0
 trigger1 = ctrl
-trigger2 = (stateno = [200, 499]) && MoveContact
+trigger2 = ((stateno >= 200 && stateno <= 499)) && MoveContact
 
 [State -1, Glitch Warp]
 type = ChangeState
@@ -338,7 +338,7 @@ triggerall = !AILevel
 triggerall = command = "warp_a" || command = "warp_b" || command = "warp_c"
 triggerall = statetype != A
 trigger1 = ctrl
-trigger2 = (stateno = [200, 499]) && MoveContact
+trigger2 = ((stateno >= 200 && stateno <= 499)) && MoveContact
 
 ;---------------------------------------------------------------------------
 ; 投げ
@@ -380,7 +380,7 @@ triggerall = !AILevel
 triggerall = command = "z" && command != "holddown"
 triggerall = statetype = S
 trigger1 = ctrl
-trigger2 = (stateno = [200, 249] || stateno = [400, 449]) && stateno != 220 && MoveContact
+trigger2 = ((stateno >= 200 && stateno <= 249) || (stateno >= 400 && stateno <= 449)) && stateno != 220 && MoveContact
 
 [State -1, Stand c]
 type = ChangeState
@@ -389,7 +389,7 @@ triggerall = !AILevel
 triggerall = command = "c" && command != "holddown"
 triggerall = statetype = S
 trigger1 = ctrl
-trigger2 = (stateno = [200, 249] || stateno = [400, 449]) && MoveContact
+trigger2 = ((stateno >= 200 && stateno <= 249) || (stateno >= 400 && stateno <= 449)) && MoveContact
 
 [State -1, Stand y]
 type = ChangeState
@@ -436,7 +436,7 @@ triggerall = !AILevel
 triggerall = command = "z" && command = "holddown"
 triggerall = statetype != A
 trigger1 = ctrl
-trigger2 = (stateno = [200, 249] || stateno = [400, 449]) && stateno != 420 && MoveContact
+trigger2 = ((stateno >= 200 && stateno <= 249) || (stateno >= 400 && stateno <= 449)) && stateno != 420 && MoveContact
 
 [State -1, Crouch c]
 type = ChangeState
@@ -445,7 +445,7 @@ triggerall = !AILevel
 triggerall = command = "c" && command = "holddown"
 triggerall = statetype != A
 trigger1 = ctrl
-trigger2 = (stateno = [200, 249] || stateno = [400, 449]) && MoveContact
+trigger2 = ((stateno >= 200 && stateno <= 249) || (stateno >= 400 && stateno <= 449)) && MoveContact
 
 [State -1, Crouch y]
 type = ChangeState
@@ -509,7 +509,7 @@ triggerall = !AILevel
 triggerall = command = "z"
 triggerall = statetype = A
 trigger1 = ctrl
-trigger2 = (stateno = [600, 649]) && stateno != 620 && MoveContact
+trigger2 = ((stateno >= 600 && stateno <= 649)) && stateno != 620 && MoveContact
 
 [State -1, Air a]
 type = ChangeState
@@ -535,7 +535,7 @@ triggerall = !AILevel
 triggerall = command = "c"
 triggerall = statetype = A
 trigger1 = ctrl
-trigger2 = (stateno = [600, 649]) && MoveContact
+trigger2 = ((stateno >= 600 && stateno <= 649)) && MoveContact
 
 ;---------------------------------------------------------------------------
 ; 挑発

@@ -13,8 +13,9 @@ localcoord = 640,480
 [Files]
 cmd = DenshiDoku.cmd
 cns = DenshiDoku.cns
-st = attacks.st
-st1 = specials.st
+st = DenshiDoku.cns
+st1 = attacks.st
+st2 = specials.st
 stcommon = common1.cns
 sprite = DenshiDoku.sff
 anim = DenshiDoku.air

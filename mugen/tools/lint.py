@@ -122,6 +122,8 @@ def main():
                 if not any(k.startswith('trigger') for k, _, _ in kv):
                     err(f'{where}: no triggers')
                 for k, v, ln in kv:
+                    if k.startswith('trigger') and re.search(r'=\s*[\[(]\s*-?\d+\s*,', v):
+                        err(f'{fn}:{ln}: interval [a, b] syntax (MUGEN 1.1 fails to parse it next to other operators): {v}')
                     if not balanced(v):
                         err(f'{fn}:{ln}: unbalanced parentheses/quotes: {v}')
                     if k.startswith('trigger') and not re.match(r'trigger(all|\d+)$', k):
