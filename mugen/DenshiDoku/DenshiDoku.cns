@@ -1,0 +1,313 @@
+; 電子 独 (Denshi Doku) -- constants and system states
+; localcoord = 640,480 : all distances / velocities are in 640x480 units.
+;
+; Variables
+;   var(1)   button strength of the current special (0 = x/a, 1 = y/b, 2 = z/c)
+;   var(10)  OVERFLOW timer (ticks).  > 0 while the self-corrupt buff is active
+;   fvar(1)  current attack multiplier (desperation bug x overflow)
+
+[Data]
+life = 1000
+power = 3000
+attack = 100
+defence = 100
+fall.defence_up = 50
+liedown.time = 60
+airjuggle = 15
+sparkno = S6020
+guard.sparkno = S6025
+KO.echo = 0
+volumescale = 100
+IntPersistIndex = 60
+FloatPersistIndex = 40
+
+[Size]
+xscale = 1
+yscale = 1
+ground.back = 30
+ground.front = 32
+air.back = 24
+air.front = 26
+height = 190
+attack.dist = 320
+proj.attack.dist = 180
+proj.doscale = 0
+head.pos = -5, -225
+mid.pos = -5, -130
+shadowoffset = 0
+draw.offset = 0, 0
+
+[Velocity]
+walk.fwd  = 4.2
+walk.back = -3.6
+run.fwd  = 11, 0
+run.back = -8.4, -6.4
+jump.neu = 0, -15.6
+jump.back = -4.6
+jump.fwd = 4.8
+runjump.back = -5.6, -15
+runjump.fwd = 8.4, -15
+airjump.neu = 0, -13.6
+airjump.back = -4.6
+airjump.fwd = 4.8
+air.gethit.groundrecover = -0.3, -7
+air.gethit.airrecover.mul = 0.5, 0.2
+air.gethit.airrecover.add = 0, -9
+air.gethit.airrecover.back = -2
+air.gethit.airrecover.fwd = 0
+air.gethit.airrecover.up = -4
+air.gethit.airrecover.down = 3
+
+[Movement]
+airjump.num = 1
+airjump.height = 60
+yaccel = 0.76
+stand.friction = 0.85
+crouch.friction = 0.82
+stand.friction.threshold = 4
+crouch.friction.threshold = 0.1
+air.gethit.groundlevel = 50
+air.gethit.groundrecover.ground.threshold = -40
+air.gethit.groundrecover.groundlevel = 20
+air.gethit.airrecover.threshold = -2
+air.gethit.airrecover.yaccel = 0.7
+air.gethit.trip.groundlevel = 30
+down.bounce.offset = 0, 40
+down.bounce.yaccel = 0.8
+down.bounce.groundlevel = 24
+down.friction.threshold = 0.1
+
+[Quotes]
+victory1 = "ERROR: opponent not found."
+victory2 = "...this pain is just a bug. it will be patched."
+victory3 = "0x0000DEAD"
+
+;===========================================================================
+; Global state (every tick, even while being hit)
+;===========================================================================
+[Statedef -2]
+
+; --- 代償システム: desperation bug ---
+; The lower Doku's own life, the stronger the attacks (up to x1.5 at 1 HP).
+; OVERFLOW (self-corrupt buff) multiplies by another 1.15.
+[State -2, attack multiplier]
+type = VarSet
+trigger1 = 1
+fvar(1) = (1.0 + 0.5 * (1.0 - (life * 1.0) / LifeMax)) * ifelse(var(10) > 0, 1.15, 1.0)
+ignorehitpause = 1
+
+[State -2, apply multiplier]
+type = AttackMulSet
+trigger1 = 1
+value = fvar(1)
+ignorehitpause = 1
+
+; --- OVERFLOW timer ---
+[State -2, overflow tick]
+type = VarAdd
+trigger1 = var(10) > 0
+trigger1 = !(RoundState = 3)
+v = 10
+value = -1
+
+[State -2, overflow end sfx]
+type = PlaySnd
+trigger1 = var(10) = 1
+value = S1, 5
+
+[State -2, overflow aura off]
+type = RemoveExplod
+trigger1 = var(10) <= 0
+trigger1 = NumExplod(6090) > 0
+id = 6090
+ignorehitpause = 1
+
+[State -2, overflow flicker]
+type = PalFX
+trigger1 = var(10) > 0
+trigger1 = (GameTime % 40) = 0
+time = 6
+add = 60, -20, -20
+sinadd = 40, 0, 0, 6
+ignorehitpause = 1
+
+; reset the buff at the start of each round
+[State -2, round reset]
+type = VarSet
+trigger1 = RoundState = 0
+v = 10
+value = 0
+
+;---------------------------------------------------------------------------
+[Statedef -3]
+
+;===========================================================================
+; Run (glitch dash): a short burst of corrupted movement
+;===========================================================================
+[Statedef 100]
+type = S
+movetype = I
+physics = S
+anim = 100
+ctrl = 0
+sprpriority = 1
+
+[State 100, sfx]
+type = PlaySnd
+trigger1 = Time = 0
+value = S1, 2
+
+[State 100, vel]
+type = VelSet
+trigger1 = Time < 12
+x = const(velocity.run.fwd.x)
+
+[State 100, afterimage]
+type = AfterImage
+trigger1 = Time = 0
+time = 16
+length = 6
+timegap = 2
+framegap = 2
+trans = add
+paladd = 0, 40, 60
+palmul = 0.4, 0.8, 1
+palbright = 0, 0, 0
+palcontrast = 255, 255, 255
+palpostbright = 0, 0, 0
+
+[State 100, burst]
+type = Explod
+trigger1 = Time = 0
+anim = 6050
+pos = -10, 0
+postype = p1
+sprpriority = -1
+removetime = 15
+ownpal = 1
+
+[State 100, ctrl]
+type = CtrlSet
+trigger1 = Time = 10
+value = 1
+
+[State 100, end]
+type = ChangeState
+trigger1 = Time >= 16
+value = 0
+ctrl = 1
+
+;===========================================================================
+; Win poses
+;===========================================================================
+[Statedef 180]
+type = S
+ctrl = 0
+anim = 180
+velset = 0, 0
+
+[State 180, pick]
+type = ChangeState
+trigger1 = Time = 0
+trigger1 = Random < 500
+value = 181
+
+[State 180, window]
+type = Explod
+trigger1 = Time = 20
+anim = 6042
+pos = 60, -270
+postype = p1
+removetime = -1
+sprpriority = 5
+ownpal = 1
+
+[State 180, beep]
+type = PlaySnd
+trigger1 = Time = 20
+value = S1, 5
+
+[State 180, assert]
+type = AssertSpecial
+trigger1 = 1
+flag = NoWalk
+
+[Statedef 181]
+type = S
+ctrl = 0
+anim = 181
+velset = 0, 0
+
+[State 181, glitch]
+type = PlaySnd
+trigger1 = Time = 0
+value = S1, 1
+
+[State 181, window]
+type = Explod
+trigger1 = Time = 10
+anim = 6040
+pos = -40, -300
+postype = p1
+removetime = -1
+sprpriority = 5
+ownpal = 1
+
+;===========================================================================
+; Intro: materialize from corrupted data
+;===========================================================================
+[Statedef 190]
+type = S
+ctrl = 0
+anim = 190
+velset = 0, 0
+
+[State 190, intro]
+type = AssertSpecial
+trigger1 = 1
+flag = Intro
+
+[State 190, sfx]
+type = PlaySnd
+trigger1 = Time = 0
+value = S1, 1
+
+[State 190, burst]
+type = Explod
+trigger1 = Time = 0
+anim = 6050
+pos = 0, 0
+postype = p1
+removetime = 15
+sprpriority = 3
+ownpal = 1
+
+[State 190, end]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+
+;===========================================================================
+; Taunt
+;===========================================================================
+[Statedef 195]
+type = S
+ctrl = 0
+anim = 195
+velset = 0, 0
+
+[State 195, sfx]
+type = PlaySnd
+trigger1 = Time = 0
+value = S1, 1
+
+[State 195, power]
+type = PowerAdd
+trigger1 = Time = 0
+value = 50
+
+[State 195, end]
+type = ChangeState
+trigger1 = AnimTime = 0
+value = 0
+ctrl = 1

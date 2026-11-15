@@ -1,0 +1,24 @@
+; 電子 独 (Denshi Doku) -- MUGEN 1.1 character
+; ゲームのバグが具現化した存在。自分のHPを代償に力を得る。
+
+[Info]
+name = "DenshiDoku"
+displayname = "Denshi Doku"
+versiondate = 11,15,2026
+mugenversion = 1.1
+author = "DenshiDoku Project"
+pal.defaults = 1,2,3,4,5,6
+localcoord = 640,480
+
+[Files]
+cmd = DenshiDoku.cmd
+cns = DenshiDoku.cns
+st = attacks.st
+st1 = specials.st
+stcommon = common1.cns
+sprite = DenshiDoku.sff
+anim = DenshiDoku.air
+sound = DenshiDoku.snd
+; Palettes 1-6 are embedded in DenshiDoku.sff (palette group 1, numbers 1-6).
+
+[Arcade]
