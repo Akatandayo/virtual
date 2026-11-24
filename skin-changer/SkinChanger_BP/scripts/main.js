@@ -7,6 +7,9 @@ const SKIN_ITEMS = {
   "skin_changer:skin_3": 3,
   "skin_changer:skin_4": 4,
   "skin_changer:skin_5": 5,
+  "skin_changer:skin_6": 6,
+  "skin_changer:skin_7": 7,
+  "skin_changer:skin_8": 8,
   "skin_changer:reset": 0
 };
 const SKIN_NAMES = {
@@ -15,6 +18,9 @@ const SKIN_NAMES = {
   "3": "スキン3",
   "4": "スキン4",
   "5": "スキン5",
+  "6": "スキン6",
+  "7": "スキン7",
+  "8": "スキン8",
   "0": "元のスキン"
 };
 const PROPERTY = "skin_changer:skin";

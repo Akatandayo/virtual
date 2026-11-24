@@ -6,7 +6,7 @@
     "uuid": "9e21cbbf-8a19-49e9-a7d6-5c838d376733",
     "version": [
       1,
-      0,
+      1,
       0
     ],
     "min_engine_version": [
@@ -21,7 +21,7 @@
       "uuid": "6fbfb375-e5bd-4cad-8c93-7bc4ac2191fc",
       "version": [
         1,
-        0,
+        1,
         0
       ]
     }
@@ -31,7 +31,7 @@
       "uuid": "5ece3160-6361-430e-b856-c518866eb601",
       "version": [
         1,
-        0,
+        1,
         0
       ]
     }

@@ -5,10 +5,10 @@
 ## 入れ方
 1. `dist/SkinChanger.mcaddon` をダウンロードして開く(スマホなら「マインクラフトで開く」)。
 2. ワールド設定で **ビヘイビアパック「スキンチェンジャー BP」** を有効にする(リソースパックは自動で付きます)。
-3. ワールドを開き、クリエイティブインベントリの「アイテム」タブから **「スキンチェンジャー: スキン1〜5」** を取り出して使う。
+3. ワールドを開き、クリエイティブインベントリの「アイテム」タブから **「スキンチェンジャー: スキン1〜8」** を取り出して使う。
 4. **「スキンチェンジャー: 元のスキンに戻す」** で自分のスキンに戻ります。
 
-コマンドでも入手できます: `/give @s skin_changer:skin_1` ~ `skin_5`、`/give @s skin_changer:reset`
+コマンドでも入手できます: `/give @s skin_changer:skin_1` ~ `skin_8`、`/give @s skin_changer:reset`
 
 ## スキン一覧
 | アイテム | 元ファイル | 体型 |
@@ -18,6 +18,9 @@
 | スキン3 | src/skins/3.png | Alex型(細腕) |
 | スキン4 | src/skins/4.png (128×128) | Alex型(細腕) |
 | スキン5 | src/skins/5.png | Alex型(細腕) |
+| スキン6 | src/skins/6.png | Steve型(太腕) |
+| スキン7 | src/skins/7.png | Steve型(太腕) |
+| スキン8 | src/skins/8.png | Steve型(太腕) |
 
 ## しくみ
 - BP の `entities/player.json` でプレイヤーに `skin_changer:skin`(0=元のスキン, 1〜5)というプロパティを追加。

@@ -16,7 +16,10 @@
         "skin_changer_2": "textures/entity/skin_changer/skin_2",
         "skin_changer_3": "textures/entity/skin_changer/skin_3",
         "skin_changer_4": "textures/entity/skin_changer/skin_4",
-        "skin_changer_5": "textures/entity/skin_changer/skin_5"
+        "skin_changer_5": "textures/entity/skin_changer/skin_5",
+        "skin_changer_6": "textures/entity/skin_changer/skin_6",
+        "skin_changer_7": "textures/entity/skin_changer/skin_7",
+        "skin_changer_8": "textures/entity/skin_changer/skin_8"
       },
       "geometry": {
         "default": "geometry.humanoid.custom",
@@ -25,7 +28,10 @@
         "skin_changer_2": "geometry.humanoid.custom",
         "skin_changer_3": "geometry.humanoid.customSlim",
         "skin_changer_4": "geometry.humanoid.customSlim",
-        "skin_changer_5": "geometry.humanoid.customSlim"
+        "skin_changer_5": "geometry.humanoid.customSlim",
+        "skin_changer_6": "geometry.humanoid.custom",
+        "skin_changer_7": "geometry.humanoid.custom",
+        "skin_changer_8": "geometry.humanoid.custom"
       },
       "scripts": {
         "scale": "0.9375",

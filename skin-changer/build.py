@@ -23,7 +23,7 @@ DIST = ROOT / "dist"
 
 NS = "skin_changer"
 PROP = f"{NS}:skin"
-VERSION = [1, 0, 0]
+VERSION = [1, 1, 0]
 MIN_ENGINE = [1, 21, 90]
 SERVER_API = "2.0.0"
 
@@ -40,6 +40,9 @@ SKINS = [
     ("3.png", "スキン3", "Skin 3", "slim"),
     ("4.png", "スキン4", "Skin 4", "slim"),
     ("5.png", "スキン5", "Skin 5", "slim"),
+    ("6.png", "スキン6", "Skin 6", "wide"),
+    ("7.png", "スキン7", "Skin 7", "wide"),
+    ("8.png", "スキン8", "Skin 8", "wide"),
 ]
 GEOMETRY = {"wide": "geometry.humanoid.custom", "slim": "geometry.humanoid.customSlim"}
 SKIN_COND = f"query.property('{PROP}')"

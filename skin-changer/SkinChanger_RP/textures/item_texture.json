@@ -17,6 +17,15 @@
     "skin_changer_skin_5": {
       "textures": "textures/items/skin_changer/skin_5"
     },
+    "skin_changer_skin_6": {
+      "textures": "textures/items/skin_changer/skin_6"
+    },
+    "skin_changer_skin_7": {
+      "textures": "textures/items/skin_changer/skin_7"
+    },
+    "skin_changer_skin_8": {
+      "textures": "textures/items/skin_changer/skin_8"
+    },
     "skin_changer_reset": {
       "textures": "textures/items/skin_changer/reset"
     }
