@@ -7,6 +7,11 @@ from cine import (ALIVE_ANIM, SPD, TURN_ANIM, footwork_bones, melee_anims, melee
 N = [0, 0, 0]
 ALT = "math.mod(v.atk_n, 2) == 0"   # 右 / 左
 TPOSE_R, TPOSE_L = [0, 0, 90], [0, 0, -90]   # バグったゲームの象徴「T ポーズ」
+POCKET_R, POCKET_L = [-28, 8, -24], [-28, -8, 24]   # パーカーのポケットに手を入れる
+TYPE_R, TYPE_L = [-58, -14, 0], [-58, 14, 0]       # 見えないキーボードを打つ
+# まばたき（4.3 秒ごと、3 回に 1 回は 2 度まばたき）。強制解除・撃破では目を閉じる
+BLINK = ("(math.mod(q.life_time + v.blink_seed, 4.3) < 0.12 || (math.mod(q.life_time + v.blink_seed, 12.9) > 4.44 "
+         "&& math.mod(q.life_time + v.blink_seed, 12.9) < 4.56) || q.mark_variant == 99 || !q.is_alive)")
 GL = "math.mod(math.floor(q.life_time * %s), %d) == 0"
 
 
@@ -250,6 +255,22 @@ def skill_anims():
                                   3.5: N, 6.4: N, 6.6: [-90, 0, 0], 8.2: [-90, 0, 0], 8.5: N}},
         "head": {"rotation": {0: N, 2.6: [0, 0, 15], 4.0: [0, 0, 15], 4.3: N}},
     }, {6.6: fx("hand_noise"), 8.0: fx("glitch_heavy", "body_center")})
+    # 24 Buffer Overflow: 見えないキーボードを打ち続け、最後に Enter を叩く
+    r, l = {0: N, 0.25: TYPE_R}, {0: N, 0.25: TYPE_L}
+    for i in range(20):
+        t = 0.3 + i * 0.1
+        arm, base = (r, TYPE_R) if i % 2 == 0 else (l, TYPE_L)
+        arm[t] = [base[0] + 14, base[1], base[2]]
+        arm[t + 0.05] = base
+    r.update({2.35: TYPE_R, 2.5: [-125, 5, 0], 2.62: [-38, 0, 0], 2.85: [-38, 0, 0], 3.0: N})
+    l.update({2.35: TYPE_L, 2.5: [-30, 0, -15], 2.85: [-30, 0, -15], 3.0: N})
+    A[24] = anim(3.0, {"rightArm": {"rotation": r}, "leftArm": {"rotation": l},
+                       "head": {"rotation": {0: N, 0.25: [22, 0, 0], 2.35: [22, 0, 0], 2.5: [-8, 0, 0], 2.62: [12, 0, 0],
+                                             2.85: [12, 0, 0], 3.0: N}},
+                       "body": {"rotation": {0: N, 0.25: [6, 0, 0], 2.35: [6, 0, 0], 2.5: [-6, 0, 0], 2.62: [14, 0, 0],
+                                             2.85: [14, 0, 0], 3.0: N}}},
+                {**{0.3 + i * 0.4: fx("hand_noise", "right_hand" if i % 2 == 0 else "left_hand") for i in range(5)},
+                 2.62: fx("hand_noise") + fx("glitch_heavy", "body_center")})
     # 60 間合いを取る（後ろへ跳んで遠距離で反撃）/ 61・62 右・左へ回り込んで斬る（立ち回り）
     A[60] = anim(1.1, footwork_bones("back", N, "punch"), {0.17: fx("step", "left_foot"), 0.17 + 0.01: fx("step", "right_foot"),
                                                   0.5: fx("hand_noise")})
@@ -281,14 +302,39 @@ def all_animations():
             "rightLeg": {"rotation": ["math.cos(%s) * 60 * %s" % (walk, spd), 0, 0]},
             "leftLeg": {"rotation": ["math.cos(%s + 180) * 60 * %s" % (walk, spd), 0, 0]},
         }},
-        # 待機中、時々バグって T ポーズで固まる（9 秒ごと）
-        "animation.hitori.idle_flavor": anim(9.0, {
-            "rightArm": {"rotation": {0: N, 6.0: N, 6.02: TPOSE_R, 6.38: TPOSE_R, 6.4: N, 9.0: N}},
-            "leftArm": {"rotation": {0: N, 6.0: N, 6.02: TPOSE_L, 6.38: TPOSE_L, 6.4: N, 9.0: N}},
-            "head": {"rotation": {0: N, 6.0: N, 6.02: [0, 0, 70], 6.38: [0, 0, 70], 6.4: N, 7.5: N, 7.52: [0, 90, 0],
-                                  7.6: [0, 90, 0], 7.62: N, 9.0: N}},
-            "root": {"position": {0: N, 6.0: N, 6.02: [0, 3, 0], 6.38: [0, 3, 0], 6.4: N, 9.0: N}},
-        }, {6.0: fx("glitch_heavy", "body_center"), 7.5: fx("hand", "body_center")}, loop=True),
+        # 待機中のしぐさ（12 秒ごと）: パーカーのポケットに手を入れる → 自分の手のノイズを見つめて振り払う
+        # → バグって T ポーズで固まる → 首がカクッと 90 度 → 伸び
+        "animation.hitori.idle_flavor": anim(12.0, {
+            "rightArm": {"rotation": {0: N, 1.2: N, 1.6: POCKET_R, 4.4: POCKET_R, 4.9: N, 5.3: N, 5.7: [-70, -25, 0],
+                                      6.5: [-70, -25, 0], 6.6: [-78, -18, 10], 6.7: [-62, -32, -8], 6.8: [-70, -25, 0],
+                                      7.0: [-30, 10, 18], 7.3: N, 8.0: N, 8.02: TPOSE_R, 8.38: TPOSE_R, 8.4: N,
+                                      10.3: N, 10.8: [-168, 0, -14], 11.3: [-168, 0, -14], 11.8: N, 12.0: N}},
+            "leftArm": {"rotation": {0: N, 1.2: N, 1.6: POCKET_L, 4.4: POCKET_L, 4.9: N, 8.0: N, 8.02: TPOSE_L,
+                                     8.38: TPOSE_L, 8.4: N, 10.3: N, 10.8: [-168, 0, 14], 11.3: [-168, 0, 14], 11.8: N,
+                                     12.0: N}},
+            "head": {"rotation": {0: N, 1.2: N, 1.6: [6, 0, 9], 4.4: [6, 0, 9], 4.9: N, 5.3: N, 5.7: [26, 20, 0],
+                                  6.5: [26, 20, 6], 6.8: [22, 16, -4], 7.3: N, 8.0: N, 8.02: [0, 0, 70],
+                                  8.38: [0, 0, 70], 8.4: N, 9.5: N, 9.52: [0, 90, 0], 9.6: [0, 90, 0], 9.62: N, 10.3: N,
+                                  10.8: [-22, 0, 0], 11.3: [-22, 0, 0], 11.8: N, 12.0: N}},
+            "body": {"rotation": {0: N, 1.2: N, 1.6: [5, 0, 0], 4.4: [5, 0, 0], 4.9: N, 10.3: N, 10.8: [-7, 0, 0],
+                                  11.3: [-7, 0, 0], 11.8: N, 12.0: N}},
+            "root": {"position": {0: N, 8.0: N, 8.02: [0, 3, 0], 8.38: [0, 3, 0], 8.4: N, 12.0: N}},
+        }, {5.8: fx("hand_noise"), 6.6: fx("hand_noise"), 8.0: fx("glitch_heavy", "body_center"),
+            9.5: fx("hand", "body_center")}, loop=True),
+        # まばたき（数式だけで動かす）
+        "animation.hitori.blink": {"loop": True, "bones": {"eyelids": {"scale": "%s ? 1 : 0" % BLINK}}},
+        # Glitch の負荷が高いほど、体が細かく震えて引きつる（限界間近で最大）
+        "animation.hitori.strain": {"loop": True, "bones": {
+            "root": {"position": ["math.random(-0.45, 0.45)", 0, "math.random(-0.45, 0.45)"]},
+            "head": {"rotation": [0, 0, "(math.mod(math.floor(q.life_time * 13), 4) == 0) ? math.random(-18, 18) : 0"]},
+            "rightArm": {"rotation": ["(math.mod(math.floor(q.life_time * 11), 5) == 0) ? math.random(-28, 6) : 0", 0, 0]},
+            "leftArm": {"rotation": ["(math.mod(math.floor(q.life_time * 9), 5) == 0) ? math.random(-28, 6) : 0", 0, 0]}}},
+        "animation.hitori.load_lv1": {"loop": True, "animation_length": 0.5,
+                                      "particle_effects": {"0.00": [{"effect": "load_leak", "locator": "body_center"}]}},
+        "animation.hitori.load_lv2": {"loop": True, "animation_length": 1.2, "particle_effects": {
+            "0.00": [{"effect": "load_crit", "locator": "body_center"}, {"effect": "error_one", "locator": "body_center"}],
+            "0.40": [{"effect": "load_crit", "locator": "body_center"}],
+            "0.80": [{"effect": "load_crit", "locator": "body_center"}]}},
         "animation.hitori.step_fx": {"loop": True, "animation_length": 0.56, "particle_effects": {
             "0.00": [{"effect": "step", "locator": "right_foot"}], "0.28": [{"effect": "step", "locator": "left_foot"}]}},
         # 時々ブレる・首がカクッと傾く（グリッチ）
@@ -346,6 +392,9 @@ def all_animations():
 
 
 NO_LOOK = {4, 6, 18, 20, 23, 31, 99}
+LOAD_OK = "q.is_alive && q.mark_variant != 99"
+# 負荷による震え（負荷 1 で弱く、2 で強く）
+STRAIN_W = "(%s) ? (v.load >= 2 ? 1.0 : (v.load >= 1 ? 0.35 : 0.0)) : 0.0" % LOAD_OK
 
 
 def short_names(skill_ids):
@@ -358,7 +407,10 @@ def short_names(skill_ids):
         "main": "controller.animation.hitori.main", "aura_ctrl": "controller.animation.hitori.aura",
         "attack_fx": "controller.animation.hitori.attack_fx",
     }
-    names.update({"turn": "animation.hitori.turn", "alive": "animation.hitori.alive"})
+    names.update({"turn": "animation.hitori.turn", "alive": "animation.hitori.alive",
+                  "blink": "animation.hitori.blink", "strain": "animation.hitori.strain",
+                  "load_lv1": "animation.hitori.load_lv1", "load_lv2": "animation.hitori.load_lv2",
+                  "load_ctrl": "controller.animation.hitori.load"})
     names.update({"melee_%d" % i: "animation.hitori.melee_%d" % i for i in range(4)})
     for v in skill_ids:
         names["s%d" % v] = "animation.hitori.skill_%d" % v
@@ -391,6 +443,14 @@ def controllers(skill_ids):
             "off": {"transitions": [{"light": "q.mark_variant != 99 && q.is_alive && q.skin_id == 0"},
                                     {"heavy": "q.mark_variant != 99 && q.is_alive && q.skin_id >= 1"}]},
         }},
+        # Glitch の負荷: 高くなるとノイズが漏れ出し、限界間近では赤い火花とエラー表示
+        "controller.animation.hitori.load": {"initial_state": "calm", "states": {
+            "calm": {"transitions": [{"critical": "v.load >= 2 && %s" % LOAD_OK}, {"strained": "v.load >= 1 && %s" % LOAD_OK}]},
+            "strained": {"animations": ["load_lv1"],
+                         "transitions": [{"critical": "v.load >= 2 && %s" % LOAD_OK}, {"calm": "v.load < 1 || !(%s)" % LOAD_OK}]},
+            "critical": {"animations": ["load_lv2"],
+                         "transitions": [{"strained": "v.load == 1 && %s" % LOAD_OK}, {"calm": "v.load < 1 || !(%s)" % LOAD_OK}]},
+        }},
         "controller.animation.hitori.attack_fx": {"initial_state": "ready", "states": {
             "ready": {"transitions": [{"swing_r": "variable.attack_time > 0.25 && %s" % ALT},
                                       {"swing_l": "variable.attack_time > 0.25"}]},
@@ -406,4 +466,5 @@ def controllers(skill_ids):
 
 PARTICLE_MAP = {"arc": "hitori:arc", "step": "hitori:step_dust",
                 "hand_noise": "hitori:hand_noise", "hand": "hitori:noise_burst", "glitch": "hitori:glitch_aura",
-                "glitch_heavy": "hitori:glitch_aura_heavy", "stun_spark": "hitori:stun_spark"}
+                "glitch_heavy": "hitori:glitch_aura_heavy", "stun_spark": "hitori:stun_spark",
+                "load_leak": "hitori:load_leak", "load_crit": "hitori:load_crit", "error_one": "hitori:error_one"}

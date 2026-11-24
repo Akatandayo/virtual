@@ -76,6 +76,9 @@
               "skill_23": "q.mark_variant == 23"
             },
             {
+              "skill_24": "q.mark_variant == 24"
+            },
+            {
               "skill_30": "q.mark_variant == 30"
             },
             {
@@ -378,6 +381,19 @@
           "transitions": [
             {
               "default": "q.all_animations_finished || q.mark_variant != 23"
+            }
+          ],
+          "on_exit": [
+            "@s hitori:skill_end"
+          ]
+        },
+        "skill_24": {
+          "animations": [
+            "skill_24"
+          ],
+          "transitions": [
+            {
+              "default": "q.all_animations_finished || q.mark_variant != 24"
             }
           ],
           "on_exit": [

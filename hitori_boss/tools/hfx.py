@@ -339,6 +339,22 @@ def build_particles():
                               size=BAR, color=RGB)
     P["hand_noise"] = particle("hand_noise", "hitori_pixel", count=8, shape=sphere(0.4, surface=False), lifetime="0.2",
                                size=BAR, color=RGB)
+    # Glitch の負荷: 漏れ出すノイズ（負荷 中）・赤い火花（限界間近）
+    P["load_leak"] = particle("load_leak", "hitori_pixel", rate=(26, 20), active=0.5,
+                              shape=box((0.35, 0.8, 0.35), (0, 1, 0), (0, 0.1, 0)), lifetime="math.random(0.3, 0.6)",
+                              speed="math.random(0.4, 1.4)", drag=1, size=BAR,
+                              color=["v.particle_random_1 > 0.5 ? 0.3 : 1.0", "1.0", "1.0", FADE])
+    P["load_crit"] = particle("load_crit", "hitori_pixel", count=26, shape=sphere(0.45),
+                              lifetime="math.random(0.15, 0.4)", speed="math.random(3, 8)", drag=5, accel=(0, -4, 0),
+                              size=["0.04 + v.particle_random_2 * 0.25", "0.04 + v.particle_random_3 * 0.08"],
+                              color=["1.0", "v.particle_random_1 > 0.6 ? 1.0 : 0.15",
+                                     "v.particle_random_1 > 0.6 ? 1.0 : 0.2", FLICKER])
+    # Buffer Overflow: あふれたデータの壁 / 出口
+    P["overflow_wall"] = particle("overflow_wall", "hitori_missing", "particles_alpha", count=2,
+                                  shape=box((0.15, 0.5, 0.15), (0, 1, 0), (0, 0.5, 0)), lifetime="0.16",
+                                  size="0.32", spin={"rotation": "math.random(0, 1) > 0.5 ? 0 : 90"})
+    P["overflow_exit"] = particle("overflow_exit", "hitori_glow", count=3, shape=box((0.1, 0.6, 0.1), (0, 1, 0), (0, 0.6, 0)),
+                                  lifetime="0.25", speed=0.8, size="0.22", color=tint("green"))
     P["stun_spark"] = particle("stun_spark", "hitori_glow", count=10, shape=sphere(0.3), lifetime="0.4",
                                speed="math.random(1, 4)", accel=(0, -6, 0), size="0.1", color=tint("white"))
     # --- v1.3: 拳の軌跡（RGB のノイズが残る）・足跡のノイズ・着地の破片と土煙 ---

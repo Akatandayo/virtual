@@ -23,6 +23,9 @@
         "glitch": "hitori:glitch_aura",
         "glitch_heavy": "hitori:glitch_aura_heavy",
         "stun_spark": "hitori:stun_spark",
+        "load_leak": "hitori:load_leak",
+        "load_crit": "hitori:load_crit",
+        "error_one": "hitori:error_one",
         "desperate": "hitori:desperate"
       },
       "animations": {
@@ -43,6 +46,11 @@
         "attack_fx": "controller.animation.hitori.attack_fx",
         "turn": "animation.hitori.turn",
         "alive": "animation.hitori.alive",
+        "blink": "animation.hitori.blink",
+        "strain": "animation.hitori.strain",
+        "load_lv1": "animation.hitori.load_lv1",
+        "load_lv2": "animation.hitori.load_lv2",
+        "load_ctrl": "controller.animation.hitori.load",
         "melee_0": "animation.hitori.melee_0",
         "melee_1": "animation.hitori.melee_1",
         "melee_2": "animation.hitori.melee_2",
@@ -69,6 +77,7 @@
         "s21": "animation.hitori.skill_21",
         "s22": "animation.hitori.skill_22",
         "s23": "animation.hitori.skill_23",
+        "s24": "animation.hitori.skill_24",
         "s30": "animation.hitori.skill_30",
         "s31": "animation.hitori.skill_31",
         "s32": "animation.hitori.skill_32",
@@ -85,6 +94,11 @@
           "main",
           "aura_ctrl",
           "attack_fx",
+          "blink",
+          "load_ctrl",
+          {
+            "strain": "(q.is_alive && q.mark_variant != 99) ? (v.load >= 2 ? 1.0 : (v.load >= 1 ? 0.35 : 0.0)) : 0.0"
+          },
           "turn"
         ],
         "initialize": [
@@ -100,6 +114,7 @@
           "v.yaw_ready = 0.0;",
           "v.yaw_off = 0.0;",
           "v.dt = 0.016;",
+          "v.blink_seed = math.random(0.0, 4.3);",
           "v.react_prev = 0.0;",
           "v.react_t = -10.0;",
           "v.react = 0.0;"
@@ -119,6 +134,7 @@
           "v.hurt_t = (q.hurt_time > v.hurt_was) ? q.life_time : v.hurt_t;",
           "v.hurt_was = q.hurt_time;",
           "v.flinch = (q.life_time - v.hurt_t < 0.08) ? math.sin((q.life_time - v.hurt_t) * 1125.0) : ((q.life_time - v.hurt_t < 0.6) ? 0.5 + 0.5 * math.cos((q.life_time - v.hurt_t - 0.08) * 346.15) : 0.0);",
+          "v.load = q.property('hitori:load');",
           "v.react_now = q.property('hitori:react');",
           "v.react_t = (v.react_now != v.react_prev) ? q.life_time : v.react_t;",
           "v.react_prev = v.react_now;",
@@ -126,8 +142,8 @@
         ]
       },
       "spawn_egg": {
-        "base_color": "#f4f4f4",
-        "overlay_color": "#101018"
+        "base_color": "#a4a3a3",
+        "overlay_color": "#111ea9"
       }
     }
   }

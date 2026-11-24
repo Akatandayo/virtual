@@ -15,8 +15,37 @@
           "death",
           "bgm",
           "foe_tags",
-          "stance"
+          "stance",
+          "tactics"
         ]
+      },
+      "properties": {
+        "hitori:load": {
+          "type": "int",
+          "range": [
+            0,
+            2
+          ],
+          "default": 0,
+          "client_sync": true
+        },
+        "hitori:react": {
+          "type": "int",
+          "range": [
+            0,
+            7
+          ],
+          "default": 0,
+          "client_sync": true
+        },
+        "hitori:last": {
+          "type": "int",
+          "range": [
+            0,
+            99
+          ],
+          "default": 0
+        }
       },
       "animations": {
         "foe_tags": "animation.hitori.foe_tags",
@@ -25,6 +54,7 @@
         "cooldown": "controller.animation.hitori.cooldown",
         "reboot": "controller.animation.hitori.reboot",
         "decay": "animation.hitori.decay",
+        "tactics": "animation.hitori.tactics",
         "death": "controller.animation.hitori.death",
         "bgm": "controller.animation.hitori.bgm",
         "cd_timer": "animation.hitori.cd_timer",
@@ -51,6 +81,7 @@
         "skill_21": "animation.hitori.skill_21",
         "skill_22": "animation.hitori.skill_22",
         "skill_23": "animation.hitori.skill_23",
+        "skill_24": "animation.hitori.skill_24",
         "skill_30": "animation.hitori.skill_30",
         "skill_31": "animation.hitori.skill_31",
         "skill_32": "animation.hitori.skill_32",
@@ -59,25 +90,6 @@
         "skill_60": "animation.hitori.skill_60",
         "skill_61": "animation.hitori.skill_61",
         "skill_62": "animation.hitori.skill_62"
-      },
-      "properties": {
-        "hitori:react": {
-          "type": "int",
-          "range": [
-            0,
-            7
-          ],
-          "default": 0,
-          "client_sync": true
-        },
-        "hitori:last": {
-          "type": "int",
-          "range": [
-            0,
-            99
-          ],
-          "default": 0
-        }
       }
     },
     "component_groups": {
@@ -509,6 +521,11 @@
           "value": 23
         }
       },
+      "v_24": {
+        "minecraft:mark_variant": {
+          "value": 24
+        }
+      },
       "v_30": {
         "minecraft:mark_variant": {
           "value": 30
@@ -748,7 +765,10 @@
                 "execute if score @s hitori_glitch matches 8 run title @a[r=32] actionbar §b◆GLITCH 負荷 §c■■■■■■■■§8□□ §7(8/10)",
                 "execute if score @s hitori_glitch matches 9 run title @a[r=32] actionbar §b◆GLITCH 負荷 §c■■■■■■■■■§8□ §7(9/10)",
                 "execute if score @s hitori_glitch matches 10.. run event entity @s hitori:glitch_break",
-                "execute if score @s hitori_glitch matches 7..9 run event entity @s hitori:purge_roll"
+                "execute if score @s hitori_glitch matches 7..9 run event entity @s hitori:purge_roll",
+                "execute if score @s hitori_glitch matches 0..3 run event entity @s hitori:load_0",
+                "execute if score @s hitori_glitch matches 4..6 run event entity @s hitori:load_1",
+                "execute if score @s hitori_glitch matches 7..9 run event entity @s hitori:load_2"
               ]
             }
           },
@@ -772,7 +792,10 @@
                 "execute if score @s hitori_glitch matches 11 run title @a[r=32] actionbar §b◆GLITCH 負荷 §c■■■■■■■■■■■§8□□ §7(11/13)",
                 "execute if score @s hitori_glitch matches 12 run title @a[r=32] actionbar §b◆GLITCH 負荷 §c■■■■■■■■■■■■§8□ §7(12/13)",
                 "execute if score @s hitori_glitch matches 13.. run event entity @s hitori:glitch_break",
-                "execute if score @s hitori_glitch matches 10..12 run event entity @s hitori:purge_roll"
+                "execute if score @s hitori_glitch matches 10..12 run event entity @s hitori:purge_roll",
+                "execute if score @s hitori_glitch matches 0..4 run event entity @s hitori:load_0",
+                "execute if score @s hitori_glitch matches 5..9 run event entity @s hitori:load_1",
+                "execute if score @s hitori_glitch matches 10..12 run event entity @s hitori:load_2"
               ]
             }
           },
@@ -798,7 +821,10 @@
                 "execute if score @s hitori_glitch matches 13 run title @a[r=32] actionbar §b◆GLITCH 負荷 §c■■■■■■■■■■■■■§8□□ §7(13/15)",
                 "execute if score @s hitori_glitch matches 14 run title @a[r=32] actionbar §b◆GLITCH 負荷 §c■■■■■■■■■■■■■■§8□ §7(14/15)",
                 "execute if score @s hitori_glitch matches 15.. run event entity @s hitori:glitch_break",
-                "execute if score @s hitori_glitch matches 12..14 run event entity @s hitori:purge_roll"
+                "execute if score @s hitori_glitch matches 12..14 run event entity @s hitori:purge_roll",
+                "execute if score @s hitori_glitch matches 0..5 run event entity @s hitori:load_0",
+                "execute if score @s hitori_glitch matches 6..11 run event entity @s hitori:load_1",
+                "execute if score @s hitori_glitch matches 12..14 run event entity @s hitori:load_2"
               ]
             }
           },
@@ -882,7 +908,72 @@
             "particle hitori:shockwave ~ ~0.1 ~",
             "playsound beacon.deactivate @a[r=24] ~ ~ ~ 1 1.8",
             "title @a[r=32] actionbar §c§l◆ OVERLOAD PURGE ◆ §7負荷 -4",
-            "camerashake add @a[r=12] 0.6 0.3 positional"
+            "camerashake add @a[r=12] 0.6 0.3 positional",
+            "event entity @s hitori:load_sync"
+          ]
+        }
+      },
+      "hitori:load_sync": {
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_skin_id",
+              "value": 0
+            },
+            "queue_command": {
+              "command": [
+                "execute if score @s hitori_glitch matches 0..3 run event entity @s hitori:load_0",
+                "execute if score @s hitori_glitch matches 4..6 run event entity @s hitori:load_1",
+                "execute if score @s hitori_glitch matches 7..9 run event entity @s hitori:load_2"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "is_skin_id",
+              "value": 1
+            },
+            "queue_command": {
+              "command": [
+                "execute if score @s hitori_glitch matches 0..4 run event entity @s hitori:load_0",
+                "execute if score @s hitori_glitch matches 5..9 run event entity @s hitori:load_1",
+                "execute if score @s hitori_glitch matches 10..12 run event entity @s hitori:load_2"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "is_skin_id",
+              "value": 2
+            },
+            "queue_command": {
+              "command": [
+                "execute if score @s hitori_glitch matches 0..5 run event entity @s hitori:load_0",
+                "execute if score @s hitori_glitch matches 6..11 run event entity @s hitori:load_1",
+                "execute if score @s hitori_glitch matches 12..14 run event entity @s hitori:load_2"
+              ]
+            }
+          }
+        ]
+      },
+      "hitori:load_0": {
+        "set_property": {
+          "hitori:load": 0
+        }
+      },
+      "hitori:load_1": {
+        "set_property": {
+          "hitori:load": 1
+        }
+      },
+      "hitori:load_2": {
+        "set_property": {
+          "hitori:load": 2
+        },
+        "queue_command": {
+          "command": [
+            "playsound note.pling @a[r=24] ~ ~ ~ 0.5 2.0",
+            "particle hitori:error_one ~ ~2.4 ~"
           ]
         }
       },
@@ -912,6 +1003,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -932,6 +1024,9 @@
             "v_99",
             "stunned_sensor"
           ]
+        },
+        "set_property": {
+          "hitori:load": 0
         },
         "queue_command": {
           "command": [
@@ -970,6 +1065,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -991,6 +1087,9 @@
             "ai",
             "ai_melee"
           ]
+        },
+        "set_property": {
+          "hitori:load": 0
         },
         "queue_command": {
           "command": [
@@ -1110,6 +1209,7 @@
                 "v_21",
                 "v_22",
                 "v_23",
+                "v_24",
                 "v_30",
                 "v_31",
                 "v_32",
@@ -1152,6 +1252,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -1173,6 +1274,9 @@
             "ai",
             "ai_melee"
           ]
+        },
+        "set_property": {
+          "hitori:load": 0
         },
         "queue_command": {
           "command": [
@@ -1207,6 +1311,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_32",
             "v_60",
@@ -1256,6 +1361,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -1314,6 +1420,7 @@
                 "v_21",
                 "v_22",
                 "v_23",
+                "v_24",
                 "v_30",
                 "v_31",
                 "v_60",
@@ -1363,6 +1470,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -1406,6 +1514,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -1449,6 +1558,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -1492,6 +1602,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -1535,6 +1646,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -1578,6 +1690,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -1621,6 +1734,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -1664,6 +1778,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -1707,6 +1822,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -1750,6 +1866,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -1793,6 +1910,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -1836,6 +1954,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -1879,6 +1998,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -1922,6 +2042,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -1965,6 +2086,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -2008,6 +2130,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -2051,6 +2174,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -2094,6 +2218,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -2137,6 +2262,7 @@
             "v_20",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -2180,6 +2306,7 @@
             "v_20",
             "v_21",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -2223,6 +2350,7 @@
             "v_20",
             "v_21",
             "v_22",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -2239,6 +2367,50 @@
         },
         "set_property": {
           "hitori:last": 23
+        }
+      },
+      "hitori:skill_24": {
+        "remove": {
+          "component_groups": [
+            "v_0",
+            "v_1",
+            "v_2",
+            "v_3",
+            "v_4",
+            "v_5",
+            "v_6",
+            "v_7",
+            "v_8",
+            "v_9",
+            "v_10",
+            "v_11",
+            "v_12",
+            "v_13",
+            "v_14",
+            "v_15",
+            "v_16",
+            "v_17",
+            "v_18",
+            "v_20",
+            "v_21",
+            "v_22",
+            "v_23",
+            "v_30",
+            "v_31",
+            "v_32",
+            "v_60",
+            "v_61",
+            "v_62",
+            "v_99"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "v_24"
+          ]
+        },
+        "set_property": {
+          "hitori:last": 24
         }
       },
       "hitori:skill_60": {
@@ -2267,6 +2439,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -2310,6 +2483,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -2353,6 +2527,7 @@
             "v_21",
             "v_22",
             "v_23",
+            "v_24",
             "v_30",
             "v_31",
             "v_32",
@@ -2388,6 +2563,660 @@
                   "value": 0
                 },
                 {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "hitori_crowd"
+                }
+              ]
+            },
+            "sequence": [
+              {
+                "queue_command": {
+                  "command": [
+                    "execute if entity @s[tag=!hitori_crowd_said] run tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b独§7「みんなで来たの？　……じゃあ、まとめて遊ぼっか」\"}]}",
+                    "tag @s add hitori_crowd_said"
+                  ]
+                }
+              },
+              {
+                "randomize": [
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 7
+                        },
+                        "trigger": "hitori:skill_7"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 7
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 7
+                        },
+                        "trigger": "hitori:skill_7"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 7
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 3
+                        },
+                        "trigger": "hitori:skill_3"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 3
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 3
+                        },
+                        "trigger": "hitori:skill_3"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 3
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 2
+                        },
+                        "trigger": "hitori:skill_2"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 2
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 24
+                        },
+                        "trigger": "hitori:skill_24"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 24
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 24
+                        },
+                        "trigger": "hitori:skill_24"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 24
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 0
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_crowd"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "hitori_vs_bow"
+                }
+              ]
+            },
+            "sequence": [
+              {
+                "queue_command": {
+                  "command": [
+                    "execute if entity @s[tag=!hitori_vs_bow_said] run tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b独§7「……遠くから撃つの、ずるくない？　そっちに行くね」\"}]}",
+                    "tag @s add hitori_vs_bow_said"
+                  ]
+                }
+              },
+              {
+                "randomize": [
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 1
+                        },
+                        "trigger": "hitori:skill_1"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 1
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 1
+                        },
+                        "trigger": "hitori:skill_1"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 1
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 8
+                        },
+                        "trigger": "hitori:skill_8"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 8
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 9
+                        },
+                        "trigger": "hitori:skill_9"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 9
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 21
+                        },
+                        "trigger": "hitori:skill_21"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 21
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 61
+                        },
+                        "trigger": "hitori:skill_61"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 61
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 62
+                        },
+                        "trigger": "hitori:skill_62"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 62
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 0
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_crowd"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_bow"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "hitori_vs_shield"
+                }
+              ]
+            },
+            "sequence": [
+              {
+                "queue_command": {
+                  "command": [
+                    "execute if entity @s[tag=!hitori_vs_shield_said] run tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b独§7「盾？　……前だけ守っても、意味ないよ」\"}]}",
+                    "tag @s add hitori_vs_shield_said"
+                  ]
+                }
+              },
+              {
+                "randomize": [
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 5
+                        },
+                        "trigger": "hitori:skill_5"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 5
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 5
+                        },
+                        "trigger": "hitori:skill_5"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 5
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 9
+                        },
+                        "trigger": "hitori:skill_9"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 9
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 21
+                        },
+                        "trigger": "hitori:skill_21"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 21
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 4
+                        },
+                        "trigger": "hitori:skill_4"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 4
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 6
+                        },
+                        "trigger": "hitori:skill_6"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 6
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 2
+                        },
+                        "trigger": "hitori:skill_2"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 2
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 0
+                },
+                {
                   "all_of": [
                     {
                       "test": "has_tag",
@@ -2401,6 +3230,24 @@
                       "value": "vb_range"
                     }
                   ]
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_crowd"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_bow"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_shield"
                 }
               ]
             },
@@ -2811,6 +3658,24 @@
                       "value": "vb_range"
                     }
                   ]
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_crowd"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_bow"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_shield"
                 }
               ]
             },
@@ -3099,6 +3964,31 @@
                       "subject": "self",
                       "domain": "hitori:last",
                       "operator": "!=",
+                      "value": 24
+                    },
+                    "trigger": "hitori:skill_24"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "hitori:last",
+                      "operator": "==",
+                      "value": 24
+                    },
+                    "trigger": "hitori:choose_retry"
+                  }
+                ]
+              },
+              {
+                "weight": 10,
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "hitori:last",
+                      "operator": "!=",
                       "value": 60
                     },
                     "trigger": "hitori:skill_60"
@@ -3133,6 +4023,960 @@
                   "value": 1
                 },
                 {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "hitori_crowd"
+                }
+              ]
+            },
+            "sequence": [
+              {
+                "queue_command": {
+                  "command": [
+                    "execute if entity @s[tag=!hitori_crowd_said] run tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b独§7「みんなで来たの？　……じゃあ、まとめて遊ぼっか」\"}]}",
+                    "tag @s add hitori_crowd_said"
+                  ]
+                }
+              },
+              {
+                "randomize": [
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 7
+                        },
+                        "trigger": "hitori:skill_7"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 7
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 7
+                        },
+                        "trigger": "hitori:skill_7"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 7
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 3
+                        },
+                        "trigger": "hitori:skill_3"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 3
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 3
+                        },
+                        "trigger": "hitori:skill_3"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 3
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 2
+                        },
+                        "trigger": "hitori:skill_2"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 2
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 24
+                        },
+                        "trigger": "hitori:skill_24"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 24
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 24
+                        },
+                        "trigger": "hitori:skill_24"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 24
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 13
+                        },
+                        "trigger": "hitori:skill_13"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 13
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 22
+                        },
+                        "trigger": "hitori:skill_22"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 22
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 22
+                        },
+                        "trigger": "hitori:skill_22"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 22
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 16
+                        },
+                        "trigger": "hitori:skill_16"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 16
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 17
+                        },
+                        "trigger": "hitori:skill_17"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 17
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 1
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_crowd"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "hitori_vs_bow"
+                }
+              ]
+            },
+            "sequence": [
+              {
+                "queue_command": {
+                  "command": [
+                    "execute if entity @s[tag=!hitori_vs_bow_said] run tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b独§7「……遠くから撃つの、ずるくない？　そっちに行くね」\"}]}",
+                    "tag @s add hitori_vs_bow_said"
+                  ]
+                }
+              },
+              {
+                "randomize": [
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 1
+                        },
+                        "trigger": "hitori:skill_1"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 1
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 1
+                        },
+                        "trigger": "hitori:skill_1"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 1
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 8
+                        },
+                        "trigger": "hitori:skill_8"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 8
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 9
+                        },
+                        "trigger": "hitori:skill_9"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 9
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 21
+                        },
+                        "trigger": "hitori:skill_21"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 21
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 61
+                        },
+                        "trigger": "hitori:skill_61"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 61
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 62
+                        },
+                        "trigger": "hitori:skill_62"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 62
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 18
+                        },
+                        "trigger": "hitori:skill_18"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 18
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 18
+                        },
+                        "trigger": "hitori:skill_18"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 18
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 14
+                        },
+                        "trigger": "hitori:skill_14"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 14
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 15
+                        },
+                        "trigger": "hitori:skill_15"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 15
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 1
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_crowd"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_bow"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "hitori_vs_shield"
+                }
+              ]
+            },
+            "sequence": [
+              {
+                "queue_command": {
+                  "command": [
+                    "execute if entity @s[tag=!hitori_vs_shield_said] run tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b独§7「盾？　……前だけ守っても、意味ないよ」\"}]}",
+                    "tag @s add hitori_vs_shield_said"
+                  ]
+                }
+              },
+              {
+                "randomize": [
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 5
+                        },
+                        "trigger": "hitori:skill_5"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 5
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 5
+                        },
+                        "trigger": "hitori:skill_5"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 5
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 9
+                        },
+                        "trigger": "hitori:skill_9"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 9
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 21
+                        },
+                        "trigger": "hitori:skill_21"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 21
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 4
+                        },
+                        "trigger": "hitori:skill_4"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 4
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 6
+                        },
+                        "trigger": "hitori:skill_6"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 6
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 2
+                        },
+                        "trigger": "hitori:skill_2"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 2
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 15
+                        },
+                        "trigger": "hitori:skill_15"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 15
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 16
+                        },
+                        "trigger": "hitori:skill_16"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 16
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 16
+                        },
+                        "trigger": "hitori:skill_16"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 16
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 1
+                },
+                {
                   "all_of": [
                     {
                       "test": "has_tag",
@@ -3146,6 +4990,24 @@
                       "value": "vb_range"
                     }
                   ]
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_crowd"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_bow"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_shield"
                 }
               ]
             },
@@ -3799,6 +5661,31 @@
                     "trigger": "hitori:choose_retry"
                   }
                 ]
+              },
+              {
+                "weight": 10,
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "hitori:last",
+                      "operator": "!=",
+                      "value": 24
+                    },
+                    "trigger": "hitori:skill_24"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "hitori:last",
+                      "operator": "==",
+                      "value": 24
+                    },
+                    "trigger": "hitori:choose_retry"
+                  }
+                ]
               }
             ]
           },
@@ -3831,6 +5718,24 @@
                       "value": "vb_range"
                     }
                   ]
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_crowd"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_bow"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_shield"
                 }
               ]
             },
@@ -4105,6 +6010,31 @@
                       "domain": "hitori:last",
                       "operator": "==",
                       "value": 21
+                    },
+                    "trigger": "hitori:choose_retry"
+                  }
+                ]
+              },
+              {
+                "weight": 10,
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "hitori:last",
+                      "operator": "!=",
+                      "value": 24
+                    },
+                    "trigger": "hitori:skill_24"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "hitori:last",
+                      "operator": "==",
+                      "value": 24
                     },
                     "trigger": "hitori:choose_retry"
                   }
@@ -4453,6 +6383,960 @@
                   "value": 2
                 },
                 {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "hitori_crowd"
+                }
+              ]
+            },
+            "sequence": [
+              {
+                "queue_command": {
+                  "command": [
+                    "execute if entity @s[tag=!hitori_crowd_said] run tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b独§7「みんなで来たの？　……じゃあ、まとめて遊ぼっか」\"}]}",
+                    "tag @s add hitori_crowd_said"
+                  ]
+                }
+              },
+              {
+                "randomize": [
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 7
+                        },
+                        "trigger": "hitori:skill_7"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 7
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 7
+                        },
+                        "trigger": "hitori:skill_7"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 7
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 3
+                        },
+                        "trigger": "hitori:skill_3"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 3
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 3
+                        },
+                        "trigger": "hitori:skill_3"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 3
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 2
+                        },
+                        "trigger": "hitori:skill_2"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 2
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 24
+                        },
+                        "trigger": "hitori:skill_24"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 24
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 24
+                        },
+                        "trigger": "hitori:skill_24"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 24
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 13
+                        },
+                        "trigger": "hitori:skill_13"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 13
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 22
+                        },
+                        "trigger": "hitori:skill_22"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 22
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 22
+                        },
+                        "trigger": "hitori:skill_22"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 22
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 16
+                        },
+                        "trigger": "hitori:skill_16"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 16
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 17
+                        },
+                        "trigger": "hitori:skill_17"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 17
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 2
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_crowd"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "hitori_vs_bow"
+                }
+              ]
+            },
+            "sequence": [
+              {
+                "queue_command": {
+                  "command": [
+                    "execute if entity @s[tag=!hitori_vs_bow_said] run tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b独§7「……遠くから撃つの、ずるくない？　そっちに行くね」\"}]}",
+                    "tag @s add hitori_vs_bow_said"
+                  ]
+                }
+              },
+              {
+                "randomize": [
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 1
+                        },
+                        "trigger": "hitori:skill_1"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 1
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 1
+                        },
+                        "trigger": "hitori:skill_1"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 1
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 8
+                        },
+                        "trigger": "hitori:skill_8"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 8
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 9
+                        },
+                        "trigger": "hitori:skill_9"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 9
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 21
+                        },
+                        "trigger": "hitori:skill_21"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 21
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 61
+                        },
+                        "trigger": "hitori:skill_61"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 61
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 62
+                        },
+                        "trigger": "hitori:skill_62"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 62
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 18
+                        },
+                        "trigger": "hitori:skill_18"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 18
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 18
+                        },
+                        "trigger": "hitori:skill_18"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 18
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 14
+                        },
+                        "trigger": "hitori:skill_14"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 14
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 15
+                        },
+                        "trigger": "hitori:skill_15"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 15
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 2
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_crowd"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_bow"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "hitori_vs_shield"
+                }
+              ]
+            },
+            "sequence": [
+              {
+                "queue_command": {
+                  "command": [
+                    "execute if entity @s[tag=!hitori_vs_shield_said] run tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b独§7「盾？　……前だけ守っても、意味ないよ」\"}]}",
+                    "tag @s add hitori_vs_shield_said"
+                  ]
+                }
+              },
+              {
+                "randomize": [
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 5
+                        },
+                        "trigger": "hitori:skill_5"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 5
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 5
+                        },
+                        "trigger": "hitori:skill_5"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 5
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 9
+                        },
+                        "trigger": "hitori:skill_9"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 9
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 21
+                        },
+                        "trigger": "hitori:skill_21"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 21
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 4
+                        },
+                        "trigger": "hitori:skill_4"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 4
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 6
+                        },
+                        "trigger": "hitori:skill_6"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 6
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 2
+                        },
+                        "trigger": "hitori:skill_2"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 2
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 15
+                        },
+                        "trigger": "hitori:skill_15"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 15
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 16
+                        },
+                        "trigger": "hitori:skill_16"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 16
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  },
+                  {
+                    "weight": 10,
+                    "sequence": [
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "!=",
+                          "value": 16
+                        },
+                        "trigger": "hitori:skill_16"
+                      },
+                      {
+                        "filters": {
+                          "test": "int_property",
+                          "subject": "self",
+                          "domain": "hitori:last",
+                          "operator": "==",
+                          "value": 16
+                        },
+                        "trigger": "hitori:choose_retry"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 2
+                },
+                {
                   "all_of": [
                     {
                       "test": "has_tag",
@@ -4466,6 +7350,24 @@
                       "value": "vb_range"
                     }
                   ]
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_crowd"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_bow"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_shield"
                 }
               ]
             },
@@ -5129,6 +8031,31 @@
                       "subject": "self",
                       "domain": "hitori:last",
                       "operator": "!=",
+                      "value": 24
+                    },
+                    "trigger": "hitori:skill_24"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "hitori:last",
+                      "operator": "==",
+                      "value": 24
+                    },
+                    "trigger": "hitori:choose_retry"
+                  }
+                ]
+              },
+              {
+                "weight": 10,
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "hitori:last",
+                      "operator": "!=",
                       "value": 13
                     },
                     "trigger": "hitori:skill_13"
@@ -5251,6 +8178,24 @@
                       "value": "vb_range"
                     }
                   ]
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_crowd"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_bow"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_shield"
                 }
               ]
             },
@@ -5525,6 +8470,31 @@
                       "domain": "hitori:last",
                       "operator": "==",
                       "value": 21
+                    },
+                    "trigger": "hitori:choose_retry"
+                  }
+                ]
+              },
+              {
+                "weight": 10,
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "hitori:last",
+                      "operator": "!=",
+                      "value": 24
+                    },
+                    "trigger": "hitori:skill_24"
+                  },
+                  {
+                    "filters": {
+                      "test": "int_property",
+                      "subject": "self",
+                      "domain": "hitori:last",
+                      "operator": "==",
+                      "value": 24
                     },
                     "trigger": "hitori:choose_retry"
                   }
@@ -6249,6 +9219,219 @@
                   "value": 0
                 },
                 {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "hitori_crowd"
+                }
+              ]
+            },
+            "sequence": [
+              {
+                "queue_command": {
+                  "command": [
+                    "execute if entity @s[tag=!hitori_crowd_said] run tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b独§7「みんなで来たの？　……じゃあ、まとめて遊ぼっか」\"}]}",
+                    "tag @s add hitori_crowd_said"
+                  ]
+                }
+              },
+              {
+                "randomize": [
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_7"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_7"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_3"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_3"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_2"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_24"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_24"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 0
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_crowd"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "hitori_vs_bow"
+                }
+              ]
+            },
+            "sequence": [
+              {
+                "queue_command": {
+                  "command": [
+                    "execute if entity @s[tag=!hitori_vs_bow_said] run tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b独§7「……遠くから撃つの、ずるくない？　そっちに行くね」\"}]}",
+                    "tag @s add hitori_vs_bow_said"
+                  ]
+                }
+              },
+              {
+                "randomize": [
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_1"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_1"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_8"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_9"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_21"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_61"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_62"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 0
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_crowd"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_bow"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "hitori_vs_shield"
+                }
+              ]
+            },
+            "sequence": [
+              {
+                "queue_command": {
+                  "command": [
+                    "execute if entity @s[tag=!hitori_vs_shield_said] run tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b独§7「盾？　……前だけ守っても、意味ないよ」\"}]}",
+                    "tag @s add hitori_vs_shield_said"
+                  ]
+                }
+              },
+              {
+                "randomize": [
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_5"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_5"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_9"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_21"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_4"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_6"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_2"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 0
+                },
+                {
                   "all_of": [
                     {
                       "test": "has_tag",
@@ -6262,6 +9445,24 @@
                       "value": "vb_range"
                     }
                   ]
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_crowd"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_bow"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_shield"
                 }
               ]
             },
@@ -6357,6 +9558,24 @@
                       "value": "vb_range"
                     }
                   ]
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_crowd"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_bow"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_shield"
                 }
               ]
             },
@@ -6407,7 +9626,272 @@
               },
               {
                 "weight": 10,
+                "trigger": "hitori:skill_24"
+              },
+              {
+                "weight": 10,
                 "trigger": "hitori:skill_60"
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 1
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "hitori_crowd"
+                }
+              ]
+            },
+            "sequence": [
+              {
+                "queue_command": {
+                  "command": [
+                    "execute if entity @s[tag=!hitori_crowd_said] run tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b独§7「みんなで来たの？　……じゃあ、まとめて遊ぼっか」\"}]}",
+                    "tag @s add hitori_crowd_said"
+                  ]
+                }
+              },
+              {
+                "randomize": [
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_7"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_7"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_3"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_3"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_2"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_24"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_24"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_13"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_22"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_22"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_16"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_17"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 1
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_crowd"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "hitori_vs_bow"
+                }
+              ]
+            },
+            "sequence": [
+              {
+                "queue_command": {
+                  "command": [
+                    "execute if entity @s[tag=!hitori_vs_bow_said] run tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b独§7「……遠くから撃つの、ずるくない？　そっちに行くね」\"}]}",
+                    "tag @s add hitori_vs_bow_said"
+                  ]
+                }
+              },
+              {
+                "randomize": [
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_1"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_1"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_8"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_9"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_21"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_61"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_62"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_18"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_18"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_14"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_15"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 1
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_crowd"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_bow"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "hitori_vs_shield"
+                }
+              ]
+            },
+            "sequence": [
+              {
+                "queue_command": {
+                  "command": [
+                    "execute if entity @s[tag=!hitori_vs_shield_said] run tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b独§7「盾？　……前だけ守っても、意味ないよ」\"}]}",
+                    "tag @s add hitori_vs_shield_said"
+                  ]
+                }
+              },
+              {
+                "randomize": [
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_5"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_5"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_9"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_21"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_4"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_6"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_2"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_15"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_16"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_16"
+                  }
+                ]
               }
             ]
           },
@@ -6440,6 +9924,24 @@
                       "value": "vb_range"
                     }
                   ]
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_crowd"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_bow"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_shield"
                 }
               ]
             },
@@ -6547,6 +10049,10 @@
               {
                 "weight": 10,
                 "trigger": "hitori:skill_23"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_24"
               }
             ]
           },
@@ -6579,6 +10085,24 @@
                       "value": "vb_range"
                     }
                   ]
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_crowd"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_bow"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_shield"
                 }
               ]
             },
@@ -6626,6 +10150,10 @@
               {
                 "weight": 10,
                 "trigger": "hitori:skill_21"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_24"
               },
               {
                 "weight": 10,
@@ -6697,6 +10225,267 @@
                   "value": 2
                 },
                 {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "hitori_crowd"
+                }
+              ]
+            },
+            "sequence": [
+              {
+                "queue_command": {
+                  "command": [
+                    "execute if entity @s[tag=!hitori_crowd_said] run tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b独§7「みんなで来たの？　……じゃあ、まとめて遊ぼっか」\"}]}",
+                    "tag @s add hitori_crowd_said"
+                  ]
+                }
+              },
+              {
+                "randomize": [
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_7"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_7"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_3"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_3"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_2"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_24"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_24"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_13"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_22"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_22"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_16"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_17"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 2
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_crowd"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "hitori_vs_bow"
+                }
+              ]
+            },
+            "sequence": [
+              {
+                "queue_command": {
+                  "command": [
+                    "execute if entity @s[tag=!hitori_vs_bow_said] run tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b独§7「……遠くから撃つの、ずるくない？　そっちに行くね」\"}]}",
+                    "tag @s add hitori_vs_bow_said"
+                  ]
+                }
+              },
+              {
+                "randomize": [
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_1"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_1"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_8"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_9"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_21"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_61"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_62"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_18"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_18"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_14"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_15"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 2
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_crowd"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_bow"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "hitori_vs_shield"
+                }
+              ]
+            },
+            "sequence": [
+              {
+                "queue_command": {
+                  "command": [
+                    "execute if entity @s[tag=!hitori_vs_shield_said] run tellraw @a[r=48] {\"rawtext\":[{\"text\":\"§b独§7「盾？　……前だけ守っても、意味ないよ」\"}]}",
+                    "tag @s add hitori_vs_shield_said"
+                  ]
+                }
+              },
+              {
+                "randomize": [
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_5"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_5"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_9"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_21"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_4"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_6"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_2"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_15"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_16"
+                  },
+                  {
+                    "weight": 10,
+                    "trigger": "hitori:skill_16"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_mark_variant",
+                  "value": 0
+                },
+                {
+                  "test": "has_target",
+                  "value": true
+                },
+                {
+                  "test": "is_skin_id",
+                  "value": 2
+                },
+                {
                   "all_of": [
                     {
                       "test": "has_tag",
@@ -6710,6 +10499,24 @@
                       "value": "vb_range"
                     }
                   ]
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_crowd"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_bow"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_shield"
                 }
               ]
             },
@@ -6820,6 +10627,10 @@
               },
               {
                 "weight": 10,
+                "trigger": "hitori:skill_24"
+              },
+              {
+                "weight": 10,
                 "trigger": "hitori:skill_13"
               },
               {
@@ -6865,6 +10676,24 @@
                       "value": "vb_range"
                     }
                   ]
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_crowd"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_bow"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "hitori_vs_shield"
                 }
               ]
             },
@@ -6912,6 +10741,10 @@
               {
                 "weight": 10,
                 "trigger": "hitori:skill_21"
+              },
+              {
+                "weight": 10,
+                "trigger": "hitori:skill_24"
               },
               {
                 "weight": 10,

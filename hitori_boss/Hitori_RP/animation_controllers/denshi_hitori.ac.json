@@ -108,6 +108,9 @@
               "s23": "q.mark_variant == 23"
             },
             {
+              "s24": "q.mark_variant == 24"
+            },
+            {
               "s30": "q.mark_variant == 30"
             },
             {
@@ -704,6 +707,32 @@
           "blend_transition": 0.3,
           "blend_via_shortest_path": true
         },
+        "s24": {
+          "animations": [
+            "look_at",
+            "s24",
+            "glitch",
+            {
+              "move_legs": "math.clamp(v.spd * 5.0, 0.0, 1.0)"
+            },
+            "hurt",
+            "alive",
+            "react",
+            {
+              "desperate": "q.is_alive && q.health < q.max_health * 0.15"
+            }
+          ],
+          "transitions": [
+            {
+              "death": "!q.is_alive"
+            },
+            {
+              "default": "q.mark_variant != 24"
+            }
+          ],
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true
+        },
         "s30": {
           "animations": [
             "look_at",
@@ -918,6 +947,47 @@
             },
             {
               "heavy": "q.mark_variant != 99 && q.is_alive && q.skin_id >= 1"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.hitori.load": {
+      "initial_state": "calm",
+      "states": {
+        "calm": {
+          "transitions": [
+            {
+              "critical": "v.load >= 2 && q.is_alive && q.mark_variant != 99"
+            },
+            {
+              "strained": "v.load >= 1 && q.is_alive && q.mark_variant != 99"
+            }
+          ]
+        },
+        "strained": {
+          "animations": [
+            "load_lv1"
+          ],
+          "transitions": [
+            {
+              "critical": "v.load >= 2 && q.is_alive && q.mark_variant != 99"
+            },
+            {
+              "calm": "v.load < 1 || !(q.is_alive && q.mark_variant != 99)"
+            }
+          ]
+        },
+        "critical": {
+          "animations": [
+            "load_lv2"
+          ],
+          "transitions": [
+            {
+              "strained": "v.load == 1 && q.is_alive && q.mark_variant != 99"
+            },
+            {
+              "calm": "v.load < 1 || !(q.is_alive && q.mark_variant != 99)"
             }
           ]
         }

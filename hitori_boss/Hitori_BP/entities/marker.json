@@ -144,6 +144,15 @@
             "inanimate"
           ]
         }
+      },
+      "overflow": {
+        "minecraft:type_family": {
+          "family": [
+            "hitori_marker",
+            "overflow",
+            "inanimate"
+          ]
+        }
       }
     },
     "components": {
@@ -293,6 +302,13 @@
         "add": {
           "component_groups": [
             "loop_center"
+          ]
+        }
+      },
+      "hitori:as_overflow": {
+        "add": {
+          "component_groups": [
+            "overflow"
           ]
         }
       }

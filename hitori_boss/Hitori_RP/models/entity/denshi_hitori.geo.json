@@ -119,6 +119,41 @@
           ]
         },
         {
+          "name": "eyelids",
+          "parent": "head",
+          "pivot": [
+            0,
+            25,
+            -4
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -4,
+                25,
+                -4.03
+              ],
+              "size": [
+                8,
+                2,
+                0
+              ],
+              "uv": {
+                "north": {
+                  "uv": [
+                    0,
+                    0
+                  ],
+                  "uv_size": [
+                    8,
+                    2
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
           "name": "rightArm",
           "parent": "body",
           "pivot": [

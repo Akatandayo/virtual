@@ -17,7 +17,7 @@ import zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import hanims  # noqa: E402
 import hfx  # noqa: E402
-from cine import (brushup_files, FOE_ANY, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, aim_at_foes, bake_smooth,  # noqa: E402
+from cine import (brushup_files, FOE_ANY, FOE_TAG, RIVAL_FAMILY, Cine, add_arc_trails, add_rival, aim_at_foes, bake_smooth,  # noqa: E402
                   pause_events, split_melee, apply_stance_groups, stance_events, stance_filters, STANCE_ANIM,
                   encounter_cmds, foe_tag_anim, near_filters, rival_target, smooth_client, split_dashes,
                   vectorize_animations)
@@ -26,10 +26,11 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BP = os.path.join(ROOT, "Hitori_BP")
 RP = os.path.join(ROOT, "Hitori_RP")
 DIST = os.path.join(ROOT, "dist")
+SKIN_SRC = os.path.join(ROOT, "skin_source.png")   # 独のスキン（細腕）
 
 ID = "hitori:denshi_hitori"
 NAME = "電子 独"
-VERSION = [1, 9, 0]
+VERSION = [1, 10, 0]
 MIN_ENGINE = [1, 21, 0]
 UUID_BP_HEADER = "9b78d68f-ebde-4768-989c-96ab7fa09e02"
 UUID_BP_MODULE = "9263edb8-7005-4aa3-82a3-54ec6c07aaf0"
@@ -429,6 +430,41 @@ add(tl, 2.15, [at_fam("loop_center", "damage @a[r=3,m=!creative] 14 magic entity
 add(tl, 2.5, [despawn("loop_center")])
 skill(23, "Infinite Loop", 3.2, tl)
 
+# 24 Buffer Overflow: 標的のまわりにデータの壁の輪ができて、縮んでいく。出口は「独の方向」の一か所だけ
+OVF = "overflow"
+OVF_AT = "@e[family=%s]" % OVF
+OVF_GAP = 25           # 出口の広さ（独の方向から左右に何度）
+tl = {0: [say("§e【Buffer Overflow】§7「あふれちゃう前に、出口を見つけてね。……こっちだよ」"),
+          summon_marker(OVF, at=NEAREST), sound("note.bit", 1.6), sound("random.click", 0.6, 30)],
+      0.05: ["/execute as %s at @s run tp @s ~ ~ ~ facing %s" % (OVF_AT, BOSS),
+             "/title %s actionbar §a§l出口は 独のいる方向だけ！" % p(16)]}
+
+
+def overflow_ring(t, r, hurt):
+    cmds = ["/execute at %s rotated ~%d 0 positioned ^ ^ ^%.2f run particle hitori:overflow_wall ~ ~ ~" % (OVF_AT, a, r)
+            for a in range(30, 331, 15)]
+    cmds.append("/execute at %s positioned ^ ^ ^%.2f run particle hitori:overflow_exit ~ ~ ~" % (OVF_AT, r))
+    if hurt:   # 輪の上にいて、出口の近くでなければ当たる
+        gap = max(1.0, r * math.radians(OVF_GAP))
+        cmds.append("/execute at %s as @a[rm=%.2f,r=%.2f,m=!creative] at %s positioned ^ ^ ^%.2f unless entity "
+                    "@s[r=%.2f] run damage @s 7 magic entity %s"
+                    % (OVF_AT, max(0.0, r - 0.75), r + 0.75, "@e[family=%s,c=1]" % OVF, r, gap, BOSS))
+    add(tl, t, cmds)
+
+
+for t in (0.1, 0.2, 0.3):
+    overflow_ring(t, 7.5, False)
+for k in range(21):
+    overflow_ring(0.4 + 0.1 * k, 7.5 - 0.3 * k, k >= 1)
+    if k % 4 == 0:
+        add(tl, 0.4 + 0.1 * k, [sound("note.bit", 0.6 + k * 0.07, 30, 0.7)])
+add(tl, 2.55, ["/execute at %s run damage @a[r=2.4,m=!creative] 16 entity_explosion entity %s" % (OVF_AT, BOSS),
+               at_fam(OVF, "particle hitori:missing_burst ~ ~0.6 ~"), at_fam(OVF, "particle hitori:noise_big ~ ~0.8 ~"),
+               at_fam(OVF, "particle hitori:shockwave ~ ~0.1 ~"), at_fam(OVF, "summon hitori:blast ~ ~0.5 ~"),
+               at_fam(OVF, "playsound random.explode @a[r=24] ~ ~ ~ 0.8 1.5"), shake(0.6, 0.3, 24)])
+add(tl, 2.7, [despawn(OVF)])
+skill(24, "Buffer Overflow", 3.0, tl)
+
 # ===========================================================================
 # カットシーン
 # ===========================================================================
@@ -620,6 +656,40 @@ def meter(n, limit):
         OBJ, n, bar, n, limit)
 
 
+LOAD = "hitori:load"   # Glitch の負荷の段階（0: 平気 / 1: 負荷あり / 2: 限界間近）。体の見た目に出す
+
+
+def load_levels(limit):
+    lo = int(limit * 0.35)
+    return [(0, 0, lo), (1, lo + 1, limit - 4), (2, limit - 3, limit - 1)]   # 上限に達したら強制解除（0 に戻る）
+
+
+def load_cmds(limit):
+    return ["execute if score @s %s matches %d..%d run event entity @s hitori:load_%d" % (OBJ, a, b, k)
+            for k, a, b in load_levels(limit)]
+
+
+# 状況判断（1 秒ごと、4 割の確率で「対策モード」になる）: 弓・盾・大人数（サバイバル・アドベンチャーのプレイヤーだけ数える）
+TAC_OBJ = "hitori_tac"
+T_BOW, T_SHIELD, T_CROWD = "hitori_vs_bow", "hitori_vs_shield", "hitori_crowd"
+TACTICS_ANIM = {"animation_length": 1.0, "loop": True, "timeline": {"0.00": [
+    "/scoreboard objectives add %s dummy" % TAC_OBJ,
+    "/tag @s remove %s" % T_BOW, "/tag @s remove %s" % T_SHIELD, "/tag @s remove %s" % T_CROWD,
+    "/scoreboard players random @s %s 0 9" % TAC_OBJ,
+    "/scoreboard players set @s %s 0" % OBJ_PLAYERS,
+    "/execute as @a[r=16,tag=%s] run scoreboard players add %s %s 1" % (FOE_TAG, BOSS, OBJ_PLAYERS),
+    "/execute if score @s %s matches 0..3 if score @s %s matches 3.. run tag @s add %s" % (TAC_OBJ, OBJ_PLAYERS, T_CROWD)]
+    + ["/execute if score @s %s matches 0..3 if entity @a[r=28,tag=%s,hasitem={item=%s,location=slot.weapon.mainhand}]"
+       " run tag @s add %s" % (TAC_OBJ, FOE_TAG, item, T_BOW) for item in ("bow", "crossbow", "trident")]
+    + ["/execute if score @s %s matches 0..3 if entity @a[r=8,tag=%s,hasitem={item=shield,location=%s}]"
+       " run tag @s add %s" % (TAC_OBJ, FOE_TAG, slot, T_SHIELD) for slot in ("slot.weapon.offhand", "slot.weapon.mainhand")]}}
+TACTIC_LINES = {
+    T_CROWD: "§b独§7「みんなで来たの？　……じゃあ、まとめて遊ぼっか」",
+    T_BOW: "§b独§7「……遠くから撃つの、ずるくない？　そっちに行くね」",
+    T_SHIELD: "§b独§7「盾？　……前だけ守っても、意味ないよ」",
+}
+
+
 def bp_entity():
     immune = [{"cause": c, "deal_damage": False} for c in ("fall", "suffocation", "fire", "fire_tick", "lava",
                                                            "drowning", "magic", "entity_explosion", "lightning")]
@@ -690,7 +760,7 @@ def bp_entity():
                         ["execute if score @s %s matches %d.. run event entity @s hitori:glitch_break" % (OBJ, limit),
                          # 負荷が上限近くになると、確率で「過負荷放出」して周りを吹き飛ばす
                          "execute if score @s %s matches %d..%d run event entity @s hitori:purge_roll"
-                         % (OBJ, limit - 3, limit - 1)]}})
+                         % (OBJ, limit - 3, limit - 1)] + load_cmds(limit)}})
 
     rm_s, ad_s = sensor("stunned_sensor")
     rm_r, ad_r = sensor("glitch_reboot")
@@ -709,9 +779,17 @@ def bp_entity():
             "particle hitori:noise_big ~ ~1 ~", "particle hitori:shockwave ~ ~0.1 ~",
             "playsound beacon.deactivate @a[r=24] ~ ~ ~ 1 1.8",
             "title @a[r=32] actionbar §c§l◆ OVERLOAD PURGE ◆ §7負荷 -4",
-            "camerashake add @a[r=12] 0.6 0.3 positional"]}},
+            "camerashake add @a[r=12] 0.6 0.3 positional", "event entity @s hitori:load_sync"]}},
+        "hitori:load_sync": {"sequence": [{"filters": {"test": "is_skin_id", "value": sk},
+                                           "queue_command": {"command": load_cmds(lim)}}
+                                          for sk, lim in GLITCH_LIMIT.items()]},
+        "hitori:load_0": {"set_property": {LOAD: 0}},
+        "hitori:load_1": {"set_property": {LOAD: 1}},
+        # 限界間近: 警告音（負荷が下がりきるまで、1 秒ごとに鳴る）
+        "hitori:load_2": {"set_property": {LOAD: 2}, "queue_command": {"command": [
+            "playsound note.pling @a[r=24] ~ ~ ~ 0.5 2.0", "particle hitori:error_one ~ ~2.4 ~"]}},
         # 強制解除: 周りのプレイヤー人数に応じて、スタン中の被ダメージを軽減（集団戦対策）
-        "hitori:glitch_break": dict(set_variant(STUN_V, ad_s, rm_s + ["ai"]), queue_command={"command": [
+        "hitori:glitch_break": dict(set_variant(STUN_V, ad_s, rm_s + ["ai"]), set_property={LOAD: 0}, queue_command={"command": [
             "scoreboard players set @s %s 0" % OBJ,
             "scoreboard players set @s %s 0" % OBJ_PLAYERS,
             "execute as @a[r=40,m=!creative] run scoreboard players add %s %s 1" % (BOSS, OBJ_PLAYERS),
@@ -720,7 +798,7 @@ def bp_entity():
             "execute if score @s %s matches 4.. run effect @s resistance %d 2 true" % (OBJ_PLAYERS, stun_n),
             "execute if score @s %s matches 2.. run title @a[r=48] actionbar §7人数補正：強制解除中の被ダメージ軽減" % OBJ_PLAYERS]}),
         # 復帰: しばらくは再構築中で負荷を受け付けない
-        "hitori:glitch_restore": dict(set_variant(0, ad_r + ["ai"], rm_r), queue_command={"command": [
+        "hitori:glitch_restore": dict(set_variant(0, ad_r + ["ai"], rm_r), set_property={LOAD: 0}, queue_command={"command": [
             "scoreboard players set @s %s 0" % OBJ,
             "title @a[r=48] actionbar §c§lGlitch 再構築中…… §7(%d秒間 負荷無効)" % int(REBOOT),
             "particle hitori:noise_big ~ ~1 ~", "particle hitori:shockwave ~ ~0.1 ~",
@@ -731,7 +809,7 @@ def bp_entity():
                                             "queue_command": {"command": [
                                                 "title @a[r=48] actionbar §b§lGlitch 再起動完了"]}}]},
         "hitori:skill_end": {"sequence": [{"filters": not_busy, **set_variant(0)}]},
-        "hitori:cine_end": dict(set_variant(0, ad_g + ["ai"], rm_g), queue_command={"command": [
+        "hitori:cine_end": dict(set_variant(0, ad_g + ["ai"], rm_g), set_property={LOAD: 0}, queue_command={"command": [
             "scoreboard players set @s %s 0" % OBJ]}),
         "hitori:phase2": cine(31, ["phase_2"], ["phase_1"]),
         "hitori:final": cine(FINAL_V, ["phase_3"], ["phase_1", "phase_2"]),
@@ -742,16 +820,33 @@ def bp_entity():
             events["hitori:skill_%d" % v] = set_variant(v)
 
     near1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 21, 60, 60, 61, 62]   # 60〜62: 立ち回り
-    far1 = [1, 2, 3, 3, 7, 8, 10, 10, 11, 11, 21, 60]   # 60: 間合いを取って遠距離で返す
-    near2 = near1 + [12, 13, 14, 15, 16, 17, 18, 5, 6, 22, 23]
+    far1 = [1, 2, 3, 3, 7, 8, 10, 10, 11, 11, 21, 24, 60]   # 60: 間合いを取って遠距離で返す
+    near2 = near1 + [12, 13, 14, 15, 16, 17, 18, 5, 6, 22, 23, 24]
     far2 = far1 + [12, 13, 14, 15, 16, 16, 17, 17, 18, 18, 22, 23]
+    # 対策モードの技: 弓 → 一気に詰める・背後へ / 盾 → 横・後ろ・真上から / 大人数 → 範囲攻撃
+    tactic1 = {T_BOW: [1, 1, 8, 9, 21, 61, 62], T_SHIELD: [5, 5, 9, 21, 4, 6, 2], T_CROWD: [7, 7, 3, 3, 2, 24, 24]}
+    tactic2 = {T_BOW: tactic1[T_BOW] + [18, 18, 14, 15], T_SHIELD: tactic1[T_SHIELD] + [15, 16, 16],
+               T_CROWD: tactic1[T_CROWD] + [13, 22, 22, 16, 17]}
     near_f, far_f = stance_filters("hitori_near")   # 近接の構えで敵が近い → 近距離の技 / それ以外 → 遠距離の技
     base = [{"test": "is_mark_variant", "value": 0}, {"test": "has_target", "value": True}]
+
+    def tag(t, on=True):
+        return {"test": "has_tag", "subject": "self", "value": t} if on else \
+            {"test": "has_tag", "subject": "self", "operator": "!=", "value": t}
+    order = [T_CROWD, T_BOW, T_SHIELD]   # 重なったときの優先順
     seq = []
-    for skin, near, far in ((0, near1, far1), (1, near2, far2),
-                            (2, near2 + [13, 15, 18, 22], far2 + [13, 14, 18, 23])):
+    for skin, near, far, tac in ((0, near1, far1, tactic1), (1, near2, far2, tactic2),
+                                 (2, near2 + [13, 15, 18, 22], far2 + [13, 14, 18, 23], tactic2)):
+        sk = {"test": "is_skin_id", "value": skin}
+        for i, t in enumerate(order):
+            said = t + "_said"
+            seq.append({"filters": {"all_of": base + [sk] + [tag(x, False) for x in order[:i]] + [tag(t)]}, "sequence": [
+                {"queue_command": {"command": [   # 対策を思いついたときのひとこと（1 回の戦いで 1 度だけ）
+                    "execute if entity @s[tag=!%s] run %s" % (said, say(TACTIC_LINES[t]).lstrip("/")),
+                    "tag @s add %s" % said]}},
+                {"randomize": [{"weight": 10, "trigger": "hitori:skill_%d" % v} for v in tac[t]]}]})
         for cond, lst in ((near_f, near), (far_f, far)):
-            seq.append({"filters": {"all_of": base + [{"test": "is_skin_id", "value": skin}, cond]},
+            seq.append({"filters": {"all_of": base + [sk, cond] + [tag(x, False) for x in order]},
                         "randomize": [{"weight": 10, "trigger": "hitori:skill_%d" % s} for s in lst]})
     events["hitori:choose_skill"] = {"sequence": seq}
 
@@ -792,12 +887,14 @@ def bp_entity():
     }
     return {"format_version": "1.21.0", "minecraft:entity": {
         "description": {"identifier": ID, "is_spawnable": True, "is_summonable": True, "is_experimental": False,
-                        "scripts": {"animate": ["skills", "cooldown", "reboot", "decay", "death", "bgm", "foe_tags", "stance"]},
+                        "scripts": {"animate": ["skills", "cooldown", "reboot", "decay", "death", "bgm", "foe_tags", "stance",
+                                                "tactics"]},
+                        "properties": {LOAD: {"type": "int", "range": [0, 2], "default": 0, "client_sync": True}},
                         "animations": {"foe_tags": "animation.hitori.foe_tags", "stance": "animation.hitori.stance_loop",
                                        "skills": "controller.animation.hitori.skills",
                                        "cooldown": "controller.animation.hitori.cooldown",
                                        "reboot": "controller.animation.hitori.reboot",
-                                       "decay": "animation.hitori.decay",
+                                       "decay": "animation.hitori.decay", "tactics": "animation.hitori.tactics",
                                        "death": "controller.animation.hitori.death",
                                        "bgm": "controller.animation.hitori.bgm",
                                        "cd_timer": "animation.hitori.cd_timer",
@@ -817,7 +914,8 @@ def bp_animations():
     a["animation.hitori.cd_timer"] = {"animation_length": HIT_COOLDOWN, "loop": False}
     a["animation.hitori.reboot_timer"] = {"animation_length": REBOOT, "loop": False}
     a["animation.hitori.decay"] = {"animation_length": DECAY, "loop": True, "timeline": {"%.2f" % (DECAY - 0.05): [
-        "/scoreboard players remove @s[scores={%s=1..}] %s 1" % (OBJ, OBJ)]}}
+        "/scoreboard players remove @s[scores={%s=1..}] %s 1" % (OBJ, OBJ), "@s hitori:load_sync"]}}
+    a["animation.hitori.tactics"] = TACTICS_ANIM
     # 待機中だけ動く: カメラの後片付けと、ほかのボスの発見
     a["animation.hitori.idle_loop"] = {"animation_length": 2.0, "loop": True, "timeline": {
         "1.00": CINE.end(), "1.50": encounter_cmds("hitori", say, ENCOUNTER)}}
@@ -899,7 +997,7 @@ def bp_loot():
 # ---------------------------------------------------------------------------
 AIM_ANGLES = sorted({a for pair in spread for a in pair} | {-5, 0, 4})
 MARKERS = ["rollback", "missing_a", "missing_b", "swap_a", "swap_b", "beam_a", "beam_b", "note_0", "note_1",
-           "void_a", "void_b", "cube_a", "cube_b", "loop_center"]
+           "void_a", "void_b", "cube_a", "cube_b", "loop_center", OVF]
 TICK = 0.05
 DESPAWN_G = {"despawn": {"minecraft:instant_despawn": {}}}
 DESPAWN_E = {"hitori:despawn": {"add": {"component_groups": ["despawn"]}}}
@@ -1043,6 +1141,10 @@ def geo_boss():
          "locators": {"body_center": [0, 18, 0]}},
         {"name": "head", "parent": "body", "pivot": [0, 24, 0], "cubes": [
             cube([-4, 24, -4], [8, 8, 8], [0, 0]), cube([-4, 24, -4], [8, 8, 8], [32, 0], 0.5)]},
+        # まぶた: 顔のすぐ前の薄い板。ふだんは大きさ 0 で隠し、まばたき・気絶のときだけ出す
+        {"name": "eyelids", "parent": "head", "pivot": [0, 31 - EYE_ROWS[1], -4], "cubes": [
+            {"origin": [-4, 31 - EYE_ROWS[1], -4.03], "size": [8, 2, 0],
+             "uv": {"north": {"uv": list(LID_UV), "uv_size": [8, 2]}}}]},
         {"name": "rightArm", "parent": "body", "pivot": [-5, 21.5, 0], "cubes": [
             cube([-7, 11.5, -2], [3, 12, 4], [40, 16]), cube([-7, 11.5, -2], [3, 12, 4], [40, 32], 0.25)],
          "locators": {"right_hand": [-5.5, 11, 0]}},
@@ -1081,15 +1183,21 @@ GLITCH_ON = "q.mark_variant != %d" % STUN_V
 
 
 def render_controllers():
-    flick = "math.mod(math.floor(q.life_time * 9), (q.skin_id >= 1 ? 4 : 7)) == 0"
-    shift = "math.mod(math.floor(q.life_time * 11), (q.skin_id >= 1 ? 5 : 9)) == 0"
+    # Glitch の負荷（v.load: 0〜2）が高いほど、ノイズが速く・濃くなる。限界間近（2）は赤く点滅する
+    flick = ("math.mod(math.floor(q.life_time * (9 + v.load * 5)), "
+             "math.max(2, (q.skin_id >= 1 ? 4 : 7) - v.load * 2)) == 0")
+    shift = "math.mod(math.floor(q.life_time * 11), math.max(2, (q.skin_id >= 1 ? 5 : 9) - v.load * 3)) == 0"
+    crit = "v.load >= 2"
     return {"format_version": "1.10.0", "render_controllers": {
         "controller.render.denshi_hitori": {
             "geometry": "Geometry.default", "materials": [{"*": "Material.default"}], "textures": ["Texture.default"],
             # Glitch 中は時々 RGB ノイズが走り、テクスチャがずれる
-            "overlay_color": {"r": "math.random(0, 1) > 0.5 ? 0.0 : 1.0", "g": "math.random(0, 1) > 0.5 ? 1.0 : 0.0",
-                              "b": "1.0", "a": "(%s && %s) ? 0.45 : 0.0" % (GLITCH_ON, flick)},
-            "uv_anim": {"offset": ["(%s && %s) ? math.random(-0.06, 0.06) : 0.0" % (GLITCH_ON, shift), "0.0"],
+            "overlay_color": {"r": "%s ? 1.0 : (math.random(0, 1) > 0.5 ? 0.0 : 1.0)" % crit,
+                              "g": "%s ? 0.1 : (math.random(0, 1) > 0.5 ? 1.0 : 0.0)" % crit,
+                              "b": "%s ? 0.15 : 1.0" % crit,
+                              "a": "(%s && %s) ? 0.45 + v.load * 0.1 : 0.0" % (GLITCH_ON, flick)},
+            "uv_anim": {"offset": ["(%s && %s) ? math.random(-0.06, 0.06) * (1 + v.load * 0.5) : 0.0" % (GLITCH_ON, shift),
+                                   "0.0"],
                         "scale": [1.0, 1.0]}},
         "controller.render.hitori_echo": {
             "geometry": "Geometry.default", "materials": [{"*": "Material.default"}], "textures": ["Texture.default"],
@@ -1116,9 +1224,10 @@ def client(ident, tex, geo, material, animations=None, animate=None, particles=N
 def rp_clients():
     clients = {
         "denshi_hitori": client(ID, "denshi_hitori", "geometry.denshi_hitori", "entity_alphatest",
-                                hanims.short_names(sorted(SKILLS)), ["main", "aura_ctrl", "attack_fx"],
+                                hanims.short_names(sorted(SKILLS)),
+                                ["main", "aura_ctrl", "attack_fx", "blink", "load_ctrl", {"strain": hanims.STRAIN_W}],
                                 hanims.PARTICLE_MAP, rc="controller.render.denshi_hitori",
-                                extra={"spawn_egg": {"base_color": "#f4f4f4", "overlay_color": "#101018"}}),
+                                extra={"spawn_egg": {"base_color": "#a4a3a3", "overlay_color": "#111ea9"}}),
         "bit_bullet": client("hitori:bit_bullet", "hitori_missing", "geometry.hitori_bullet", "entity_emissive_alpha",
                              {"fx": "animation.hitori.cube_fx"}, ["fx"], {"trail": "hitori:bit_trail"}),
         "fragment": client("hitori:fragment", "hitori_missing", "geometry.hitori_fragment", "entity_emissive_alpha",
@@ -1137,7 +1246,10 @@ def rp_clients():
                            ["pose", "glitch"], rc="controller.render.denshi_hitori"),
     }
     # 通常攻撃の左右切り替え用の変数
-    smooth_client(clients["denshi_hitori"]["minecraft:client_entity"]["description"])
+    desc = clients["denshi_hitori"]["minecraft:client_entity"]["description"]
+    smooth_client(desc)
+    desc["scripts"]["initialize"].append("v.blink_seed = math.random(0.0, 4.3);")   # まばたきの間合いを 1 体ごとにずらす
+    desc["scripts"]["pre_animation"].append("v.load = q.property('%s');" % LOAD)   # Glitch の負荷の段階
     return clients
 
 
@@ -1213,13 +1325,55 @@ def disc_item(length):
         }}}
 
 
+# ---------------------------------------------------------------------------
+# スキンから作るもの: まばたきのまぶた・パックのアイコン
+# ---------------------------------------------------------------------------
+EYE_ROWS = (5, 6)      # 顔（8x8）の上から何行目が「まつげ」と「目」か
+LID_UV = (0, 0)        # まぶたを描く場所（スキンの使われていない左上の角）
+
+
+def with_eyelids(skin):
+    """閉じた目（まつげの線を 1 段下げ、上を肌の色で埋める）を、スキンの空いている所に描き足す"""
+    im = skin.copy()
+    px = im.load()
+    lash, eye = EYE_ROWS
+    for i in range(8):
+        x = 8 + i
+        below = px[x, 8 + eye + 1]
+        top = px[x, 8 + lash]
+        dark = sum(top[:3]) < 180
+        im.putpixel((LID_UV[0] + i, LID_UV[1]), below)
+        im.putpixel((LID_UV[0] + i, LID_UV[1] + 1), top if dark else below)
+    return im
+
+
+def pack_icon(skin):
+    """顔のアップ（髪の重ね着き）に、RGB がずれたグリッチの縁取り"""
+    big = 112
+    face = skin.crop((8, 8, 16, 16)).resize((big, big), hfx.Image.NEAREST)
+    face.alpha_composite(skin.crop((40, 8, 48, 16)).resize((big, big), hfx.Image.NEAREST))
+    icon = hfx.Image.new("RGBA", (128, 128), (12, 14, 24, 255))
+    for dx, col in ((-5, (255, 40, 200)), (5, (40, 230, 255))):
+        ghost = hfx.Image.new("RGBA", (big, big), col + (0,))
+        ghost.putalpha(face.getchannel("A").point(lambda a: a * 150 // 255))
+        icon.alpha_composite(ghost, (8 + dx, 8))
+    icon.alpha_composite(face, (8, 8))
+    # 横に走るノイズの線
+    rnd = random.Random(801)
+    for _ in range(5):
+        y, h, off = rnd.randrange(10, 118), rnd.randrange(2, 5), rnd.randrange(-9, 10)
+        band = icon.crop((0, y, 128, y + h))
+        icon.paste(band, (off, y))
+    return icon
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("skin", nargs="?", default=os.path.join(RP, "textures/entity/denshi_hitori.png"))
+    ap.add_argument("skin", nargs="?", default=SKIN_SRC)
     ap.add_argument("--bgm", help="通常時の BGM（隔絶された記憶）の音声ファイル")
     ap.add_argument("--dive", help="↓FREEDOM DiVE↓ 解放後の BGM（FREEDOM DiVE）の音声ファイル")
     args = ap.parse_args()
-    skin_bytes = open(args.skin, "rb").read()
+    skin = hfx.Image.open(args.skin).convert("RGBA")
     # 前回ビルドで変換済みの音源は引き継ぐ
     cache = {}
     for name in AUDIO:
@@ -1243,7 +1397,7 @@ def main():
     # RP
     write(os.path.join(RP, "manifest.json"), manifest("rp"))
     os.makedirs(os.path.join(RP, "textures/entity"), exist_ok=True)
-    open(os.path.join(RP, "textures/entity/denshi_hitori.png"), "wb").write(skin_bytes)
+    with_eyelids(skin).save(os.path.join(RP, "textures/entity/denshi_hitori.png"))   # まばたき用のまぶたを描き足す
     for name, data in rp_clients().items():
         write(os.path.join(RP, "entity/%s.entity.json" % name), data)
     write(os.path.join(RP, "models/entity/denshi_hitori.geo.json"), geo_boss())
@@ -1295,7 +1449,7 @@ def main():
         for lc in ("ja_JP", "en_US"):
             write(os.path.join(d, "texts/%s.lang" % lc), lang())
         write(os.path.join(d, "texts/languages.json"), ["ja_JP", "en_US"])
-        open(os.path.join(d, "pack_icon.png"), "wb").write(skin_bytes)
+        pack_icon(skin).save(os.path.join(d, "pack_icon.png"))
     # 声・足音・守りの反応・瀕死の演出
     brushup_files(BP, RP, dict(id=ID, ns="hitori", prop="hitori:react", react_events=["hitori:glitch_hit"], evade_events=["hitori:glitch_hit"], evade_skill=60,
              react_anim={"loop": True, "bones": {   # Glitch が攻撃を飲み込む: 体がブレて、一瞬 T ポーズ
